@@ -1,0 +1,102 @@
+<!-- Modal -->
+<div class="modal fade" {% block modal-id%} id="editEnrolledModal{{student.id}}" {% endblock modal-id %} tabindex="-1"
+    aria-labelledby="editEnrolledModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title fs-5" id="editEnrolledModalLabel"> {% block modal-title %} <i
+                        class="fa-solid fa-user-pen"></i>
+                    Edit Student Detail {% endblock modal-title %} </h6>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="POST" class="post-form" {% block Action %} action="/EditStudentsDetails/{{student.id}}"
+                {% endblock Action %} enctype="multipart/form-data" class="card p-3 border-dark mt-3"
+                autocomplete="off">
+                {% csrf_token %}
+                <div class="modal-body">
+
+                    {% block student-id %} {% endblock student-id %}
+
+                    <div class="input-group mb-3">
+                        <span class="side-label btn border-secondary bg-light"> <i class="fa-regular fa-id-badge"></i></span>
+                        <input type="text" class="form-control" name="Student_Id" max-length="40"
+                            placeholder="STUDENT ID" value="{{ student.Student_Id }}">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <span class="side-label btn border-secondary bg-light"> <i
+                                class="fa-solid fa-user-tie"></i></span>
+                        <input type="text" class="form-control" name="Student_Name" max-length="40" placeholder="NAME"
+                        value="{{ student.Student_Name }}">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <span class="side-label btn border-secondary bg-light"> <i class="fa-solid fa-at"></i></span>
+                        <input type="email" class="form-control" name="Email" max-length="40" placeholder="EMAIL"
+                        value="{{ student.Email }}">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <span class="side-label btn border-secondary bg-light"> <i
+                                class="fa-solid fa-mobile"></i></span>
+                        <input type="text" class="form-control" name="Contact_Number" max-length="40"
+                            placeholder="PHONE" value="{% if student.Contact_Number == 'nan' %}N/A{% else %}{{ student.Contact_Number|floatformat:0 }}{% endif %}">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <span class="side-label btn border-secondary bg-light"> <i
+                                class="fa-solid fa-computer"></i></i></span>
+                        <input type="text" class="form-control" name="Course" max-length="40" placeholder="COURSE"
+                        value="{{ student.Course }}">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <span class="side-label btn border-secondary bg-light"> <i class="fa-solid fa-code"></i></span>
+                        <input type="text" class="form-control" name="SUBJECT_CODE" max-length="40"
+                            placeholder="SUBJECT CODE" value="{{ student.SUBJECT_CODE }}">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <span class="side-label btn border-secondary bg-light"> <i
+                                class="fa-solid fa-comment"></i></span>
+                        <input type="text" class="form-control" name="SUBJECT_DESCRIPTION" max-length="40"
+                            placeholder="SUBJECT DESCRIPTION" value="{{ student.SUBJECT_DESCRIPTION }}">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <span class="side-label btn border-secondary bg-light"> <i
+                                class="fa-solid fa-calendar-days"></i></span>
+                        <input type="text" class="form-control" name="YR_SEC" max-length="40"
+                            placeholder="YEAR & SECTION" value="{{ student.YR_SEC }}">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <span class="side-label btn border-secondary bg-light"> <i
+                                class="fa-solid fa-calendar-check"></i></span>
+                        <input type="text" class="form-control" name="SEM" max-length="40" placeholder="SEMESTER"
+                        value="{{ student.SEM }}">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <span class="side-label btn border-secondary bg-light"> <i
+                                class="fa-solid fa-calendar-days"></i></span>
+                        <input type="text" class="form-control" name="SY" max-length="40" placeholder="SCHOOL YEAR"
+                        value="{{ student.SY }}">
+                    </div>
+
+                    <div class="mt-4" style="width:100%;">
+                        <button type="submit" class="btn btn-primary mb-3">
+                            {% block Btn-action %}
+                            <i class="fas fa-plus"></i>Submit
+                            {% endblock Btn-action %}
+                        </button>
+                        <a href="{% url 'TableEnrolledUsers' %}" class="btn btn-outline-dark mb-3 ms-2"
+                            style="width: 50px;" title="Back">
+                            <i class="fa-solid fa-chevron-left"></i>
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

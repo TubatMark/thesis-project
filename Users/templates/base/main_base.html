@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <title>{% block title %}{% endblock title %}</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- bootstrap css -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+
+    <!-- Sweetalert CSS-->
+    <link rel="stylesheet" href="{% static 'css/sweetalert2.min.css' %}">
+
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="{% static 'icons/css/all.min.css' %}">
+
+    <!-- Font Awesome JavaScript -->
+    <script src="{% static 'icons/js/all.min.js' %}"></script>
+
+    <!-- Bootstrap JavaScript -->
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="{% static 'js/jquery-3.6.2.js' %}"></script>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+
+    <!-- Sweetalert JS-->
+    <script src="{% static 'js/sweetalert2.all.min.js' %}"></script>
+
+</head>
+
+<body>
+
+    {% block content %}{% endblock content %}
+
+    <script>
+        document.getElementById('searchButton').addEventListener('click', function () {
+            Swal.fire({
+                title: 'Searching Done',
+                icon: 'success',
+                text: 'Check for results!',
+             
+              })
+        });
+    </script>
+
+</body>
+
+</html>

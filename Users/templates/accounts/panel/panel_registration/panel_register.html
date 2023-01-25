@@ -1,0 +1,42 @@
+{% extends 'base/main_base.html' %}
+<title>{% block title %}Panel Registration{% endblock title %}</title>
+
+{% load static %}
+{% block content %}
+<br>
+<div class="container" style="width: 500px; margin: 0 auto;">
+    <div class="card" style="height: 480px; margin-top: 7%;">
+        <div class="card-header text-center">
+            <strong> Panel Account Registration </strong>
+        </div>
+        <div class="card-body">
+            <form action="{% url 'panel_register' %}" method="POST">
+                {% csrf_token %}
+                <h6>FIRST NAME</h6>
+                <input type="text" class="form-control" name="first_name" max-length="40" required>
+
+                <h6>LAST NAME</h6>
+                <input type="text" class="form-control" name="last_name" max-length="40" required>
+
+                <h6>USERNAME</h6>
+                <input type="text" class="form-control" name="username" max-length="40" required>
+
+                <h6>EMAIL</h6>
+                <input type="email" class="form-control" name="email" max-length="40" required>
+
+                <h6>PASSWORD</h6>
+                <input type="password" class="form-control" name="password" max-length="40" required>
+
+                <br>
+                <button type="submit" value="submit" class="btn btn-primary">Register</button>
+                <a class="btn btn-outline-success" href="{% url 'admin_register' %}">
+                    Admin
+                </a>
+                <a class="btn btn-outline-secondary" href="{% url 'login' %}">
+                    Back
+                </a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}

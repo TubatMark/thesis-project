@@ -1,0 +1,79 @@
+{% extends "base/admin_base.html" %}
+
+{% block title %}Enrolled Students{% endblock title %}
+
+{% block content %}
+
+<div class="container">
+    <br>
+    <h2 class="text-center" style="margin-bottom: 10px;">Welcome to the Enrolled Students page!</h2>
+    <hr>
+    <p style="font-size: 18px; line-height: 1.5;text-align: justify;">Here, you can manage the list of students who have
+        enrolled in your program. You can upload a file of enrolled students, add new students through the 'Add Panel'
+        button, view and edit student information, and delete students as needed. The table displays all relevant
+        student information, including ID, Student ID, Name, Email, Contact Number, and Course. Use the actions button
+        to access the edit and view modals for each student. Thank you for using this page to efficiently manage your
+        enrolled students.
+    </p>
+    <!-- Button trigger modal -->
+    <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#uploadModal"
+        style="background-color:  #16524d; color: #fff; margin-bottom: 13px; margin-top: -8px;">
+        Upload File - Enrolled Students
+    </button>
+    <br>
+    <table class="table table-bordered mx-auto " id="userEnrolledDatatable">
+        <thead bgcolor="grey" style="color: #fff; font-size: 13px;">
+            <tr>
+                <th>ID</th>
+                <th>Student ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Contact Number</th>
+                <th>Course</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <!--Data from backend-->
+        <tbody style="text-align:left;">
+            {% for student in students %}
+            <tr style="color: black; text-align: left; font-size: 13px;">
+                <td>{{ student.id }}</td>
+                <td>{{ student.Student_Id }}</td>
+                <td>{{ student.Student_Name }}</td>
+                <td>{{ student.Email }}</td>
+                <td>
+                    {% if student.Contact_Number == 'nan' %}
+                    N/A
+                    {% else %}
+                    {{ student.Contact_Number|floatformat:0 }}
+                    {% endif %}
+                </td>
+                <td>{{ student.Course }}</td>
+                <td>
+                    <a class="btn btn-warning btn-actions" title="editEnrolledStudents" data-bs-toggle="modal"
+                        data-bs-target="#editEnrolledModal{{student.id}}">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                    </a>
+                    <a class="btn btn-info btn-actions" title="viewEnrolledModal" data-bs-toggle="modal"
+                        data-bs-target="#viewEnrolledModal{{student.id}}">
+                        <i class="fa-solid fa-eye"></i>
+                    </a>
+                    <a data-placement="top" data-toggle="tooltip" title="delete"
+                        href="/DeleteEnrolledStudent/{{student.id}}" class="btn btn-danger btn-xs" data-title="Delete"
+                        data-toggle="modal" data-target="#delete"><i class="fa-solid fa-trash"></i></a>
+                </td>
+                </td>
+            </tr>
+
+
+            <!-- include (requried here to get the PK)-->
+
+            {% include "accounts/admin/admin_dashboard/enrolled_students/edit_enrolled_students.html" %}
+            {% include "accounts/admin/admin_dashboard/enrolled_students/view_enrolled_students.html" %}
+
+            {% endfor %}
+        </tbody>
+    </table>
+    <br>
+</div>
+{% endblock content %}

@@ -1,0 +1,67 @@
+{% extends "base/admin_base.html" %}
+
+{% block title %}Thesis Records{% endblock title %}
+
+{% block content %}
+
+<div class="container">
+    <br>
+    <h2 class="text-center" style="margin-bottom: 10px;">Welcome to Thesis Records page!</h2>
+    <hr>
+    <p style="font-size: 18px; line-height: 1.5;text-align: justify;">This page displays a list of thesis records that
+        have been uploaded to the repository. Users can view the details of each record, edit them, download the
+        associated file, or delete them. The "Add Files - Repository" button allows users to add new thesis records to
+        the repository. This page is intended for administrators or users with permission to manage the repository.
+    </p>
+    <!-- Button trigger modal -->
+    <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#addModal"
+        style="background-color:  #16524d; color: #fff; margin-bottom: 13px; margin-top: -8px;">
+        Add Files - Repository
+    </button>
+    <br>
+    <table class="table table-bordered mx-auto " id="repositoryDatatable">
+        <thead bgcolor="grey" style="color: #fff; font-size:13px">
+            <tr>
+                <th style="width: 5%;">ID</th>
+                <th style="width: 30%;">Thesis Title</th>
+                <th style="width: 15%;">Proponents</th>
+                <th style="width: 27%;">File</th>
+                <th style="width: 9%;">Adviser</th>
+                <th style="width: 5%;">School Year</th>
+                <th style="width: 23%;">Actions</th>
+            </tr>
+        </thead>
+        <!--Data from backend-->
+        <tbody style="text-align: left;">
+            {% for repo in repository %}
+            <tr style="color: black; text-align: left; font-size: 13px; ">
+                <th>{{ repo.id }}</th>
+                <th>{{ repo.title }}</th>
+                <th>{{ repo.proponents }}</th>
+                <th>{{ repo.pdf_file }}</th>
+                <th>{{ repo.adviser }}</th>
+                <th>{{ repo.school_year }}</th>
+                <td class="justify-content-between" style="display: flex;">
+                    <a href="{% url 'view_pdf_repository' repo.id %}" target="_blank" class="btn btn-info btn-actions">
+                        <i class="fa-solid fa-eye"></i>
+                    </a>
+                    <a class="btn btn-warning btn-actions" title="edit" data-bs-toggle="modal"
+                        data-bs-target="#editModal{{repo.id}}">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                    </a>
+                    <a data-placement="top" data-toggle="tooltip" title="delete"
+                        href="/DeleteRepositoryFiles/{{repo.id}}" class="btn btn-danger btn-xs" data-title="Delete"
+                        data-toggle="modal" data-target="#delete"><i class="fa-solid fa-trash"></i></a>
+                </td>
+                </td>
+            </tr>
+
+            <!-- include (requried here to get the PK)-->
+
+            {% include "accounts/admin/admin_dashboard/repository/edit_files_repository.html" %}
+            {% endfor %}
+        </tbody>
+    </table>
+    <br>
+</div>
+{% endblock content %}

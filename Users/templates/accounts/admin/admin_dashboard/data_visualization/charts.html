@@ -1,0 +1,220 @@
+{% extends "base/admin_base.html" %}
+<!-- Data visualization for total accepted vs total rejected documents -->
+
+
+{% block content %}
+
+<br>
+<h4 class="text-center" style="font-size: 18px; line-height: 1.5;text-align: justify;">Welcome to the admin dashboard,
+    {{request.user.first_name}} {{request.user.last_name}}</h4>
+<br>
+<div class="container">
+    <div class="row mx-4" style="margin-top: -16px; color: white; display: flex; justify-content: center; ">
+        <div class="col-3">
+            <div class="card text-center mb-3" id="total_repository"
+                style="background: #5bd485; font-weight: 700; width: 14rem;">
+                <div class="card-header" style="background: #16524d; ">
+                    <a class="card-title text-light" href="{% url 'TableRepository' %}">
+                        <h5>Total Repository</h5>
+                    </a>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">{{total_repository}}</h5>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-3">
+            <div class="card text-center mb-3" id="total_docs"
+                style="background: #5bd485; font-weight: 700; width: 14rem;">
+                <div class="card-header" style="background: #16524d;">
+                    <a class="card-title text-light" href="#">
+                        <h5>Total Similarity</h5>
+                    </a>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">{{total_docs}}</h5>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-3">
+            <div class="card text-center mb-3" id="total_accepted"
+                style="background: #5bd485; font-weight: 700; width: 14rem;">
+                <div class="card-header" style="background: #16524d;">
+                    <a class="card-title text-light" href="{% url 'admin_status_approved' %}">
+                        <h5>Total Accepted</h5>
+                    </a>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">{{total_approved}}</h5>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-3">
+            <div class="card text-center mb-3" id="total_rejected"
+                style="background: #5bd485; font-weight: 700; width: 14rem;">
+                <div class="card-header" style="background: #16524d;">
+                    <a class="card-title text-light" href="{% url 'admin_status_rejected' %}">
+                        <h5>Total Rejected</h5>
+                    </a>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">{{total_rejected}}</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container" style="margin-top: 30px;">
+    <div class="row">
+        <div class="col-6">
+            <div class="card">
+                <div class="card-body">
+                    <div id="lineChartContainer" style="height: 300px;"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="card">
+                <div class="card-body">
+                    <div id="pieChartContainer" style="height: 300px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-6">
+            <div class="card">
+                <div class="card-body">
+                    <div id="barChartContainer" style="height: 300px;"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="card">
+                <div class="card-body">
+                    <div id="areaChartContainer" style="height: 300px;"></div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var docs_count = {{total_docs}}
+        var accepted_count = {{total_approved}}
+        var rejected_count = {{total_rejected}}
+        var enrolled_count = {{total_students_enrolled}}
+        var registered_count = {{total_reg_students}}
+        var panel_count = {{total_reg_panel}}
+        var admin_count = {{total_reg_admin}}
+
+        // Pie Chart
+        Highcharts.chart('pieChartContainer', {
+            chart: {
+                type: 'pie'
+            },
+            title: {
+                text: 'Pie Chart for total documents, total accepted documents, and total rejected documents'
+            },
+            plotOptions: {
+                pie: {
+                    dataLabels: {
+                        enabled: true,
+                        format: '<b>{point.name}</b>: {point.y}'
+                    }
+                }
+            },
+            series: [{
+                name: 'Documents',
+                data: [{
+                        name: 'Total Documents',
+                        y: docs_count
+                    },
+                    {
+                        name: 'Total Accepted Documents',
+                        y: accepted_count
+                    },
+                    {
+                        name: 'Total Rejected Documents',
+                        y: rejected_count
+                    }
+                ]
+            }]
+        });
+
+        // Line Chart
+        Highcharts.chart('lineChartContainer', {
+            chart: {
+                type: 'line'
+            },
+            title: {
+                text: 'Total Accepted vs Total Rejected Documents'
+            },
+            xAxis: {
+                categories: ['Accepted', 'Rejected']
+            },
+            yAxis: {
+                title: {
+                    text: 'Number of Documents'
+                }
+            },
+            series: [{
+                name: 'Documents',
+                data: [accepted_count, rejected_count]
+            }]
+        });
+
+
+        //Bar chart
+        Highcharts.chart('barChartContainer', {
+            chart:{
+                type: 'bar'
+            },
+            title: {
+                text: 'Total Enrolled Students vs Total Registered Students'
+            },
+            xAxis: {
+                categories: ['Enrolled', 'Registered']
+            },
+            yAxis: {
+                title: {
+                    text: 'Number of Students'
+                }
+            },
+            series: [{
+                name: 'Students',
+                data: [enrolled_count, registered_count]
+            }]
+        })
+
+        //area chart
+        Highcharts.chart('areaChartContainer', {
+            chart:{
+                type: 'area'
+            },
+            title: {
+                text: 'Users (Students, Panels, Admin)'
+            },
+            xAxis: {
+                categories: ['Students', 'Panels', 'Admin']
+            },
+            yAxis: {
+                title: {
+                    text: 'Number of Users'
+                }
+            },
+            series: [{
+                name: 'Users',
+                data: [registered_count, panel_count, admin_count]
+            }]
+        })
+    });
+</script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+{% endblock content %}

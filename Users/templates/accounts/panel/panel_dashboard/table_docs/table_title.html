@@ -1,0 +1,70 @@
+{% extends "base/panel_base.html" %}
+
+{% block title %}Thesis Records{% endblock title %}
+
+{% block content %}
+
+<div class="container">
+    <br>
+    <h2 class="text-center" style="margin-bottom: 10px;">Welcome to the Thesis Title Document Records page!</h2>
+    <hr>
+    <p style="font-size: 18px; line-height: 1.5;text-align: justify;">This page displays a list of thesis title documents that have been submitted for approval by students. As a panel member,
+        you have the ability to approve or reject these titles, as well as view the results of the similarity check and
+        leave comments for the students. Please take the time to review each title carefully before making a decision.
+        Your actions will have a direct impact on the students' progress in their academic journey.</p>
+    <table class="table table-bordered mx-auto " id="titleDatatable">
+        <thead bgcolor="grey" style="color: #fff; font-size:13px">
+            <tr>
+                <th style="width: 20%;">Thesis Title</th>
+                <th style="width: 10%;">Proponents</th>
+                <th style="width: 13%;">Date & Time</th>
+                <th style="width: 1%;">Status</th>
+                <th style="width: 16%;">Actions</th>
+            </tr>
+        </thead>
+        <!--Data from backend-->
+        <tbody style="text-align: left;">
+            {% for title in titles %}
+            <tr style="color: black; text-align: left; font-size: 13px; ">
+                <td>{{title.student_title}}</td>
+                <td>{{title.student_proponents}}</td>
+                <td>{{title.uploaded_at|date:"D d M Y H:i:s" }}</td>
+                <td class="justify-content-between" style="display: flex;">
+                    {% if title.status == 'APPROVED' %}
+                        <button type="button" class="btn btn-success" id="approve-button" disabled>APPROVED</button>
+                    {% elif title.status == 'REJECTED' %}
+                        <button type="button" class="btn btn-danger" id="reject-button" disabled>REJECTED</button>
+                    {% else %}
+                        <form action="/approve_title/{{title.id}}" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-success" id="approve-button">Approve</button>
+                        </form>
+                        <form action="/reject_title/{{title.id}}" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger" id="reject-button">Reject</button>
+                        </form>
+                    {% endif %}
+                </td>
+                
+                <td class="justify-content-between">
+                    <a href="{% url 'view_def_documents' title.id %}" target="_blank" class="btn btn-success">View</a>
+                    <button type="button" class="btn btn-info" title="resultTitlePanel" data-bs-toggle="modal"
+                        data-bs-target="#resultTitleModal{{title.id}}">
+                        Result
+                    </button>
+                    <button class="btn btn-warning btn-actions" title="commentTitlePanel" data-bs-toggle="modal"
+                        data-bs-target="#commentTitleModal{{title.id}}">
+                        Comment
+                    </button>
+                </td>
+            </tr>
+
+            <!-- include (requried here to get the PK)-->
+            {% include "accounts/panel/panel_dashboard/similarity_results/result_title.html" %}
+            {% include "accounts/panel/panel_dashboard/comments/comment_title.html" %}
+            {% endfor %}
+        </tbody>
+    </table>
+    <br>
+</div>
+{% endblock content %}

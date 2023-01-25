@@ -1,0 +1,111 @@
+{% extends "base/admin_base.html" %}
+
+{% block title %} Settings {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+<div class="container">
+    <br>
+    <div class="row">
+        <div class="col-12 col-xl-8">
+            <div class="card card-body border-0 shadow mb-4">
+                <h2 class="h5 mb-4">General information</h2>
+                <form>
+                    <div class="row">
+
+                        {% for admin in admins %}
+
+                        <div class="col-md-6 mb-3">
+                            <div>
+                                <label for="first_name">First Name</label>
+                                <input class="form-control" id="first_name" type="text"
+                                    value="{{ admin.user.first_name }}" readonly>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div>
+                                <label for="last_name">Last Name</label>
+                                <input class="form-control" id="first_name" type="text"
+                                    value="{{ admin.user.last_name }}" readonly>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <div class="form-group">
+                                <label for="username">Username</label>
+                                <input class="form-control" id="username" type="email"
+                                    value="{{ admin.user.username }}" readonly>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input class="form-control" id="email" type="email"
+                                    value="{{ admin.user.email }}" readonly>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-12 col-xl-4">
+            <div class="row">
+                <div class="col-12 mb-4">
+                    <!-- Template -->
+                    {% for admin in admins %}
+                    <div class="card shadow border-0 text-center p-0">
+                        <div class="card-body pb-5">
+                            {% if admin.profile_picture %}
+                            <img src="{{ admin.profile_picture.url }}"
+                                class="avatar-xl rounded-circle mx-auto mt-n7 mb-4" alt="{{ admin.first_name }} {{ admin.last_name }}"
+                                style="height: 150px; width: 150px;">
+                            {% else %}
+                            <img src="/static/default/default_profile.png"
+                                class="avatar-xl rounded-circle mx-auto mt-n7 mb-4" alt="{{ admin.first_name }} {{ admin.last_name }}"
+                                style="height: 150px; width: 150px;">
+                            {% endif %}
+                            <h4 class="h3">
+                                {{ admin.user.first_name }} {{ admin.user.last_name }}
+                            </h4>
+                            <h5 class="fw-normal">
+                                {{ admin.user.username }}
+                            </h5>
+                            <p class="text-gray mb-4">
+                                {{ admin.user.email }}
+                            </p>
+                        </div>
+                    </div>
+                    {% endfor %}
+
+                </div>
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="col-12">
+                        <div class="card card-body border-0 shadow mb-4">
+                            <h2 class="h5 mb-4">Select profile photo</h2>
+                            <div class="d-flex align-items-center">
+                                <div class="file-field">
+                                    <div class="d-flex justify-content-xl-center ms-xl-3">
+                                        <div class="d-flex">
+                                            <input type="file" name="profile_picture">
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="form-group">
+                                        <input type="submit" class="btn btn-primary" value="Save Changes">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

@@ -1,0 +1,84 @@
+{% extends 'base/main_base.html' %}
+<title>{% block title %}Student Registration{% endblock title %}</title>
+{% load static %}
+
+{% block content %}
+
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-header text-center">
+                    <strong>
+                        <h5>Search Student ID</h5>
+                    </strong>
+                </div>
+                <div class="card-body">
+                    <h6>You have chosen a student account, search for your Student ID first if exist.</h6>
+                    <br>
+                    <form action="{% url 'search_student_id' %}" method="post">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="search">Search Student ID</label>
+                            <input type="text" class="form-control" name="search" placeholder="Ex. 2018-02329">
+                            {% if errors %}
+                            <div class="invalid-feedback">
+                                {% for error in errors %}
+                                {{ error }}
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        </div>
+                        <br>
+                        <button class="btn btn-primary" id="searchButton">Search</button>
+                        <a href="{% url 'login' %}" class="btn btn-outline-secondary">Back</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-header text-center">
+                    <strong>
+                        <h5>Search Results</h5>
+                    </strong>
+                </div>
+                <div class="card-body">
+                    {% if students %}
+                    {% for student in students %}
+                    <p>{% block Student_Id %} Student ID: {{ student.Student_Id }}</p>{% endblock Student_Id %}
+                    <hr>
+                    <p>{% block Student_Name %} Student Name: {{ student.Student_Name }}</p> {% endblock Student_Name %}
+                    <hr>
+                    <p>{% block Email %} Email: {{ student.Email }}</p> {% endblock Email %}
+                    <hr>
+                    <p>Contact Number:
+                        {% if student.Contact_Number == 'nan' %}N/A{% else %}{{ student.Contact_Number|floatformat:0 }}{% endif %}
+                    </p>
+                    <hr>
+                    <p>Course: {{ student.Course }}</p>
+                    <hr>
+                    <p>Subject Code: {{ student.SUBJECT_CODE }}</p>
+                    <hr>
+                    <p>Subject Description: {{ student.SUBJECT_DESCRIPTION }}</p>
+                    <hr>
+                    <p>Year and Section: {{ student.YR_SEC }}</p>
+                    <hr>
+                    <button type="button" class="btn btn-outline-info" data-bs-toggle="modal"
+                        data-bs-target="#registerModal">
+                        Register
+                    </button>
+                    {% endfor %}
+                    {% else %}
+                    <p>Student doesn't exist</p>
+                    {% endif %}
+
+                </div>
+                {% include "accounts/student/student_registration/student_register.html" %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

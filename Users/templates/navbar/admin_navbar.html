@@ -1,0 +1,77 @@
+{% load static %}
+<div class="wrapper">
+    <nav class="navbar navbar-expand-sm">
+        <div class="logo">
+            <a>THE<span>SIS</span></a>
+        </div>
+        <div class="inner_navbar justify-content-center">
+            <div class="navbar-left">
+                <ul>
+                    <li>
+                        <div class="dropdown" style="margin-top: 5.8px;">
+                            <a href="{% url 'admin_dashboard' %}" style="padding: 20px;">Dashboard</a>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="dropdown" style="margin-top: 5.8px;">
+                            <a href="{% url 'TableRepository' %}" style="padding: 20px;">Files</a>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="dropdown">
+                            <a class="btn dropdown-fa-toggle-down" id="dropdownDocs" data-bs-toggle="dropdown"
+                                aria-haspopup="true">Document - Similarity <i
+                                    class="fa-solid fa-circle-chevron-down"></i>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownDocs">
+                                <a href="{% url 'TableTitle' %}" class="dropdown-item">Uploaded Title</a>
+                                <a href="{% url 'TableProposal' %}" class="dropdown-item">Uploaded Proposal</a>
+                                <a href="{% url 'TableFinal' %}" class="dropdown-item">Uploaded Final</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="dropdown">
+                            <a class="btn dropdown-fa-toggle-down" id="dropdownUsers" data-bs-toggle="dropdown"
+                                aria-haspopup="true">Users <i class="fa-solid fa-circle-chevron-down"></i>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownUsers">
+                                <a href="{% url 'TableEnrolledUsers' %}" class="dropdown-item">Enrolled Students</a>
+                                <a href="{% url 'TableRegisteredStudents' %}" class="dropdown-item">Registered
+                                    Students</a>
+                                <a href="{% url 'TableRegisteredPanels' %}" class="dropdown-item">Registered Panel</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="dropdown">
+                            <a class="btn dropdown-fa-toggle-down" id="dropdownStatus" data-bs-toggle="dropdown"
+                                aria-haspopup="true">Status <i class="fa-solid fa-circle-chevron-down"></i>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownStatus">
+                                <a href="{% url 'admin_status_approved' %}" class="dropdown-item">Accepted Documents</a>
+                                <a href="{% url 'admin_status_rejected' %}" class="dropdown-item">Rejected Documents</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="dropdown">
+                            <a class="btn dropdown-fa-toggle-down" role="button" id="dropdownSettings"
+                                data-bs-toggle="dropdown" aria-haspopup="true" style="padding-right: 10px;">
+                                Settings <i class="fa-solid fa-circle-chevron-down"></i>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownSettings">
+                                <a href="{% url 'admin_details' %}" class="dropdown-item">Account</a>
+                                <a href="{% url 'logout' %}" class="dropdown-item">Logout</a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="hamburger">
+            <i class="fas fa-bars"></i>
+        </div>
+    </nav>
+</div>
+

@@ -1,0 +1,70 @@
+{% extends "base/admin_base.html" %}
+
+{% block title %}Approved Documents Records{% endblock title %}
+
+{% block content %}
+
+<div class="container">
+    <br>
+    <h2 class="text-center" style="margin-bottom: 10px;">Welcome to the Approved Documents Records page of our website!
+    </h2>
+    <hr>
+    <p style="font-size: 18px; line-height: 1.5;text-align: justify;">This page displays a list of all the documents
+        that have been approved by the panels. You will be able to see the title, proponents, upload date and time,
+        document type, and status of each document. This page allows you to easily access and view all the approved
+        documents in one place. You can use this page to keep track of the progress of the documents and ensure that
+        they are in compliance with the standards set by the panels. Please note that this page is only accessible to
+        authorized panel members.
+    </p>
+    <table class="table table-bordered mx-auto " id="approvedDatatable">
+        <thead bgcolor="grey" style="color: #fff; font-size:13px">
+            <tr>
+                <th style="width: 20%;">Thesis Title</th>
+                <th style="width: 10%;">Proponents</th>
+                <th style="width: 13%;">Upload Date&Time</th>
+                <th style="width: 13%;">Document Type</th>
+                <th style="width: 13%;">Status</th>
+                <th style="width: 13%;">Updated Date & Time</th>
+                <th style="width: 13%;">Panel</th>
+                <th style="width: 13%;">Actions</th>
+            </tr>
+        </thead>
+        <!--Data from backend-->
+        <tbody style="text-align: left;">
+            {% for approve in status_approved %}
+            <tr style="color: black; text-align: left; font-size: 13px; ">
+                <td>{{approve.student_title}}</td>
+                <td>{{approve.student_proponents}}</td>
+                <td>{{approve.uploaded_at|date:"D d M Y H:i:s" }}</td>
+                <td>
+                    {% if approve.document_type == "TITLE_DEFENSE" %}
+                    TITLE DEFENSE DOCUMENT
+                    {% elif approve.document_type == "PROPOSAL_DEFENSE" %}
+                    PROPOSAL DEFENSE DOCUMENT
+                    {% else %}
+                    FINAL DEFENSE DOCUMENT
+                    {% endif %}
+                </td>
+                <td>{{approve.status}}</td>
+                <td>{{approve.status_updated_at|date:"D d M Y H:i:s"}}</td>
+                <td>{{approve.status_updated_by.first_name}} {{approve.status_updated_by.last_name}}</td>
+                <td class="justify-content-between" style="display: flex;">
+                    <button type="button" class="btn btn-success" data-bs-toggle="modal"
+                        data-bs-target="#resultsModal{{approve.id}}">
+                        Result
+                    </button>
+                    <button type="button" class="btn btn-info" data-bs-toggle="modal"
+                        data-bs-target="#commentsModal{{approve.id}}">
+                        Comments
+                    </button>
+                </td>
+            </tr>
+            <!-- include (requried here to get the PK)-->
+            {% include "accounts/panel/panel_dashboard/similarity_results_panel/results_approved.html" %}
+            {% include "accounts/panel/panel_dashboard/comments_result/comment_approved.html" %}
+            {% endfor %}
+        </tbody>
+    </table>
+    <br>
+</div>
+{% endblock content %}

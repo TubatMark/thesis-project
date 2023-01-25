@@ -1,0 +1,58 @@
+<!-- Modal -->
+<div class="modal fade" {% block modal-id%} id="addModal" {% endblock modal-id %} tabindex="-1"
+  aria-labelledby="addModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h6 class="modal-title fs-5" id="addModalLabel"> {% block modal-title %} <i
+            class="fa-solid fa-file-circle-plus"></i>
+          Add File For Repository {% endblock modal-title %} </h6>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form method="POST" class="post-form" {% block Action %} action="{% url 'AddRepositoryFiles' %}"
+        {% endblock Action %} enctype="multipart/form-data" class="card p-3 border-dark mt-3" autocomplete="off">
+        {% csrf_token %}
+        <div class="modal-body">
+
+          {% block repo-id %} {% endblock repo-id %}
+
+          <h6>TITLE</h6>
+          <input type="text" class="form-control" name="title" max-length="40" placeholder="Title" required
+            {% block repo-title %} {% endblock repo-title %}>
+          <hr>
+
+          <h6>PROPONENTS</h6>
+          <input type="text" class="form-control" name="proponents" max-length="40" placeholder="Proponents" required
+            {% block repo-proponents %} {% endblock repo-proponents %}>
+          <hr>
+
+          <h6>ADVISER</h6>
+          <input type="text" class="form-control" name="adviser" max-length="40" placeholder="Adviser" required
+            {% block repo-adviser %} {% endblock repo-adviser %}>
+
+          <hr>
+          <h6>SCHOOL YEAR</h6>
+          <input type="text" class="form-control" name="school_year" max-length="40" placeholder="School Year" required
+            {% block repo-school_year %} {% endblock repo-school_year %}>
+          <hr>
+
+          <input type="file" class="form-control" name="pdf_file" max-length="40" placeholder="Upload File" required
+            {% block repo-file %} {% endblock repo-file %}>
+
+
+          <div class="mt-4" style="width:100%;">
+            <button type="submit" class="btn btn-primary mb-3">
+              {% block Btn-action %}
+              <i class="fas fa-plus"></i>Submit
+              {% endblock Btn-action %}
+            </button>
+            <a href="{% url 'TableRepository' %}" class="btn btn-outline-dark mb-3 ms-2" style="width: 50px;"
+              title="Back">
+              <i class="fa-solid fa-chevron-left"></i>
+            </a>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

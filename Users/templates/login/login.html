@@ -1,0 +1,65 @@
+{% extends 'base/main_base.html' %}
+<title>{% block title %}Account Login{% endblock title %}</title>
+
+{% load static %}
+{% block content %}
+<br>
+<div class="container" style="width: 500px; margin: 0 auto;">
+    <div class="card" style="height: 272px; margin-top: 35%;">
+        <div class="card-header text-center">
+            <strong> Account Login </strong>
+        </div>
+        <div class="card-body">
+            <form action="{% url 'login' %}" method="POST">
+                {% csrf_token %}
+                <h6>STUDENT ID</h6>
+                <div class="input-group mb-3">
+                    <span class="side-label btn border-secondary bg-light"> <i
+                            class="fa-regular fa-id-badge"></i></span>
+                    <input type="text" class="form-control" name="username" max-length="40" required>
+                </div>
+                <h6>PASSWORD</h6>
+                <div class="input-group mb-3">
+                    <span class="side-label btn border-secondary bg-light"> <i class="fa-solid fa-lock"></i></span>
+                    <input type="password" class="form-control" name="password" max-length="40" placeholder="********"
+                        required>
+                </div>
+                <button type="submit" value="submit" class="btn btn-primary">Login</button>
+                <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal"
+                    data-bs-target="#registerDataModal">
+                    Register
+                </button>
+            </form>
+            <!-- Modal -->
+            <div class="modal fade" id="registerDataModal" tabindex="-1" aria-labelledby="registerModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-scrollable">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="registerModalLabel">ACCOUNT SELECTION</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <h6>Select below the type of account you want to create</h6>
+                            <form method="post">
+                                {% csrf_token %}
+                                <br>
+                                <div class="form-group">
+                                    <a href="{% url 'search_student_id' %}" class="btn btn-primary">Student</a>
+                                    <a href="{% url 'panel_register' %}" class="btn btn-outline-secondary">Teacher</a>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <a type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</a>
+                            <a href="{% url 'login' %}" class="btn btn-outline-dark" title="Back">
+                                Login
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

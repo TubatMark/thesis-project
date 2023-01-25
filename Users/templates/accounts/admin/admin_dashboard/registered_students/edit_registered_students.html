@@ -1,0 +1,62 @@
+<!-- Modal -->
+<div class="modal fade" id="editRegisteredModal{{student.id}}" tabindex="-1"
+    aria-labelledby="editRegisteredModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title fs-5" id="editRegisteredModalLabel"> {% block modal-title %} <i
+                        class="fa-solid fa-user-pen"></i>
+                    Edit Registered Student Detail {% endblock modal-title %} </h6>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="POST" class="post-form" {% block Action %} action="/EditRegisteredStudent/{{student.id}}"
+                {% endblock Action %} enctype="multipart/form-data" class="card p-3 border-dark mt-3"
+                autocomplete="off">
+                {% csrf_token %}
+                <div class="modal-body">
+
+                    {% block student-id %} {% endblock student-id %}
+
+                    <div class="input-group mb-3">
+                        <span class="side-label btn border-secondary bg-light"> <i class="fa-regular fa-id-badge"></i></span>
+                        <input type="text" class="form-control" name="student_id" max-length="40"
+                            placeholder="STUDENT ID" value="{{ student.student_id }}">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <span class="side-label btn border-secondary bg-light"> <i
+                                class="fa-solid fa-mobile"></i></span>
+                        <input type="text" class="form-control" name="username" max-length="40"
+                            placeholder="USERNAME" value="{{student.username}}">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <span class="side-label btn border-secondary bg-light"> <i
+                                class="fa-solid fa-user-tie"></i></span>
+                        <input type="text" class="form-control" name="name" max-length="40" placeholder="NAME"
+                        value="{{ student.name }}">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <span class="side-label btn border-secondary bg-light"> <i class="fa-solid fa-at"></i></span>
+                        <input type="email" class="form-control" name="email" max-length="40" placeholder="EMAIL"
+                        value="{{ student.email }}">
+                    </div>
+
+
+                    <div class="mt-4" style="width:100%;">
+                        <button type="submit" class="btn btn-primary mb-3">
+                            {% block Btn-action %}
+                            <i class="fas fa-plus"></i>Submit
+                            {% endblock Btn-action %}
+                        </button>
+                        <a href="{% url 'TableRegisteredStudents' %}" class="btn btn-outline-dark mb-3 ms-2"
+                            style="width: 50px;" title="Back">
+                            <i class="fa-solid fa-chevron-left"></i>
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

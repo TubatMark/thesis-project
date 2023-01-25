@@ -1,0 +1,37 @@
+<!--modal view-->
+<div class="modal fade" id="viewEnrolledModal{{student.id}}" tabindex="-1" role="dialog"
+    aria-labelledby="viewEnrolledModalLabel{{student.id}}" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title fs-5" id="viewEnrolledModalLabel{{student.id}}"><i
+                        class="fa-solid fa-circle-info"></i>Student Information</h6>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" style="font-weight: 300;">
+                <!-- Display student data -->
+                <hr>
+            <p>Student ID: {{ student.Student_Id }}</p>
+            <hr>
+            <p>Student Name: {{ student.Student_Name }}</p>
+            <hr>
+            <p>Email: {{ student.Email }}</p>
+            <hr>
+            <p>Contact Number: {% if student.Contact_Number == 'nan' %}N/A{% else %}{{ student.Contact_Number|floatformat:0 }}{% endif %}</p>
+            <hr>
+            <p>Course: {{ student.Course }}</p>
+            <hr>
+            <p>Subject Code: {{ student.SUBJECT_CODE }}</p>
+            <hr>
+            <p>Subject Description: {{ student.SUBJECT_DESCRIPTION }}</p>
+            <hr>
+            <p>Year and Section: {{ student.YR_SEC }}</p>
+            <hr>
+            <p>Semester: {{ student.SEM }}</p>
+             <hr>
+            <p>School Year: {{ student.SY }}</p>
+
+            </div>
+        </div>
+    </div>
+</div>

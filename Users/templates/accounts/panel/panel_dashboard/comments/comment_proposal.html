@@ -1,0 +1,51 @@
+<!-- Modal -->
+<div class="modal fade" id="commentProposalModal{{proposal.id}}" tabindex="-1"
+    aria-labelledby="commentProposalModalLabel{{proposal.id}}" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title fs-5" id="commentProposalModalLabel{{proposal.id}}"> <i
+                        class="fa-solid fa-user-pen"></i>
+                    Give comments</h6>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="POST" class="post-form" action="/comments_proposal/{{proposal.id}}"
+                enctype="multipart/form-data" class="card p-3 border-dark mt-3" autocomplete="off">
+                {% csrf_token %}
+                <div class="modal-body">
+
+                    {% block repo-id %} {% endblock repo-id %}
+
+                    <h6>DOCUMENT TITLE</h6>
+                    <input type="text" class="form-control" name="student_title" max-length="40"
+                        value="{{proposal.student_title}}" readonly>
+                    <hr>
+                    <h6>PROPONENTS</h6>
+                    <input type="text" class="form-control" name="student_proponents" max-length="40"
+                        value="{{proposal.student_proponents}}" readonly>
+                    <hr>
+                    <h6>PANEL USERNAME</h6>
+                    <input type="text" class="form-control" name="username" max-length="40"
+                        value="{{request.user.username}}" readonly>
+                    <hr>
+                    <h6>COMMENTS</h6>
+                    <textarea class="form-control" name="comments" style=" height: 150px;"></textarea>
+                    <hr>
+
+
+                    <div class="mt-4" style="width:100%;">
+                        <button type="submit" class="btn btn-primary mb-3">
+                            {% block Btn-action %}
+                            <i class="fas fa-plus"></i>Submit
+                            {% endblock Btn-action %}
+                        </button>
+                        <a href="{% url 'uploaded_proposal_docs' %}" class="btn btn-outline-dark mb-3 ms-2"
+                            style="width: 50px;" title="Back">
+                            <i class="fa-solid fa-chevron-left"></i>
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

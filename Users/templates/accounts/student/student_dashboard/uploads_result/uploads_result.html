@@ -1,0 +1,57 @@
+{% extends "base/student_base.html" %}
+
+{% block title %}Files Upload Results{% endblock title %}
+
+{% block content %}
+<div class="container">
+    <br>
+    <table class="table table-bordered mx-auto " id="docsUploadsDatatable">
+        <thead bgcolor="grey" style="color: #fff; font-size:13px">
+            <tr>
+                <th style="width: 13%;">Thesis Title</th>
+                <th style="width: 12%;">Proponents</th>
+                <th style="width: 12%;">Upload Date&Time</th>
+                <th style="width: 12%;">Document Type</th>
+                <th style="width: 5%;">Status</th>
+                <th style="width: 1%;">Actions</th>
+            </tr>
+        </thead>
+        <!--Data from backend-->
+        <tbody style="text-align: left;">
+            {% for upload in uploads %}
+            <tr style="color: black; text-align: left; font-size: 13px; ">
+                <td>{{ upload.student_title }}</td>
+                <td>{{ upload.student_proponents }}</td>
+                <td>{{ upload.uploaded_at|date:"D d M Y H:i:s" }}</td>
+                <td>
+                    {% if upload.document_type == "TITLE_DEFENSE" %}
+                    TITLE DEFENSE DOCUMENT
+                    {% elif upload.document_type == "PROPOSAL_DEFENSE" %}
+                    PROPOSAL DEFENSE DOCUMENT
+                    {% else %}
+                    FINAL DEFENSE DOCUMENT
+                    {% endif %}
+                </td>
+                <td>{{ upload.status }}</td>
+                <td class="justify-content-between" style="display: flex;">
+                    <button type="button" class="btn btn-success" data-bs-toggle="modal"
+                        data-bs-target="#resultsModal{{upload.id}}">
+                        Result
+                    </button>
+                    <button type="button" class="btn btn-info" data-bs-toggle="modal"
+                        data-bs-target="#commentsModal{{upload.id}}">
+                        Comments
+                    </button>
+                </td>
+            </tr>
+
+            <!-- include (requried here to get the PK)-->
+            {% include "accounts/student/student_dashboard/similarity_results/results.html" %}
+            {% include "accounts/student/student_dashboard/comments/comment.html" %}
+            {% endfor %}
+        </tbody>
+    </table>
+    <br>
+</div>
+
+{% endblock content %}

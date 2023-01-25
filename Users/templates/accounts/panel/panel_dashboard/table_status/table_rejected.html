@@ -1,0 +1,68 @@
+{% extends "base/panel_base.html" %}
+
+{% block title %}Rejected Documents Records{% endblock title %}
+
+{% block content %}
+
+<div class="container">
+    <br>
+    <h2 class="text-center" style="margin-bottom: 10px;">Welcome to the Rejected Documents Records page of our website!
+    </h2>
+    <hr>
+    <p style="font-size: 18px; line-height: 1.5;text-align: justify;">This page displays a list of all the documents
+        that have been rejected by the panels. You can view the title, proponents, upload date and time, document type,
+        and status of each document. Use this page to keep track of the documents that are rejected. Please note that
+        access to this page is restricted to panel members only."
+    </p>
+    <table class="table table-bordered mx-auto " id="rejectedDatatable">
+        <thead bgcolor="grey" style="color: #fff; font-size:13px">
+            <tr>
+                <th style="width: 20%;">Thesis Title</th>
+                <th style="width: 10%;">Proponents</th>
+                <th style="width: 13%;">Upload Date&Time</th>
+                <th style="width: 13%;">Document Type</th>
+                <th style="width: 13%;">Status</th>
+                <th style="width: 13%;">Updated Date & Time</th>
+                <th style="width: 13%;">Panel</th>
+                <th style="width: 13%;">Actions</th>
+            </tr>
+        </thead>
+        <!--Data from backend-->
+        <tbody style="text-align: left;">
+            {% for rejected in status_rejected %}
+            <tr style="color: black; text-align: left; font-size: 13px; ">
+                <td>{{rejected.student_title}}</td>
+                <td>{{rejected.student_proponents}}</td>
+                <td>{{rejected.uploaded_at|date:"D d M Y H:i:s" }}</td>
+                <td>
+                    {% if rejected.document_type == "TITLE_DEFENSE" %}
+                    TITLE DEFENSE DOCUMENT
+                    {% elif rejected.document_type == "PROPOSAL_DEFENSE" %}
+                    PROPOSAL DEFENSE DOCUMENT
+                    {% else %}
+                    FINAL DEFENSE DOCUMENT
+                    {% endif %}
+                </td>
+                <td>{{rejected.status}}</td>
+                <td>{{rejected.status_updated_at|date:"D d M Y H:i:s"}}</td>
+                <td>{{rejected.status_updated_by.first_name}} {{approve.status_updated_by.last_name}}</td>
+                <td class="justify-content-between" style="display: flex;">
+                    <button type="button" class="btn btn-success" data-bs-toggle="modal"
+                        data-bs-target="#resultsModal{{rejected.id}}">
+                        Result
+                    </button>
+                    <button type="button" class="btn btn-info" data-bs-toggle="modal"
+                        data-bs-target="#commentsModal{{rejected.id}}">
+                        Comments
+                    </button>
+                </td>
+            </tr>
+            <!-- include (requried here to get the PK)-->
+            {% include "accounts/panel/panel_dashboard/similarity_results_panel/results_rejected.html" %}
+            {% include "accounts/panel/panel_dashboard/comments_result/comment_rejected.html" %}
+            {% endfor %}
+        </tbody>
+    </table>
+    <br>
+</div>
+{% endblock content %}

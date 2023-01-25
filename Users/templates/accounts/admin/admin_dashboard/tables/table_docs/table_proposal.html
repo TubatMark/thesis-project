@@ -1,0 +1,54 @@
+{% extends "base/admin_base.html" %}
+
+{% block title %}Uploaded Document For Proposal Defense{% endblock title %}
+
+{% block content %}
+
+<div class="container">
+    <br>
+    <h2 class="text-center" style="margin-bottom: 10px;">Welcome to the Uploaded Document for Proposal Defense page.</h2>
+    <hr>
+    <p style="font-size: 18px; line-height: 1.5;text-align: justify;">Here, you can view the documents that have been
+        uploaded by students for their proposal defense. You can also view the results of the document's similarity check,
+        the status of the document, and the comments made by the panel. Please use the buttons provided on the table to
+        access the result and comment panels for each document.
+    </p>
+    <table class="table table-bordered mx-auto" id="proposalDatatable">
+        <thead bgcolor="grey" style="color: #fff; font-size: 13px;">
+            <tr>
+                <th style="width: 20%;">Thesis Title</th>
+                <th style="width: 10%;">Proponents</th>
+                <th style="width: 13%;">Date & Time</th>
+                <th style="width: 1%;">Status</th>
+                <th style="width: 16%;">Actions</th>
+            </tr>
+        </thead>
+        <!--Data from backend-->
+        <tbody style="text-align:left;">
+            {% for proposal in proposal_defense_documents %}
+            <tr style="color: black; text-align: left; font-size: 13px;">
+                <td>{{proposal.student_title}}</td>
+                <td>{{proposal.student_proponents}}</td>
+                <td>{{proposal.uploaded_at|date:"D d M Y H:i:s" }}</td>
+                <td>{{proposal.status}}</td>
+                <td class="justify-content-between">
+                    <a href="{% url 'view_def_documents' proposal.id %}" target="_blank" class="btn btn-success">View</a>
+                    <button type="button" class="btn btn-info" title="resultProposalPanel" data-bs-toggle="modal"
+                        data-bs-target="#resultProposalModal{{proposal.id}}">
+                        Result
+                    </button>
+                    <button class="btn btn-warning btn-actions" title="commentProposalPanel" data-bs-toggle="modal"
+                        data-bs-target="#commentProposalModal{{proposal.id}}">
+                        Comment
+                    </button>
+                </td>
+            </tr>
+            <!-- include (requried here to get the PK)-->
+            {% include "accounts/admin/admin_dashboard/similarity_results/result_proposal.html" %}
+            {% include "accounts/admin/admin_dashboard/comments/comment_proposal.html" %}
+            {% endfor %}
+        </tbody>
+    </table>
+    <br>
+</div>
+{% endblock content %}

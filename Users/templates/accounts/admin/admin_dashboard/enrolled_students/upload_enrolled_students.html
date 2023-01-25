@@ -1,0 +1,37 @@
+<!-- Modal -->
+<div class="modal fade" {% block modal-id%} id="uploadModal" {% endblock modal-id %} tabindex="-1"
+  aria-labelledby="uploadModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h6 class="modal-title fs-5" id="uploadModalLabel"> {% block modal-title %} <i class="fa-solid fa-file-import"></i>
+          Upload Excel File For Enrolled Students in Thesis {% endblock modal-title %} </h6>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form method="POST" class="post-form" {% block Action %} action="{% url 'EnrolledStudentsExcel' %}"
+        {% endblock Action %} enctype="multipart/form-data" class="card p-3 border-dark mt-3" autocomplete="off">
+        {% csrf_token %}
+        <div class="modal-body">
+
+          <div class="input-group mb-3">
+            <span class="side-label btn border-secondary bg-light"> <i class="fa-solid fa-file"></i></span>
+            <input type="file" class="form-control" name="file" max-length="40" placeholder="Upload File" required
+              {% block repo-file %} {% endblock repo-file %}>
+          </div>
+
+          <div class="mt-4" style="width:100%;">
+            <button type="submit" class="btn btn-primary mb-3">
+              {% block Btn-action %}
+              <i class="fas fa-plus"></i>Submit
+              {% endblock Btn-action %}
+            </button>
+            <a href="#" class="btn btn-outline-dark mb-3 ms-2" style="width: 50px;"
+              title="Back">
+              <i class="fa-solid fa-chevron-left"></i>
+            </a>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

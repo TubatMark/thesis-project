@@ -1,0 +1,35 @@
+    <!--modal view-->
+    <div class="modal fade" id="resultTitleModal{{title.id}}" tabindex="-1" role="dialog"
+        aria-labelledby="resultTitleModalLabel{{title.id}}" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="modal-title fs-5" id="resultTitleModalLabel{{title.id}}"><i
+                            class="fa-solid fa-circle-info"></i>Similarity Result</h6>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" style="font-weight: 300;">
+                    <h6>Your Document Title: {{title.student_title}}</h6>
+                    <div class="table"  id="result-table">
+                        <div class="row header" style="display:grid; grid-template-columns: 2fr 2fr 1fr 1fr 1fr">
+                            <div class="cell">Title</div>
+                            <div class="cell">Proponents</div>
+                            <div class="cell">Adviser</div>
+                            <div class="cell">School Year</div>
+                            <div class="cell similarity-header">Similarity</div>
+                        </div>
+                        <div class="row" style="display:grid; grid-template-columns: 2fr 2fr 1fr 1fr 1fr">
+                            {% for document in title.most_similar_documents.all %}
+                            <div class="cell">{{document.docs_title}}</div>
+                            <div class="cell">{{document.proponents}}</div>
+                            <div class="cell">{{document.adviser}}</div>
+                            <div class="cell">{{document.school_year}}</div>
+                            <div class="cell">{{document.similarity|floatformat:0}}%</div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>

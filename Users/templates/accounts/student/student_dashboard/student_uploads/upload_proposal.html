@@ -1,0 +1,155 @@
+{% extends "base/student_base.html" %}
+
+{% block title %}Proposal Document Upload{% endblock title %}
+
+{% block content %}
+
+<br>
+<div class="container">
+    <h2 class="text-center" style="margin-bottom: 10px;">Welcome to the Proposal Document Upload!</h2>
+    <hr>
+    <p  style="font-size: 18px; line-height: 1.5;text-align: justify;">This page allows you to upload your title defense
+        document and calculate its similarity with other documents in the repository. You will be able to see the title
+        and similarity percentage of the documents that have the highest similarity to your document. This can be useful
+        for checking for plagiarism or for finding similar research for reference.</p>
+    <div class="row">
+        {% if nearest_neighbors %}
+        <div class="alert alert-success text-center">
+            <strong>Document similarity calculation complete!</strong>
+        </div>
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-header text-center">
+                    <strong>
+                        <h5>Uploaded Proposal Defense Document!</h5>
+                    </strong>
+                </div>
+                <div class="card-body">
+                    <br>
+                        {% csrf_token %}
+                        <div class="container">
+                            <div class="input-group mb-3">
+                                <span class="side-label btn border-secondary bg-light"> Title:       </span>
+                                <input type="text" class="form-control" name="student_title" max-length="40"
+                                    placeholder="Title:" value="{{ form.cleaned_data.student_title }}" readonly>
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="side-label btn border-secondary bg-light"> Proponent/s: </span>
+                                <input type="text" class="form-control" name="student_proponents" max-length="40"
+                                    placeholder="Proponents" value="{{ form.cleaned_data.student_proponents }}"
+                                    readonly>
+                            </div>
+                            <div class="mt-4" style="width:100%;">
+                                <a href="{% url 'upload_proposal_defense' %}" class="btn btn-primary mb-3">
+                                    <i class="fas fa-arrow-left"></i>Back
+                                </a>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-header text-center">
+                    <strong>
+                        <h5>Similarity Results</h5>
+                    </strong>
+                </div>
+                <div class="card-body">
+                    <table class="fixed-table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Title</th>
+                                <th scope="col" style="width: 5%;">Similarity</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for neighbor in nearest_neighbors %}
+                            <tr class="table-separator">
+                                <td>{{ neighbor.title }}</td>
+                                <td>{{ neighbor.similarity|floatformat:0}}%</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-header text-center">
+                    <strong>
+                        <h5>Upload your Proposal Defense Document here!</h5>
+                    </strong>
+                </div>
+                <div class="card-body" style="height: 350px;">
+    
+                    <form method="POST" action="{% url 'upload_proposal_defense' %}" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="container">
+                            <div class="input-group mb-3">
+                                <span class="side-label btn border-secondary bg-light"> <i
+                                        class="fa-solid fa-book"></i></span>
+                                <input type="text" class="form-control" name="student_title" max-length="40"
+                                    placeholder="Title" required>
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="side-label btn border-secondary bg-light"> <i
+                                        class="fa-solid fa-user-tie"></i></span>
+                                <input type="text" class="form-control" name="student_proponents" max-length="40"
+                                    placeholder="Proponents" required>
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="side-label btn border-secondary bg-light"> <i class="fa-solid fa-person-chalkboard"></i></span>
+                                <input type="text" class="form-control" name="adviser" max-length="40"
+                                    placeholder="Adviser" required>
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="side-label btn border-secondary bg-light"> <i class="fa-solid fa-calendar-days"></i></span>
+                                <input type="text" class="form-control" name="school_year" max-length="40"
+                                    placeholder="School Year" required>
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="side-label btn border-secondary bg-light"> <i
+                                        class="fa-solid fa-file"></i></span>
+                                <input type="file" class="form-control" name="student_pdf_file" max-length="40"
+                                    placeholder="Upload File" required>
+                            </div>
+                            <div class="mt-4" style="width:100%;">
+                                <button type="submit" class="btn btn-primary mb-3">
+                                    <i class="fas fa-plus"></i>Submit
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-header text-center">
+                    <strong>
+                        <h5>Similarity Results</h5>
+                    </strong>
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Title</th>
+                                <th scope="col">Similarity</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock content %}

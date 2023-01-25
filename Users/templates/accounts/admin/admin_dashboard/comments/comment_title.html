@@ -1,0 +1,34 @@
+    <!--modal view-->
+    <div class="modal fade" id="commentTitleModal{{title.id}}" tabindex="-1" role="dialog"
+        aria-labelledby="commentTitleModalLabel{{title.id}}" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="modal-title fs-5" id="commentTitleModalLabel{{title.id}}"><i
+                            class="fa-solid fa-circle-info"></i>Comments</h6>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body" style="font-weight: 300;">
+                    <h6>Your Document Title: {{title.student_title}}</h6>
+                    <div class="table" id="result-table">
+                        <div class="row header" style="display:grid; grid-template-columns: 1fr 2fr">
+                            <div class="cell panel-user-header">Panel</div>
+                            <div class="cell comment-header">Comments</div>
+                        </div>
+                        <div class="row" style="display:grid; grid-template-columns: 1fr 2fr">
+                            {% for comment  in title.comments.all %}
+                            <div class="cell">
+                                {% for user in comment.user.all %}
+                                {{ user.username }}
+                                {% endfor %}
+                            </div>
+                            <div class="cell">{{comment.comment}}</div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>

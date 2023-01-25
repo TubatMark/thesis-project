@@ -1,0 +1,43 @@
+<!--modal view-->
+<div class="modal fade" id="actionModal{{panel.id}}" tabindex="-1" role="dialog"
+    aria-labelledby="actionModalLabel{{panel.id}}" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title fs-5" id="actionModalLabel{{panel.id}}"><i
+                        class="fa-solid fa-circle-info"></i>Panel History</h6>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" style="font-weight: 300;">
+                <h6>Panel name: {{panel.first_name}} {{panel.last_name}}</h6>
+                <div class="table" id="result-table">
+                    <div class="row header" style="display:grid; grid-template-columns: 2fr 2fr 1fr 2fr 3fr">
+                        <div class="cell">Title</div>
+                        <div class="cell">Proponents</div>
+                        <div class="cell">Status</div>
+                        <div class="cell">Status Update</div>
+                        <div class="cell">Comments</div>
+                    </div>
+                    {% comment %} {% for panel in registered_panel %} {% endcomment %}
+                    {% for doc in docs_updated_by %}
+                        {% if doc.status_updated_by == panel %}
+                            <div class="row" style="display:grid; grid-template-columns: 2fr 2fr 1fr 2fr 3fr">
+                                <div class="cell">{{doc.student_title}}</div>
+                                <div class="cell">{{doc.student_proponents}}</div>
+                                <div class="cell">{{doc.status}}</div>
+                                <div class="cell">{{doc.status_updated_at}}</div>
+                                <div class="cell">
+                                    {% for comment in doc.comments.all %}
+                                    {{ comment.comment }}<br>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            {% endif %}
+                    {% endfor %}
+                    {% comment %} {% endfor %} {% endcomment %}
+                </div>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

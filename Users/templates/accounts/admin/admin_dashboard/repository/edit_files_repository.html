@@ -1,0 +1,35 @@
+{% extends "accounts/admin/admin_dashboard/repository/add_files_repository.html" %}
+
+<!-- modal id-->
+{% block modal-id%} id="editModal{{repo.id}}" {% endblock modal-id %}
+
+<!-- modal title -->
+{% block modal-title %} <i class="fa-solid fa-pen-to-square"></i> Edit File For Repository {% endblock modal-title %}
+
+<!-- form action-->
+{% block Action %} action="/EditRepositoryFiles/{{repo.id}}"{% endblock Action %}
+
+<!-- button action (content)-->
+{% block Btn-action %} <i class="fas fa-server"></i> Save Changes{% endblock Btn-action %}
+
+<!-- title on tab-->
+
+{% block title %} Edit File Repository {% endblock title %}
+
+
+<!-- ALL INPUTS -->
+<!-- block id-->
+{% block repo-id %}
+<h6>ID</h6>
+<input type="text" class="form-control" name="id" value="{{repo.id}}" readonly>
+<hr>
+{% endblock repo-id %}
+
+<!--title-->
+{% block repo-title %} value="{{repo.title}}" {% endblock repo-title %}
+
+<!--proponents-->
+{% block repo-proponents %} value="{{repo.proponents}}" {% endblock repo-proponents %}
+
+<!--file-->
+{% block repo-file %} value="{{repo.pdf_file}}" {% endblock repo-file %}

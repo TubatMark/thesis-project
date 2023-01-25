@@ -1,0 +1,182 @@
+{% extends "base/student_base.html" %}
+
+{% block title %}Document Comparison{% endblock title %}
+
+{% block content %}
+
+<br>
+<div class="container">
+    {% if result %}
+    <div class="alert alert-success text-center">
+        <strong>Document comparison calculation complete!</strong>
+    </div>
+    <hr>
+    <p style="font-size: 18px; line-height: 1.5;text-align: justify;">Welcome! The comparison of your documents is complete. Please find the result below. The percentage indicates the similarity between the two documents. If you would like to compare your documents again, please click the 'Compare Again' button below.</p>
+    <div class="row">
+
+        
+
+        <!--DOCUMENT1-->
+        <div class="col-sm-5">
+            <div class="card">
+                <div class="card-header text-center">
+                    <strong>
+                        <h5>Your Document</h5>
+                    </strong>
+                </div>
+                <div class="card-body" style="height: 170px;">
+
+                    <div class="container">
+                        <div class="input-group mb-3">
+                            <span class="side-label btn border-secondary bg-light"> <i
+                                    class="fa-solid fa-book"></i></span>
+                            <input type="text" class="form-control" name="doc1_title" max-length="40"
+                                value="{{doc1_title}}" readonly>
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="side-label btn border-secondary bg-light"> <i
+                                    class="fa-solid fa-user-tie"></i></span>
+                            <input type="text" class="form-control" name="doc1_proponents" max-length="40"
+                                value="{{doc1_proponents}}" readonly>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--result-->
+        <div class="col-sm-2 text-center">
+            <div class="card">
+                <div class="card-header text-center">
+                    <strong>
+                        <h6>Comparison Result</h6>
+                    </strong>
+                </div>
+                <div class="card-body">
+                    <div class="container">
+                        {{result|floatformat:0}}%
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <a href="{% url 'document_comparison' %}" class="btn btn-primary mb-3">
+                        Compare again?
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!--DOCUMENT2-->
+        <div class="col-sm-5">
+            <div class="card">
+                <div class="card-header text-center">
+                    <strong>
+                        <h5>Compared Document</h5>
+                    </strong>
+                </div>
+                <div class="card-body" style="height: 170px;">
+                    <div class="container">
+                        <div class="input-group mb-3">
+                            <span class="side-label btn border-secondary bg-light"> <i
+                                    class="fa-solid fa-book"></i></span>
+                            <input type="text" class="form-control" name="doc2_title" max-length="40"
+                                value="{{doc2_title}}" readonly>
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="side-label btn border-secondary bg-light"> <i
+                                    class="fa-solid fa-user-tie"></i></span>
+                            <input type="text" class="form-control" name="doc2_proponents" max-length="40"
+                                value="{{doc2_proponents}}" readonly>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% else %}
+        <h2 class="text-center" style="margin-bottom: 10px;">Welcome to the Document Comparison page of our website!
+        </h2>
+        <hr>
+        <p style="font-size: 18px; line-height: 1.5;text-align: justify;">This page allows you to upload your title
+            defense document and calculate its similarity with other documents in the repository. You will be able to see the
+            title and similarity percentage of the documents that have the highest similarity to your document. This can be
+            useful for checking for plagiarism or for finding similar research for reference.</p>
+        <form method="POST" action="{% url 'document_comparison' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row">
+                <!--DOCUMENT1-->
+                <div class="col-sm-6">
+                    <div class="card">
+                        <div class="card-header text-center">
+                            <strong>
+                                <h5>Upload your Document here!</h5>
+                            </strong>
+                        </div>
+                        <div class="card-body" style="height: 200px;">
+
+                            <div class="container">
+                                <div class="input-group mb-3">
+                                    <span class="side-label btn border-secondary bg-light"> <i
+                                            class="fa-solid fa-book"></i></span>
+                                    <input type="text" class="form-control" name="doc1_title" max-length="40"
+                                        placeholder="Title" required>
+                                </div>
+                                <div class="input-group mb-3">
+                                    <span class="side-label btn border-secondary bg-light"> <i
+                                            class="fa-solid fa-user-tie"></i></span>
+                                    <input type="text" class="form-control" name="doc1_proponents" max-length="40"
+                                        placeholder="Proponents" required>
+                                </div>
+
+                                <div class="input-group mb-3">
+                                    <span class="side-label btn border-secondary bg-light"> <i
+                                            class="fa-solid fa-file"></i></span>
+                                    <input type="file" class="form-control" name="doc1_pdf_file" max-length="40"
+                                        placeholder="Upload File" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--DOCUMENT2-->
+                <div class="col-sm-6">
+                    <div class="card">
+                        <div class="card-header text-center">
+                            <strong>
+                                <h5>Upload the Document to be compare here!</h5>
+                            </strong>
+                        </div>
+                        <div class="card-body" style="height: 200px;">
+                            <div class="container">
+                                <div class="input-group mb-3">
+                                    <span class="side-label btn border-secondary bg-light"> <i
+                                            class="fa-solid fa-book"></i></span>
+                                    <input type="text" class="form-control" name="doc2_title" max-length="40"
+                                        placeholder="Title" required>
+                                </div>
+                                <div class="input-group mb-3">
+                                    <span class="side-label btn border-secondary bg-light"> <i
+                                            class="fa-solid fa-user-tie"></i></span>
+                                    <input type="text" class="form-control" name="doc2_proponents" max-length="40"
+                                        placeholder="Proponents" required>
+                                </div>
+
+                                <div class="input-group mb-3">
+                                    <span class="side-label btn border-secondary bg-light"> <i
+                                            class="fa-solid fa-file"></i></span>
+                                    <input type="file" class="form-control" name="doc2_pdf_file" max-length="40"
+                                        placeholder="Upload File" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-sm-12 text-center">
+                    <input type="submit" class="btn btn-primary mb-3" value="Compare">
+                </div>
+            </div>
+        </form>
+        {% endif %}
+    </div>
+
+    {% endblock content %}

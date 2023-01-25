@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} Student Dashboard {% endblock title %}</title>
+
+    <!-- navbars -->
+    <link rel="stylesheet" type="text/css" href="{% static 'style/student_nav.css' %}">
+
+    <!-- bootstrap css -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+
+    <!-- tables -->
+    <link rel="stylesheet" href="{% static 'style/table.css' %}">
+    <link rel="stylesheet" href="{% static 'style/student_comment_table.css' %}">
+
+    <!--loading css-->
+    <link rel="stylesheet" href="{% static 'style/loading.css' %}">
+
+    <!-- DataTables CSS -->
+    {% comment %} <link rel="stylesheet" type="text/css" href="{% static 'DataTables/css/datatables.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'style/table.css' %}"> {% endcomment %}
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css">
+
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="{% static 'icons/css/all.min.css' %}">
+
+    <!-- Sweetalert CSS-->
+    <link rel="stylesheet" href="{% static 'css/sweetalert2.min.css' %}">
+</head>
+
+<body>
+
+    <!-- includes -->
+    {% include "navbar/student_navbar.html" %}
+
+
+    {% block content %} {% endblock content %}
+
+
+    <!-- Bootstrap JavaScript -->
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="{% static 'js/jquery-3.6.2.js' %}"></script>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+
+    <!-- Sweetalert JS-->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script src="{% static 'js/sweetalert2.all.min.js' %}"></script>
+
+    <!-- DataTables JavaScript -->
+    <script type="text/javascript" src="{% static 'DataTables/js/datatables.min.js' %}"></script>
+    <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
+
+    <!-- Popper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.16.6/dist/umd/popper.min.js"></script>
+
+    <!-- Font Awesome JavaScript -->
+    <script src="{% static 'icons/js/all.min.js' %}"></script>
+
+    <!-- Datatables Script -->
+    
+    <script>
+        $(document).ready( function () {
+            $('#docsUploadsDatatable').DataTable({
+                "aLengthMenu": [
+                    [3, 5, 7, 10, 25, "All"],
+                    [3, 5, 7, 10, "All"]
+                ],
+                paging: true,
+                pageLength: 5,
+                lengthChange: true,
+                autoWidth: false,
+                searching: true,
+                bInfo: true,
+                bSort: true,
+                responsive: true,
+            });
+        } );
+    </script>
+    <script>
+        $(document).ready( function () {
+            $('#studentRepositoryDatatable').DataTable({
+                "aLengthMenu": [
+                    [3, 5, 7, 10, 25, "All"],
+                    [3, 5, 7, 10, "All"]
+                ],
+                paging: true,
+                pageLength: 5,
+                lengthChange: true,
+                autoWidth: false,
+                searching: true,
+                bInfo: true,
+                bSort: true,
+                responsive: true,
+            });
+        } );
+    </script>
+    <script>
+        $(document).ready( function () {
+            $('#titleuploadDatatable').DataTable({
+                "aLengthMenu": [
+                    [3, 5, 7, 10, 25, "All"],
+                    [3, 5, 7, 10, "All"]
+                ],
+                paging: true,
+                pageLength: 5,
+                lengthChange: true,
+                autoWidth: false,
+                searching: true,
+                bInfo: true,
+                bSort: true,
+                responsive: true,
+            });
+        } );
+    </script>
+    <script>
+        $(document).ready( function () {
+            $('#proposaluploadDatatable').DataTable({
+                "aLengthMenu": [
+                    [3, 5, 7, 10, 25, "All"],
+                    [3, 5, 7, 10, "All"]
+                ],
+                paging: true,
+                pageLength: 5,
+                lengthChange: true,
+                autoWidth: false,
+                searching: true,
+                bInfo: true,
+                bSort: true,
+                responsive: true,
+            });
+        } );
+    </script>
+    <script>
+        $(document).ready( function () {
+            $('#finaluploadDatatable').DataTable({
+                "aLengthMenu": [
+                    [3, 5, 7, 10, 25, "All"],
+                    [3, 5, 7, 10, "All"]
+                ],
+                paging: true,
+                pageLength: 5,
+                lengthChange: true,
+                autoWidth: false,
+                searching: true,
+                bInfo: true,
+                bSort: true,
+                responsive: true,
+            });
+        } );
+    </script>
+
+</body>
+
+</html>
