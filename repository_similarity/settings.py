@@ -79,11 +79,11 @@ WSGI_APPLICATION = "repository_similarity.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
-        "NAME": "repository-similarity",
+        "NAME": "railway",
         "USER": "root",
-        "PASSWORD": "",
-        "HOST": "localhost",
-        "PORT": "3306",
+        "PASSWORD": "Xd2kAlVvPRhMabGpnoWN",
+        "HOST": "containers-us-west-155.railway.app",
+        "PORT": "7046",
         "OPTIONS": {
             "init_command": "SET sql_mode='STRICT_TRANS_TABLES'",
             "charset": "utf8mb4",
