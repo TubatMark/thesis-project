@@ -1,0 +1,1756 @@
+“Anilab: An Augme nted Reality Mobile Application Used to 
+Assist Teacher in Educating Elementary  Students”  
+  
+  
+ 
+ 
+ 
+ 
+  
+  
+  
+  
+Submitted by:  
+Ella Jane B . Caraecle  
+Feljan P. Sularte  
+  
+  
+  
+  
+  
+      
+A Thesis Proposal Submitted in Partial Fulfillment of the Requirements 
+for the Degree  of Bachelor of Science in Computer Science  
+      
+      
+      
+      
+Western Mindanao State University      
+Institute of Computer Studies      
+Philippines      
+June 2021       
+      
+  
+TABLE OF CONTENTS  
+ 
+List of tables ………………………………… …………………… …………..  
+List of figures .………………………………… ………………….. ………….  
+Chapter 1 -Introduction …………………… ………………….. ……….……  
+1.1. Background of the Study  .…..………………….. ..…………… ……….  
+1.2 Statement of the Problem ………………. ……………… ………. ….… 
+1.3 Objectives … …………………… ………………………………... .....… 
+1.4. Significance of the study ………………….. ……………..………….……  
+1.5. Scope and Limitations  …………… …………………. ………………….  
+1.6. Operational Definition ……… ……………….. ……………………….   
+1.7. Conceptual Framework ……………….. …………………………..……  
+Chapter 2. Review of Related Literature  …………………………………..  
+2.1. Related Literature …………… ……………….. ………………………………….  
+2.1.1. Online  Learning …………… ………………….. …………………………………  
+2.1.2. Online Learning  Success  …………………………………………………………  
+2.1.3. Online Learning  Challenges  …………………………………………………….  
+2.1.4. Augmented Reality ……………………………………………………………….  
+2.1.5. Augmented Reality vs Virtual Reality ………………………………………….  
+2.1.6. Mobile Augmented Reality …………………………..…………………………  
+2.2. Related Studies ………………………………………………………………………  
+2.2.1 Foreign Studies  …………………………………..…… ………………………….  
+2.2.2 Local Studies ………………………………………………………………..…..…  
+Chapter 3. Methodology  ………………………………………………………………  
+3.1.   Research Design …………………………………………………………  
+3. 2. System Application Design  …………………………………………… . 4 
+4 
+5 
+5 
+7 
+7 
+8 
+9 
+10 
+11 
+12 
+12 
+12 
+14 
+17 
+19 
+20 
+23 
+25 
+25 
+28 
+30 
+31 
+31 
+ 
+ 3.3 Marker Based Procedure ………………………………………………..  
+3.4. Vuforia ……………………………………………………………..…….  
+3.5. User Case Diagram  ……………………………………………………………….…  
+3.6. Research Materials …………………………………………………………………  
+3.6.1 Software ……………………………………………………………………………  
+3.6.2. Hardware …………………………………………………………………………  
+3.7. Research Locale  …………………………………………………………………….  
+3.8. Population and Sampling  ………………………………………………  
+3.9. Research Instruments ………………………………………………………..……  
+3.10. Validity of Instruments  ……………………………………………………………  
+3.11. Data Gathering Procedure  ………………………………………………………..  
+3.12. Statistical t ool ………………………………………………………………………  
+Chapter  4 Results and Discussions  …………………………………………………….  
+4.1 Samples and Population  …………………………………………………  
+4.2. Online Learning …………………………………………………………..…………  
+Chapter 5. Conclusion and Recommendation ………………………………………..  
+5.1. Conclusion …………………………………………………………………………..  
+5.2. Recommendation …………………………………………………………………  
+References ………………………………………………………………………………  
+Appendices ………………………………………………………………………………  
+Survey form …………………………………………………………………………….  
+ 32 
+34 
+34 
+34 
+34 
+35 
+35 
+36 
+36 
+37 
+37 
+38 
+39 
+39 
+40 
+46 
+46 
+46 
+47 
+51 
+52 
+  
+ 
+List of Tables  
+LIST OF TABLES  
+Table 4.1 Distribution of Respondents According to Category ……….. ….. 
+Table 4.2 Responses of Students  ……………………………… …………….  
+Table 4.3 Responses of Teachers  ………………………… ...………………  
+Table 4.4 Pie chart on Rating online Learning  …………………………….  
+Table 4.5  Usefulness of Video games in Learning or Teaching  ………….  
+Table 4. 6. Pie chart on Responses on related app  ………. ………….. ……  
+ Table 4. 7. Percentage of Response on focus during this pandemic ………  
+Table 4. 8. Pie Chart of respondents doing well ………………… ..………  
+   Table 4.9. Rating s in terms of entertainment  …………………………… . 
+Table.4. 10 ANILAB as an additional material ……………………….……..  
+Table 4.1 1 Pie Chart  of ANILAB in enhancing knowledge  ……..…………  
+Table 4.1 2 ANILAB as a material in studying and teaching …… ..…           
+Table 4.1 3.  Rating of ANILAB in terms of educational content  ……………  
+Table 4.1 4. Rating o f ANILAB in terms of systems functionality…… ….. 
+ 39 
+40 
+40 
+41 
+ 
+42 
+42 
+43  
+43 
+ 
+44 
+44 
+45 
+45 
+45 
+ 
+ 
+ 
+ 
+ 
+ 
+     
+   
+   
+      
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  LIST OF FIGURES  
+Figure 1. Conceptual Framework of proposed 
+mobile application using Augmented 
+Reality   11 
+Figure 2.  Reality -virtuality continuum Taken from Yuan thesis   
+ 23 
+Figure 3. Mobile Marker - Based Augmented Reality Application Design  
+ 31 
+Figure 4. User Case Diagram  34 
+ 
+Chapter 1.  Introduction      
+1.1. Background of the Study      
+ 
+Many people's lives were affected by the pandemic  cause d by Covi d – 19. The 
+education sector is one of those hit by the Covid -19 pandemic. As a result, all 
+classrooms have been transitioned to online classes, but teachers and students, 
+especially those in elementary school, are finding it difficult to te ach/learn because they 
+are accustomed to face -to-face instruction  or classroom setting . Students' required 
+learning resources are readily available at their classrooms. Students were quickly bored 
+even though  it was online and seemed to be easy. Elementary  students find it hard to 
+understand to keep up with their classes. Hence, students' concentration and emphasis 
+are lacking because they are still young.   
+ 
+The online learning for both students and teachers has advantages and 
+disadvantages, just like any other teaching method.   
+ 
+The transition to online learning for all students is very effective this teaching 
+method provides another way to minimize the conn ection between students or between 
+students and teachers.  
+ 
+An efficient way to visualize abstract concepts and support students’ 
+interaction and engagement is the Augmented Reality (AR). Elementary pupils like to 
+study and learn by using images or videos than learning through short messages 
+services (SMS) of their teachers. Augment Reality is one of the solutions  of visualizing 
+the learning process of the students. Through these technology, elementary students 
+will have fun while learning.  Thus, using AR technology will be beneficial and helpful 
+for the elementary teachers on teaching their lessons to their students.   
+ 
+ The application of AR in education has been investigated at all educational 
+levels, including early childhood education. In primary and s econdary education 
+(Koutromanos, G.; Sofos, A.; Avraamidou,  2015) , as well as from elementary  school 
+to university levels , (Scrivner, O.; Madewell, J.; Buckley, C.; Perez, N. December 
+2016) . 
+ 
+ Kindergarten pupils, K -12 students, university students, and ad ult learners are 
+all examples of different sorts of learners. Elderly individuals, students in technical an d 
+vocational higher education (Radosavljevic, 2018, Akçayır, M., 2017)  and students 
+with special needs focused on a variety of study areas (for examp le, city history ), 
+(Rodríguez, F.E., 2013, M.; Dede, C. 2014.)  B oth in formal and informal settings i n 
+the framework of contextual learning theory (Rodríguez, F.E.;  2013 ) and constructivist 
+learning, learning settings theory.  
+ 
+ Augmented re ality (AR) has been described as "system that have the following 
+three features: (1) combine real and virtual, (2) interactive in real time , and (3) 
+registered in 3 -D." (Azuma, R.T. 1997, p. 2), while it is more broadly described as a 
+state between actual a nd virtual surroundings (Milgram, P.; Takemura, H.; Utsumi, A.; 
+Kishino, F, 2351, 282 –292)   .AR technology enables simultaneous interaction between 
+the real and virtual worlds. Digital information (text, audio, images, video, 3D objects) 
+is superimposed o n the real world in such a way that it appears to be a part of it. It does 
+not isolate the user from the physical environment, which "is likely one of the key 
+reasons for AR's growing popularity" . (Kounavis, C.D.; Kasimati, A.E.; Zamani, E.D. 
+2012, 4, 1 –6p. 2).  
+ 
+ Augmented reality apps are classified into two types: image -based applications 
+and location -based applications. Image -based applications are further classified into 
+two types:  (a) marker -based tracking, which requires specific labels (e.g., Quick  
+Response Code), and (b) marker -less tracking, in which an image serves as the trigger 
+for multimedia content playback. When a user arrives at a specific location, location -
+based applications are activated.  
+ 
+ 1.2 Statement of the Problem  
+  
+   During the past year, due to a viral outbreak of a disease named "COVID -19", 
+most countries has opted to promote social distancing and strict quarantine procedures 
+to combat the spread of said epidemic. This has also resulted in many stud ents to take 
+online classes as a replacement to campus lectures or classrooms following the 
+quarantine guidelines. However, many students, including younger ones have often find 
+this format of classes boring and thus hindering them from learning subjects n eeded for 
+their future.   
+ 
+The researchers would like to propose the use of augmented reality (AR) to 
+better enhance the interest of students in learning, help them visualize things and to have 
+an interaction for better learning experiences.   
+ 
+ 
+ 
+ 
+1.3 Objec tives:   
+ 
+The main goal of this research is to see the effectiveness and efficiency 
+of Augmented Reality Application that would benefit both teachers and students 
+where teachers could teach their students easily and students to easily 
+understand their less ons.     
+ 
+• To develop a marker -based  application using unity game engine.  
+• To conduct a survey for students ages 10 to 12 years old on usability of the 
+application.       
+• To conduct a survey for the teachers to determine the system functionality and 
+educational content of the app.      
+• To validate the design and performance efficiency of the system.     
+ 
+1.4. Significance of the Study      
+      
+• The Augmented Reality (AR) game application that was used  were beneficial 
+for both elementary students and teachers.  
+• It was less hassle and stress -free for the elementary teachers on how their 
+students will learn their lesson.  
+• Elementary students did not  only learn but have fun while learning their lessons  
+  
+1.5. Scope and Limitations      
+  The researchers’ will develop an Augmented Reality application that will assist 
+the teachers to teach the lessons to elementary students and help the elementary students 
+to underst and and focus on their studies.  
+1. The application was  marker -based  application due to the limited 
+resources of the researchers.  
+2. The application focuses  only on elementary science subject specifically, 
+the human body skeletal system.  
+3. The ap plication was limited to devices that are compatible with the 
+google play service for AR.   
+4. The hardware and software that was used in developing the application 
+was also limited due to lack of resources of the researchers.  
+5. The research is limited to stud ents across Zamboanga City Division's  
+Baliwasan  District 's Grade 5 and Grade 6 classes.   
+6. The following schools involved are Baliwasan Central School, San Jose 
+Gusu Elementary School, Good Shepherd Missions School , Southern Support 
+Command Elementary School , Ebenezer Bible Schools  and John Spring Elementary 
+School are the elementary schools that make up this school district.       
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+1.6. Operational Definition      
+ 
+In this section, terms will be defined in relation to the researcher’s study. The 
+following are the terms used in this study:     
+     
+ Augmented Reality – The application of sound, visual objects, or other 
+sensory effects to a real -world environment.      
+ Unity Engine game –   is a gaming engine used for the developing the mobile 
+Augmented Reality.       
+ Image recognition machine vision - is that the power of software to identify 
+objects, places, people, writing and actions in images.     
+     
+ Image Tracking  –  detects two -dimensional planar pictures from a custom -
+defined target collection and then continually monitors the pictures' positions and 
+orientations as you or they move in the setting      
+ Marker base - is a mobile device application that allows you to  scan physical 
+photos, known as "markers," and then produce a 3D model, another picture, video,  Or 
+scene, as well as interact with it using your smartphone      
+ Vuforia Engine - is an Augmented Reality software development kit (SDK).     
+ Learners - are elem entary school students who will use the program.     
+ E learning - is defined as a learning system that includes both structured and 
+informal learning through the use of technology resources.     
+ Elementary Science Teacher - a person who teaches science subject.     
+ 
+ 
+ 
+ 
+1.7 CONCEPTUAL FRAMEWORK      
+   
+In this section, the main dependent variable is the learning in augmented Reality. 
+The student user which is the independent variable that consist of Male and Female that 
+are mediator variables which will be  the users of the application . The Subject topic 
+which is also the independent variable that helps the students user to better understand 
+topic that is dependent variable so that students able to learn and enhanced their 
+learnings and knowledge on their l essons and easier to be able to understand the lessons.  
+While the consistency is the use of augmented reality for the next output variables.      
+    
+ 
+ 
+ 
+ 
+ 
+Figure 1. Conceptual Framework of proposed mobile app lication using Augmented Reality  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+  
+  
+  
+  
+
+ 
+ 
+     
+Chapter 2 .  Review of Related Literature  
+     
+2.1. RELATED LITERATURE      
+2.1.1. ONLINE LEARNING      
+Rodriguez et al. (2008) agreed, contending that sustaining enrollment in 
+advanced education would be dependent on understudies' learning experiences 
+and observations in an online format, an estimation also discussed by Dobbs, 
+Waid, and Del Carmen (2009) an d Motargy and Boghikian -Whitby (2010). 
+Various experts have recommended increased testing in this area (Allen and 
+Sailor, 2008; Glass  and Sue, 2008; Powell, 2007).       
+ 
+Advances in development of computer technology since the 1990s have 
+achieved an extend ed usage of online devices in distance tutoring. Today, 
+various establishments of higher learning offer online direction with fused 
+electronic instructive gadgets (Rodriguez, Ooms, and Montanez, 2008). E -
+learning is another effective method of improving go vernment assistance, 
+especially in the organization chosen for this evaluation (Collins, Kim, and 
+Amodeo, 2010; Donavant, 2009; P. Griffith, May 23, 2013 singular 
+correspondence). Because of the recent growth in distance learning in the field 
+of government  assistance, there is a lack of knowledge of how government 
+benefits professionals perceive by using this kind of learning system.      
+ 
+Online classes have been shown to be beneficial for students who choose 
+self-directed instruction (You and Kang, 2014).  An understudy responded to 
+online coursework in a Kirtman -led review says, "It is more private, so I can spend 
+more resources on the ideas that I need assistance with and less in ideas that I can get 
+quickly" (Kirtman, 2009, p. 110). Self -regulated studen ts are more likely to use a 
+variety of "intellectual and metacognitive procedures to accomplish their learning goal" 
+(You and Kang, 2014, p. 126). Students who can enhance their self -directed academic 
+skills often used time management, audited content 6 We b-based LEARNING on a 
+regular basis, sought assistance from instructors or peers, faced time limits, and used 
+metacognition to consider their own lea rning (You and Kang, 2014).     
+ 
+In a survey comparing teachers' and students' views on online education, 
+(GayTan , 2015) discovered that students viewed improved online learning as the 
+absolute most significant factor in maintaining on -site learning, with instructor 
+experiences as the second most significant factor. Karma and Rossi (2015) discovered 
+that when t eachers and students do not communicate, online students perceive 
+distance to be more dominant, and that without contact, students experience feelings 
+of hopelessness. Students perceive themselves to be more completely disconnected in 
+on-line classes than the face -to-face classes and  disconnected but also less motivated 
+to social community (Otter et al., 2013).     
+ 
+Disconnection affects students’ academic understanding throughout the online 
+learning, which can result in class frustration or withdrawal rates. Lowenthal, Bauer, 
+and Chen (2015) used experiments to gather feedback from online students and 
+discovered when positive feedback from online instructors or advice was rated lower 
+than positive feedback from face -to-face instruction. Th e latest research by the Bill & 
+Melinda Gates Foundation found that learning criticism enhanced students' 
+performance, indicating there's a need to analyze students' perceptions of online classes.     
+ 
+The interpretation of appropriate psychological and so cial education 
+systems between students will encourage additional outstanding patience and 
+encouragement to continue pursuing more online classes.     
+ 
+The interpretation of appropriate psychological and social education 
+systems between students will encou rage additional outstanding patience and 
+encouragement to continue pursuing more online classes. For example, some 
+research examined into the competence of behaviors and ways of thinking about 
+improvement management of K to 12 curriculum government support ed 
+educators in urban and rural setting. The  purpose was to investigate the 
+connection between repeat use as well as opinion mostly on validity of internet 
+learning devices depending on the type of school environment. Schools seemed 
+to have the maximum lev el of development reliability, accompanied by their 
+country peers. This data can be beneficial to online students and teacher in 
+understanding the most productive developments, as well as work base to 
+enhanced use of progress, especially in the country ass essment. To improve 
+students' trial learning in the investigative corridor, renowned researcher 
+developed an e - learning structure using a combination of structure methods and 
+appropriate learning methods.  
+       
+Coordinating requests are expected to be suggestive of creative 
+relationship to energize their inventive thinking. Through peer evaluation, 
+understudies could acquire from others' thinking methodologies while appreciating and 
+denouncing their creation. After the structure was made, an evaluation attempt was 
+performed. Differentiated and the benchmark bunch, individuals who used the system 
+to help forming showed tremendous redesigns after various occasions trainings. At that 
+point, other assessment communicated that the standard "flipped homeroom" passes on 
+address material in video setup to understudies outside of class to represent dynamic 
+learning in class.       
+   
+The interpretation of appropriate psychological and social education systems 
+between students will encourage additional outstanding patience and encouragement to 
+continue pursuing more online classes.  For example, some research examined into the 
+competence of behaviors and ways of thinking about improvement management of K 
+to 12 curriculum government -supported educators in urban and r ural setting.   
+ 
+The purpose was to investigate the connection between repeat use as well as 
+opinion mostly on validity of internet learning devices depending on the type of school 
+environment. Schools seemed to have the maximum level of development reliab ility, 
+accompanied by their country peers. This data can be beneficial to online students and 
+teacher in understanding the most productive developments, as well as work base to 
+enhanced use of progress, especially in the country assessment. To improve stud ents' 
+trial learning in the investigative corridor, renowned researcher developed an e - 
+learning structure using a combination of structure methods and appropriate learning 
+methods     
+      
+Reflexive multimedia illustrations combine with actual proof teaching 
+methods to address known chaos environments for accessing learners. Each 
+incorporates a live action scenario of understudies investigating a whiz concern 
+with a sensible analysis wherein  clients participate. Clients are asked to make 
+figures, answer questions, gather additional details, and draw conclusions over 
+the duration of each ten -minute film. Spreading and imprinting previous 
+responses allows each client  to have a remodeled interpr etation.     
+     
+Assessment of how students will learn from these devices is being used 
+to cultivate whole modules that will meld the IVV as a planning creation to be 
+done as homework, accompanied by suggested activities to be done in class to 
+make the im plemented concepts more significant and more specific. The results 
+of this study show that using an electronic investigation lobby was a major 
+contributor to students' learning development.       
+     
+2.1.2 ONLINE LEARNING SUCCESS      
+      
+Online courses can be agreeable, testing, and give intellectual incitement 
+at the point when understudies are locked in. Capra (2014) noticed that online 
+students time the executives’ abilities and association with online educators 
+upheld online understudy achievement. H amzah, Fortunate, and Joarder, (2014) 
+and Pehlivan (2013) discovered a connection between students' academic 
+achievement, time management skills, and that academically effective learners 
+even manage their time properly. According to Hamzah et al. (2014), a cademic 
+excellence should be enhanced by understudies further developing time 
+management skill. 64 Besides that, Jaggars and Xu (2016) mentioned that in the online 
+learning environment, teacher and students’ involvement, students’ connection, and 
+cordial i nnovation have the largest impact on students' academic achievement.     
+         
+An online direction advertised during enlistment or upon enlistment in the school would 
+additionally help underst udies in knowing their job , what teachers expect of online 
+students, and the contrasts between understudies learning eye to eye versus web based 
+learning conditions  (Bork and Ahidiana, 2013). An online approach advertised during 
+registration either upon enrollment in the school will furthermore aid students in 
+recog nizing their role as an online student, what teachers expect of online students, and 
+the differences between understudies learning face to face versus web -based 
+educational systems (Bork and Ahidiana, 2013). Providing different students online 
+learning dir ection before course section has proven to be successful in converting them 
+to this new way of learning (Haynie, 2014). Furthermore, the structure for internet 
+learning increases learners' interest in learning, coordinates student autonomy, and 
+enhances di scernment for scholarly achievement in students who take part in online 
+courses (Krugers and Waters; Wang, Shannon, and Ross, 2013). The online education 
+system anticipates that students can be successfully engaged with activities that 
+promote the six prin ciples of Knowles' online learning concept (Allen and Zhang, 2016; 
+Schultz, 2012). These principles highlight the student's ability to (a) promote a 
+motivation or soreness for obtaining information, (b) enhance learning guide or 
+structure, (c) self -concept ualize, (d) place oneself in an academic condition of 
+accessibility to accomplish goals, (e) nurture concern based skills, and (f) become such 
+a self -inspiration.     
+     
+2.1.3 ONLINE LEARNING CHALLENGES      
+ 
+Educational technology continues to represent  mainstream culture and therefore 
+restricts people outside the mainstream culture (Oswal and Meloncon, 2014). No 
+technology is an area that can easily be taken for granted in daily life. This is not very 
+common because there is no funding available for onl ine training. Ultimately, this leads 
+to students gaining access to the global knowledge available on the Internet. "Technical 
+exposure can bridge the gap between rich and poor, rich experience and extraordin ary" 
+(Chaney, 2001, p. 28).  No technology is som ething that must be taken for granted in 
+daily life. This is unusual because no funding is available for online study. Ultimately, 
+students will have access to the global knowledge available on the Internet. "Technical 
+exposure can cross the gap between po or and rich, extensive expertise and 
+extraordinary" (Chaney, 2001, p. 28).     
+Despite the benefits and promises o f distance learning, there are few issues that should 
+be addressed, including the learning outcomes, costs involved, use of technology, and 
+perceptions of teachers and students. The average product quality in online learning. 
+Most of these concerns is connect ed to others in various ways.  Another challenge for 
+online students is staying motivated in their classes. Students who lacked independenc e 
+and self -motivation performed less than their classmates (Savenye, 2005).     
+Students with a lack of self -regulation usually did not have enough time to complete 
+the course. Orders therefore lead to inferior work or late orders altogether (You & Kang, 
+2014). In general, "successful students tend to be more confident that they will be 
+successful, have greater self -responsibility, greater self-organization  skills, and better 
+skills and access to technology" (Savenye, 2005, p.2)      
+      
+Baron and Wright (2008) hold the following view: “It is not easy for teachers to 
+introduce new literacy skills into the classroom, especially when two -thirds of teachers 
+are unwilling to use technology” (page 292). Turbill (2001) pointed out three factors 
+that prevent teac hers from using technology in the classroom: lack of time and 
+experience to understand and learn software, lack of security, and lack of learning and 
+support. Hansen (2008) and Businessman (2009)      
+       
+Brush (2007) defines these obstacles as one or m ore of the following: the need for 
+technical support, time constraints, and lack of technology, including insufficient 
+technical tools (such as hardware, software, computers, and other resources). 
+Appropriate technical support must be obtained. Lack of kno wledge and skills can also 
+cause teachers to be reluctant to use technology in the classroom. Class management 
+knowledge leads to a lack of technology in the classroom. Class management skills 
+include rules and procedures for computers, printers, monitors,  laptops and smart 
+boards. Hugh and Brush (2007) also found that there are some institutional barriers that 
+can prevent teachers from using technology in the classroom.      
+Although the use of e -learning has all the advantages, its implementation will cause 
+many problems in the education system. Therefore, the continuous separation of 
+eLearning from the actual environment will undoubtedly lead to identification 
+problems. And the personality of the student. Interaction in such a room is one of the 
+main limitations. In this type of education, comprehensive and inclusive assistance is 
+lost, and the principle of independence is challenged to a certain extent .On the other 
+hand, be lieves that learning is not suitable for any type of education.      
+ 
+2.1.4. AUGMENTED REALITY       
+ 
+Augmented Reality (AR) and Virtual Reality (VR) technologies are becoming 
+increasingly popular as hardware and software evolve, making them accessible for a 
+variety of applications. This have been applied to different areas because of their 
+potential to improve the user experience while learning.  Training, simulation, games 
+or other tasks. This are the two most popular subsections of the broader concept of 
+Augmented Reality (AR) as an umbrella term that encompasses both AR and VR. This 
+is evident from the extensive review by S.Chuah.      
+Unlike virtual reality, augmented reality attempts to enhance rather than replace one's 
+personal environment. By utilizin g a technological lens that enables the user to see and 
+interact with the information that surrounds us augmented reality on mobile allows 
+users to interact with data on a more personal level. New technologies and applications 
+in the fields of information search, entertainment, gaming, and location -based services 
+such as tourism and directional mapping are rapidly emerging.   
+ 
+2.1.5 Augmented reality vs. Virtual reality   
+ 
+Augmented reality is frequently looked upon as a "center ground" between virtual 
+reality and the physical climate (Milgram, 1994). In contrast to augmented reality and 
+the physical world, the realm of virtual reality lies entirely within the synthetic. Virtual 
+reality can be defined as, "a computer generated, interactive, three -­‐dimension al 
+environment in which a person is immersed" (Aukstakalnis& Blatner, 1992). Virtual 
+realities, such as those found in computer games like World of Warcraft and Second 
+Life. Virtual reality can be experienced by the player through control of an avatar in a  
+PC ­‐generated environment and presented on a computer screen. Users may also 
+experience virtual environments by wearing head -­‐mounted displays such as those are 
+commonly used by the military for training purposes.    
+   
+The fundamental difference betwee n virtual and augmented realty lies in the user 
+perspective and immersion methods employed by each system. Virtual reality systems 
+strive to be a completely immersive experience, similar to the level of immersion users 
+experience with everyday living. In c ontrast, augmented reality distinguishes itself as a 
+mixed reality” between two worlds by blending virtual elements within a genuine -‐
+world environment (Milgram, 1994). Characterizing augmented reality: Although 
+many researchers  have  broadened  the  def inition and scope  of augmented  reality, the 
+most regularly accepted defining  criteria were brought about by Ronald Azuma in 1997 
+(Zhou, 2008). Azuma states that augmented reality systems share the following three 
+attributes:    
+1. Combines genuine and virt ual items in this present reality.    
+2. Possesses intelligence and is presented in genuine ­‐time.    
+3. Registers and adjusts virtual and actual items with each other in 3D.    
+The reasoning for these standards is to try not to restrict augmented reality to explicit 
+innovations. Preceding Azuma, researchers had primarily   characterized increased 
+reality using head -­‐mounted shows, an approach incapable to distinguish some AR and  
+VR applications. These new criteria grow the applications  of augmented reality to 
+handheld cell phones such as smartphones   and   screen ­‐based   frameworks that read 
+specialized coded tags that can present augmented reality information on a stationary 
+computer screen (Azuma, 1997).  
+ 
+Augmented Reality introduces a new mode of interacting with the physical and virtual 
+environments, while also improving the real -world user experience (Kesim and 
+Ozarslan, 2012). According to Wu et al. (2013), augmented rea lity (AR) enables 
+students to develop valuable activities and became one of the most important new 
+technologies in education. Students will feel a realistic degree of reality when engaged 
+in such a learning environment, due to the fact that AR will provide  opportunities for 
+teaching and learning.   
+ 
+The use of augmented reality (AR) in education is a hot research subject AR allows 
+users to connect virtual objects to the real world to facilitate real -time interaction .The 
+application research of augmented re ality in education still in its early phases, and no 
+research on the role and consequences of augmented re ality in education is published . 
+AR becomes much more usable because it eliminates the need for special equipment 
+and can be used on mobile devices. M ost people now own mobile devices, and their 
+use has expanded to have better access to AR no longer requires special equipment and 
+can be easily used on computers or mobile devices.  AR supplements the real world 
+with relatively little virtual information,  while VR mainly contains frequently used 
+virtual information . The degree of virtual reality in the real world determines the type 
+of technology needed to support AR, because different display and tracking 
+technologies will lead to different degrees of imm ersion .   
+   
+Example of Software application of AR is the Pokémon GO mobile application that can 
+be used on smartphones another example of the augmented reality technology is the 
+Star Wars Jedi Challenges (Star Wars Jedi Challenges) mobile application, her e users 
+are required to wear a headset. Today, many people have mobile devices and therefore 
+can use AR The advancement of mobile technology and the widespread use of smart 
+phones, learning using AR has become possible.  
+Smartphones and tablets are ideal c hoices for realizing augmented reality experiences 
+through fast processors, graphics hardware, and various integrated sensors.  
+ Mobile AR applications can be used in various education sectors and education related 
+AR applications are now more common on mo bile devices Using AR can increase the 
+motivation of students to study and improve academic performance. Research on the 
+effects of using mobile AR in education is insufficient, and there are many ways to 
+explore the potential of AR to enhance students’ le arning motivation and improve 
+academic performance.  
+Most technologies used for AR and VR are based on a specific single device. Microsoft 
+HoloLens It is a device that inserts virtual objects and information into the user's field 
+of vision, providing an au gmented reality experience. Oculus Rift is a virtual reality 
+viewer that covers what users see the entire field of view and only interact with the 
+virtual objects displayed in the viewer.       
+Other devices include simple smartphone casings, where the sma rtphone transmits 
+images to the user through a stereo lens system. These devices provide an immersive 
+experience in an immersive environment that can easily make users feel as if they are 
+living in a virtual world or expanding and separating in the real wo rld. On the other 
+hand, they also have some shortcomings in terms of ergonomics, such as: B. Due to 
+incorrect focus distance, the user's field of view is limited and eye adjustment problems 
+occur. The fact that users feel completely disconnected from the r eal world can also 
+bring some dangers, especially when used for a long period of time.   
+ 
+2.1.6 . MOBILE AUGMENTED REALITY       
+   
+Augmented Reality on Mobile is a new Augmented Reality technology that can be used 
+on mobile devices such as smartphones, iPad s, iPods, gaming consoles, and military 
+Head -Up Displays (HUD). It extends and improves the mobile device's user experience    
+   
+  
+Figure 2.  Reality -virtuality continuum Taken from Yuan thesis   
+The following characteristics define mobile augmented reality:   
+1) It combines real and virtual imagery;   
+2) It is interactive in real time;   
+3) It registers the virtual imagery with the real world; and4) it is accessible via 
+mobile devices (Goh, Sunar , and Ismail 2019; Keating et al. 2011).   
+   
+The improvement of AR innovation started during the 1960s. In 1994, Milgram and 
+Kishino proposed "reality -virtuality continuum" which separated the innovation 
+between the nonstop scale among the real world and virtuality. Since then, AR has been 
+perceived as a free field of study. Contrasted with blended reality (MR) and computer 
+generated reality (VR), the expanded reality gives more practical encounters with the 
+blend of the virtual and genuine climate.    
+  
+Nonetheless, the improvement of AR was as yet restricted and stayed at the period of 
+preliminary applications until the mid -2000s. With the presentation of superior cell 
+
+phones, camera, designs preparing abilities, and inertial sensors, AR is getting more 
+consideration and won (Ko, Chang, and Ji 2013).   
+There are three main technologies on which the AR system is built:    
+1. Tracking. The system must know the user's view to retrieve and display   related 
+virtual content. In particular, it must know the positio n and orientation of the display 
+system in a physical coordinate system with a known mapping to a virtual system. The 
+setting of orientation and position parameters is called tracking.   
+2. Register. Tracking is only a means to gain registration of the ultima te alignment 
+of real and virtual information displayed to the user. Recording must be performed to 
+an accuracy of pixels at an interactive frame rate to maintain the illusion of real and 
+virtual coexistence in the same domain.    
+3. Display. An AR system must  be able to create a combination of the real and the 
+virtual. Therefore, the screen must be allowing the user to see the real world covered 
+by 3D graphics. It must also be tracked to  at an interactive frame rate.  
+ 
+2.2. RELATED STUDIES      
+   
+ 2.2.1.   FOREIGN STUDIES      
+ Self-Coordinated Learning  
+Several foundations have recently embraced it as an important factor of their long-term 
+preparation and achievement. Despite consistent growth patterns in online attendance 
+and the benefits of onlin e learning, dropout rates for online classes continue to be higher 
+than the conventional (on -campus) courses.      
+     
+The self -coordinated learning (SDL) hypothesis of Knowles have been emphatically 
+connected with online scholastic execution and recognized as indicators of online 
+learning and life achievement.      
+     
+Impacts identifying with knowledge and skills may be  separated into three categories: 
+engagement factors, which make students more receptive to learning; psychological 
+elements, which make learning content more open and aid comprehension; and 
+execution factors, which produce improved results and create skil l. Impacts of creating 
+development as self -governing students centralized: the growth of trust, especially for 
+student who have had little achievement in the past; inspiration to learn; and self -
+sufficiency, taking greater responsibility for their own lear ning and finding out how to 
+learn.     
+      
+The advantages of web -based learning incorporate adaptability, openness, and greater 
+access to learning assets, specifically for communities who may never have the 
+opportunity to acquire an education. Online enr ollment growth patterns are  predictable  
+and the advantages of web -based instruction, online course wear down rates remain 
+higher than traditional face -to face instruction. (Bawa, 2016;  Choi and Park, 2018; Doe 
+et al., 2017; Kauffman, 2015; Pec k, Stefania k, and Shah, 2018). India is utilizing 
+amazing ICT instruments like open source, satellites innovation, neighborhood 
+language interfaces, human -PC interface, advanced libraries, and an arrangement to 
+come to the remotest of towns. College Awards Commission  (UGC) - INFONET gives 
+electronic access to insightful writing accessible over the web in every aspect of 
+figuring out how to the college area in India. UGC also leads IT/ICT direction programs 
+for college and school. For improving the ICT abilities of ins tructors, associations like 
+the Public Board of Instructive Exploration and Preparing (NCERT) and Public Board 
+for Educator Schooling (NCTE) have been dispatching conspires occasionally. .       
+      
+Advantages of Educational Technology development: Consi stent access to learning 
+assets: With portable learning, you can take in and focus anywhere - from the classroom 
+to your office, or from your computer to your pocket. A true modular learning platform 
+enables customers to take a course on any computer.     
+Adaptable, compact  accommodation         
+The most important advantage of m -Learning is the ability to change learning 
+schedules. Students are not restricted to a given actual climate, a certain transportation 
+channel, or a predetermined number of periods fo r undergoing preparation and training. 
+Understudies will update their insight base with a no time to waste premise by using 
+the most current breakthrough to prep for meetings or introductions.         
+Opportunity, force, and choice: m -Learning students can  choose where, when, and how 
+they will think. The new variety of possibilities involves internet, interactive self -
+guided, downloaded online learning, and computer -based learning. Learning offers new 
+levels of opportunity, and also the ability to take cont rol over learning designs. Students 
+will access authoritative capacities, download classes, and survey their learning 
+experience through a learning the executives framework with only a PDA, mobile 
+gadget, PDA, or then again crossover tool.  M-Learning offe rs a proficient path for 
+students to get to key data and boost their time.      
+Shared Learning  
+Shared Learning: Both the capacities of cell phones and their wide setting of utilization 
+add to their penchant to cultivate cooperation. Cell phones can undoub tedly speak with 
+different gadgets of the equivalent or comparative sort, empowering students to share 
+information, records and messages. They can likewise be associated with a common 
+information organization, further improving opportunities for correspond ence. These 
+gadgets are too commonly utilized in a social environment, thus connections and 
+coordinated effort will in general happen through the gadgets as well as at and around 
+them too. Investigation into community learning with cell phones is incredibl y educated 
+by past research on PC Up held   .   
+ 
+ 
+2.2.2. LOCAL STUDIES    
+ 
+At the University of the Philippines – Open College (UPOU, depicted in segment 1.4), 
+asset based  course improvement has been supported since 2003. It into the fundamental 
+course improvement model in 2007 when the college moved to Moodle , an open source 
+VLE which takes into account the production of courses including computerized assets 
+and online exe rcises straightforwardly on the Moodle framework. New courses are 
+being created under an asset based course improvement agreement, and personnel 
+appointed to educate (called personnel in control  or FICs) effectively created courses 
+are urged to enhance the  print modules (or supplant them inside and out, whenever 
+justified) with open instructive assets (OER). FICs are likewise urged to coordinate on 
+the web conversation gatherings, and they are allowed to utilize open source Web 
+devices, for example, media s haring locales and Electronic conferencing applications, 
+to upgrade course conveyance. The effect of setting on instructing approaches is 
+particularly evident where educating and learning are non -adjoining. Among others, the 
+present circumstance makes stud ent investigation "before any educating and learning 
+happens" (Naidu, 2007, p. 248) fundamental.       
+ 
+As per Naidu, while in study hall based educating "[a] extraordinary arrangement about 
+student attributes, their learning styles, and ways to deal with study is regularly 
+assumed" (p. 248), in DE it is basic that student ascribes, abilities, and requirements be 
+taken into account in media determination, plan for association, and evaluation and 
+criticism.(Naidu, 2007; Shearer, 2007). Nonetheless, calculati ng in student attributes is 
+moreover especially testing in DE where there is an extraordinary variety of students 
+and learning settings (Benson and Samarawickrema, 2009; Naidu, 2007; White, 2005).       
+     
+DE PROGRAM ( Small single -mode distance education )     
+ 
+Three student related variables are particularly significant in DE program and course 
+configuration: access, student self -governance, and association (Shearer, 2007). The 
+worry for access is key to DE, a method of schooling that looks for definitely  to make 
+learning openings available to "all people, paying little mind to their age, sex, area, 
+what's more, individual situation" (White, 2005, p. 166).      Utilization of Web 
+innovations both empowers and obliges this mission by expanding the scope of DE 
+projects while additionally restricting their range just to those students with admittance 
+to the Web. The expanding accessibility of PCs and the Web even in non -industrial 
+nations might be narrowing this specific computerized partition. Nonetheless, it  is 
+imperative to likewise consider the impact on student access of the calculated 
+necessities of specific e learning plans, like data transfer capacity for getting to a VLE, 
+participating in coordinated exercises, and getting to and utilizing specific sub stance 
+configurations, for example, video documents Clara and Fitri, 2007).      
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Chapter 3. Methodology  
+     
+The researcher will use Agile Methodology for software development in developing the 
+Augmented Reality Mobile Application is the agile software development where refers 
+to a set of iterative software development approaches in which requirements and 
+solutions change via cooperation amongst self  - organizing cross -functional team 
+development. Furthermore, the researchers recommended t hree stages: Pre -Production 
+Phase or Planning.     
+  
+In here, the researcher will be planning and identifying the components needed for the 
+development of the augmented reality application:     
+     
+1. Production Phase or Development     
+In here, the researcher are going to be planning and identifying the components needed 
+for the event of the mobile application.     
+ Identifying what the researcher are going to be developing     
+ Checklist of goals to be done or needed within the developmen t   
+2. Production Phase or Development     
+In here, development or the execution of the pre -production phase will commence.     
+ Do the task supported the checklis t from the pre -production phase      
+ Implementation are going to be done by using the Unity Engine .     
+ Testing of the augmented reality mobile application during this phase so that to 
+be able to know if there will be an improvement or need to be fixed.     
+ The respondents of the application will be taking a survey during this phase.     
+ In the algorit hmic side, image tracking will be used for the augmented 
+application.   
+ 
+3. Post-Production Phase or Closure      
+In here, development and testing are done and is predicted to be deployed to the 
+respondents. The  researchers' proposed agile methodology's three p hases will be 
+applied in this research of developing the augmented application.     
+     
+3.1 Research Design      
+   The research design that will be utilized in this research is qualitative research  
+design that the researchers will going to use. Research method that will be applied in 
+making of this study to find out if the use and effectiveness of AR (Augmented 
+Reality) is useful and helpful for elementary teachers and students through 
+questionnaire s and surveys.      
+3.2. System  Application  Design  
+ System Application  design for Mobile  Marker Based Augmented Reality 
+Applications.  
+Mobile Marker -Based AR System: Despite the fact that mobile AR is still in its early 
+stages of development, there has bee n a lot of worry and discussion about marker -
+based AR because it is one of the most trustworthy types of AR systems.   
+Video stream from the    
+ 
+   Augmented scene  
+  
+ 
+ 
+Figure 3. Mobile Marker - Based Augmented Reality Application  Design   
+Excellent marker is easily and consistently identifiable under all conditions. Variations 
+in luminance (brightness) are easier to perceive than differences in color. Machine 
+vision techniques are used to determine chrominance (color). This is owing to the 
+cameras' poor aut omated white balance: colors register wrongly, and an object's color 
+in the image may shift depending on what else is in the frame, for example. 
+Furthermore, the lighting alters the apparent colors of the objects, making color 
+recognition difficult. Natura lly, the greater the contrast in the higher the luminance, the 
+easier it is to notice objects. Black and white markers are ideal in this regard.  
+ 
+Using the identified marker, the system should also be able to determine the camera's 
+pose. Four known locatio ns are enough to calculate a camera's posture uniquely, and 
+the simplest shape to get them is a square. Furthermore, Corner point placements are 
+generally resilient since they can be calculated as intersections of edge lines.  
+
+3.3 Marker Based Procedure  
+The first purpose of a marker detection procedure is to identify probable marker 
+outlines. Markers, and then to deduce the locations of the corners of the markers in the 
+image Furthermore, the detecting system must determine that it is a marker and decode 
+its meaning i dentity. Finally, the system computes the pose bas ed on the data from the 
+sensors  found the marker's location.  
+The following are the steps in the basic marker detection procedure:  
+1. Obtaining Images the capture of an intensity image  
+2. Preproc essing image processing on a low level distortion line detecting/fitting 
+detection of the marker's corners  
+3. Detection of possible markers and elimination of evident non -markers are quickly 
+rejected if they are obvious. For possible markers, a rapid acce ptance test is used.  
+4. Marker identification and decoding matching templates (template markers) 
+encoding (data markers).  
+5. The marker pose is calculated. Pose estimation of markers for a correct pose, 
+iterative pose calculation is used.  
+3.4 Vuforia  
+Vuforia is an appropriate tool for AR development; it supports iOS, Android, and 
+Windows  UWP and Android. When combined with Unity, it represents one of the best 
+cross -platform solutions. The Vuforia, according to their official website, A multitude 
+of sorts  of recognition are possible with the platform. Developers can use Vuforia to 
+bring synthetic things to life by using recognition and animation  tracking of a larger 
+number of items Vuforia Target Manager also works  a picture enhancement that, in 
+turn, lead s to the optimization of the  performance  of the application It also detects and 
+tracks photos that have been predefined by the user  that allow interaction within the AR 
+world  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+3.5. User Case diagram   
+ 
+ 
+Place the  
+Camera  
+On the image  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ USER  
+ 
+ 
+Augmented  
+scene 
+Choose the  
+Bone 
+Structure to 
+view  
+ Marker 
+ 
+ 
+ 
+
+ 
+  
+   Figure 4.User  case diagram  
+When you first click the first button, then click ag ain to disappear, then the next button, 
+then exit, then the x button, the n the  audio will re turn and the speaker will play when you 
+click it for  second  time.  
+ 
+3.6. Research Materials  
+3.6.1 Software     
+In this section, the software/s below will be used for the implementation of the 
+augmented reality application:     
+     
+• Unity Game Engine  – is a gaming engine used for the developing the mobile 
+Augmented Reality.     
+• VS Code  – is an editor used for the mobile application Augmented  
+Reality script.      
+• Blender - is a 3D creative suite free and open source that covers almost all 
+aspects of 3D design.          
+  
+3.6.2 Hardware     
+     
+In this section, the hardware below will be  used for the implementation of the 
+augmented reality application:      
+ Laptop     
+• Processor: intel core i3 4.0ghz     
+• Operating System: Windows 10 Pro     
+• Ram: 4gb ram,     
+ Android      
+• API level:  26  
+• Operating system: Android 8. 0  Ram: 2gb       
+    
+ 3.7. Research locale      
+      
+The research study will be conducted only in selected elementary school here at 
+Zamboanga City, specifically at Baliwasan District. Baliwasan District has six (6) 
+elementary schools.    The Central school is adjacent to the City Schools Division office. 
+The nearest school from   City Hall is three (3) kilometers while the farthest is twelve 
+(12) kilometers, this are, the Baliwasn Central School and Southern Support Command 
+School respectively.         
+     
+3.8 Population and S ampling      
+      
+The participants of this research are the elementary students and teachers who will be 
+using the Augmented Reality (AR) Mobile Application develop by the researchers. The 
+sampling method that will be used is Purposive sampling because it will be difficult to 
+use other sampling techniques because of the existing Pandemic and Quarantine status 
+of the City which varies every now and then.  Students who have stable internet 
+connection will be the target respondents of this study. It is because elementary student s 
+are strictly not allowed to go out of their respective houses thus purposive sampling is 
+the proper sampling method to be used in this study. This is to ensure that respondents 
+will answer the questionnaire and will use the Augmented Reality Application.        
+      
+Teachers teaching Grade 5 and Grade 6 will be able to help evaluate and distribute the 
+AR develop by the researchers because they are the one who knows who among their 
+students have stable internet connection.       
+ 
+ 
+3. 9 RESEARCH INSTRUMENT       
+      
+The research instrument has two parts. Part 1 is about the basic information of the 
+respondents. P art 2 which comprises of sixteen (17 ) questions, the first eight (8) 
+questions is answerable by yes or no, while the next five ( 5) questions would  answer 
+the effectiveness of the AR. This will also answer if the participants finds it useful and 
+effective in their learning.      
+      
+The survey will be conducted through online using google form where the elementary 
+teachers and students will be give n the link.      
+      
+The survey questionnaire will be uploaded to the internet using google forms to acquire 
+details from the respondents; the elementary teachers and elementary students.      
+      
+3.10. VALIDITY OF INSTRUMENT      
+      
+To ensure the validity of the instruments that will be used in this research, the 
+researchers will seek the help of our professors from ICT Department before it will be 
+distributed to the respondents. They will be consulted for the appropriateness of 
+quest ionnaire. Their comments will be integrated to the questionnaire.      
+     
+ 
+3.11. DATA GATHERING PROCEDURE         
+ 
+The researchers will request class advisers of Grade 5 and Grade 6 of the Baliwasan 
+District to identify their students who have the stable internet connections. Once 
+identified that this students have stable internet connections, the parents will be 
+informed that their child is one of the respondent of the study. If the parents will 
+agree, then the AR apps will be forwarded to them for the us e of their child. If the 
+parents will disagree, then their child will not be included in the study.       
+  
+When the AR Apps will be uploaded to the student t and he/she starts to use it, the 
+survey questionnaire will be uploaded to web and they will be gi ven the link of the 
+survey questionnaire for then to answer, this is to ensure that all identified 
+respondents will answer the questionnaires.       
+  
+3.12. Statistical tool      
+      
+The researchers will use an appropriate statistical tool for this study , namely chi-
+square  for the questions with answers of  yes or no. For questions 6 – 17, which has 
+the Likert scale the mean will be used. It will also use t -test about means from within 
+school. ANOVA will be used to determine the significant effect from amo ng six (6) 
+different elementary schools of Baliwasan District.      
+  
+  
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Chapter  4 Results and Discussions  
+ 
+This chapter discusses the result of the study.  
+4.1 Samples and Population  
+The questionnaire was uploaded using google form. There were sixty -three (63) 
+respondents who answered the questionnaire that has seventeen  (17) questions. Of the 
+sixty -three (63) respondents, 23.8% or fifteen (15) were teachers and 76.2% or forty -
+eight (4 8) were students.  The table below shows the distribution of the respondents. Of 
+the sixty -three (63) respondents, only sixty (60) give their schools as follows seventeen 
+(17) from BCS, eleven (11) from San Jose Gusu, sixteen (16) from EBCS, six (6) from 
+GSMS, thirteen (13) from SSC, and three (3) from JSES. It was observed that all 
+respondents were from Baliwasan District, Zamboanga City Schools Division.  61.9% 
+or 69 of the respondents were males and 38.1% or 24 respondents were females.  
+The age of the s tudents ranges from ten (10) years old to twelve (12) year old while the 
+age of the teachers ranges from twenty -eight (28) years old to thirty -nine (39) years old.  
+37.1% or 23 respondents ages 10 years old, 22.6% or 14 have the age of eleven (11) 
+years ol d, and 16.1% or ten (10) of the respondents have the age of twelve (12) years 
+old. On Teacher -respondents, three (3) or 4.8% have the age of twenty -eight (28), four 
+(4) or 6.5% percent have the age of twenty -nine (29), while ages thirty (30), thirty -five 
+(35), thirty -seven (37) and thirty -nine (39) have one (1) respondent each and two (2) 
+respondents each for ages thirty -two (32) and thirty -three (33)  
+Table 4.1 Distribution of Respondents according to category  
+ 
+ 
+ 
+ 
+4.2 On -line Learning  
+ All respondents have gadgets such as android cellphone and computers at their 
+home, and they know how to use the gadgets.  95.2% or sixty (60) of them have internet 
+access at home while the remaining 4.8% or three of them do not have internet at their 
+home . All teacher -respondent have internet access at their home.  
+ When ask if they enjoy on -line learning 90.5% or fifty -seven (57) of the 
+respondent do not enjoy on -line learning while only 9.5% or only six (6) of them enjoy 
+the on -line learning.  Students’ data showed when categorized in terms of sex, the Chi -
+squared ( 𝜒2) test gives the computed value at 0.091 which is less than 3.48 with alpha 
+(α) at 0.05 level of confidence. This implies that there is no significant difference on 
+the answers between male and female students. This show that students do not enjoy 
+on-line learning.  
+ The table below shows the result of the survey for question number 4 when 
+categorized as student in terms of sex.  
+
+Table 4.2 Responses of students  
+ Male  Female  
+Yes  2 1 
+No  26 19 
+  
+When data was subjected to chi -squared ( 𝜒2) test the result showed no significant 
+difference. However, the result for teachers is significant with computed chi -squared 
+(𝜒2) of 6.233.  This show that teachers enjoy teaching on -line.  But, when da ta was 
+grouped together, the result is no significant . Their responses when asked if they play 
+video games, 90.5% say yes and 9.5% answered no.   
+Table 4.3. Responses of Teachers  
+ Male  Female  
+Yes  3 4 
+No  8 0 
+ 
+  
+ 
+ 28.6% of respondents rate online learning very ineffective, 25.4% less ineffective, and 
+41.3% less effective, and only 4.8% or only three (3) of the respondents say online 
+learning as effective.  
+Table 4.4 Pie chart on rating online learning  
+ 
+ 
+ 
+ 
+ 
+50.8 pe rcent of the respondents says that video game in learning or teaching is effective, 
+17.5 percent says that it is less effective, 12.7 percent of respondents say it is very 
+effective, while both 9.5 percent of respondents says it is less ineffective and ver y 
+ineffective  
+ 
+Table.4.4  Pie Chart on how useful the video games in learning or teaching  
+ 
+
+ 
+ 
+ 
+ 
+ 
+55.6 percent of the respondents says th ey believe  that if they will be given a related 
+application in learning or teaching is effective, 20.6 percent says that  it is very effective, 
+14.3 percent of respondents say it is less effective, while 6.3 percent of respondents 
+says it is less ineffective while 3.2 percent says it is  very ineffective.  
+ 
+Table.4.5  Pie Chart that believes on the given related app  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+39.7 percent of the respondents says th ey are focused on their learning or teaching  it is 
+less effective  31.7 percent  says that it is  very in effective, 1 4.3 percent of respondents 
+say it is effective, while 11.1 percent of respondents says it is less ineffect ive while 3.2 
+percent says it is  very effective.   
+ 
+Table.4.6  Pie Chart on how the respondents are focus on this pandemic on their 
+learning/teaching.  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+39.7 percent of the respondents says th ey are focused on their learning or teaching i t is 
+less effective  31.7 percent  says that it is  very in effective, 22.2 percent of respondents 
+say it is  less in effective, while 11.1 percent of respondents says it is effective while 4.8 
+percent says it is  very effective.  
+ 
+Table.4.7  Pie Chart on how the respondents are doing well on this pandemic on their 
+learning/teaching.  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+54 percent of the respondents says that ANILAB is effective , 22.2 percent  says that it 
+is very effective, 12.7 percent of respondents say it is  less i neffective, while 7.9 percent 
+of respondents says it is very effective while 3.2 percent says it is  very ineffective in 
+terms of entertainment . 
+ 
+ 
+ 
+Table.4.8  Pie Chart on rating the ANILAB in terms of entertainment  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+54 percent of the respondents s ays that ANILAB useful as additional material in their 
+study/ teaching is  effective , 22.2 percent  says that it is  less effective , both 9.5 percent of 
+respondents says it is very effective and less effective while 4.8 percent says it is  very 
+ineffective  
+ 
+ 
+Table.4.9  Pie Chart on how useful the ANILAB as an additional material in 
+teaching/study is  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+58.7 percent of the respondents says that ANILAB enhance their knowledge in science 
+is effective , 22.2 percent  says that it is  less effective , both 9.5 percent of respondents 
+says it is very effective and less effective while 4.8 percent says it is  very ineffective  
+ 
+Table.4.10  Pie Chart on how ANILAB enhance their knowledge in science.  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+60.3 percent of the respondents says that ANILAB that is usef ul as an additional 
+material in their study/ teaching in science is effective , 20.6 percent  says that it is  less 
+
+effective , while 11.1 percent says it is very effective while 4.8 says it is very ineffective 
+and 3.2 percent says it is less ineffective  
+ 
+Tabl e 4.11 . Pie Chart on how ANILAB useful as an additional material in their study/ 
+teaching in science  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+55.6 percent of the respondents rated  the ANILAB in terms of educational content is 
+effective , 19 percent  says that it is  less effective , while 14.3 percent says it is very 
+effective while 6.3 says it is less ineffective and 4.8 percent says it is very ineffective.  
+ 
+ 
+ 
+ 
+Table 4.12.  Pie Chart rating on how ANILAB in terms of educational content.  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+52.4 percent of the respondents rated  the ANILAB in terms of systems functionality is 
+effective , 27 percent  says that it is  less effective , while 9.5 percent says it is very 
+effective while 6.3 says it is less ineffective and 4.8 percent says it is very ineffective.  
+ 
+Table 4.13. Pie Chart rati ng on how ANILAB in terms of systems functionality.  
+ 
+
+ 
+ 
+Chapter 5  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Conclusion and Recommendation  
+5.1. Conclusion  
+• The Anilab AR (Augmented Reality) Mobile Marker based Application help both 
+teachers and students, thus students were be  able to understand their science lesson 
+particularly on human skeletal system with less supervisions of teachers.  
+•  For the teachers, the Anilab help them in teaching their students on the human 
+skeletal system with less contact or face to face teaching.  
+ 
+ 
+5.2 RECOMMENDATION  
+• The researchers recommended that future researchers will add more topics 
+about science. Specifically, the entire elementary science to be covered by the 
+Anilab.  
+• It is also recommended that the future researchers, to enhance the featur es of 
+the Anilab Application.  
+ 
+ 
+REFERENCES:  
+      
+M. Alkhattabi (2017).  Augmented Reality as E -learning Tool in Primary      
+Schools’ Education: Barriers to Teachers’ Adoption 
+https://onlinejournals.org/index.php/ijet/article/view/6158       
+     
+Tasneem Khan, Kevin Johnston, Jacques Ophoff, "The Impact of an Augmented      
+Reality Application on Learning Motivation of  
+Students", Advances in Human - Computer  
+Interaction, vol. 2019, Article.   ID 7208494, 14 pages, 2019. 
+https://doi.org/10.1155/201 9/7208494  Quintero    
+  
+J, Baldiris S, Rubira R, Cerón J and Velez G (2019) Augmented Reality in   
+Educational Inclusion. A Systematic Review on the Last Decade.  Front. 
+Psychol. 10:1835. doi:  
+10.3389/fpsyg.2019.01835.      
+  
+Selwa Elfirdoussi, Mohamed Lachgar, Hind Kabaili, Abdelali Rochdi, Driss     
+Goujdami, Larbi El Firdoussi, "Assessing Distance  
+Learning in Higher   Education during the COVID19 Pandemic", Education 
+Research International, vol. 2020, Article ID 8890633, 13 pages, 2020.   
+https://doi.org/10.1155/2020/889063.     
+     
+Michał Bączek Institute of Medical Sciences, Jan Kochanowski University in  
+Kielce, Kielce, Poland  The Online Journal of  
+Distance Education and e -Learning, October 2020    Volume 8, Issue 4      
+  
+    
+Kingery, Linda S., "Understanding E -Learning as Professional Development 
+for  Rural Child Welfare Professionals" (2018). Walden Dissertations and 
+Doctoral Studies. 4928. https://scholarworks.waldenu.edu/dissertations/49 28      
+Nwankwo, Alex Azike, "Students' Learning Experiences and Perceptions of   
+Online Course Content and Interactions" (2015). Walden Dissertations and 
+Doctoral Studies. 188. https://scholarworks.waldenu.edu/dissertations/188      
+International Journal of Academic Multidisciplinary  
+Research (IJAMR) ISSN:  2643 -9670 Vol. 4, Issue 8,  
+August – 2020, Pages: 100 -107       
+     
+Commissiong, Marcia Anne, "Student Engagement, Self -Regulation,   
+Satisfaction, and Success in Online Learning Environments" (2020).  Walden 
+Dissertations and Doctoral Studies.  
+8522.https://scholarworks.waldenu.edu/dissertations/  
+8522          
+Little, Sharon C., "Strategies for Improving Student Performance in an  
+Online      
+Introductory Computer Course" (2019). Walden Dissertations and Doctoral      
+Studies. 7313. https://scholarworks.waldenu.edu/dissertations/7313      
+     
+Gilbert, Brittany, "Online Learning Revealing the Benefits and Challenges" 
+(2015). Education Masters. Paper 303.      
+      
+Caballero, J. M.. (2000). The Effect of E -Learning on the Skills and Attitudes of 
+Students. TIP Research Journal Manila, 5(1). Retrieved from 
+http://ejournals.ph/form/cite.php?id=9080      
+      
+Firdosh H. Z June 2015. ““Impact of E - learning on student learning and 
+employability – A study in  
+India.”  
+http://www.dypatil.edu/schools/management/wpconte nt/uploads/2015/05/Zulai 
+ka-Homavazir -2016.pdf      
+     
+Arinto  P.B January 2013, Teaching at a Distance in a Digital Age: 
+Perspectives from the Philippines       
+      
+https://discovery.ucl.ac.uk/id/eprint/10020020/1/ARI NTO,%20P.B..pdf  Shafiei    
+Sarvestani M, Mohammadi M, Afshin J, Raeisy L. Students’  Experiences  of      
+E-Learning Challenges; a Phenomenological Study. Interdiscip J Virtual Learn 
+Med Sci. 2019;10(3):1 -10. doi: 10.30476/IJVLMS.2019.45841.      
+Online Journal of Distance Learning Administration,  
+Volume V, NumberIII, Fall   2002      
+         
+State University of West Georgia, Distance Education Center      
+Gilbert, Brittany, "Online Learning Revealing the  
+Benefits and Challenges"    (2015). Education  
+Masters. Paper 303      
+   
+Hawkins, Alissa B., "How are Elementary Teachers  
+Utilizing Technology to Enhance Their Instruction of  
+Literacy in the Classroom?" (2010). Education Masters. Paper 33.     
+Hsu, YS, Lin, YH. & Yang, B. Impact of augmented reality lessons on students’      
+STEM interest. RPTEL 12, 2 (2017). https://doi.org /10.1186/s41039 -0160039z    
+Yuan Thesis (2019) Design Guidelines for Mobile Augmented Reality 
+Reconstruction   
+Kasetty sudarshan, Sneha. (2017). AUGMENTED REALITY IN MOBILE 
+DEVICES.    
+ Cooper Daniel (2011) User and design perspectives of mobile augmented 
+reality   
+ Our Over -Reliance on Technology. McPherson, Susan. 2, s.l. : Associated 
+Content, 2009, Vol. 1.  
+Kharif, Olga. Social Networking Goes Mobile.  
+Business Week. [Online] 31 May 2006. [Cited:  
+5 December 2009.]  
+Enhancing User Interaction With First Person  
+User Interface. Smashing Magazine. [Online] 7 Dec 2009. [Cited: 5 December 
+2009.] http://www.smashingmagazine.com/2009/09/21/ enhancing -user-
+interaction -with-first-personuser -interface/.  
+Measuring Commercial PL/I Programs Using  
+Halstead's Criteri a. Elshoff, J.L. 5, s.l. : ACM SIGPLAN Notices, 1976, Vol. 
+11.  
+[5] Villmann, Alex. How to Setup a Dedicated  
+Web Server for Free. net tuts+. [Online] 4 December 2008. [Cited: 6 
+December 2009.] http://net.tutsplus.com/articles/news/how -tosetup -a-
+dedicated -web-server -for-free/. Windows Azure. Windows Azure Platform. 
+[Online] 2009. [Cited: 6 December 2009.] 
+http://www.microsoft .com/windowsazure/windo wsazure   
+ 
+Siltanen, Sanni. (2012). Theory and applications of marker based augmented 
+reality.  
+ https://webthesis.biblio.polito.it/6596/1/tesi.pdf  
+ 
+ 
+ 
+ 
+APPENDICES  
+  
+Hello Respondent,      
+     
+The researchers of this survey are students from Western Mindanao 
+State University in Institute of Computer Studies taking BS Computer 
+Science and is currently working on a thesis entitled “Anilab: an 
+Augmented Reality mobile app used to assist teacher in educating 
+elementary students”      
+     
+     
+The study aims to propose a mobile gaming application that will be helpful   
+for elementary students and teachers. This proposal also aims to determine 
+if the playing mobile game application is effective in teac hing and learning 
+lessons.     
+      
+Rest assured that your answers in this survey will be treated with the 
+utmost confidentiality and will only be used for analysis and 
+interpretation for academic purposes.     
+     
+Your participation will be highly appre ciated for it will contribute to 
+the realization of this proposal. Thank you very much for your time and 
+support. Please click on the "Next" button to proceed to the 
+questionnaires.     
+   
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Survey Questionnaire   
+ Part 1. Basic Information     
+Name (Optional )__________________________________    
+Name of School: ___________________________Age:   
+_______ yrs old    Please check:      Student  [   ]            Teacher: 
+[   ]    Gender:  Male     [    ]      Female [   ]         
+INSTRUCTION: Please read carefully and choose the most appropriate answer 
+to the question.      
+     
+1. Do you have gadgets at home such as android cellphone, 
+computer and tablets,  
+   a. YES   b.NO    
+  
+2. Do you know how to use this gadgets?     
+a. YES     
+b. NO     
+     
+3. Do you have internet access at home?     
+a. YES     
+b. NO    
+  
+4. Do you enjoy online learning (for students)/teaching (for teachers)?  a.  
+Yes   b.  No     
+5. Do you play video games?      
+a. YES     
+b. NO     
+   
+6. How would you rate online learning/teaching?     
+a. Very Ineffective     
+b. Less Ineffective     
+c. Effective     
+d. Less  Effective     
+e. Very Effective  
+  
+7. Do you agree that video games is useful in your learning/teaching?       
+a. Very Ineffective     
+b. Less Ineffective     
+c. Effective     
+d. Less  Effective     
+e. Very Effective     
+     
+8. If you are given an apps that is related to teaching/learning do you believe it 
+will be  
+a.  Very Ineffective     
+b. Less Ineffective     
+c. Effective     
+d. Less  Effective     
+e. Very Effective     
+     
+9. How focused are you on your learn ing/teaching during this 
+pandemic?     
+     
+a. Very Ineffective     
+b. Less Ineffective     
+c. Effective     
+d. Less  Effective     
+e. Very Effective     
+     
+10. How sure you are that you do well in your learning/teaching during this 
+pandemic?     
+     
+a. Very Ineffective     
+b. Less Ineffective     
+c. Effective     
+d. Less  Effective     
+e. Very Effective     
+ 
+  11. Rate the video/Anilab in terms of entertainment.      
+a. Very Ineffective     
+b. Less Ineffective     
+c. Effective     
+d. Less  Effective     
+e. Very Effective     
+ 
+12. Is the video/Anilab useful as an additional material in your study/teaching?      
+     
+a.     Very Ineffective     
+b. Less Ineffective     
+c. Effective     
+d. Less  Effective     
+e. Very Effective     
+ 
+13. Did the video/Anilab enhance your knowledge in science?  
+     
+a. Very Ineffective     
+b. Less Ineffective     
+c. Effective     
+d. Less  Effective     
+e. Very Effective  
+ 
+14. Is the video/Anilab useful as an additional material in your study/teaching in science?      
+a. Very Ineffective     
+b. Less Ineffective     
+c. Effective     
+d. Less  Effective     
+e. Very Effective  
+ 
+15. Rate the video/Anilab in terms of educational content.  
+ 
+a. Very Ineffective     
+b. Less Ineffective     
+c. Effective     
+d. Less  Effective     
+e. Very Effective  
+ 
+ 
+ 
+ 
+ 
+16. Rate the video/Anilab in terms of systems functionality.  
+ 
+a. Very Ineffective     
+b. Less Ineffective     
+c. Effective     
+d. Less  Effective     
+e. Very Effective  
+ 
+17. Rate the video/Anilab in terms of usability/usefulness as an additional learning materials.  
+ 
+a. Very Ineffective     
+b. Less Ineffective     
+c. Effective     
+d. Less  Effective     
+e. Very Effective  
+  
+REFERENCES:  
+      
+M. Alkhattabi (2017).  Augmented Reality as E -learning Tool in Primary      
+Schools’ Education: Barriers to Teachers’ Adoption 
+https://onlinejournals.org/index.php/ijet/article/view/6158       
+     
+Tasneem Khan, Kevin Johnston, Jacques Ophoff, "The Impact of an Augmented      
+Reality Application on Learning Motivation of  
+Students", Advances in Human - Computer  
+Interaction, vol. 2019, Article.   ID 7208494, 14 pages, 2019. 
+https://doi.org/10.1155/201 9/7208494  Quintero    
+  
+J, Baldiris S, Rubira R, Cerón J and Velez G (2019) Augmented Reality in   
+Educational Inclusion. A Systematic Review on the Last Decade.  Front. 
+Psychol. 10:1835. doi:  
+10.3389/fpsyg.2019.01835.      
+  
+Selwa Elfirdoussi, Mohamed L achgar, Hind Kabaili, Abdelali Rochdi, Driss     
+Goujdami, Larbi El Firdoussi, "Assessing Distance  
+Learning in Higher   Education during the COVID19 Pandemic", Education 
+Research International, vol. 2020, Article ID 8890633, 13 pages, 2020.   
+https://doi.org/10.1155/2020/889063.     
+     
+Michał Bączek Institute of Medical Sciences, Jan Kochanowski University in  
+Kielce, Kielce, Poland  The Online Journal of  
+Distance Education and e -Learni ng, October 2020    Volume 8, Issue 4      
+  
+    
+Kingery, Linda S., "Understanding E -Learning as Professional Development 
+for  Rural Child Welfare Professionals" (2018). Walden Dissertations and 
+Doctoral Studies. 4928. https://scholarworks.waldenu.edu/diss ertations/4928      
+Nwankwo, Alex Azike, "Students' Learning Experiences and Perceptions of   
+Online Course Content and Interactions" (2015). Walden Dissertations and 
+Doctoral Studies. 188. https://scholarworks.waldenu.edu/dissertations/188      
+Internatio nal Journal of Academic Multidisciplinary  
+Research (IJAMR) ISSN:  2643 -9670 Vol. 4, Issue 8,  
+August – 2020, Pages: 100 -107       
+     
+Commissiong, Marcia Anne, "Student Engagement, Self -Regulation,   
+Satisfaction, and Success in Online Learning Environments" (2020). Walden 
+Dissertations and Doctoral Studies.  
+8522.https://scholarworks.waldenu.edu/dissertations/  
+8522          
+Little, Sharon C., "Strategies for Improving Student Performance in an  
+Online       
+Introductory Computer Course" (2019). Walden Dissertations and Doctoral      
+Studies. 7313. https://scholarworks.waldenu.edu/dissertations/7313      
+     
+Gilbert, Brittany, "Online Learning Revealing the Benefits and Challenges" 
+(2015). Education Mas ters. Paper 303.      
+      
+Caballero, J. M.. (2000). The Effect of E -Learning on the Skills and Attitudes of 
+Students. TIP Research Journal Manila, 5(1). Retrieved from 
+http://ejournals.ph/form/cite.php?id=9080      
+      
+Firdosh H. Z June 2015. ““Impact of E- learning on student learning and 
+employability – A study in  
+India.”  
+http://www.dypatil.edu/schools/management/wpconte nt/uploads/2015/05/Zulai 
+ka-Homavazir -2016.pdf      
+     
+Arinto P.B January 2013, Teaching at a Distance in a Digital Age: 
+Perspec tives from the Philippines       
+      
+https://discovery.ucl.ac.uk/id/eprint/10020020/1/ARI NTO,%20P.B..pdf  Shafiei    
+Sarvestani M, Mohammadi M, Afshin J, Raeisy L. Students’  Experiences of      
+E-Learning Challenges; a Phenomenological Study. Interdisc ip J Virtual Learn 
+Med Sci. 2019;10(3):1 -10. doi: 10.30476/IJVLMS.2019.45841.      
+Online Journal of Distance Learning Administration,  
+Volume V, NumberIII, Fall   2002      
+         
+State University of West Georgia, Distance Education Center      
+Gilbert, Brittany, "Online Learning Revealing the  
+Benefits and Challenges"    (2015). Education  
+Masters. Paper 303      
+   
+Hawkins, Alissa B., "How are Elementary Teachers  
+Utilizing Technology to Enhance Their Instruction of  
+Literacy in the Classroom?" (2010). Education Masters. Paper 33.     
+Hsu, YS, Lin, YH. & Yang, B. Impact of augmented reality lessons on students’      
+STEM interest. RPTEL 12, 2 (2017). https://doi.org/10.1186/s41039 -0160039z    
+Yuan Thesis (2019) Design Guidelines for Mobile Augmented Reality 
+Reconstruction   
+Kasetty sudarshan, Sneha. (2017). AUGMENTED REALITY IN MOBILE 
+DEVICES.    
+ Cooper Daniel (2011) User and design perspectives of mobile augmented 
+reality   
+ Our Over -Reliance on Technology. McPherson,  Susan. 2, s.l. : Associated 
+Content, 2009, Vol. 1.  
+Kharif, Olga. Social Networking Goes Mobile.  
+Business Week. [Online] 31 May 2006. [Cited:  
+5 December 2009.]  
+Enhancing User Interaction With First Person  
+User Interface. Smashing Magazine. [Online] 7 Dec 2009. [Cited: 5 December 
+2009.] http://www.smashingmagazine.com/2009/09/21/ enhancing -user-
+interaction -with-first-personuser -interface/.  
+Measuring Commercial PL/I Programs Using  
+Halstead's Criteria. Elshoff, J.L. 5, s.l. : ACM SIGPLAN Notices, 1976, Vol. 
+11.  
+[5] Villmann, Alex. How to Setup a Dedicated  
+Web Server for Free. net tuts+. [Online] 4 December 2008. [Cited: 6 
+December 2009.] http://net.tutsplus.com/articles/news/how -tosetup -a-
+dedicated -web-server -for-free/. Windows Azure. Windows Azure Pla tform. 
+[Online] 2009. [Cited: 6 December 2009.] 
+http://www.microsoft.com/windowsazure/windo wsazure   
+ 
+Siltanen, Sanni. (2012). Theory and applications of marker based augmented 
+reality.  
+ https://webthesis.biblio.polito.it/6596/1/tesi.pdf  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 

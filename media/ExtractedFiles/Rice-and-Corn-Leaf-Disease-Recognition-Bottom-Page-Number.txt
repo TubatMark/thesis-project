@@ -1,0 +1,1117 @@
+1 
+ 
+1 
+ Rice and Corn Leaf Disease Recognition E -Learning Mobile Application  
+using  
+MobileNet Machine Learning Algorithm  
+ 
+ 
+ 
+ 
+ 
+ 
+by 
+ 
+ 
+ 
+ 
+ 
+ 
+Wee, Adzhar K.  
+Algupera, Aizzy Dianne T.  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+A Thesis Proposal Submitted in Partial Fulfillment of the Requirements for the  
+Degree of Bachelor of Science in Computer Science  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Western Mindanao State University  
+Institute of Computer Studies  
+Philippines  
+July 2021  
+  
+2 
+ 
+2 
+ Table of Contents  
+Chapter 1 – Introduction  ................................ ................................ ................................ ..........................  1 
+1.1 Background of the Study  ................................ ................................ ................................ ..........  1 
+1.2  Statement of the Problem  ................................ ................................ ................................ .........  3 
+1.3  Objectives  ................................ ................................ ................................ ................................  4 
+1.3.1  General Objective  ................................ ................................ ................................ .............  4 
+1.3.2  Specific Objectives  ................................ ................................ ................................ ...........  4 
+1.4  Signi ficance of the Study ................................ ................................ ................................ ..........  4 
+1.5  Scope and Limitations  ................................ ................................ ................................ ..............  5 
+1.7  Operational Definition  ................................ ................................ ................................ ..............  7 
+Chapter 2 – Review of Related Literature  ................................ ................................ ................................  8 
+2.1  Related Studies  ................................ ................................ ................................ ........................  8 
+2.1.1  Foreign Studies ................................ ................................ ................................ .................  8 
+2.1.2  Local Studies  ................................ ................................ ................................ ....................  8 
+2.2 Related System  ................................ ................................ ................................ ......................  15 
+2.2.1  Rice Doctor Application powered by Lucid Mobile  ................................ ........................  15 
+2.2.2  riceXpert  ................................ ................................ ................................ ........................  15 
+2.2.3  Features  ................................ ................................ ................................ ..........................  16 
+2.3 Algorithm  ................................ ................................ ................................ ..............................  16 
+Chapter 3 – Methodology  ................................ ................................ ................................ ......................  17 
+3.1 Target Users/Stakeholders  ................................ ................................ ................................ ...... 17 
+3.2 Research Instruments  ................................ ................................ ................................ .............  17 
+3.3 Research Design ................................ ................................ ................................ .....................  17 
+3.4 Statistical Tools ................................ ................................ ................................ ......................  17 
+3.4.1  Technical Aspect  ................................ ................................ ................................ ............  17 
+3.4.2  Phases of Development ................................ ................................ ................................ ... 19 
+3.4.3  System Architecture  ................................ ................................ ................................ ....... 23 
+Chap ter 4 – Results and Discussions  ................................ ................................ ................................ ...... 24 
+4.1 Data Gathering  ................................ ................................ ................................ .......................  24 
+4.2 Data Analysis  ................................ ................................ ................................ .........................  25 
+4.3 Data Finalization  ................................ ................................ ................................ ....................  28 
+4.4 System Results  ................................ ................................ ................................ .......................  30 
+Chapter 5 – Concl usion and Recommendation  ................................ ................................ .......................  31 
+5.1 Conclusion  ................................ ................................ ................................ .............................  31 
+5.2 Recommendation  ................................ ................................ ................................ ...................  31 
+References ................................ ................................ ................................ ................................ .............  32 
+Appendices ................................ ................................ ................................ ................................ ............  36 
+Appendix A – Prototype  ................................ ................................ ................................ ....................  37 
+3 
+ 
+3 
+ Appendix B – Plagiarism Report  ................................ ................................ ................................ ....... 38 
+Appendix C – Survey Form  ................................ ................................ ................................ ...............  39 
+Appendix D – Proofread and Validation ……………………………………………………………….40  
+ 
+ 
+List of Tables  
+Table 1. Rice and Corn Diseases  ................................ ................................ ................................ ..............  5 
+Table 2. Feature Comparison  ................................ ................................ ................................ .................  16 
+ 
+ 
+List of Figures  
+Figure 1. Rice (a) and Corn Plant (b)  ................................ ................................ ................................ ....... 2 
+Figure 2. Healthy Rice Plant (a) Blast Disease (b)  ................................ ................................ ....................  3 
+Figure 3. Healthy Corn (a) Gray Leaf Spot (b)  ................................ ................................ .........................  3 
+Figure 4. Algorithm for captu ring image of the corn leaf  ................................ ................................ ..........  8 
+Figure 5.Algorithm for Detecting Nutrient Deficiency  ................................ ................................ .............  9 
+Figure 6. Algorithm for Diagnosing Nitrogen Deficiency for Rice  ................................ ...........................  9 
+Figure 7. CNN Architecture  ................................ ................................ ................................ ...................  11 
+Figure 8. Architecture of DNN trained on GPU  ................................ ................................ .....................  12 
+Figure 9. Block Diagram  ................................ ................................ ................................ .......................  13 
+Figure 10. Multilayer Network of Backpropagation ANN  ................................ ................................ ...... 14 
+Figure 11. Depthwise Separable Convolution  ................................ ................................ ........................  18 
+Figure 12. Depthwise Convolution ................................ ................................ ................................ .........  19 
+Figure 13. Pointwise Convolut ion ................................ ................................ ................................ ..........  19 
+Figure 14. Research Planning  ................................ ................................ ................................ ................  20 
+Figure 15. Conceptual Design  ................................ ................................ ................................ ................  22 
+Figure 16. System Architecture  ................................ ................................ ................................ ..............  23 
+Figure 17. Corn Mildew (a)       Corn Leaf Blight (b)              Corn Common Rust (c)     Corn Gray Leaf 
+Spot (d) Rice Tungro (e)        Rice Brown Spot (f)  Rice Leaf Blast (g)       Rice Leaf Blight (h)  ............  24 
+Figure 18. Model Creation  ................................ ................................ ................................ .....................  26 
+Figure 19. Model Training  ................................ ................................ ................................ .....................  26 
+Figure 20. Training Output  ................................ ................................ ................................ ....................  27 
+Figure 21. Categorization Example  ................................ ................................ ................................ ........  27 
+Figure 22. Error Runtime  ................................ ................................ ................................ .......................  28 
+Figure 24. Model Loss and Accuracy  ................................ ................................ ................................ ..... 28 
+Figure 25. Quantization  ................................ ................................ ................................ .........................  28 
+Figure 26. Final Model Training  ................................ ................................ ................................ ............  29 
+Figure 27. Final Model Training Output  ................................ ................................ ................................  29 
+Figure 28. Final Accuracy  ................................ ................................ ................................ .....................  30 
+Figure 29. Prototype Images  ................................ ................................ ................................ ..................  37 
+Figure 30. Originality Report  ................................ ................................ ................................ .................  38 
+Figure 31. Survey Form  ................................ ................................ ................................ .........................  39 
+Figure  32. Proofread and Validation ………………………………………………………….....40  
+ 
+ 
+ 
+ 
+ 
+ 
+4 
+ 
+4 
+ Chapter 1 – Introduction   
+ 
+1.1 Background of the Study  
+ 
+Ever since the Neolithic era, farming has been one of the wide -scale transition of 
+many human cultures under Agricultural Revolution. As the normal status quo of every 
+living thing, crops also have what one calls ‘crop health’. Crop health determines what 
+aspects affect a crop on its growing stage (S. Savary et al., 2017 ). Along with it is the 
+importance in studying the pathogens that always come with the effect on food shortages 
+especially on famines. Doing different tests on what crops best suit the clima te in areas 
+around the world, farmers have cultivated crops since then (Toshichika & Ramankutty, 
+2015).  
+ 
+Crop health can be broken down into three (3) factors which mainly affect a plant 
+physiology; (1) biological,  (2) chemical and (3) physical . Depending  on whatever factor 
+affects a crop growth, its yield can be greatly affected (J. Grunert). By assuring the best 
+possibility for higher yield, farmers in other countries developed approaches in checking 
+crop health issues. Traditionally, crop health is asse ssed via visual inspection of the 
+physical features of the crop, however, as modern technology has its advantages, 
+agriculture technology advanced to using data from machines or satellite imagery. The 
+farmers analyze the data relating natural resources (wa ter, soil, fuel and even the brightness 
+of the sun) and other inputs such as fertilizers more accurately and efficiently (Shaping 
+Agriculture). Similarly, in the Philippines, most large farms now have integrated 
+technology in managing the crop health for h igher yield . With this, farms started cutting 
+costs on labor and are now more cost efficient. (Mogato, 2018).  
+ 
+Particularly, branching from the crop health assessment is the crop disease 
+management and prevention. Like any other living things, crops can also be affected by 
+diseases, as no living thing is unsusceptible to diseases. (Shark Keeper). From temperature 
+to humidity, pest infestation, light, atmospheric carbon dioxide, soil moisture and 
+properties. These factors can result in the appearance of diseases that will affect the 
+harvesting yield of crops (J. Plant Pathol Microbiol, 2021).  
+5 
+ 
+5 
+ Zamboanga City is a smal l industrial city found in Mindanao Region IX.  Though 
+the city is mainly on industrial development, the city still provides its citizens with 
+agricultural crops, where two of the main source of grain crops are rice and corn. Rice and 
+Corn have always bee n a staple crop for Filipinos and is national -wide demand food source 
+(The Philippines). Since the city cannot accommodate too many large farms with its 
+topography, it sometimes depends on neighboring regions and provinces regarding crop 
+production (Cedeño , 2021). One region in particular is where the city is located, with an 
+annual harvest percentage of 6.4% for corn and 5.5% for rice (Palay and Corn Quarterly 
+Bulletin, July 2020). New technologies have surfaced and have aided farmers on different 
+aspects of crop management (M. Terri, October 2019). With this, a focus on detecting crop 
+diseases, mainly on rice and corn is the system’s core for development. As there are newly 
+inspired agriculture students and farmers, there are those that do not know much on  crop 
+management, especially in regards to its diseases. In connection to this, the application will 
+aid the users on their endeavors on understanding the types of leaf diseases that rice and 
+corn crops sustain. Leaf diseases are more noticeable and treata ble, thus, became the focus 
+of the application development. It also includes a list of system registered diseases to 
+provide users a detailed -view of information regarding diseases and their prevention. 
+Overall, the system’s detection accuracy reaches a 90 % percentile upon testing its dataset 
+accuracy.  
+Figure 1. Rice (a) and         Corn Plant (b)  
+ 
+  
+
+6 
+ 
+6 
+  
+1.2  Statement of the Problem  
+ 
+Grain crops have a percentage of health deterioration in which it is required to be 
+maintained. Trad itionally, farmers use their acquired knowledge throughout the years in 
+examining the crops through the way they look and sometimes how the crop leaves feel 
+when being held. In this matter, these diseases can be detected on the crops as they affect 
+the pla nt’s physical appearance. Examples are shown on Figures 2 and 3, where the disease 
+can be seen through the leaves’ appearance.  
+Figure 2. Healthy Rice Plant (a)     Blast Disease (b)  
+Crops that are affected by a disease are mostly  required to be removed or disposed 
+of immediately, as the infection can spread to nearby crops (Crop Genebank Knowledge 
+Base). But, for the majority, farmers will only help prevent the spreading of such diseases 
+to other crops, by using fertilizers, insec ticides and pesticides. However, there are those 
+who aspire to enter the field of cultivation without much knowledge on this front. Students, 
+businessmen and young farmers tend to make mistakes when making theories on what type 
+of chemical to use for the d isease -stricken crop grains.  
+Figure 3. Healthy Corn (a)      Gray Leaf Spot (b)  
+
+7 
+ 
+7 
+ 1.3  Objectives  
+ 
+1.3.1  General Objective  
+ 
+The aim of the study is to build an e -learning app that will help agricultural students 
+and aspiring farmers in assisting them with comprehending the types of diseases that strike 
+the crops.  
+ 
+1.3.2  Specific Objectives  
+ 
+To achieve the general objective, it is necessa ry to:  
+ 
+ Detect  the rice and corn disease  with a possibility of over 8 0% accuracy using 
+a sensor (camera);  
+ Predict the common leaf diseases found locally in the Philippine rice and corn 
+farm along with their cause/s;  
+ Use a mobile to minimize workload on asp iring knowledge -seekers;  
+ Provide knowledge on diseases and registered crop diseases;  
+ Use percentage accuracy in validating crop disease detection; and  
+ Prove that the detection of crop disease is highly accurate using MobileNet 
+algorithm.  
+  
+1.4  Significance of the Study  
+ 
+The results of this research would be significant to:  
+ People. For citizens to use for educational or personal researches needed on crop disease 
+mainly rice and corn.  
+ 
+ Students.  The e -learning mobile app, can help students in identifying the crop disease and 
+understand better how these diseases look like and what causes each.  
+ 
+ Farmers.  For them to be assisted on checking whether the crops are bearing diseases or 
+not when cultivat ing them.  
+8 
+ 
+8 
+  Department of Agriculture. This system would serve as an additional input on 
+agricultural -related topic.  This would aid them in verifying the diseases of rice and corn.  
+ 
+ Researchers . The study would assist and guide them for future research -related on crop 
+health of rice and corn . This study would also provide important things on the matter at 
+hand to further support their studies.  
+ 
+1.5  Scope and Limitations  
+ 
+Scope of the study is as follows:  
+Users are mostly farmers who will benefit on the study and also citizens who will 
+need it for researches. Since it is an android application, the system can only identify one 
+image at a time. Using the camera of the phone, the user can capture and  upload an image 
+of the crop and register it to the application for recognition process. Detection of diseases 
+is based on the physical look of the crops, as the dataset consists of images on crop diseases. 
+A pre -captured image of a crop can also be used f or identification. Using a custom trained 
+model for detection, the app can run even when the device is not connected to the internet.  
+ 
+Limitations of the study are as follow:  
+Disease detection will only cover those that are caused by fungi  which are 
+commo nly found within the Philippine farms of rice and corn as these diseases are the ones 
+that show the most change in the crops. Our team also included the label of a healthy crop 
+for the users to fully utilize the system and its functionality. The table is j ustified at Chapter 
+4. 
+Rice  Corn  
+Leaf Blight  Philippine Mildew  
+Brown Spot  Blight  
+Leaf Blast  Common Rust  
+Tungro  Gray Leaf Spot  
+Table 1. Rice and Corn Diseases  
+The system accepts captured images of the rice and corn plant. Stored  images are 
+also accepted. Cameras need to have a high clarity of pixels; 20mp or higher to assure the 
+recognition process proceeds with its high accuracy rate.  The application does not support 
+9 
+ 
+9 
+ voice -command. It is also expected to run on Android platform version 6.0 (Marshmallow) 
+and higher.  
+10 
+ 
+10 
+ 1.7  Operational Definition  
+ 
+Sensor – A sensor  is a device that produces an output signal for the purpose of 
+sensing a physical phenomenon  (Wikipedia) . 
+ 
+MobileNet Algorith m – MobileNet model from TensorFlow for image 
+classification of the system. It is Tensor Flow’s first mobile computer vision model, and it 
+is designed for use in mobile application. This model uses depth wise separable 
+convolution layers to build low -latency deep neural networks for mobile and embedded 
+devices  (Image Clas sification with MobileNet) . 
+ 
+Convolutional Neural Network – A convolutional neural network is a special kind 
+of feedforward neural network with fewer weights than a fully -connected network  (T. 
+Wood) . 
+ 
+VGG16 – is a convolutional neural network model propose d by K. Simonyan and 
+A. Zisserman from the University of Oxford in the paper “Very Deep Convolutional 
+Networks for Large -Scale Image Recognition”.  The model achieves 92.7% top -5 test 
+accuracy in ImageNet,  which is a dataset of over 14 million images belong ing to 1000 
+classes  (Popular Networks).  
+ 
+NasNet – Neural Architecture Search Network or NasNet is a machine learning 
+model which automates network architecture engineering (D. Nair).  
+ 
+SqueezeNet – SqueezeNet  is a deep neural network that was released in 2016. 
+SqueezeNet was developed by researchers at  Deepscale, University of California , Berkeley  
+and Stanford  University . In designing SqueezeNet, the authors' goal was to create a smaller 
+neural network with fewer parameters that can more easily fit into computer memory and 
+can more easily be transmitted over a computer network  (Wikipedia) . 
+ 
+  
+11 
+ 
+11 
+ Chapter 2 – Review of Related Literature  
+ 
+2.1  Related Studies  
+ 
+This chapter will discuss the different studies and re searches on crop health 
+recognition both on local and foreign approach. As there are numerous methods on crop 
+health recognition, this chapter will focus on taking into account some of the closely -
+related studies.  
+ 
+2.1.1  Foreign Studies  
+ 
+2.1.1.1  Research Paper on Mobile aRCee Checker an 
+Application of Rice and Corn Checker for Nutrient Deficiency 
+through Leaf Coloration  
+ 
+It is a research paper on developing rice and corn checker through leaf 
+coloration. Within the research, it shows an applicatio n that can quantify the 
+Nitrogen, Potassium and Phosphorus deficiency through the image processing of 
+the leaves. It can diagnose rice and corn nutrient deficiency through the leaf 
+coloration and patterns being recognized from the image (M. Eder, 2016).   
+  Figure 4. Algorithm for capturing image of the corn leaf  
+
+12 
+ 
+12 
+ The above Figure 4 shows the algorithm source code of capturing the image 
+of a corn leaf. Its process starts with storing pixels in an array, then the application 
+collects  the non -white, non -gray and non -black pixels. From that, it then creates a 
+new image using the collected pixels following the dimensions of the original 
+image, storing it in the internal storage as a PNG.  
+Figure 5.Algorithm for De tecting Nutrient Deficiency  
+ Figure 5 shows the algorithm for detecting nutrient deficiency from 
+captured crop leaf image. This algorithm relies on images without background, 
+which greatly helps the application on determining and scanning images.  
+  Figur e 6. Algorithm for Diagnosing Nitrogen Deficiency for Rice  
+
+13 
+ 
+13 
+ From the experimental process, results have shown that the application 
+greatly improved the diagnosing of nutrient deficiency on rice and corn images. It 
+can accurately cal culate the nutrient deficiency thus, receiving positive feedbacks 
+from respondents.  
+ 
+2.1.1.2  Identification and Recognition of Rice Diseases and 
+Pests using Deep Convolutional Neural Networks  
+ 
+This research paper focuses on rice crops through accurate and timely 
+detection of its diseases and pests. It allows the farmers to apply timely treatment 
+that will greatly reduce economic losses. By utilizing convolutional neural 
+networks (CNN), the research paper approached deep learning -based networks for 
+detecting  rice diseases and pests (R. Rhaman et al., 2018).  
+ 
+14 
+ 
+14 
+    
+  Figure 7. CNN Architecture  
+The above shown figure is the utilized CNN architecture for the research. It 
+shows the process of how it breaks down the image data into pieces. Constructed 
+from scratch, this CNN architecture was inspired by the sequential nature of 
+VGG16. This architecture only has a 0.8 million parameters compared to a 138 
+million parameters of VGG16.  
+ 
+In summary, the experimental results show the effectiveness of using two -
+stage small CNN rather than the state -of-the-art CNN architectures such as 
+MobileNet, NasNet Mobile and SqueezeNet, delivering a desired accuracy of 
+93.3%, while being a greatly reduced model size (99% smaller than VGG16).  
+
+15 
+ 
+15 
+  
+ 
+2.1.1.3  Deep Convolutional Neural Network based Detection 
+System for Real -time Corn Plant Disease Recognition  
+ 
+Corn is considered to be the most popular grain in India and having high 
+percentage of crop loss due to diseases threatens the food availability and storage.  
+By researching deep convolutional neural network, smart devices are used to utilize 
+and provide automatic diagnosis of corn diseases and sever crop losses (S. Mishra 
+et al., 2020).  
+  Figure 8. Architecture of DNN trained on GPU  
+ 
+  
+
+16 
+ 
+16 
+ As shown on Figure 8, Convolutional neural network is created by stacking 
+a sequence of layers, namely: Convolutional Layers, Max -Pooling Layers, 
+Activation Layers, and Dropout Layers. The paper presents real -time method, 
+based on the research deep convolu tional neural networks. By tuning hyper -
+parameters and adjusting the pooling combinations on a system with GPU, the deep 
+neural network performance is improved. It has utilized the use of a pre -trained 
+deep CNN model, which was deployed onto a raspberry 3 using Intel Movidius 
+Neural Compute Stick consisting dedicated CNN hardware blocks. During the 
+experimental process, the recognition of corn leaf diseases achieves an accuracy of 
+88.46%, demonstrating the feasibility of the method.  
+   
+2.1.2  Local Studies  
+ 
+2.1.2.1  Identification of Diseases in Rice Plant (Oryza Sativa) 
+using Back Propagation Artificial Neural Network  
+ 
+This research focuses on digital image processing to eliminate the 
+subjectiveness of manual inspection of diseases in rice plant. As it is pro grammed, 
+the research hopes to accurately identify three (3) common diseases of rice plant 
+that Philippine’s farmlands are affected. Image processing is built using MATLAB 
+functions and it compromises techniques such as image enhancement, image 
+segmentatio n and feature extraction as shown in the image below. The Back 
+Propagation Neural Network is used to enhance the accuracy and performance of 
+image processing (Orillo & Valenzuel, 2014).  
+Figure 9. Block Diagram    
+
+17 
+ 
+17 
+ Involving 134 imag es of diseases, the database of the network consisted of 
+percentages where, the 70% was used for training, 15% for validation and another 
+15% for testing. After the processing, the program was expected to give 
+corresponding strategic options to consider wh en the disease is detected. Overall, it 
+was proved to be 100% accurate.  
+ 
+2.1.2.2  Assessment of Lettuce (Lactuta Sativa) Crop Health 
+using Back Propagation Neural Network  
+ 
+This research paper uses the crop lettuce as its study model. The objective 
+of the study is to develop a simple color recognition algorithm using digital image 
+processing and pattern recognition. Using an Artificial Neural Network (ANN) and 
+Back Propagatio n Algorithm, both provide a high accuracy and versatility in 
+recognizing the defects in the lettuce based on their colors. ANN is commonly used 
+as a computational model, where it is patterned in the biological neural system of a 
+mammal but in a smaller sca le (I. Valenzuela et al.,  2018).  
+  Figure 10. Multilayer Network of Backpropagation ANN  
+
+18 
+ 
+18 
+ The image shown on Figure 10 is the network algorithm which is composed 
+of layers, namely: input, hidden and output. The organization of these layers makes 
+the network highly capable of predicting the outcomes with high accuracy. Adding 
+the back propagation algorithm to this provides a high accuracy and versatility in 
+recognizing defects in the lettuce crop, based on their colors. This neural net work 
+serves as the medium for identifying the quality of the lettuce crop.  
+Summarizing this, the back propagation neural network was successfully 
+applied on the assessment of lettuce crop health based on its color. The RGB 
+components of each image were ext racted by a color feature extraction of 
+LabVIEW. With the given results, the system is marked capable of assessing the 
+health of a lettuce with a minimum square error of 3.2484e -07. 
+   
+2.2 Related System  
+ 
+2.2.1  Rice Doctor Application powered by Lucid Mobi le 
+ 
+It is an application which is for identification of the crop health of the rice itself 
+only. Using the sensors on capturing images, the app will identify what the issue of the 
+captured image of the rice crop is (Lucidcentral).  
+ 
+2.2.2  riceXpert  
+ 
+This ap plication is a system like the Rice Doctor which is built for health 
+recognition for the rice itself. Since it was made for farmers especially from India, since it 
+only discussed the rice issue and not the other grain crops (Google Play).  
+ 
+  
+19 
+ 
+19 
+ 2.2.3  Feature s 
+ 
+  Features compared are stated below.  
+Features  Our System  Rice Doctor  riceXpert  
+Rice    
+Corn   × × 
+Image Recognition     
+Internet Connection  ×   
+Prevention Method     
+ Table 2. Feature Comparison  
+ 
+2.3 Algorithm  
+ 
+The algorithm used for developing the application, is under the MobileNET 
+algorithm for mobile -first computer vision models for TensorFlow. Designed to effectively 
+maximize accuracy while being mindful of restricted resources for an on -device or 
+embedded a pplication. TensorFlow offers a wide -variety of pre -trained models such as 
+Inception model datasets. However, MobileNet works better with latency, size and 
+accuracy. In terms of output and performance, there is a significant amount of lag with a 
+full-fledg ed model.   
+20 
+ 
+20 
+ Chapter 3 – Methodology  
+ 
+3.1 Target Users/Stakeholders  
+  
+The proposed study will aim its research towards the grain farms in Zamboanga 
+City as the system focuses on both rice and corn disease recognition.  
+ 
+3.2 Research Instruments  
+ 
+Research instrument covers the qualitative method, where the researchers went to 
+farms, surveyed and asked questions about farmers’ traditional way of gathering 
+information on grain crop disease. Farmers showed different states of rice and corn health 
+from  healthy to disease -stricken ones.  
+ 
+3.3 Research Design  
+ 
+This proposed study is an Applied Research Design where it focuses on assisting 
+the target users about grain crop disease recognition. Further information is at Phases of 
+Development . 
+ 
+3.4 Statistical Tools  
+ 
+To cut operational cost and have time efficiency, MS Excel will be utilized for data 
+visualization and simple statistics for the study.  
+ 
+3.4.1 Technical Aspect  
+ 
+The algorithm that t he team adapted to use is the MobileNet algorithm from 
+TensorFlow for image classification. MobileNet is a class of CNN that was open -sourced 
+by Google which gives developers an excellent starting point for training classifiers that 
+are insanely small and insanely fast. The reason why it was decided to adapt this algorithm 
+is with respect to the fact that the system relies on gathered images for data classification. 
+This is TensorFlow’s first vision model which is designed for mobile application use. It 
+21 
+ 
+21 
+ uses depth wise separable convolution layers to build low -latency deep neural networks for 
+mobile and alike devices. Using the depthwise convolution, it can significantly reduce the 
+number of parameters when compared to networks with same depth but regular 
+convolutions. Resulting in lightweight deep neural networks (A. Pujara, 2020).  
+ 
+Figure 11. Depthwise Separable Convolution  
+Depthwise separable convolution is made from two operations: Depthwise 
+convolution  and Pointwise Convolution . 
+ 
+Depthwise Convolution is the channel -wise DK × DK spatial convolution. For an 
+example from Figure 3, we have five (5) channels; then we will have 5 DK × DK spatial 
+convolutions. This is a map of a single convolution on each input channel separately . Usin g 
+its computational cost Df * M * Dk2, its number of output channels are the same as the 
+number of its input channels.  
+
+22 
+ 
+22 
+  
+Figure 12. Depthwise Convolution  
+  Pointwise Convolution is the 1 × 1 convolution to alter the dimension. The 
+pointwise simply combines the features of kernel size of 1 × 1 that was created by the depthwise 
+convolution. Computational cost is M * N * Df2. 
+ 
+Figure 13. Pointwise Convolution  
+  By adapting this algorithm, we can further analyz e with precision from the use of 
+the 1 × 1 pointwise convolution.  
+ 
+3.4.2  Phases of Development  
+ 
+Planning  
+The system consists of these stages as shown below in Figure 14, where (1) 
+Research and Preliminary Information is gathered from farmers regarding their 
+traditional way of monitoring crop health. Along with research on the algorithm to 
+be adapted and the c ollection of the dataset. (2) Planning of how to adapt the 
+algorithm and how to utilize the gathered information and the dataset. (3) Software 
+
+23 
+ 
+23 
+ Development where our team starts on developing the system for the study. (4) 
+Testing of the system and can retur n to System Development if it requires and 
+lastly, (5) Implementation of the system.  
+Figure 14. Research Planning   
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+24 
+ 
+24 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+25 
+ 
+25 
+ Conceptual Design  
+The diagram below shows the process of how data is being used and 
+transferred to different stages.  
+Figure 15. Conceptual Design  
+ 
+ 
+Dataset Collection  
+Images to be used for the dataset was gathered using a mobile phone camera 
+as to not create conflict with image size and pixilation. The rest of the images being 
+used are from kaggle.com. Each crop holds five (5) categories of images including 
+images of he althy crops in which images are ranging from 400 -500 per folder. 
+These collected images are then equally converted to provide better feature 
+extraction for the MobileNet algorithm having a dimension of 640px480p each.   
+
+26 
+ 
+26 
+  Hardware, Software  and Network  Requirements  
+The developed application will work on any mobile android -based device with 
+minimum version of 6.0 (Marshmallow) or higher. The pixels required for better 
+recognition of images must not be lower than 20 megapixels.  This system is provided 
+with its own set of images for the dataset, thus leads to the feature of not requiring any 
+internet connection to use the app.  
+ 
+ Development Tools  
+The system was coded through a laptop that our team provided, running on Intel7 and 
+Ryzen5 for smooth programm ing. Along with connection to the internet for constant 
+guide in developing the system. The development also included the use of a physical 
+emulator for better testing of the system. The physical emulator used is labeled as a 
+product of POCO under Xiaomi I nc. The usage of this physical emulator was decided 
+by factoring out the system’s usability in newly released mobile devices, as most users 
+now own devices with high specifications.  
+ 
+3.4.3  System Architecture  
+ 
+Figure 16. System Arc hitecture  
+ 
+  
+
+27 
+ 
+27 
+ Chapter 4 – Results and Discussions  
+ 
+4.1 Data Gathering  
+ 
+As mentioned in the objectives of this proposal, the images gathered to be used as 
+the main core of the dataset are the diseases commonly found in the Philippines. Rice 
+diseases which are known as being common  in the Philippines are the (1) Bacterial Leaf 
+Blight, (2) Brown Spot and (3) Rice Blast (J. Orillo  et al., 2014)  and on corn crops disease  
+being the ‘Peronosclerospora philippinensis ’ (Philippine downy mildew of maize) . This  
+stated crop disease is considered to be the one that majorly affects corn crops in the 
+Philippines (Cueva et al.,  2020). Conducting a research and interview to near farms and 
+agriculture offices, the stated Rice Tungro and three (3) more added Corn diseas es are what 
+the final research has garnered from the said interview. These interviews were done from 
+the local Agriculture Department of the Municipality of Kabasalan.  
+Figure 17. Corn Mildew (a)       Corn Leaf Blight (b)               Corn Common Rust (c)      Corn Gray Leaf Spot (d) 
+Rice Tungro (e)         Rice Brown Spot (f)   Rice Leaf Blast (g)        Rice Leaf Blight (h)  
+The above images on Figure 17 are the sample images on each disease category 
+within the system model. Some o f the corn crop images were taken from a small farm in 
+the Municipality of Kabasalan near a rubber plantation. Rice crop images were from a 
+highway -side farm, stretching from the barangay Lumbayao to barangay Dipala. Each of 
+these images, along with the re st of the image on the dataset have been trained, tested and 
+validated through coding on Google Colab.  
+
+28 
+ 
+28 
+ Crop Disease  Number of Images within 
+the Dataset  Image Dimension  
+Corn Common Rust  450 640p x 480p  
+Corn Gray Leaf Spot  425 640p x 480p  
+Corn Leaf Blight  461 640p x 480p  
+Corn Mildew  411 640p x 480p  
+Healthy Corn  478 640p x 480p  
+Healthy Rice  400 640p x 480p  
+Rice Brown Spot  400 640p x 480p  
+Rice Leaf Blast  433 640p x 480p  
+Rice Leaf Blight  407 640p x 480p  
+Rice Tungro  443 640p x 480p  
+Table 3. Dataset Image Characteristics  
+The characteristics of the images per category of the dataset are shown in Table 3. 
+These images, both locally -taken and collected from kaggle.com were mass converted to a 
+same pixel dimension.  
+ 
+4.2 Data Analysis  
+  
+For the  data analysis, the starting was to create the model for the basis of the system. 
+As mentioned above in the research paper, the basis for this model was all the images, 
+merged together with different category folders per diseases as stated under Phases of 
+Development . To further give an understanding on how to manage these images and create 
+the model to be used, the research team decided to train different sets of images from the 
+collection, as a fo rm of trial and analyzation. This decision was to give insi ghts on how to 
+handle the image set and how they are to be used inside the model itself. After deliberation, 
+the first set of images that was used were all the images under the 'corn disease'. Thes e 
+images were trained, tested and finalized using Google Colab. After writing the set of codes 
+for creating a model, the result outputted a high prediction accuracy of over 90%. This 
+entails that a model was successfully created  but is nowhere near complet ion, a s shown on 
+Figure 18.  
+29 
+ 
+29 
+ Figure 18. Model Creation  
+The Figure 19 below shows the process of how the model was created. The model 
+was trained, and evaluated for its accuracy and loss from the images being processed. In 
+this section, inputting into the Google Colab, a set example of prediction accuracy and 
+output of the model. Stating only a hundred images for testing of data prediction accuracy. 
+Showing the right predictions in black label and wrong predictions in red label.   
+ 
+Figure 19. Model Training  
+Figure 20 on the next page is the set of images used as an example from trained 
+images of the model.  
+ 
+
+30 
+ 
+30 
+   
+Figure 20. Training Output  
+From the first trial set namely 'corn diseases', our research moved to a nother 
+practice step of adding 'Rice' and 'Corn' folder labels where the stated disea ses will be 
+moved onto, as shown on Figure 21.  
+Figure 21. Categorization Example  
+However, this resulted in an error of classifying of images for the dataset, as shown 
+on Figure 22. It shows that the images inside the disease folders are cannot be read and 
+must be placed directly under the main folder to allow the program to identify the images 
+for c lassification. This ended with removing the main folder of classification and just 
+directly placing all the disease folders into one main folder.  
+  
+Corn Folder  
+Disease Folder  
+Rice Folder  Disease Folder  
+Disease Folder  
+Disease Folder  
+31 
+ 
+31 
+  
+Figure 22. Error Runtime  
+ 
+4.3 Data Finalization  
+ 
+After the trials for the differe nt sets of images, the research proceeded to create the 
+model to be used for the system. In this section, all the images were now called to create 
+the model. The process is the same as the trials, however the prediction accuracy of model 
+was at 70%. The re ason for this was because before the conversion of all the images into 
+same dimension and pixel, the images gathered were raw, with different pixels , dimension 
+and above all image file size . The differences of these images stem from where and how 
+they were  taken.  
+ 
+Figure 23. Model Loss and Accuracy  
+ 
+A solution for this included a code that will quantize the dataset along with 
+converting them into same pixel dimension. Quantizing the dataset is from  the fact  that the 
+MobileNet algor ithm outputs a high prediction accuracy when the images being included 
+in the dataset does not exceed its favorable quantity for prediction accuracy (U. Kukarni et 
+al., 2021).  
+  
+Figure 24. Quantization  
+
+32 
+ 
+32 
+ With this, the research re ached the final step for the creation of the model. After 
+inputting all the codes that was required, the percentage accuracy and loss were  not that far 
+from each other and the 80% mark was also met. In actuality, the model outpu tted a 
+prediction accuracy o f 95% as shown on Figure 25.  
+Figure 25. Final Training  
+  On Figure 26 below is the final training output of the model. These training images 
+show a 5% prediction accuracy miscalculation within the dataset.  
+ 
+Figure 26. Final Training Output  
+
+33 
+ 
+33 
+ 4.4 System Results  
+ 
+Along with how to prevent these diseases, t he application also has information on 
+every registered disease within the system which gives users the knowledge they would 
+need on managing  the crop diseases.   
+Figure 27. Final Accuracy  
+ 
+Test runs were done by experimenting on different types of disease -stricken leaves 
+of rice and corn plants using the custom modifier. All the images within the model, results 
+in an 95 % accuracy, giving us only a 5% miscalculation on recognition of diseases. 
+However, taking into note that depending on how the image was taken and how close the 
+specimen to the camera, the results mostly fall under 5% miscalculation. The system also 
+accept s images that are totally unrelated to the trained images and still gives a result of 
+disease classification. The reason for this is because the image classification algorithm 
+recognizes the features that it has extracted from the image being classified, t hus giving 
+out results that may have similarities to the features from the dataset.  
+All these test runs are programmed within Google Colab and run on AMD Ryzen 
+5 2500U with a clock of 2.00GHz and a RAM of 12GB in a windows 10 environment.  
+  
+
+34 
+ 
+34 
+ Chapter 5 – Conclusion and Recommendation  
+ 
+5.1 Conclusion  
+ 
+After the testing of selected/captured images, the team concluded that in order to 
+add more diseases that the system can predict, the system must undergo on a dataset 
+modification along with its model. To do this , one must collect and train images all over 
+again before integrating it to the system. The system solely relies on the trained images of 
+the dataset which brings us to the quantization of the model that has an overall accuracy of 
+82%. It can definitely us e a more stable model type and a larger quantization to fully house 
+the images within the dataset the team have used. However, the model still delivered 
+outstanding results, making the system work within the expected outcome.  
+ 
+5.2 Recommendation  
+ 
+This paper presents a system for Rice and Corn Disease Classification based on a 
+deep learning MobileNet algorithm which is a Convolutional Neural Network. Taking into 
+account that this is an E -learning app, the system will be of great use to the general 
+population who wishes to learn more about the diseases that strike the golden crops of the 
+country and to those who are entering the field of agriculture with knowledge or next to no 
+knowledge on crop diseases. Using MobileNet as the algorithm gives us an e fficient and 
+quick way of getting great results. As a team, we recommend the use of MobileNet in any 
+projects that require the algorithm of an image classification and that you explore similar 
+mobile application that offers free use of apps to acquire more  knowledge on this front.  
+  
+35 
+ 
+35 
+ References  
+ 
+Abhijeet Pujara (July 4, 2020). Image Classification with MobileNet  
+https://medium.com/analytics -vidhya/image -classification -with-mobilenet -cc6fbb2cd470  
+ 
+Anonymous (Not Stated). Traditional Foods and their Geographical Relevance  
+ https://owt -thephilipp ines.weebly.com/staple -foods.html  
+ 
+Cedeño (January 28, 2021).  Zamboanga Folks Urged to Engage in G ardening  
+https://www.sunstar.com. ph/article/1884162/Zamboanga/Local -News/Zamboanga -folks -
+urged -to-engage -in-gardening  
+ 
+Devika Nair (N.A). NasNet – A Brief Overview  
+ https://iq.opengenus.org/nasnet/  
+ 
+Google Play  
+ riceXpert - Apps on Google Play  
+ 
+J. Plant Pathol Microbiol (May 24, 2021). Effects of Environmental Factors on Crop Diseases 
+Development  
+https://www.walshmedicalmedia.com/open -access/effects -of-environmental -factors -on-
+crop-
+diseases.pdf#:~:text=Environmental%20factors%20are%20triggering%20simultaneous%
+20effects%20on%20the,properties%20%28pH%20and%20nutrients%29% 20and%20atm
+ospheric%20carbon%20dioxide . 
+ 
+Ira Valenzuela, Argel Bandala & Elmer Dadios (August 13, 2018). Assessment of Lettuce (Lactuta 
+Sativa) Crop Health using Back Propagation Neural Network  
+https://scinet.science.ph/union/UploadFiles/download.php?b=Fil -
+363345_363345.pdf&f=../Downloads/Fil -363345 _363345.pdf&t=application/pdf  
+ 
+36 
+ 
+36 
+ IRRI, Seed Health Unit  (Patria Gonzales, Evangeline Gonzales, Carlos Huelma, Myra Almodiel, 
+Joel Dumlao), Los Banos, Philippines  (Not Stated). Crop Genebank Knowledge Base  
+https://cropgenebank.sgrp.cgiar.org/index.php/management -mainmenu -434/stogs -
+mainmenu -238/rice/guidelines/fungi  
+ 
+Jeanne Grunert (N.A). 4 Plant Growth Factors that Affect All Plants  
+ https://garden.lovetoknow.com/garden -basics/plant -growth -factors  
+ 
+John William Orillo & Ira Valenzuela (November 2014). Identification of Diseases on Rice Plant 
+(Oryza Sativa) using Back Propagation Artificial Neural Network  
+https://www.researchgate.net/publicat ion/281148745_Identification_of_Diseases_in_Ric
+e_Plant_Oryza_Sativa_using_Back_Propagation_Artificial_Neural_Network  
+ 
+Lucid Central  
+ https://www.lucidcentral.org/ed itors-pick-crop-diagnostic -keys/rice -doctor/  
+ 
+Marylene Eder (December 2016). Mobile aRCEE Checker an Application of Rice and Corn 
+Checker for Nutrient Deficiency through Leaf Coloration  
+https://indjst.org/download -
+article.php?Article_Unique_Id=INDJST10895&Full_Text_Pdf_Download=True  
+ 
+Mogato (July 26, 2018). In Philippines, Technology is Seeping into Agriculture  
+ https://www.bworldonline.com/in -the-philippines -technology -is-seeping -into-agriculture/  
+ 
+Pala y and Corn Quarterly Bulletin  
+https://psa.gov.ph/sites/default/files/Palay%20and%20Corn%20Quarterly%20%20Bulleti
+n%2C%20October%202020.pdf  
+ 
+Popular Networks (N.A). VGG16 – Convolutional Neural Network for Classification and 
+Detection  
+ https://neurohive.io/en/popular -networks/vgg16/  
+37 
+ 
+37 
+  
+Rafeed Rahman, Preetom Saha Arko, Mohammed Eunus  Ali, Mohammad Ashik Iqbal Khan Khan 
+(December 2018). Identification and Recognition of Rice Diseases and Pests Using Deep 
+Convolutional Neural Networks  
+https://www.researchgate.net/publication/329413922_Identification_and_Recognition_of
+_Rice_Diseases_and_Pests_Using_Deep_Convolutional_Neural_Networks  
+ 
+Shaping Agriculture  
+https://www.cropscience.bayer.com/innovations/data -science/a/digital -tools -for-farmers  
+ 
+S. Savary , S. Bregaglio , L. Willocquet , D. Gustafson , D. Mason D’Croz , A. Sparks , N. 
+Castilla , A. Djurle , C. Allinne , Mamta Sharma , V. Rossi , L. Amorim , A. Bergamin , J. Yuen , P. 
+Esker , Neil McRoberts , J. Avelino , E. Duveiller , J. Koo  & K. Garrett  (March 17, 2017). Crop 
+Health and its Global Imp acts on the Components of Food Security  
+https://link.springer.com/ar ticle/10.1007/s12571 -017-0659 -
+1#:~:text=The%20phrase%20%E2%80%9Ccrop%20health%E2%80%9D%20is,plant%2
+0physiology%20and%20crop%20performances  
+ 
+Wikipedia (N.A). Sensor  
+ https://en.wikipedia.org/wiki/Sensor  
+ 
+Shark Keeper   
+http://sharkkeeper.com/can -sharks -get-sick-or-
+diseases/?fbclid=IwAR2Ms5eRO0yTvDiYzYsFspk_sk69461ftDvEPDeU9GefYugnbhOz
+imUAp4o#:~:text=All%20living%20things%20are%20prone%20to%20diseases.%20Co
+mpared,make%20sharks%2 0perfect%20and%20completely%20immune%20to%20diseas
+es 
+ 
+Terri Queck -Matzie (October 9, 2019). Successful Farming  
+https://ww w.agriculture.com/technology/technology -adds-efficiencies -in-counting -
+plants -and-assessing -early -stage -crops  
+38 
+ 
+38 
+  
+Sumita Mishra, Rishabh Sachan, Diksha Rajpal (January 2020). Deep Convolutional Neural 
+Network based Detection System for Real -time Corn Plant Disease Recognition  
+https://www.researchgate.net/publication/340711014_Deep_Convolution al_Neural_Netw
+ork_based_Detection_System_for_Real -time_Corn_Plant_Disease_Recognition  
+ 
+Thomas Wood (N.A). Convolutional Neural Network  
+https://deepai.org/machine -learning -glossary -and-terms/convolutional -neural -
+network#:~:text=A%20convolutional%20neural%20network%20is%20a%20special%20
+kind,node%20in%20the%20first%20layer%2C%20and%20so%20on . 
+ 
+Toshichika , & N. Ramankutty  (March, 2015). How do Weather and Climate Influence Cropping 
+Area and Intensity?  
+ https://www.sciencedirect.com/science/article/pii/S2211912414000583# ! 
+ 
+Uday Kulkarni, Meena S.M., Sunil V. Gurlahosur, Gopal Bhogar (April, 2021). Quantization 
+Friendly MobileNet (QF -MobileNet) Architecture for Vision Based Application on Embedded 
+Platforms  
+ https://www.sciencedirect.com/science/article/abs/pii/S0893608020304470  
+ 
+Wikipedia (N.A). SqueezeNet  
+ https://en.wikipedia.org/wiki/SqueezeNet  
+ 
+  
+39 
+ 
+39 
+ Appendices  
+ 
+  
+40 
+ 
+40 
+ Appendix A – Protot ype  
+ 
+ 
+ 
+ 
+ 
+Figure 28. Prototype Images   
+
+41 
+ 
+41 
+ Appendix B – Plagiarism Report  
+ 
+Figure 29. Originality Report  
+ 
+ 
+
+42 
+ 
+42 
+  
+Appendix C – Survey Form  
+ 
+ 
+ 
+Figure 30. Survey Form  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+43 
+ 
+43 
+ Appendix D – Proofread and Validation  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+44 
+ 
+44 
+  
+ 
+ 
+ 
