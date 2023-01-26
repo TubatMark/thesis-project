@@ -57,7 +57,8 @@ MIDDLEWARE = [
 
 CSRF_COOKIE_SECURE = True
 CSRF_COOKIE_HTTPONLY = True
-CSRF_TRUSTED_ORIGINS = ['web-production-b6a9.up.railway.app']
+CSRF_TRUSTED_ORIGINS = ['https://web-production-b6a9.up.railway.app']
+CSRF_TRUSTED_ORIGINS = ['https://*.web-production-b6a9.up.railway.app']
 
 WHITENOISE_ALLOW_ALL_ORIGINS = True
 
