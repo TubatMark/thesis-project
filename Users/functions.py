@@ -1,12 +1,11 @@
 import logging
 import PyPDF2
-import nltk
-import sklearn
 from nltk import pos_tag, word_tokenize
 from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer, WordNetLemmatizer
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
+from sklearn.neighbors import NearestNeighbors
 import numpy as np
 import pandas as pd
 from io import StringIO
@@ -15,6 +14,10 @@ logger = logging.getLogger(__name__)
 import warnings
 import os
 from .models import RepositoryFiles
+import codecs
+import dateutil.parser as dparser
+import string
+import nltk
 
 # upload enrolled students csv file
 def csv_enrolled_students(file):
@@ -35,42 +38,25 @@ def csv_enrolled_students(file):
 
 
 def preprocess(data):
-    # Convert to lower case
-    data = np.char.lower(data)
-
-    # Remove punctuation
-    symbols = "!\"#$%&()*+-./:;<=>?@[\]^_`{|}~\n"
-    for i in range(len(symbols)):
-        data = np.char.replace(data, symbols[i], ' ')
-        data = np.char.replace(data, "  ", " ")
-        data = np.char.replace(data, ',', '')
-
+    # open and read stopwords.txt
+    with codecs.open('stopwords/stopwords.txt', 'r', encoding='utf-8', errors='ignore') as f:
+        stopwords = f.read().splitlines()
+        
     # Remove stop words
-    stop_words = stopwords.words('english')
-    words = word_tokenize(str(data))
-    new_text = ""
-    for w in words:
-        if w not in stop_words and len(w) > 1:
-            new_text = new_text + " " + w
-    data = new_text
+    words = nltk.tokenize.word_tokenize(data)
+    
+    # Convert words to lowercase
+    lower_words = [word.lower() for word in words]
+    
+    filtered_words = [word for word in lower_words if word not in stopwords and len(word) > 2 and not word.isdigit() and not all(c in string.punctuation for c in word) and not is_date(word)]
+    return " ".join(filtered_words)
 
-    # Perform stemming
-    stemmer = PorterStemmer()
-    words = word_tokenize(str(data))
-    new_text = ""
-    for w in words:
-        new_text = new_text + " " + stemmer.stem(w)
-    data = new_text
-
-    # Perform lemmatization
-    lemmatizer = WordNetLemmatizer()
-    words = word_tokenize(str(data))
-    new_text = ""
-    for w in words:
-        new_text = new_text + " " + lemmatizer.lemmatize(w)
-    data = new_text
-
-    return data
+def is_date(string):
+    try:
+        dparser.parse(string, fuzzy=True)
+        return True
+    except ValueError:
+        return False
 
 def extract_pdf_text(pdf_file, repository_file):
     # open the PDF file
