@@ -1,9 +1,7 @@
 import logging
 import PyPDF2
-import nltk
-nltk.download('stopwords','punkt')
 from nltk import pos_tag, word_tokenize
-from nltk.corpus import stopwords
+from nltk.corpora import stopwords
 from nltk.stem import PorterStemmer, WordNetLemmatizer
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
