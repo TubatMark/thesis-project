@@ -1,5 +1,7 @@
 import logging
 import PyPDF2
+import nltk
+nltk.download('stopwords')
 from nltk import pos_tag, word_tokenize
 from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer, WordNetLemmatizer
