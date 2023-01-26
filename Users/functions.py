@@ -18,6 +18,7 @@ import codecs
 import dateutil.parser as dparser
 import string
 import nltk
+nltk.download('punkt')
 
 # upload enrolled students csv file
 def csv_enrolled_students(file):
