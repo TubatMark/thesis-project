@@ -17,8 +17,10 @@ from .models import RepositoryFiles
 import codecs
 import dateutil.parser as dparser
 import string
+from django.conf import settings
 import nltk
 nltk.download('punkt')
+
 
 # upload enrolled students csv file
 def csv_enrolled_students(file):
@@ -69,9 +71,10 @@ def extract_pdf_text(pdf_file, repository_file):
     # join all the texts from the list and save it as a single string
     text = "\n".join(text_list)
     
-    path = 'media/ExtractedFiles'
-    if not os.path.exists(path):
-        os.makedirs(path)
+    # construct the file path using MEDIA_ROOT and MEDIA_URL
+    file_path = os.path.join(settings.MEDIA_ROOT, "ExtractedFiles")
+    if not os.path.exists(file_path):
+        os.makedirs(file_path)
     text_file_name = pdf_file.name.replace('.pdf', '.txt')
     text_file = os.path.join(path, text_file_name)
     with open(text_file, 'w', encoding='utf-8') as f:
@@ -106,7 +109,7 @@ def extract_pdf_text(pdf_file, repository_file):
 def vectorize(query_matrix, vectorizer, k):
     matrices = []
     for file_info in RepositoryFiles.objects.all().values('text_file', 'title','proponents','adviser','school_year'):
-        file_path = file_info['text_file']
+        file_path = os.path.join(settings.MEDIA_ROOT, file_info['text_file'])
         with open(file_path, 'r', encoding='utf-8', errors='ignore') as f:
             text = f.read()
             text = preprocess(text)
@@ -126,7 +129,7 @@ def student_pdf_text(pdf_file):
     vectorizer = TfidfVectorizer()
     
     all_docs = []
-    path = 'media\ExtractedFiles'
+    path = os.path.join(settings.MEDIA_ROOT, 'ExtractedFiles')
     for file in os.listdir(path):
         with open(os.path.join(path, file), 'r',encoding='utf-8', errors='ignore') as f:
             all_docs.append(f.read())
