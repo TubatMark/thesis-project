@@ -36,18 +36,47 @@
                         <div class="col-md-6 mb-3">
                             <div class="form-group">
                                 <label for="username">Username</label>
-                                <input class="form-control" id="username" type="email"
-                                    value="{{ admin.user.username }}" readonly>
+                                <input class="form-control" id="username" type="email" value="{{ admin.user.username }}"
+                                    readonly>
                             </div>
                         </div>
                         <div class="col-md-6 mb-3">
                             <div class="form-group">
                                 <label for="email">Email</label>
-                                <input class="form-control" id="email" type="email"
-                                    value="{{ admin.user.email }}" readonly>
+                                <input class="form-control" id="email" type="email" value="{{ admin.user.email }}"
+                                    readonly>
                             </div>
                         </div>
                         {% endfor %}
+                    </div>
+                    <div class="row">
+
+                        <table class="table table-bordered mx-auto">
+                            <thead bgcolor="grey" style="color: #fff; font-size:13px">
+                                <tr>
+                                    <th style="width: 5%;">ID</th>
+                                    <th style="width: 13%;">Thesis Title</th>
+                                    <th style="width: 12%;">Proponents</th>
+                                    <th style="width: 9%;">Adviser</th>
+                                    <th style="width: 5%;">School Year</th>
+                                    
+                                </tr>
+                            </thead>
+                            <!--Data from backend-->
+                            <tbody style="text-align: left;">
+                                {% for repo in userrepo %}
+                                <tr style="color: black; text-align: left; font-size: 13px; ">
+                                    <th>{{ repo.id }}</th>
+                                    <th>{{ repo.title }}</th>
+                                    <th>{{ repo.proponents }}</th>
+                                    <th>{{ repo.adviser }}</th>
+                                    <th>{{ repo.school_year }}</th>
+                                    
+                                </tr>
+
+                                {% endfor %}
+                            </tbody>
+                        </table>
                     </div>
                 </form>
             </div>
@@ -61,12 +90,12 @@
                         <div class="card-body pb-5">
                             {% if admin.profile_picture %}
                             <img src="{{ admin.profile_picture.url }}"
-                                class="avatar-xl rounded-circle mx-auto mt-n7 mb-4" alt="{{ admin.first_name }} {{ admin.last_name }}"
-                                style="height: 150px; width: 150px;">
+                                class="avatar-xl rounded-circle mx-auto mt-n7 mb-4"
+                                alt="{{ admin.first_name }} {{ admin.last_name }}" style="height: 150px; width: 150px;">
                             {% else %}
                             <img src="/static/default/default_profile.png"
-                                class="avatar-xl rounded-circle mx-auto mt-n7 mb-4" alt="{{ admin.first_name }} {{ admin.last_name }}"
-                                style="height: 150px; width: 150px;">
+                                class="avatar-xl rounded-circle mx-auto mt-n7 mb-4"
+                                alt="{{ admin.first_name }} {{ admin.last_name }}" style="height: 150px; width: 150px;">
                             {% endif %}
                             <h4 class="h3">
                                 {{ admin.user.first_name }} {{ admin.user.last_name }}

@@ -619,6 +619,9 @@ def admin_details(request):
         
     admins = Admin.objects.filter(user=request.user)
     repository = RepositoryFiles.objects.all()
+    
+    userrepo = RepositoryFiles.objects.filter(user=request.user)
+    
     total_repository = repository.count()
     students = StudentUsers.objects.all()
     total_students_enrolled = students.count()
@@ -641,6 +644,7 @@ def admin_details(request):
         "total_rejected": total_rejected,
         "status_approved": status_approved,
         "total_approved": total_approved,
+        "userrepo": userrepo,
         'admins': admins
     }
     return render(request, 'accounts/admin/admin_dashboard/admin_details/settings.html', context)
@@ -761,7 +765,7 @@ def upload_title_defense(request):
                 vectorizer = TfidfVectorizer()
                 all_docs = []
                 for file in RepositoryFiles.objects.all().values('text_file'):
-                    file_path = settings.MEDIA_ROOT + file['text_file']
+                    file_path = file['text_file']
                     with open(file_path, 'r', encoding='utf-8', errors='ignore') as f:
                         all_docs.append(f.read())
                 all_docs = [preprocess(text) for text in all_docs]

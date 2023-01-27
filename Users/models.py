@@ -44,7 +44,7 @@ class PanelUsers(models.Model):
 
 #ADMIN
 class RepositoryFiles(models.Model):
-    #user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
     title = models.CharField(max_length=255)
     proponents = models.CharField(max_length=255)
     adviser = models.CharField(max_length=255, blank=True, null=True)

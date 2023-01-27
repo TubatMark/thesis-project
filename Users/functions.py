@@ -1,7 +1,6 @@
 import logging
 import PyPDF2
 from nltk import pos_tag, word_tokenize
-from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer, WordNetLemmatizer
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
@@ -19,7 +18,7 @@ import dateutil.parser as dparser
 import string
 from django.conf import settings
 import nltk
-nltk.download('punkt')
+
 
 
 # upload enrolled students csv file
@@ -129,9 +128,9 @@ def student_pdf_text(pdf_file):
     vectorizer = TfidfVectorizer()
     
     all_docs = []
-    path = os.path.join(settings.MEDIA_ROOT, 'ExtractedFiles')
-    for file in os.listdir(path):
-        with open(os.path.join(path, file), 'r',encoding='utf-8', errors='ignore') as f:
+    for file in RepositoryFiles.objects.all().values('text_file'):
+        file_path = file['text_file']
+        with open(file_path, 'r', encoding='utf-8', errors='ignore') as f:
             all_docs.append(f.read())
     all_docs = [preprocess(text) for text in all_docs]
     vectorizer.fit(all_docs)
@@ -145,7 +144,7 @@ def student_pdf_text(pdf_file):
     # join all the texts from the list and save it as a single string
     text = "\n".join(text_list)
  
-    # preprocess the text using NLTK
+    # preprocess 
     query_text = preprocess(text)
     query_matrix = vectorizer.transform([query_text])
     return query_matrix
