@@ -761,7 +761,7 @@ def upload_title_defense(request):
                 vectorizer = TfidfVectorizer()
                 all_docs = []
                 for file in RepositoryFiles.objects.all().values('text_file'):
-                    file_path = settings.MEDIA_ROOT + file['text_file']
+                    file_path = file['text_file']
                     with open(file_path, 'r', encoding='utf-8', errors='ignore') as f:
                         all_docs.append(f.read())
                 all_docs = [preprocess(text) for text in all_docs]
@@ -874,7 +874,7 @@ def upload_proposal_defense(request):
                 vectorizer = TfidfVectorizer()
                 all_docs = []
                 for file in RepositoryFiles.objects.all().values('text_file'):
-                    file_path = settings.MEDIA_ROOT + file['text_file']
+                    file_path = file['text_file']
                     with open(file_path, 'r', encoding='utf-8', errors='ignore') as f:
                         all_docs.append(f.read())
                 all_docs = [preprocess(text) for text in all_docs]
