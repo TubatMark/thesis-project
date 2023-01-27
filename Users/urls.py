@@ -126,4 +126,4 @@ urlpatterns = [
     # view uploaded documents
     path("view_def_documents/<int:id>",
          views.view_def_documents, name="view_def_documents"),
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
