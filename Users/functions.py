@@ -109,7 +109,7 @@ def extract_pdf_text(pdf_file, repository_file):
 def vectorize(query_matrix, vectorizer, k):
     matrices = []
     for file_info in RepositoryFiles.objects.all().values('text_file', 'title','proponents','adviser','school_year'):
-        file_path = os.path.join(settings.MEDIA_ROOT, file_info['text_file'])
+        file_path = file_info['text_file']
         with open(file_path, 'r', encoding='utf-8', errors='ignore') as f:
             text = f.read()
             text = preprocess(text)
