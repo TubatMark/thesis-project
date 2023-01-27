@@ -76,7 +76,7 @@ def extract_pdf_text(pdf_file, repository_file):
     if not os.path.exists(file_path):
         os.makedirs(file_path)
     text_file_name = pdf_file.name.replace('.pdf', '.txt')
-    text_file = os.path.join(path, text_file_name)
+    text_file = os.path.join(file_path, text_file_name)
     with open(text_file, 'w', encoding='utf-8') as f:
         f.write(text)
     
