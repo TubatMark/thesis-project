@@ -1008,7 +1008,7 @@ def student_details(request):
 #     }
 #     return render(request, 'accounts/student/student_dashboard/student_details/settings.html', context)
 
-# STUDENT VIEW REPOSITORY FILES - NOT YET WORKIN
+# STUDENT VIEW REPOSITORY FILES
 def view_pdf_repository(request, id):
     object = RepositoryFiles.objects.get(id=id)
     pdf_file = object.pdf_file.path
