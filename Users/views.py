@@ -147,9 +147,9 @@ def AddRepositoryFiles(request):
     if request.method == "POST":
         form = RepositoryForm(request.POST, request.FILES)
         if form.is_valid():
-            repository_file = form.save()  # save the form and get the instance
-            # repository_file.user = request.user  # add the user to the instance
-           # repository_file.save()
+            repository_file = form.save(commit=False)  # save the form and get the instance
+            repository_file.user = request.user  # add the user to the instance
+            repository_file.save()
             pdf_file = request.FILES['pdf_file']
             try:
                 # pass the repository_file object to the function

@@ -18,7 +18,7 @@ import dateutil.parser as dparser
 import string
 from django.conf import settings
 import nltk
-
+nltk.download('punkt')
 
 
 # upload enrolled students csv file
