@@ -1328,12 +1328,17 @@ def panel_details(request):
 
 def view_def_documents(request, id):
     object = UploadDocuments.objects.get(id=id)
-    pdf_file = object.student_pdf_file.path
-    pdf_file_date = os.path.getmtime(pdf_file)
-    pdf_file_date = datetime.fromtimestamp(pdf_file_date)
-    pdf_file_size = os.path.getsize(pdf_file)
+    pdf_file = object.student_pdf_file
+    pdf_file_date = pdf_file.modified_time()
+    pdf_file_size = pdf_file.size
     pdf_file_etag = f'"{pdf_file_size}-{int(pdf_file_date.timestamp())}"'
-    response = FileResponse(open(pdf_file, 'rb'), content_type='application/pdf; inline=1')
+    response = FileResponse(default_storage.open(pdf_file.name, 'rb'), content_type='application/pdf; inline=1')
+    # pdf_file = object.student_pdf_file.url
+    # pdf_file_date = os.path.getmtime(pdf_file)
+    # pdf_file_date = datetime.fromtimestamp(pdf_file_date)
+    # pdf_file_size = os.path.getsize(pdf_file)
+    # pdf_file_etag = f'"{pdf_file_size}-{int(pdf_file_date.timestamp())}"'
+    # response = FileResponse(default_storage.open(pdf_file, 'rb'), content_type='application/pdf; inline=1')
     response['Content-Disposition'] = 'inline; filename="' + pdf_file + '"'
     response['Last-Modified'] = pdf_file_date.strftime('%a, %d %b %Y %H:%M:%S GMT')
     response['ETag'] = pdf_file_etag
