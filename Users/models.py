@@ -50,7 +50,7 @@ class RepositoryFiles(models.Model):
     adviser = models.CharField(max_length=255, blank=True, null=True)
     school_year = models.CharField(max_length=255, blank=True, null=True)
     pdf_file = models.FileField(upload_to="RepositoryFiles/")
-    text_file = models.FileField(upload_to="ExtractedFiles/", blank=True, null=True)    
+    text_file = models.FileField(upload_to="ExtractedFiles/")    
     
     class Meta:
         db_table = "db_repository"
