@@ -765,7 +765,7 @@ def upload_title_defense(request):
                 vectorizer = TfidfVectorizer()
                 all_docs = []
                 for file in RepositoryFiles.objects.all().values('text_file'):
-                    file_path = file['text_file'].path
+                    file_path = file['text_file']
                     with open(file_path, 'r', encoding='utf-8', errors='ignore') as f:
                         all_docs.append(f.read())
                 all_docs = [preprocess(text) for text in all_docs]
@@ -1328,7 +1328,7 @@ def panel_details(request):
 
 def view_def_documents(request, id):
     object = UploadDocuments.objects.get(id=id)
-    pdf_file = object.student_pdf_file
+    pdf_file = object.student_pdf_file.url
     pdf_file_date = os.path.getmtime(pdf_file)
     pdf_file_date = datetime.fromtimestamp(pdf_file_date)
     pdf_file_size = os.path.getsize(pdf_file)
