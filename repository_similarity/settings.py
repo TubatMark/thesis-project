@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "crispy_forms",
     "Users",
     "corsheaders",
+    #"storages",
 ]
 
 MIDDLEWARE = [
@@ -142,7 +143,7 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
 MEDIA_URL = '/media/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
@@ -155,6 +156,22 @@ STORAGES = {
         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
     },
 }
+
+#AMAZON S3
+
+# AWS_ACCESS_KEY_ID = 'YOUR_ACCESS_KEY'
+# AWS_SECRET_ACCESS_KEY = 'YOUR_SECRET_KEY'
+# AWS_STORAGE_BUCKET_NAME = 'YOUR_BUCKET_NAME'
+
+# AWS_S3_FILE_OVERWRITE = False
+# AWS_DEFAULT_ACL = None
+# DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+# AWS_S3_REGION_NAME = 'YOUR_REGION_NAME' 
+# AWS_S3_ENDPOINT_URL = 'YOUR_ENDPOINT_URL'
+
+# MEDIA_ROOT = '/media/'
+# MEDIA_URL = 'https://s3-us-west-2.amazonaws.com/YOUR_BUCKET_NAME/'
 
 
 # Default primary key field type
