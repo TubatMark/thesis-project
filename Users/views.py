@@ -1011,7 +1011,7 @@ def student_details(request):
 # STUDENT VIEW REPOSITORY FILES - NOT YET WORKIN
 def view_pdf_repository(request, id):
     object = RepositoryFiles.objects.get(id=id)
-    pdf_file = object.pdf_file.url
+    pdf_file = object.pdf_file.path
     pdf_file_date = os.path.getmtime(pdf_file)
     pdf_file_date = datetime.fromtimestamp(pdf_file_date)
     pdf_file_size = os.path.getsize(pdf_file)
@@ -1328,7 +1328,7 @@ def panel_details(request):
 
 def view_def_documents(request, id):
     object = UploadDocuments.objects.get(id=id)
-    pdf_file = object.student_pdf_file.url
+    pdf_file = object.student_pdf_file.path
     pdf_file_date = os.path.getmtime(pdf_file)
     pdf_file_date = datetime.fromtimestamp(pdf_file_date)
     pdf_file_size = os.path.getsize(pdf_file)

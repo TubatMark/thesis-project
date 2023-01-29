@@ -14,7 +14,7 @@ class User(AbstractUser):
 #PANEL    
 class Panel(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    profile_picture = models.ImageField(upload_to="profile_pictures/", blank=True, null=True)
+    profile_picture = models.ImageField(upload_to=os.path.join(settings.MEDIA_ROOT, "profile_pictures/"), blank=True, null=True)
     
 class PanelUsersManager(models.Manager):
     def create_user(self, first_name, last_name, email, password, panel, group):
@@ -49,7 +49,7 @@ class RepositoryFiles(models.Model):
     proponents = models.CharField(max_length=255)
     adviser = models.CharField(max_length=255, blank=True, null=True)
     school_year = models.CharField(max_length=255, blank=True, null=True)
-    pdf_file = models.FileField(upload_to="RepositoryFiles/")
+    pdf_file = models.FileField(upload_to=(settings.MEDIA_ROOT, "RepositoryFiles/"))
     text_file = models.FileField(max_length=255, blank=True, null=True)    
     
     class Meta:
@@ -58,7 +58,7 @@ class RepositoryFiles(models.Model):
         
 class Admin(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    profile_picture = models.ImageField(upload_to="profile_pictures/", blank=True, null=True)
+    profile_picture = models.ImageField(upload_to=(settings.MEDIA_ROOT, "profile_pictures/"), blank=True, null=True)
 
 class AdminUsersManager(models.Manager):
     def create_user(self, first_name, last_name, email, password, admin, group):
@@ -120,7 +120,7 @@ class Student(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     student_id = models.CharField(max_length=255)
     group = models.CharField(max_length=50, blank=True, null=True)
-    profile_picture = models.ImageField(upload_to="profile_pictures/", blank=True, null=True)
+    profile_picture = models.ImageField(upload_to=(settings.MEDIA_ROOT, "profile_pictures/"), blank=True, null=True)
     objects = StudentUsersManager()
         
 #SYSTEM SIMILARITY REPORT
@@ -157,7 +157,7 @@ class UploadDocuments(models.Model):
     )
     student_title = models.CharField(max_length=255)
     student_proponents = models.CharField(max_length=255)
-    student_pdf_file = models.FileField(upload_to="DefFiles/")
+    student_pdf_file = models.FileField(upload_to=(settings.MEDIA_ROOT, "DefFiles/"))
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
     uploaded_at = models.DateTimeField(default=timezone.now)
     most_similar_documents = models.ManyToManyField(Documents, related_name='similar_to')
@@ -176,10 +176,10 @@ class UploadDocuments(models.Model):
 class DocumentComparison(models.Model):
     doc1_title = models.CharField(max_length=255)
     doc1_proponents = models.CharField(max_length=255)
-    doc1_pdf_file = models.FileField(upload_to="ComparisonDocs/")
+    doc1_pdf_file = models.FileField(upload_to=(settings.MEDIA_ROOT, "ComparisonDocs/"))
     doc2_title = models.CharField(max_length=255)
     doc2_proponents = models.CharField(max_length=255)
-    doc2_pdf_file = models.FileField(upload_to="ComparisonDocs/")
+    doc2_pdf_file = models.FileField(upload_to=(settings.MEDIA_ROOT, "ComparisonDocs/"))
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
     comparison_result = models.FloatField(null=True)
     docs_uploaded_at = models.DateTimeField(auto_now=True)
