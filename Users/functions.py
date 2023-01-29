@@ -71,16 +71,16 @@ def extract_pdf_text(pdf_file, repository_file):
     text = "\n".join(text_list)
     
     # construct the file path using MEDIA_ROOT and MEDIA_URL
-    # file_path = os.path.join(settings.MEDIA_ROOT, "ExtractedFiles")
-    # if not os.path.exists(file_path):
-    #     os.makedirs(file_path)
+    file_path = os.path.join(settings.MEDIA_ROOT, "ExtractedFiles")
+    if not os.path.exists(file_path):
+        os.makedirs(file_path)
     text_file_name = pdf_file.name.replace('.pdf', '.txt')
-    #text_file = os.path.join(file_path, text_file_name)
-    with open(text_file_name, 'w', encoding='utf-8') as f:
+    text_file = os.path.join(file_path, text_file_name)
+    with open(text_file, 'w', encoding='utf-8') as f:
         f.write(text)
     
     # Save the file path to the database
-    repository_file.text_file = text_file_name
+    repository_file.text_file = text_file
     repository_file.save()
 
 
