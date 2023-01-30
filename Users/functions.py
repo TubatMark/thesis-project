@@ -106,7 +106,7 @@ def extract_pdf_text(pdf_file, repository_file):
 #     return nearest_neighbors
 
 def vectorize(query_matrix, vectorizer, k):
-    threshold = SimilarityThreshold.objects.last().threshold
+    threshold = SimilarityThreshold.objects.last().threshold #admin set threshold
     matrices = []
     for file_info in RepositoryFiles.objects.all().values('text_file', 'title','proponents','adviser','school_year'):
         file_path = file_info['text_file']
