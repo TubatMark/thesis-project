@@ -34,7 +34,7 @@ def csv_enrolled_students(file):
             seen_student_ids.add(student_id)
     # Now we have a list of rows that we want to keep, so we can create the StudentUsers objects
     for row in rows_to_keep:
-        data = StudentUsers(id=row['sn'], Student_Id=row['Student ID'], Student_Name=row['Student Name'], Email=row['Email'], Contact_Number=row['Contact No.'],
+        data = StudentUsers(Student_Id=row['Student ID'], Student_Name=row['Student Name'], Email=row['Email'], Contact_Number=row['Contact No.'],
                             Course=row['Course'], SUBJECT_CODE=row['SUBJ_CODE'], SUBJECT_DESCRIPTION=row['SUBJ_DESC'], YR_SEC=row['YR_SEC'], SEM=row['SEM'], SY=row['SY'])
         data.save()
 
@@ -106,6 +106,7 @@ def extract_pdf_text(pdf_file, repository_file):
 #     return nearest_neighbors
 
 def vectorize(query_matrix, vectorizer, k):
+    threshold = SimilarityThreshold.objects.last().threshold
     matrices = []
     for file_info in RepositoryFiles.objects.all().values('text_file', 'title','proponents','adviser','school_year'):
         file_path = file_info['text_file']
@@ -116,7 +117,8 @@ def vectorize(query_matrix, vectorizer, k):
             similarity = cosine_similarity(query_matrix, doc_matrix)[0][0]
             similarity = round(similarity, 2)
             similarity = similarity*100
-            matrices.append({'title': file_info['title'], 'proponents': file_info['proponents'], 'adviser': file_info['adviser'], 'school_year': file_info['school_year'], 'matrix': doc_matrix, 'similarity': similarity})
+            if similarity >= threshold:
+                matrices.append({'title': file_info['title'], 'proponents': file_info['proponents'], 'adviser': file_info['adviser'], 'school_year': file_info['school_year'], 'matrix': doc_matrix, 'similarity': similarity})
     # Sort the list of documents by similarity in descending order
     matrices.sort(key=lambda x: x['similarity'], reverse=True)
     # Select the first k documents

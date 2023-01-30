@@ -188,4 +188,9 @@ class DocumentComparison(models.Model):
          db_table = "db_comparison_docs"
 
 
-        
+class SimilarityThreshold(models.Model):
+    threshold = models.FloatField(null=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, default=1)
+    
+    class Meta:
+         db_table = "db_similarity_threshold"

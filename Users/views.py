@@ -607,6 +607,7 @@ def DeleteRegisteredStudent(request, id):
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['Admin'])
 def admin_details(request):
+     #PROFILE PICTURE REQUEST METHOD
     if request.method == 'POST':
         form = ProfilePictureForm(request.POST, request.FILES)
         if form.is_valid():
@@ -616,6 +617,17 @@ def admin_details(request):
             return redirect('admin_details')
     else:
         form = ProfilePictureForm()
+        
+    #SIMILARITY THRESHOLD REQUEST METHOD
+    if request.method == 'POST':
+        form = SimilarityThresholdForm(request.POST)
+        if form.is_valid():
+            similarity_threshold, created = SimilarityThreshold.objects.get_or_create(user=request.user)
+            if not created:
+                similarity_threshold.threshold = form.cleaned_data['threshold']
+                similarity_threshold.save()
+    else:
+        form = SimilarityThresholdForm()
         
     admins = Admin.objects.filter(user=request.user)
     repository = RepositoryFiles.objects.all()
@@ -634,6 +646,7 @@ def admin_details(request):
     total_approved = status_approved.count()
 
     context = {
+        "form": form,
         "total_repository": total_repository,
         "repository": repository,
         "students": students,
@@ -644,8 +657,8 @@ def admin_details(request):
         "total_rejected": total_rejected,
         "status_approved": status_approved,
         "total_approved": total_approved,
+        'admins': admins,
         "userrepo": userrepo,
-        'admins': admins
     }
     return render(request, 'accounts/admin/admin_dashboard/admin_details/settings.html', context)
 

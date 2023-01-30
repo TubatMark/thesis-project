@@ -108,3 +108,12 @@ class AdminUsersForm(forms.ModelForm):
             "email": forms.EmailInput(attrs={"class": "form-control"}),
             "password": forms.PasswordInput(attrs={"class": "form-control"}),
         }
+
+class SimilarityThresholdForm(forms.ModelForm):
+    
+    class Meta:
+        model = SimilarityThreshold
+        fields = ['threshold']
+        widgets = {
+            "threshold": forms.TextInput(attrs={"class": "form-control"}),
+        }
