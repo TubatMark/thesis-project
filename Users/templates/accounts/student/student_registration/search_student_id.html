@@ -4,6 +4,50 @@
 
 {% block content %}
 
+
+{% if error %}
+
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-header text-center">
+                    <strong>
+                        <h5>Search Student ID</h5>
+                    </strong>
+                </div>
+                <div class="card-body">
+                    <h6>You have chosen a student account, search for your Student ID first if exist.</h6>
+                    <br>
+                    <form>
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="search">Search Student ID</label>
+                            <input type="text" class="form-control" name="search" value="{{student_id}}" readonly>
+                        </div>
+                        <br>
+                        <a href="{% url 'search_student_id' %}" class="btn btn-primary">Search</a>
+                        <a href="{% url 'login' %}" class="btn btn-outline-secondary">Back</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-header text-center">
+                    <strong>
+                        <h5>Search Results</h5>
+                    </strong>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-danger">{{ error }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% else %}
 <br>
 <div class="container">
     <div class="row">
@@ -80,5 +124,5 @@
         </div>
     </div>
 </div>
-
+{% endif %}
 {% endblock content %}

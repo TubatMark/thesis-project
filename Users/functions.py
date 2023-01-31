@@ -12,7 +12,7 @@ from .models import StudentUsers
 logger = logging.getLogger(__name__)
 import warnings
 import os
-from .models import RepositoryFiles
+from .models import RepositoryFiles, SimilarityThreshold
 import codecs
 import dateutil.parser as dparser
 import string
@@ -106,7 +106,10 @@ def extract_pdf_text(pdf_file, repository_file):
 #     return nearest_neighbors
 
 def vectorize(query_matrix, vectorizer, k):
-    threshold = SimilarityThreshold.objects.last().threshold #admin set threshold
+    threshold = 0
+    last_threshold = SimilarityThreshold.objects.last().threshold #admin set threshold
+    if last_threshold:
+        threshold = last_threshold.threshold
     matrices = []
     for file_info in RepositoryFiles.objects.all().values('text_file', 'title','proponents','adviser','school_year'):
         file_path = file_info['text_file']

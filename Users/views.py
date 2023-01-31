@@ -112,28 +112,34 @@ def admin_register(request):
     if request.method == 'POST':
         form = AdminUsersForm(request.POST)
         if form.is_valid():
-            first_name = form.cleaned_data['first_name']
-            last_name = form.cleaned_data['last_name']
             email = form.cleaned_data['email']
-            password = form.cleaned_data['password']
-            username = form.cleaned_data['username']
+            try:
+                user = User.objects.get(email=email)
+                context = {'form': form, 'error': 'Email already exists.'}
+                return render(request, 'accounts/admin/admin_registration/admin_register.html', context)
+            except User.DoesNotExist:
+                first_name = form.cleaned_data['first_name']
+                last_name = form.cleaned_data['last_name']
+                email = form.cleaned_data['email']
+                password = form.cleaned_data['password']
+                username = form.cleaned_data['username']
 
-            user = User.objects.create_user(
-                first_name=first_name,
-                last_name=last_name,
-                username=username,
-                password=password,
-                email=email,
-                group='Admin'
-            )
-            user.save()
-            group, created = Group.objects.get_or_create(name='Admin')
-            group.user_set.add(user)
+                user = User.objects.create_user(
+                    first_name=first_name,
+                    last_name=last_name,
+                    username=username,
+                    password=password,
+                    email=email,
+                    group='Admin'
+                )
+                user.save()
+                group, created = Group.objects.get_or_create(name='Admin')
+                group.user_set.add(user)
 
-            admin = Admin(user=user)
-            admin.save()
+                admin = Admin(user=user)
+                admin.save()
 
-            return redirect('login')
+                return redirect('login')
     else:
         form = AdminUsersForm()
     return render(request, 'accounts/admin/admin_registration/admin_register.html', {'form': form})
@@ -723,31 +729,38 @@ def register_student(request):
         name = request.POST['student_name']
         username = request.POST['username']
         password = request.POST['password']
+        
+        # Check if the student already exists
+        existing_user = User.objects.filter(student_id=student_id)
+        if existing_user:
+            # Raise a SweetAlert message
+            context = {'error': 'The student is already registered', 'student_id': student_id}
+            return render(request, 'accounts/student/student_registration/search_student_id.html', context)
+        else:
+            # Create a User instance
+            user = User.objects.create_user(
+                username=username,
+                password=password,
+                email=email,
+                name=name,
+                student_id=student_id,
+                group='Student'
+            )
 
-        # Create a User instance
-        user = User.objects.create_user(
-            username=username,
-            password=password,
-            email=email,
-            name=name,
-            student_id=student_id,
-            group='Student'
-        )
+            # Save the User instance
+            user.save()
 
-        # Save the User instance
-        user.save()
+            # Create a Student instance
+            student = Student(user=user, group='Student', student_id=student_id)
 
-        # Create a Student instance
-        student = Student(user=user, group='Student', student_id=student_id)
+            # Save the Student instance
+            student.save()
 
-        # Save the Student instance
-        student.save()
-
-        # Add the student to the group
-        group, created = Group.objects.get_or_create(name='Student')
-        group.user_set.add(user)
-        user.save()
-        return redirect('login')
+            # Add the student to the group
+            group, created = Group.objects.get_or_create(name='Student')
+            group.user_set.add(user)
+            user.save()
+            return redirect('login')
     else:
         form = StudentRegistrationForm()
     return render(request, 'accounts/student/student_registration/student_register.html', {'form': form})
@@ -1111,29 +1124,35 @@ def panel_register(request):
     if request.method == 'POST':
         form = PanelUsersForm(request.POST)
         if form.is_valid():
-
-            first_name = form.cleaned_data['first_name']
-            last_name = form.cleaned_data['last_name']
+            
             email = form.cleaned_data['email']
-            password = form.cleaned_data['password']
-            username = form.cleaned_data['username']
+            try:
+                user = User.objects.get(email=email)
+                context = {'form': form, 'error': 'Email already exists.'}
+                return render(request, 'accounts/panel/panel_registration/panel_register.html', context)
+            except User.DoesNotExist:
+                first_name = form.cleaned_data['first_name']
+                last_name = form.cleaned_data['last_name']
+                email = form.cleaned_data['email']
+                password = form.cleaned_data['password']
+                username = form.cleaned_data['username']
 
-            user = User.objects.create_user(
-                first_name=first_name,
-                last_name=last_name,
-                username=username,
-                password=password,
-                email=email,
-                group='Panel'
-            )
-            user.save()
-            group, created = Group.objects.get_or_create(name='Panel')
-            group.user_set.add(user)
+                user = User.objects.create_user(
+                    first_name=first_name,
+                    last_name=last_name,
+                    username=username,
+                    password=password,
+                    email=email,
+                    group='Panel'
+                )
+                user.save()
+                group, created = Group.objects.get_or_create(name='Panel')
+                group.user_set.add(user)
 
-            panel = Panel(user=user)
-            panel.save()
+                panel = Panel(user=user)
+                panel.save()
 
-            return redirect('login')
+                return redirect('login')
     else:
         form = PanelUsersForm()
     return render(request, 'accounts/panel/panel_registration/panel_register.html', {'form': form})

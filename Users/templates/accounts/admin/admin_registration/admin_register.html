@@ -12,6 +12,9 @@
         <div class="card-body">
             <form action="{% url 'admin_register' %}" method="POST">
                 {% csrf_token %}
+                {% if error %}
+                    <div class="alert alert-danger">{{ error }}</div>
+                {% endif %}
                 <h6>FIRST NAME</h6>
                 <input type="text" class="form-control" name="first_name" max-length="40" required>
                 <h6>LAST NAME</h6>
