@@ -107,7 +107,7 @@ def extract_pdf_text(pdf_file, repository_file):
 
 def vectorize(query_matrix, vectorizer, k):
     threshold = 0
-    last_threshold = SimilarityThreshold.objects.last() #admin set threshold
+    last_threshold = SimilarityThreshold.objects.all().last() #admin set threshold
     if last_threshold:
         threshold = last_threshold.threshold
     matrices = []

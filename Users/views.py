@@ -638,6 +638,7 @@ def admin_details(request):
     admins = Admin.objects.filter(user=request.user)
     repository = RepositoryFiles.objects.all()
     
+    thresholds = SimilarityThreshold.objects.all().last()
     userrepo = RepositoryFiles.objects.filter(user=request.user)
     
     total_repository = repository.count()
@@ -665,6 +666,7 @@ def admin_details(request):
         "total_approved": total_approved,
         'admins': admins,
         "userrepo": userrepo,
+        "thresholds": thresholds,
     }
     return render(request, 'accounts/admin/admin_dashboard/admin_details/settings.html', context)
 

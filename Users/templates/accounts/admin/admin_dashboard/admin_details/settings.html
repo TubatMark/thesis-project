@@ -59,7 +59,7 @@
                                     <th style="width: 12%;">Proponents</th>
                                     <th style="width: 9%;">Adviser</th>
                                     <th style="width: 5%;">School Year</th>
-                                    
+
                                 </tr>
                             </thead>
                             <!--Data from backend-->
@@ -71,7 +71,7 @@
                                     <th>{{ repo.proponents }}</th>
                                     <th>{{ repo.adviser }}</th>
                                     <th>{{ repo.school_year }}</th>
-                                    
+
                                 </tr>
 
                                 {% endfor %}
@@ -135,48 +135,34 @@
                 <form method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="col-12">
-                      <div class="card card-body border-0 shadow mb-4">
-                        <h2 class="h5 mb-4">Custom similarity threshold</h2>
-                        <hr>
-                        <h6>Its function is to filter the results of the similarity test according to the threshold of percentage set by the admin. </h6>
-                        <hr>
-                        {% if form.errors %}
-                          <div class="alert alert-danger">
-                            <ul>
-                              {% for field in form %}
-                                {% for error in field.errors %}
-                                  <li>{{ error|escape }}</li>
-                                {% endfor %}
-                              {% endfor %}
-                              {% for error in form.non_field_errors %}
-                                <li>{{ error|escape }}</li>
-                              {% endfor %}
-                            </ul>
-                          </div>
-                        {% endif %}
-                        <div class="d-flex align-items-center">
-                          <div class="text-field">
-                            <div class="d-flex justify-content-xl-center ms-xl-3">
-                              <div class="d-flex">
-                                <input type="text" class="form-control {% if form.threshold.errors %} is-invalid {% endif %}" name="threshold" max-length="40" placeholder="Ex. 30 %" value="{{ form.threshold.value }}">
-                                {% if form.threshold.errors %}
-                                  <div class="invalid-feedback">
-                                    {% for error in form.threshold.errors %}
-                                      {{ error|escape }}
-                                    {% endfor %}
-                                  </div>
-                                {% endif %}
-                              </div>
+                        <div class="card card-body border-0 shadow mb-4">
+                            <h2 class="h5 mb-4">Custom similarity threshold</h2>
+                            <hr>
+                            <h6>Its function is to filter the results of the similarity test according to the threshold
+                                of percentage set by the admin. </h6>
+                            <hr>
+                            <div class="d-flex align-items-center">
+                                <div class="text-field">
+                                    <div class="d-flex justify-content-xl-center ms-xl-3">
+                                        <div class="d-flex">
+                                            {% if thresholds %}
+                                            <input type="text" class="form-control" name="threshold" max-length="40"
+                                                value="{{ thresholds.threshold|floatformat:0 }} %" readonly>
+                                            {% else %}
+                                            <input type="text" class="form-control" name="threshold" max-length="40"
+                                                placeholder="Ex. 30 %">
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="form-group">
+                                        <input type="submit" class="btn btn-info" value="Save Changes">
+                                    </div>
+                                </div>
                             </div>
-                            <br>
-                            <div class="form-group">
-                              <input type="submit" class="btn btn-info" value="Save Changes">
-                            </div>
-                          </div>
                         </div>
-                      </div>
                     </div>
-                  </form>
+                </form>
             </div>
         </div>
     </div>
