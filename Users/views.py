@@ -170,17 +170,7 @@ def AddRepositoryFiles(request):
         form = RepositoryForm()
     return render(request, "accounts/admin/admin_dashboard/repository/add_files_repository.html", {"form": form})
 
-# ADMIN VIEW FILES FOR REPOSITORY - NOT YET WORKING
 
-
-@login_required(login_url='login')
-@allowed_users(allowed_roles=['Admin'])
-def ViewRepositoryFiles(request, id):
-    obj = RepositoryFiles.objects.get(id=id)
-    pdf_file = obj.pdf_file
-    response = HttpResponse(pdf_file, content_type="application/pdf")
-    response["Content-Disposition"] = "inline; filename=my_pdf.pdf"
-    return response
 
 # ADMIN EDIT FILES FOR REPOSITORY
 

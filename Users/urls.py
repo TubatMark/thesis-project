@@ -18,7 +18,6 @@ urlpatterns = [
     # repository
     path("AddRepositoryFiles/", views.AddRepositoryFiles,
          name="AddRepositoryFiles"),
-    path("ViewRepositoryFiles/<int:id>", views.ViewRepositoryFiles),
     path("EditRepositoryFiles/<int:id>", views.EditRepositoryFiles),
     path("DeleteRepositoryFiles/<int:id>", views.DeleteRepositoryFiles),
     path("dashboard/TableRepository/",

@@ -12,9 +12,7 @@
         <div class="card-body">
             <form action="{% url 'login' %}" method="POST">
                 {% csrf_token %}
-                {% if error_message %}
-                    <div class="alert alert-danger">{{ error_message }}</div>
-                {% endif %}
+
                 <h6>STUDENT ID</h6>
                 <div class="input-group mb-3">
                     <span class="side-label btn border-secondary bg-light"> <i
@@ -63,6 +61,9 @@
                 </div>
             </div>
         </div>
+        {% if error_message %}
+        <div class="alert alert-danger">{{ error_message }}</div>
+        {% endif %}
     </div>
 </div>
 {% endblock content %}
