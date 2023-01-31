@@ -189,7 +189,7 @@ class DocumentComparison(models.Model):
 
 
 class SimilarityThreshold(models.Model):
-    threshold = models.FloatField(null=True)
+    threshold = models.FloatField(default=0)
     user = models.OneToOneField(User, on_delete=models.CASCADE, default=1)
     
     class Meta:
