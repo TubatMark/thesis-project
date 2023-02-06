@@ -1,0 +1,30 @@
+.alert {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+}
+
+.card {
+    height: 272px;
+    width: 400px;
+    margin-top: 90px;
+}
+
+@media only screen and (max-width: 768px) {
+    .container {
+        width: 100%;
+        margin: 0 auto;
+    }
+    .card {
+        height: auto;
+        width: 390px;
+        margin-top: 20px;
+    }
+}

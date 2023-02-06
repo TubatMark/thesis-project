@@ -1,0 +1,17 @@
+    @media (min-width: 992px) {
+        .container {
+            max-width: 960px;
+        }
+    }
+    /* Add styles for smaller screens */
+    
+    @media (max-width: 991px) {
+        .container {
+            max-width: 720px;
+        }
+    }
+    
+    .table-responsive {
+        max-width: auto;
+        overflow-x: scroll;
+    }

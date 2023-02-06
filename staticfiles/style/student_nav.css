@@ -67,11 +67,49 @@
     color: #fff;
 }
 
-@media (max-width: 992px) {
-    .navbar-left {
-        display: none;
-    }
+@media only screen and (max-width: 786px) {
     .hamburger {
         display: block;
+        text-align: center;
+        padding-top: 10px;
+    }
+    .navbar {
+        background-color: #16524d;
+    }
+    .inner_navbar {
+        display: none;
+        position: absolute;
+        top: 50px;
+        right: 0;
+        left: 0;
+        background-color: #16524d;
+        padding: 20px;
+        z-index: 1;
+    }
+    .hamburger:hover {
+        color: #5bd485;
+        cursor: pointer;
+    }
+    .navbar-expand-sm .navbar-nav {
+        display: block;
+    }
+    .navbar-nav li {
+        text-align: center;
+        width: 100%;
+        margin-bottom: 20px;
+    }
+    .navbar-nav a {
+        display: block;
+        padding-left: 0;
+    }
+    .navbar-left {
+        display: block;
+    }
+    .navbar-left ul {
+        display: block;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        text-align: center;
     }
 }

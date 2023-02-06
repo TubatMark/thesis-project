@@ -1,0 +1,12 @@
+@media (max-width: 767px) {
+    .row-card {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 767px) {
+    h5 {
+        font-size: 14px;
+    }
+}
