@@ -1,0 +1,43 @@
+<!-- Modal -->
+<div class="modal fade" {% block modal-id %} id="abstractModal{{repo.id}}" {% endblock modal-id %} tabindex="-1"
+  aria-labelledby="abstractModalLabel{{repo.id}}" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h6 class="modal-title fs-5" id="abstractModalLabel{{repo.id}}"> {% block modal-title %} <i
+            class="fa-solid fa-file-circle-plus"></i>
+          Thesis Abstract {% endblock modal-title %} </h6>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="row">
+            <div class="col-6">
+              <h6>TITLE</h6>
+              <input type="text" class="form-control" name="title" max-length="40" value="{{repo.title}}" readonly
+                {% block repo-title %} {% endblock repo-title %}>
+            </div>
+            <div class="col-6">
+              <h6>PROPONENTS</h6>
+              <input type="text" class="form-control" name="proponents" max-length="40" value="{{repo.proponents}}"
+                readonly {% block repo-proponents %} {% endblock repo-proponents %}>
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-12" style="text-align: justify;">
+              <h6>ABSTRACT</h6>
+              {{repo.abstract}}
+            </div>
+          </div>
+        </form>
+        <br>
+        <hr>
+        <a href="{% url 'student_dashboard' %}" class="btn btn-outline-dark mb-3 ms-2" style="width: 50px;"
+          title="Back">
+          <i class="fa-solid fa-chevron-left"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

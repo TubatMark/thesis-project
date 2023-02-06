@@ -7,13 +7,14 @@ from django.contrib.auth.forms import UserChangeForm
 class RepositoryForm(forms.ModelForm):
     class Meta:
         model = RepositoryFiles
-        fields = ["title", "proponents", "adviser", "school_year", "pdf_file"]
+        fields = ["title", "proponents", "adviser", "school_year", "pdf_file", "abstract"]
         widgets = {
             "title": forms.TextInput(attrs={"class": "form-group"}),
             "proponents": forms.TextInput(attrs={"class": "form-group"}),
             "adviser": forms.TextInput(attrs={"class": "form-group"}),
             "school_year": forms.TextInput(attrs={"class": "form-group"}),
             "pdf_file": forms.FileInput(attrs={"class": "form-group"}),
+            "abstract": forms.Textarea(attrs={"class": "form-group"}),
         }
 
 class ProfilePictureForm(forms.Form):
@@ -37,13 +38,14 @@ class EditRegisteredStudentForm(forms.ModelForm):
 class UploadDocumentsForm(forms.ModelForm):
     class Meta:
         model = UploadDocuments
-        fields = ["student_title", "student_proponents", "adviser", "school_year", "student_pdf_file"]
+        fields = ["student_title", "student_proponents", "adviser", "school_year", "student_pdf_file", "abstract"]
         widgets = {
             "student_title": forms.TextInput(attrs={"class": "form-group"}),
             "student_proponents": forms.TextInput(attrs={"class": "form-group"}),
             "adviser": forms.TextInput(attrs={"class": "form-group"}),
             "school_year": forms.TextInput(attrs={"class": "form-group"}),
             "student_pdf_file": forms.FileInput(attrs={"class": "form-group"}),
+            "abstract": forms.Textarea(attrs={"class": "form-group"}),
         }
         
 class DocumentComparisonForm(forms.ModelForm):

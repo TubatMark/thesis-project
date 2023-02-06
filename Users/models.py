@@ -14,7 +14,7 @@ class User(AbstractUser):
 #PANEL    
 class Panel(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    profile_picture = models.ImageField(upload_to=(settings.MEDIA_ROOT,"profile_pictures/"), blank=True, null=True)
+    profile_picture = models.ImageField(os.path.join(settings.MEDIA_ROOT,"profile_pictures/"), blank=True, null=True)
     
 class PanelUsersManager(models.Manager):
     def create_user(self, first_name, last_name, email, password, panel, group):
@@ -51,6 +51,7 @@ class RepositoryFiles(models.Model):
     school_year = models.CharField(max_length=255, blank=True, null=True)
     pdf_file = models.FileField(upload_to=(settings.MEDIA_ROOT, "RepositoryFiles/"))
     text_file = models.FileField(max_length=255, blank=True, null=True)    
+    abstract = models.TextField(blank=True, null=True)
     
     class Meta:
         db_table = "db_repository"
@@ -58,7 +59,7 @@ class RepositoryFiles(models.Model):
         
 class Admin(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    profile_picture = models.ImageField(upload_to=(settings.MEDIA_ROOT,"profile_pictures/"), blank=True, null=True)
+    profile_picture = models.ImageField(os.path.join(settings.MEDIA_ROOT,"profile_pictures/"), blank=True, null=True)
 
 class AdminUsersManager(models.Manager):
     def create_user(self, first_name, last_name, email, password, admin, group):
@@ -120,7 +121,7 @@ class Student(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     student_id = models.CharField(max_length=255)
     group = models.CharField(max_length=50, blank=True, null=True)
-    profile_picture = models.ImageField(upload_to=(settings.MEDIA_ROOT,"profile_pictures/"), blank=True, null=True)
+    profile_picture = models.ImageField(os.path.join(settings.MEDIA_ROOT,"profile_pictures/"), blank=True, null=True)
     objects = StudentUsersManager()
         
 #SYSTEM SIMILARITY REPORT
@@ -168,6 +169,7 @@ class UploadDocuments(models.Model):
     school_year = models.CharField(max_length=255, blank=True, null=True)
     status_updated_at = models.DateTimeField(auto_now=True)
     status_updated_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='upload_doc_status_updated_by')
+    abstract = models.TextField(blank=True, null=True)
     
     class Meta:
          db_table = "db_upload_docs"

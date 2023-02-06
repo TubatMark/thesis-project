@@ -74,6 +74,9 @@ urlpatterns = [
     # student view repository pdf file
     path("view_pdf_repository/<int:id>",
          views.view_pdf_repository, name="view_pdf_repository"),
+    
+    # student view abstracts
+        path('view_abstract/<int:id>', views.view_abstract, name='view_abstract'),
 
     # register student user
     path("search_student_id", views.search_student_id,

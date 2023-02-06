@@ -17,14 +17,14 @@
 
                         {% for admin in admins %}
 
-                        <div class="col-md-6 mb-3">
+                        <div class="col-12 col-sm-6 mb-3">
                             <div>
                                 <label for="first_name">First Name</label>
                                 <input class="form-control" id="first_name" type="text"
                                     value="{{ admin.user.first_name }}" readonly>
                             </div>
                         </div>
-                        <div class="col-md-6 mb-3">
+                        <div class="col-12 col-sm-6 mb-3">
                             <div>
                                 <label for="last_name">Last Name</label>
                                 <input class="form-control" id="first_name" type="text"
@@ -33,14 +33,14 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6 mb-3">
+                        <div class="col-12 col-sm-6 mb-3">
                             <div class="form-group">
                                 <label for="username">Username</label>
                                 <input class="form-control" id="username" type="email" value="{{ admin.user.username }}"
                                     readonly>
                             </div>
                         </div>
-                        <div class="col-md-6 mb-3">
+                        <div class="col-12 col-sm-6 mb-3">
                             <div class="form-group">
                                 <label for="email">Email</label>
                                 <input class="form-control" id="email" type="email" value="{{ admin.user.email }}"

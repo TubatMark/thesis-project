@@ -10,6 +10,11 @@
 
     <!-- navbars -->
     <link rel="stylesheet" type="text/css" href="{% static 'style/student_nav.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'style/search_student_id.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'style/student_dashboard.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'style/document_comparison.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'style/upload_final_docs.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'style/student_settings.css' %}">
 
     <!-- bootstrap css -->
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
@@ -82,14 +87,14 @@
         } );
     </script>
     <script>
-        $(document).ready( function () {
-            $('#studentRepositoryDatatable').DataTable({
+        $(document).ready(function () {
+            let table = $('#studentRepositoryDatatable').DataTable({
                 "aLengthMenu": [
                     [3, 5, 7, 10, 25, "All"],
                     [3, 5, 7, 10, "All"]
                 ],
                 paging: true,
-                pageLength: 5,
+                pageLength: -1,
                 lengthChange: true,
                 autoWidth: false,
                 searching: true,
@@ -97,7 +102,41 @@
                 bSort: true,
                 responsive: true,
             });
-        } );
+
+            // Get unique values for each column
+            let uniqueAdvisers = new Set();
+            let uniqueSchoolYears = new Set();
+            $('#studentRepositoryDatatable tbody tr').each(function () {
+                let adviser = $(this).find("td:eq(2)").text();
+                let schoolYear = $(this).find("td:eq(3)").text();
+                uniqueAdvisers.add(adviser);
+                uniqueSchoolYears.add(schoolYear);
+            });
+
+            // Add filter select options for each column
+
+            let adviserFilter = $('<select><option value="">Adviser</option></select>');
+            $.each(Array.from(uniqueAdvisers), function (index, value) {
+                adviserFilter.append('<option value="' + value + '">' + value + '</option>');
+            });
+            $("#studentRepositoryDatatable thead tr:eq(0) th:eq(2)").html(adviserFilter);
+            table.column(2).data().sort();
+            table.column(2).search($(adviserFilter).val()).draw();
+            $(adviserFilter).on('change', function () {
+                table.column(2).search($(this).val()).draw();
+            });
+
+            let schoolYearFilter = $('<select><option value="">School Year</option></select>');
+            $.each(Array.from(uniqueSchoolYears), function (index, value) {
+                schoolYearFilter.append('<option value="' + value + '">' + value + '</option>');
+            });
+            $("#studentRepositoryDatatable thead tr:eq(0) th:eq(3)").html(schoolYearFilter);
+            table.column(3).data().sort();
+            table.column(3).search($(schoolYearFilter).val()).draw();
+            $(schoolYearFilter).on('change', function () {
+                table.column(3).search($(this).val()).draw();
+            });
+        });
     </script>
     <script>
         $(document).ready( function () {

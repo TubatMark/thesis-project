@@ -955,14 +955,16 @@ def upload_final_defense(request):
             adviser = form.cleaned_data["adviser"]
             school_year = form.cleaned_data["school_year"]
             pdf_file = request.FILES['student_pdf_file']
+            abstract = form.cleaned_data["abstract"]
 
-            if student_title and student_proponents and adviser and school_year and pdf_file:
+            if student_title and student_proponents and adviser and school_year and pdf_file and abstract:
                 repository_file = RepositoryFiles()
                 repository_file.title = student_title
                 repository_file.proponents = student_proponents
                 repository_file.adviser = adviser
                 repository_file.school_year = school_year
                 repository_file.pdf_file = pdf_file
+                repository_file.abstract = abstract
                 extract_pdf_text(pdf_file, repository_file)
                 repository_file.save()
                 logger.info(
@@ -1026,7 +1028,7 @@ def student_details(request):
 #     }
 #     return render(request, 'accounts/student/student_dashboard/student_details/settings.html', context)
 
-# STUDENT VIEW REPOSITORY FILES - NOT YET WORKIN
+# STUDENT VIEW REPOSITORY FILES 
 def view_pdf_repository(request, id):
     object = RepositoryFiles.objects.get(id=id)
     pdf_file = object.pdf_file.path
@@ -1040,6 +1042,13 @@ def view_pdf_repository(request, id):
     response['ETag'] = pdf_file_etag
     response['Vary'] = 'User-Agent'
     return response
+
+def view_abstract(request, id):
+    abstracts = RepositoryFiles.objects.get(id=id)
+    context = {
+        "abstracts": abstracts
+    }
+    return render(request, 'accounts/student/student_dashboard/student_repository/abstract.html', context)
 
 # def view_pdf_repository(request, id):
 #     object = RepositoryFiles.objects.get(id=id)

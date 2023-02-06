@@ -7,7 +7,7 @@
 <div class="container">
     <h3>Welcome, {{ user.name }}</h3>
     <hr>
-    <p>This page allows you to view a variety of thesis and research documents. By using the table on this page, you can
+    <p style="font-size: 18px; line-height: 1.5;text-align: justify;">This page allows you to view a variety of thesis and research documents. By using the table on this page, you can
         easily browse through different documents by their title, proponents, and even view them by clicking on the
         "view" button.</p>
     <br>
@@ -32,11 +32,14 @@
                 <td>
                     <!--button to open pdf-->
                     {% comment %} <a href="#" target="_blank" class="btn btn-success"><i class="fa-solid fa-eye"></i></a> {% endcomment %}
-                    <a href="{% url 'view_pdf_repository' repo.id %}" target="_blank" class="btn btn-success"><i class="fa-solid fa-eye"></i></a>
-
+                    {% comment %} <a href="{% url 'view_pdf_repository' repo.id %}" target="_blank" class="btn btn-success"><i class="fa-solid fa-eye"></i></a> {% endcomment %}
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#abstractModal{{repo.id}}">
+                        <i class="fa-solid fa-eye"></i>
+                    </button>
                 </td>
                 </td>
             </tr>
+            {% include 'accounts/student/student_dashboard/student_repository/abstract.html' %}
             {% endfor %}
         </tbody>
     </table>

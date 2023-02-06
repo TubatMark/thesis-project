@@ -1,0 +1,6 @@
+@media only screen and (max-width: 767px) {
+    .form-group input,
+    .form-group textarea {
+        width: 100%;
+    }
+}

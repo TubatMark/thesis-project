@@ -1,0 +1,13 @@
+.tbody tr td .btn {
+    display: flex;
+}
+
+@media only screen and (max-width: 767px) {
+    table {
+        font-size: 12px;
+    }
+    .btn {
+        padding: 4px 8px;
+        font-size: 10px;
+    }
+}

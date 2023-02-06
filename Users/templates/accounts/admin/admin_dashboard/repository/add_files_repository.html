@@ -15,30 +15,45 @@
         <div class="modal-body">
 
           {% block repo-id %} {% endblock repo-id %}
-
-          <h6>TITLE</h6>
-          <input type="text" class="form-control" name="title" max-length="40" placeholder="Title" required
-            {% block repo-title %} {% endblock repo-title %}>
-          <hr>
-
-          <h6>PROPONENTS</h6>
-          <input type="text" class="form-control" name="proponents" max-length="40" placeholder="Proponents" required
-            {% block repo-proponents %} {% endblock repo-proponents %}>
-          <hr>
-
-          <h6>ADVISER</h6>
-          <input type="text" class="form-control" name="adviser" max-length="40" placeholder="Adviser" required
-            {% block repo-adviser %} {% endblock repo-adviser %}>
-
-          <hr>
-          <h6>SCHOOL YEAR</h6>
-          <input type="text" class="form-control" name="school_year" max-length="40" placeholder="School Year" required
-            {% block repo-school_year %} {% endblock repo-school_year %}>
-          <hr>
-
-          <input type="file" class="form-control" name="pdf_file" max-length="40" placeholder="Upload File" required
-            {% block repo-file %} {% endblock repo-file %}>
-
+          <div class="row">
+            <div class="col-6">
+              <h6>TITLE</h6>
+              <input type="text" class="form-control" name="title" max-length="40" placeholder="Title" required
+                {% block repo-title %} {% endblock repo-title %}>
+            </div>
+            <div class="col-6">
+              <h6>PROPONENTS</h6>
+              <input type="text" class="form-control" name="proponents" max-length="40" placeholder="Proponents"
+                required {% block repo-proponents %} {% endblock repo-proponents %}>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-6">
+              <h6>ADVISER</h6>
+              <input type="text" class="form-control" name="adviser" max-length="40" placeholder="Adviser" required
+                {% block repo-adviser %} {% endblock repo-adviser %}>
+            </div>
+            <div class="col-6">
+              <h6>SCHOOL YEAR</h6>
+              <input type="text" class="form-control" name="school_year" max-length="40" placeholder="School Year"
+                required {% block repo-school_year %} {% endblock repo-school_year %}>
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-12">
+              <input type="file" class="form-control" name="pdf_file" max-length="40" placeholder="Upload File" required
+                {% block repo-file %} {% endblock repo-file %}>
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-12">
+              <h6>ABSTRACT</h6>
+              <textarea class="form-control" name="abstract" placeholder="Abstract" style=" height: 170px;" required
+                {% block repo-abstract %} {% endblock repo-abstract %}></textarea>
+            </div>
+          </div>
 
           <div class="mt-4" style="width:100%;">
             <button type="submit" class="btn btn-primary mb-3">

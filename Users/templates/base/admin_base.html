@@ -10,6 +10,8 @@
 
     <!-- navbars -->
     <link rel="stylesheet" href="{% static 'style/student_nav.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'style/charts.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'style/add_repository.css' %}">
     
     <!-- tables -->
     <link rel="stylesheet" href="{% static 'style/table.css' %}">
@@ -64,23 +66,28 @@
 
     <!-- Datatables Script -->
     <script>
-        $("#repositoryDatatable").DataTable({
-                //datatables configuration
+        $(document).ready( function () {
+            let table = $('#repositoryDatatable').DataTable({
                 "aLengthMenu": [
                     [3, 5, 7, 10, 25, "All"],
                     [3, 5, 7, 10, "All"]
                 ],
                 paging: true,
-                pageLength: 5,
+                pageLength: -1,
                 lengthChange: true,
                 autoWidth: false,
                 searching: true,
                 bInfo: true,
                 bSort: true,
                 responsive: true,
-            }),
-
+            });
+        });
+    </script>
+    <script>
+        $(document).ready( function () {
             $("#userEnrolledDatatable").DataTable({
+                stripe: true,
+                stripeClasses: ['stripe1', 'stripe2'],
                 //datatables configuration
                 "aLengthMenu": [
                     [3, 5, 7, 10, 25, "All"],
@@ -93,9 +100,14 @@
                 searching: true,
                 bInfo: true,
                 bSort: true,
-            }),
-
+            });
+        });
+    </script>
+    <script>
+        $(document).ready( function () {
             $("#registeredDatatable").DataTable({
+                stripe: true,
+                stripeClasses: ['stripe1', 'stripe2'],
                 //datatables configuration
                 "aLengthMenu": [
                     [3, 5, 7, 10, 25, "All"],
@@ -108,7 +120,8 @@
                 searching: true,
                 bInfo: true,
                 bSort: true,
-            })
+            });
+        });
     </script>
     <script>
         $(document).ready(function () {
