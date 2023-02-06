@@ -14,6 +14,68 @@
         for checking for plagiarism or for finding similar research for reference.</p>
     <div class="row d-flex flex-column flex-sm-row">
         {% if nearest_neighbors %}
+        {% for neighbor in nearest_neighbors %}
+        {% if neighbor.below_threshold == True and forloop.first%}
+        <div class="alert alert-success text-center">
+            <strong>Your study's similarity result is below the threshold.</strong>
+        </div>
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-header text-center">
+                    <strong>
+                        <h5>Your Title Defense Document!</h5>
+                    </strong>
+                </div>
+                <div class="card-body">
+                    <br>
+                    <div class="container">
+                        <div class="input-group mb-3">
+                            <span class="side-label btn border-secondary bg-light"> Title: </span>
+                            <input type="text" class="form-control" name="student_title" max-length="40"
+                                placeholder="Title:" value="{{ form.cleaned_data.student_title }}" readonly>
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="side-label btn border-secondary bg-light"> Proponent/s: </span>
+                            <input type="text" class="form-control" name="student_proponents" max-length="40"
+                                placeholder="Proponents" value="{{ form.cleaned_data.student_proponents }}" readonly>
+                        </div>
+                        <div class="mt-4" style="width:100%;">
+                            <a href="{% url 'upload_title_defense' %}" class="btn btn-primary mb-3">
+                                <i class="fas fa-arrow-left"></i>Back
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-header text-center">
+                    <strong>
+                        <h5>Similarity Results</h5>
+                    </strong>
+                </div>
+                <div class="card-body">
+                    <table class="fixed-table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Title</th>
+                                <th scope="col" style="width: 5%;">Similarity</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for neighbor in nearest_neighbors %}
+                            <tr class="table-separator">
+                                <td>{{ neighbor.title }}</td>
+                                <td>{{ neighbor.similarity|floatformat:0}}%</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        {% elif neighbor.below_threshold == False and forloop.first %}
         <div class="alert alert-success text-center">
             <strong>Document similarity calculation complete!</strong>
         </div>
@@ -73,6 +135,9 @@
                 </div>
             </div>
         </div>
+        {% else %}
+        {% endif %}
+        {% endfor %}
         {% else %}
         <div class="col-sm-6">
             <div class="card">

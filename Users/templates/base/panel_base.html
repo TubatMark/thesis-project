@@ -9,8 +9,8 @@
     <title>{% block title %} Panel Dashboard {% endblock title %}</title>
 
     <!-- navbars -->
-    <link rel="stylesheet" href="{% static 'style/student_nav.css' %}">
-    <link rel="stylesheet" href="{% static 'style/table_title.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'style/student_nav.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'style/table_title.css' %}">
 
     <!-- tables -->
     <link rel="stylesheet" href="{% static 'style/table.css' %}">
@@ -61,6 +61,16 @@
 
 
     <!-- Datatables Script -->
+
+    <script>
+        const hamburger = document.querySelector(".hamburger");
+        const innerNavbar = document.querySelector(".inner_navbar");
+    
+        hamburger.addEventListener("click", function() {
+            innerNavbar.style.display = innerNavbar.style.display === "block" ? "none" : "block";
+        });
+    </script>
+    
     <script>
         $(document).ready( function () {
             let table = $('#panelRepositoryDatatable').DataTable({

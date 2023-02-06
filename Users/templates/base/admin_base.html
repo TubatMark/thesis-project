@@ -63,11 +63,19 @@
     <!-- Font Awesome JavaScript -->
     <script src="{% static 'icons/js/all.min.js' %}"></script>
 
-
+    <script>
+        const hamburger = document.querySelector(".hamburger");
+        const innerNavbar = document.querySelector(".inner_navbar");
+    
+        hamburger.addEventListener("click", function() {
+            innerNavbar.style.display = innerNavbar.style.display === "block" ? "none" : "block";
+        });
+    </script>
+    
     <!-- Datatables Script -->
     <script>
-        $(document).ready( function () {
-            let table = $('#repositoryDatatable').DataTable({
+        $(document).ready(function () {
+            let table = $('#adminrepositoryDatatable').DataTable({
                 "aLengthMenu": [
                     [3, 5, 7, 10, 25, "All"],
                     [3, 5, 7, 10, "All"]
@@ -81,6 +89,46 @@
                 bSort: true,
                 responsive: true,
             });
+
+            // Get unique values for each column
+            let uniqueAdvisers = new Set();
+            let uniqueSchoolYears = new Set();
+            $('#adminrepositoryDatatable tbody tr').each(function () {
+                let adviser = $(this).find("td:eq(2)").text();
+                let schoolYear = $(this).find("td:eq(3)").text();
+                uniqueAdvisers.add(adviser);
+                uniqueSchoolYears.add(schoolYear);
+            });
+
+
+            // Add filter select options for each column
+
+            let adviserFilter = $('<select><option value="">Adviser</option></select>');
+            $.each(Array.from(uniqueAdvisers).sort(), function (i, item) {
+                adviserFilter.append($('<option>', {
+                    value: item,
+                    text: item
+                }));
+            });
+            $('#adminrepositoryDatatable thead th:eq(2)').html(adviserFilter);
+
+            let schoolYearFilter = $('<select><option value="">School Year</option></select>');
+            $.each(Array.from(uniqueSchoolYears).sort(), function (i, item) {
+                schoolYearFilter.append($('<option>', {
+                    value: item,
+                    text: item
+                }));
+            });
+            $('#adminrepositoryDatatable thead th:eq(3)').html(schoolYearFilter);
+
+            // Apply filter for each select element
+
+            $('#adminrepositoryDatatable thead select').on('change', function () {
+                let val = $(this).val();
+                table.column($(this).parent().index() + ':visible').search(val ? '^' + val + '$' : '',
+                    true, false).draw();
+            });
+
         });
     </script>
     <script>
@@ -123,7 +171,7 @@
             });
         });
     </script>
-    <script>
+    {% comment %} <script>
         $(document).ready(function () {
             // Handle click on "View PDF" button
             $('#repositoryDatatable').on('click', '.btn-actions', function () {
@@ -137,7 +185,7 @@
                 $('#viewModal{{repo.id}}').modal('show');
             });
         });
-    </script>
+    </script> {% endcomment %}
     <script>
         $(document).ready(function () {
             $('#titleDatatable').DataTable({

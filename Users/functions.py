@@ -120,13 +120,20 @@ def vectorize(query_matrix, vectorizer, k):
             similarity = cosine_similarity(query_matrix, doc_matrix)[0][0]
             similarity = round(similarity, 2)
             similarity = similarity*100
-            if similarity >= threshold:
-                matrices.append({'title': file_info['title'], 'proponents': file_info['proponents'], 'adviser': file_info['adviser'], 'school_year': file_info['school_year'], 'matrix': doc_matrix, 'similarity': similarity})
+            matrices.append({'title': file_info['title'], 'proponents': file_info['proponents'], 'adviser': file_info['adviser'], 'school_year': file_info['school_year'], 'matrix': doc_matrix, 'similarity': similarity})
     # Sort the list of documents by similarity in descending order
     matrices.sort(key=lambda x: x['similarity'], reverse=True)
     # Select the first k documents
     nearest_neighbors = matrices[:k]
+    
+    # Add a flag to indicate if the similarity is below the threshold
+    for neighbor in nearest_neighbors:
+        if neighbor['similarity'] < threshold:
+            neighbor['below_threshold'] = True
+        else:
+            neighbor['below_threshold'] = False
     return nearest_neighbors
+    
 
         
 def student_pdf_text(pdf_file):

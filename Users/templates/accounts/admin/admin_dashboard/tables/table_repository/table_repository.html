@@ -19,10 +19,9 @@
         Add Files - Repository
     </button>
     <br>
-    <table class="table table-bordered mx-auto " id="repositoryDatatable">
+    <table class="table table-bordered mx-auto " id="adminrepositoryDatatable">
         <thead bgcolor="grey" style="color: #fff; font-size:13px">
             <tr>
-                <th style="width: 1%;">ID</th>
                 <th style="width: 40%;">Thesis Title</th>
                 <th style="width: 10%;">Proponents</th>
                 <th style="width: 9%;">Adviser</th>
@@ -34,7 +33,6 @@
         <tbody style="text-align: left;">
             {% for repo in repository %}
             <tr style="color: black; text-align: left; font-size: 13px; ">
-                <th>{{ repo.id }}</th>
                 <th>{{ repo.title }}</th>
                 <th>{{ repo.proponents }}</th>
                 <th>{{ repo.adviser }}</th>

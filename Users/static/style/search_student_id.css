@@ -1,37 +1,19 @@
-@media only screen and (min-width: 800px) {
-    .container .row .col-sm-6 .card .card-header {
-        font-size: 1.2rem;
-        font-weight: bold;
+.container {
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+}
+
+@media screen and (min-width: 992px) {
+    .container {
+        width: 100%;
+        margin: 0 auto;
     }
-    .container .row .col-sm-6 .card .card-body {
-        font-size: 1.1rem;
-    }
-    .container .row .col-sm-6 .card .card-body form {
-        padding: 1.5rem;
-    }
-    .container .row .col-sm-6 .card .card-body form .form-group {
-        padding: 1rem 0;
-    }
-    .container .row .col-sm-6 .card .card-body form .form-group label {
-        font-weight: bold;
-    }
-    .container .row .col-sm-6 .card .card-body form .form-group input {
-        font-size: 1rem;
-        padding: 0.5rem;
-        font-weight: bold;
-    }
-    .container .row .col-sm-6 .card .card-body form .form-group .invalid-feedback {
-        font-size: 1rem;
-        font-weight: bold;
-    }
-    .container .row .col-sm-6 .card .card-body p {
-        font-size: 1.2rem;
-        font-weight: bold;
-    }
-    .container .row .col-sm-6 .card .card-body hr {
-        margin: 1rem 0;
-    }
-    .container .row .col-sm-6 .card .card-body button {
-        font-size: 1.2rem;
+    .col-sm-6 {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 20px;
     }
 }
