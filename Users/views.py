@@ -836,7 +836,7 @@ def upload_title_defense(request):
                         title_user.most_similar_documents.add(document)
                         title_user.save()
                 else:
-                    danger_message = f"Your {student_title}'s similarity result is below the threshold."
+                    danger_message = f"Your study's similarity result is below the threshold."
                         
                 context = {"form": form, "nearest_neighbors": nearest_neighbors, "danger_message": danger_message,
                            "student_title": student_title, "student_proponents": student_proponents}
@@ -953,7 +953,7 @@ def upload_proposal_defense(request):
                         proposal_user.most_similar_documents.add(document)
                         proposal_user.save()
                 else:
-                    danger_message = f"Your {student_title}'s similarity result is below the threshold."
+                    danger_message = f"Your study's similarity result is below the threshold."
 
                 context = {"form": form, "nearest_neighbors": nearest_neighbors, "danger_message": danger_message,
                            "student_title": student_title, "student_proponents": student_proponents}
