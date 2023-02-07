@@ -33,10 +33,10 @@
         <tbody style="text-align: left;">
             {% for repo in repository %}
             <tr style="color: black; text-align: left; font-size: 13px; ">
-                <th>{{ repo.title }}</th>
-                <th>{{ repo.proponents }}</th>
-                <th>{{ repo.adviser }}</th>
-                <th>{{ repo.school_year }}</th>
+                <td>{{ repo.title }}</td>
+                <td>{{ repo.proponents }}</td>
+                <td>{{ repo.adviser }}</td>
+                <td>{{ repo.school_year }}</td>
                 <td class="justify-content-between" style="display: flex;">
                     <a href="{% url 'view_pdf_repository' repo.id %}" target="_blank" class="btn btn-info btn-actions">
                         <i class="fa-solid fa-eye"></i>
