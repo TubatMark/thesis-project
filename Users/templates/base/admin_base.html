@@ -9,16 +9,19 @@
     <title>{% block title %} Admin Dashboard {% endblock title %}</title>
 
     <!-- navbars -->
-    <link rel="stylesheet"  type="text/css" href="{% static 'style/student_nav.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'style/student_nav.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'style/charts.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'style/add_repository.css' %}">
-    
-    <!-- tables -->
-    <link rel="stylesheet" href="{% static 'style/table.css' %}">
-    <link rel="stylesheet" href="{% static 'style/panel_result_table.css' %}">
 
     <!-- bootstrap css -->
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+
+    <!-- tables -->
+    <link rel="stylesheet" href="{% static 'style/table.css' %}">
+    <link rel="stylesheet" href="{% static 'style/student_comment_table.css' %}">
+
+    <!--loading css-->
+    <link rel="stylesheet" href="{% static 'style/loading.css' %}">
 
     <!-- DataTables CSS -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css">
@@ -52,16 +55,15 @@
     <script src="{% static 'js/sweetalert2.all.min.js' %}"></script>
 
     <!-- DataTables JavaScript -->
-    <script type="text/javascript" src="{% static 'datatables/js/datatables.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'DataTables/js/datatables.min.js' %}"></script>
     <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
-
 
     <!-- Popper.js -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.16.6/dist/umd/popper.min.js"></script>
 
-
     <!-- Font Awesome JavaScript -->
     <script src="{% static 'icons/js/all.min.js' %}"></script>
+
 
     <script>
         const hamburger = document.querySelector(".hamburger");
@@ -132,7 +134,7 @@
         });
     </script>
     <script>
-        $(document).ready( function () {
+        $(document).ready(function () {
             $("#userEnrolledDatatable").DataTable({
                 stripe: true,
                 stripeClasses: ['stripe1', 'stripe2'],
@@ -152,7 +154,7 @@
         });
     </script>
     <script>
-        $(document).ready( function () {
+        $(document).ready(function () {
             $("#registeredDatatable").DataTable({
                 stripe: true,
                 stripeClasses: ['stripe1', 'stripe2'],
@@ -171,21 +173,7 @@
             });
         });
     </script>
-    {% comment %} <script>
-        $(document).ready(function () {
-            // Handle click on "View PDF" button
-            $('#repositoryDatatable').on('click', '.btn-actions', function () {
-                // Get the PDF file ID from the button's data-id attribute
-                var pdfId = $(this).data('id');
 
-                // Set the src attribute of the iframe to the URL of the PDF file
-                $('#pdfFrame').attr('src', '/ViewRepositoryFiles/' + pdfId);
-
-                // Show the modal
-                $('#viewModal{{repo.id}}').modal('show');
-            });
-        });
-    </script> {% endcomment %}
     <script>
         $(document).ready(function () {
             $('#titleDatatable').DataTable({
@@ -241,7 +229,7 @@
         });
     </script>
     <script>
-        $(document).ready( function () {
+        $(document).ready(function () {
             $('#approvedDatatable').DataTable({
                 "aLengthMenu": [
                     [3, 5, 7, 10, 25, "All"],
@@ -256,10 +244,10 @@
                 bSort: true,
                 responsive: true,
             });
-        } );
+        });
     </script>
     <script>
-        $(document).ready( function () {
+        $(document).ready(function () {
             $('#rejectedDatatable').DataTable({
                 "aLengthMenu": [
                     [3, 5, 7, 10, 25, "All"],
@@ -274,17 +262,17 @@
                 bSort: true,
                 responsive: true,
             });
-        } );
+        });
     </script>
     <script>
-        $(document).ready(function(){
-            $('.btn').on('click', function(){
-                var id = $(this).attr('id').replace('btn','');
-                $('#actionModal'+id).modal('show');
+        $(document).ready(function () {
+            $('.btn').on('click', function () {
+                var id = $(this).attr('id').replace('btn', '');
+                $('#actionModal' + id).modal('show');
             });
         });
     </script>
-    
+
 </body>
 
 </html>
