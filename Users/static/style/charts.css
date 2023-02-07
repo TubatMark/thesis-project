@@ -1,6 +1,7 @@
 @media (max-width: 767px) {
     .row-card {
         display: flex;
+        align-items: center;
         flex-direction: column;
     }
 }
