@@ -790,56 +790,28 @@ def upload_title_defense(request):
                 vectorizer.fit(all_docs)
                 k = 5
                 nearest_neighbors = vectorize(query_matrix, vectorizer, k)
+                for neighbor in nearest_neighbors:
+                    # Retrieve the title, proponents, advisor and school_year fields from the RepositoryFiles model
+                    repository_file = RepositoryFiles.objects.get(title=neighbor['title'])
+                    neighbor['title'] = repository_file.title
+                    neighbor['proponents'] = repository_file.proponents
+                    neighbor['adviser'] = repository_file.adviser
+                    neighbor['school_year'] = repository_file.school_year
 
-                # for neighbor in nearest_neighbors:
-                #     # Retrieve the title, proponents, advisor and school_year fields from the RepositoryFiles model
-                #     repository_file = RepositoryFiles.objects.get(title=neighbor['title'])
-                #     neighbor['title'] = repository_file.title
-                #     neighbor['proponents'] = repository_file.proponents
-                #     neighbor['adviser'] = repository_file.adviser
-                #     neighbor['school_year'] = repository_file.school_year
-
-
-                #     # Save the data in the Documents model
-                #     document = Documents(
-                #         docs_title=neighbor['title'], 
-                #         similarity=neighbor['similarity'], 
-                #         uploaded_at=timezone.now(),
-                #         proponents = neighbor['proponents'],
-                #         adviser = neighbor['adviser'],
-                #         school_year = neighbor['school_year']
-                #     )
-                #     document.save()
-                #     title_user.most_similar_documents.add(document)
-                #     title_user.save()
-                # context = {"form": form, "nearest_neighbors": nearest_neighbors,
-                #            "student_title": student_title, "student_proponents": student_proponents}
-                if nearest_neighbors:
-                    for neighbor in nearest_neighbors:
-                        # Retrieve the title, proponents, advisor and school_year fields from the RepositoryFiles model
-                        repository_file = RepositoryFiles.objects.get(title=neighbor['title'])
-                        neighbor['title'] = repository_file.title
-                        neighbor['proponents'] = repository_file.proponents
-                        neighbor['adviser'] = repository_file.adviser
-                        neighbor['school_year'] = repository_file.school_year
-
-                        # Save the data in the Documents model
-                        document = Documents(
-                            docs_title=neighbor['title'], 
-                            similarity=neighbor['similarity'], 
-                            uploaded_at=timezone.now(),
-                            proponents=neighbor['proponents'],
-                            adviser=neighbor['adviser'],
-                            school_year=neighbor['school_year']
-                        )
-                        document.save()
-                        title_user.most_similar_documents.add(document)
-                        title_user.save()
-                else:
-                    danger_message = f"Your study's similarity result is below the threshold."
-                        
-                context = {"form": form, "nearest_neighbors": nearest_neighbors, "danger_message": danger_message,
-                           "student_title": student_title, "student_proponents": student_proponents}
+                    # Save the data in the Documents model
+                    document = Documents(
+                        docs_title=neighbor['title'], 
+                        similarity=neighbor['similarity'], 
+                        uploaded_at=timezone.now(),
+                        proponents=neighbor['proponents'],
+                        adviser=neighbor['adviser'],
+                        school_year=neighbor['school_year']
+                    )
+                    document.save()
+                    title_user.most_similar_documents.add(document)
+                    title_user.save()
+                
+                context = {"form": form, "nearest_neighbors": nearest_neighbors, "student_title": student_title, "student_proponents": student_proponents}
             except Exception as e:
                 logger.error(
                     f"Error comparing student's title PDF file to corpus: {e}")
@@ -930,33 +902,28 @@ def upload_proposal_defense(request):
                 k = 5
                 nearest_neighbors = vectorize(query_matrix, vectorizer, k)
                 
-                if nearest_neighbors:
-                    for neighbor in nearest_neighbors:
-                        # Retrieve the title, proponents, advisor and school_year fields from the RepositoryFiles model
-                        repository_file = RepositoryFiles.objects.get(title=neighbor['title'])
-                        neighbor['title'] = repository_file.title
-                        neighbor['proponents'] = repository_file.proponents
-                        neighbor['adviser'] = repository_file.adviser
-                        neighbor['school_year'] = repository_file.school_year
+                for neighbor in nearest_neighbors:
+                    # Retrieve the title, proponents, advisor and school_year fields from the RepositoryFiles model
+                    repository_file = RepositoryFiles.objects.get(title=neighbor['title'])
+                    neighbor['title'] = repository_file.title
+                    neighbor['proponents'] = repository_file.proponents
+                    neighbor['adviser'] = repository_file.adviser
+                    neighbor['school_year'] = repository_file.school_year
 
-
-                        # Save the data in the Documents model
-                        document = Documents(
-                            docs_title=neighbor['title'], 
-                            similarity=neighbor['similarity'], 
-                            uploaded_at=timezone.now(),
-                            proponents = neighbor['proponents'],
-                            adviser = neighbor['adviser'],
-                            school_year = neighbor['school_year']
-                        )
-                        document.save()
-                        proposal_user.most_similar_documents.add(document)
-                        proposal_user.save()
-                else:
-                    danger_message = f"Your study's similarity result is below the threshold."
-
-                context = {"form": form, "nearest_neighbors": nearest_neighbors, "danger_message": danger_message,
-                           "student_title": student_title, "student_proponents": student_proponents}
+                    # Save the data in the Documents model
+                    document = Documents(
+                        docs_title=neighbor['title'], 
+                        similarity=neighbor['similarity'], 
+                        uploaded_at=timezone.now(),
+                        proponents = neighbor['proponents'],
+                        adviser = neighbor['adviser'],
+                        school_year = neighbor['school_year']
+                    )
+                    document.save()
+                    proposal_user.most_similar_documents.add(document)
+                    proposal_user.save()
+                
+                context = {"form": form, "nearest_neighbors": nearest_neighbors, "student_title": student_title, "student_proponents": student_proponents}
                 return render(request, "accounts/student/student_dashboard/student_uploads/upload_proposal.html", context)
             except Exception as e:
                 logger.error(
@@ -964,7 +931,7 @@ def upload_proposal_defense(request):
                 pass
     else:
         form = UploadDocumentsForm()
-    return render(request, "accounts/student/student_dashboard/student_uploads/upload_proposal.html", {"form": form})
+    return render(request, "accounts/student/student_dashboard/student_uploads/upload_proposal.html", {"form": form, "nearest_neighbors": nearest_neighbors})
 
 # STUDENT UPLOAD DOCUMENT FOR SIMILARITY - FINAL
 

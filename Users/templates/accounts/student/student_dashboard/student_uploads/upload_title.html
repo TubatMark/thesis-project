@@ -17,6 +17,7 @@
         {% for neighbor in nearest_neighbors %}
         {% if neighbor.below_threshold == True and forloop.first%}
         <div class="alert alert-success text-center">
+            <strong>Document similarity calculation complete!</strong>
             <strong>Your study's similarity result is below the threshold.</strong>
         </div>
         <div class="col-sm-6">
@@ -78,6 +79,7 @@
         {% elif neighbor.below_threshold == False and forloop.first %}
         <div class="alert alert-success text-center">
             <strong>Document similarity calculation complete!</strong>
+            <strong>Your study's similarity result is above the threshold.</strong>
         </div>
         <div class="col-sm-6">
             <div class="card">
