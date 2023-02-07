@@ -1,0 +1,31 @@
+#result-table {
+    display: grid;
+    width: 100%;
+    table-layout: fixed;
+}
+
+#result-table .row {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+}
+
+#result-table .cell {
+    padding: 8px;
+    border: 1px solid gray;
+}
+
+#result-table .row.header {
+    font-weight: bold;
+    background-color: gray;
+}
+
+#result-table .row.header .cell {
+    width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+#result-table .similarity-header {
+    margin-left: 25px;
+}
