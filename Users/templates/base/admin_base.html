@@ -104,33 +104,28 @@
 
 
             // Add filter select options for each column
-
             let adviserFilter = $('<select><option value="">Adviser</option></select>');
-            $.each(Array.from(uniqueAdvisers).sort(), function (i, item) {
-                adviserFilter.append($('<option>', {
-                    value: item,
-                    text: item
-                }));
+            $.each(Array.from(uniqueAdvisers), function (index, value) {
+                adviserFilter.append('<option value="' + value + '">' + value + '</option>');
             });
-            $('#adminrepositoryDatatable thead th:eq(2)').html(adviserFilter);
+
+            $("#adminrepositoryDatatable thead tr:eq(0) th:eq(2)").html(adviserFilter);
+            table.column(2).data().sort();
+            table.column(2).search($(adviserFilter).val()).draw();
+            $(adviserFilter).on('change', function () {
+                table.column(2).search($(this).val()).draw();
+            });
 
             let schoolYearFilter = $('<select><option value="">School Year</option></select>');
-            $.each(Array.from(uniqueSchoolYears).sort(), function (i, item) {
-                schoolYearFilter.append($('<option>', {
-                    value: item,
-                    text: item
-                }));
+            $.each(Array.from(uniqueSchoolYears), function (index, value) {
+                schoolYearFilter.append('<option value="' + value + '">' + value + '</option>');
             });
-            $('#adminrepositoryDatatable thead th:eq(3)').html(schoolYearFilter);
-
-            // Apply filter for each select element
-
-            $('#adminrepositoryDatatable thead select').on('change', function () {
-                let val = $(this).val();
-                table.column($(this).parent().index() + ':visible').search(val ? '^' + val + '$' : '',
-                    true, false).draw();
+            $("#adminrepositoryDatatable thead tr:eq(0) th:eq(3)").html(schoolYearFilter);
+            table.column(3).data().sort();
+            table.column(3).search($(schoolYearFilter).val()).draw();
+            $(schoolYearFilter).on('change', function () {
+                table.column(3).search($(this).val()).draw();
             });
-
         });
     </script>
     <script>
