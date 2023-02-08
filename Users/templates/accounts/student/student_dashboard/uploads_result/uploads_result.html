@@ -5,7 +5,16 @@
 {% block content %}
 <div class="container">
     <br>
-    <table class="table table-bordered mx-auto " id="docsUploadsDatatable">
+    <br>
+    <h2 class="text-center" style="margin-bottom: 10px;">Welcome to Files Upload Results page!</h2>
+    <hr>
+    <p style="font-size: 18px; line-height: 1.5;text-align: justify;">This page displays the results of your file
+        uploads for your thesis. The table shows you the title of your thesis, your name as the proponent, the date and
+        time of upload, the document type, and the status of your upload. You can also view the results and comments
+        related to your upload by clicking on the "Result" and "Comments" buttons. This page helps you keep track of
+        your uploads and stay informed about the status of your thesis submission.
+    </p>
+    <table class="table " id="docsUploadsDatatable">
         <thead bgcolor="grey" style="color: #fff; font-size:13px">
             <tr>
                 <th style="width: 13%;">Thesis Title</th>
@@ -20,10 +29,10 @@
         <tbody style="text-align: left;">
             {% for upload in uploads %}
             <tr style="color: black; text-align: left; font-size: 13px; ">
-                <td>{{ upload.student_title }}</td>
-                <td>{{ upload.student_proponents }}</td>
-                <td>{{ upload.uploaded_at|date:"D d M Y H:i:s" }}</td>
-                <td>
+                <td data-label="Thesis Title">{{ upload.student_title }}</td>
+                <td data-label="Proponents">{{ upload.student_proponents }}</td>
+                <td data-label="Upload Date&Time">{{ upload.uploaded_at|date:"D d M Y H:i:s" }}</td>
+                <td data-label="Document Type">
                     {% if upload.document_type == "TITLE_DEFENSE" %}
                     TITLE DEFENSE DOCUMENT
                     {% elif upload.document_type == "PROPOSAL_DEFENSE" %}
@@ -32,8 +41,8 @@
                     FINAL DEFENSE DOCUMENT
                     {% endif %}
                 </td>
-                <td>{{ upload.status }}</td>
-                <td class="justify-content-between" style="display: flex;">
+                <td data-label="Status">{{ upload.status }}</td>
+                <td data-label="Actions" class="justify-content-between">
                     <button type="button" class="btn btn-success" data-bs-toggle="modal"
                         data-bs-target="#resultsModal{{upload.id}}">
                         Result

@@ -31,11 +31,6 @@
                 <td data-label="Adviser">{{ repo.adviser }}</td>
                 <td data-label="School Year">{{ repo.school_year }}</td>
                 <td data-label="Actions" class="justify-content-between">
-                    <!--button to open pdf-->
-                    {% comment %} <a href="#" target="_blank" class="btn btn-success"><i
-                            class="fa-solid fa-eye"></i></a> {% endcomment %}
-                    {% comment %} <a href="{% url 'view_pdf_repository' repo.id %}" target="_blank"
-                        class="btn btn-success"><i class="fa-solid fa-eye"></i></a> {% endcomment %}
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                         data-bs-target="#abstractModal{{repo.id}}">
                         <i class="fa-solid fa-eye"></i>
