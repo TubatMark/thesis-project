@@ -1,4 +1,25 @@
-.table th,
-.table td {
-    font-weight: normal;
+table {
+    width: 100%;
+}
+
+th,
+td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: left;
+}
+
+@media (max-width: 800px) {
+    thead {
+        display: none;
+    }
+    td:before {
+        content: attr(data-label);
+        display: inline-block;
+        font-weight: bold;
+        width: 100%;
+    }
+    td {
+        display: block;
+    }
 }

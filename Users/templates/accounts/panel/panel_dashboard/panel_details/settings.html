@@ -51,7 +51,7 @@
                     </div>
                     <div class="row">
 
-                        <table class="table table-bordered mx-auto">
+                        <table class="table ">
                             <thead bgcolor="grey" style="color: #fff; font-size:13px">
                                 <tr>
                                     <th style="width: 13%;">Thesis Title</th>
@@ -67,10 +67,10 @@
                             <tbody style="text-align: left;">
                                 {% for updated in updated_by %}
                                 <tr style="color: black; text-align: left; font-size: 13px; ">
-                                    <td>{{ updated.student_title }}</td>
-                                    <td>{{ updated.student_proponents }}</td>
-                                    <td>{{ updated.uploaded_at|date:"D d M Y H:i:s" }}</td>
-                                    <td>
+                                    <td data-label="Thesis Title">{{ updated.student_title }}</td>
+                                    <td data-label="Proponents">{{ updated.student_proponents }}</td>
+                                    <td data-label="Upload Date&Time">{{ updated.uploaded_at|date:"D d M Y H:i:s" }}</td>
+                                    <td data-label="Document Type">
                                         {% if updated.document_type == "TITLE_DEFENSE" %}
                                         TITLE DEFENSE DOCUMENT
                                         {% elif updated.document_type == "PROPOSAL_DEFENSE" %}
@@ -79,9 +79,9 @@
                                         FINAL DEFENSE DOCUMENT
                                         {% endif %}
                                     </td>
-                                    <td>{{ updated.status }}</td>
-                                    <td>{{updated.status_updated_at|date:"D d M Y H:i:s"}}</td>
-                                    <td>
+                                    <td data-label="Status">{{ updated.status }}</td>
+                                    <td data-label="Updated Date & Time">{{updated.status_updated_at|date:"D d M Y H:i:s"}}</td>
+                                    <td data-label="Actions">
                                         <button type="button" class="btn btn-success" data-bs-toggle="modal"
                                             data-bs-target="#resultsModal{{updated.id}}">
                                             Result

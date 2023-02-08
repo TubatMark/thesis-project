@@ -14,7 +14,7 @@
         and status of each document. Use this page to keep track of the documents that are rejected. Please note that
         access to this page is restricted to panel members only."
     </p>
-    <table class="table table-bordered mx-auto " id="rejectedDatatable">
+    <table class="table " id="rejectedDatatable">
         <thead bgcolor="grey" style="color: #fff; font-size:13px">
             <tr>
                 <th style="width: 20%;">Thesis Title</th>
@@ -31,10 +31,10 @@
         <tbody style="text-align: left;">
             {% for rejected in status_rejected %}
             <tr style="color: black; text-align: left; font-size: 13px; ">
-                <td>{{rejected.student_title}}</td>
-                <td>{{rejected.student_proponents}}</td>
-                <td>{{rejected.uploaded_at|date:"D d M Y H:i:s" }}</td>
-                <td>
+                <td data-label= "Thesis Title">{{rejected.student_title}}</td>
+                <td data-label= "Proponents">{{rejected.student_proponents}}</td>
+                <td data-label= "Upload Date&Time">{{rejected.uploaded_at|date:"D d M Y H:i:s" }}</td>
+                <td data-label= "Document Type">
                     {% if rejected.document_type == "TITLE_DEFENSE" %}
                     TITLE DEFENSE DOCUMENT
                     {% elif rejected.document_type == "PROPOSAL_DEFENSE" %}
@@ -43,10 +43,10 @@
                     FINAL DEFENSE DOCUMENT
                     {% endif %}
                 </td>
-                <td>{{rejected.status}}</td>
-                <td>{{rejected.status_updated_at|date:"D d M Y H:i:s"}}</td>
-                <td>{{rejected.status_updated_by.first_name}} {{approve.status_updated_by.last_name}}</td>
-                <td class="justify-content-between" style="display: flex;">
+                <td data-label= "Status">{{rejected.status}}</td>
+                <td data-label= "Updated Date & Time">{{rejected.status_updated_at|date:"D d M Y H:i:s"}}</td>
+                <td data-label= "Panel">{{rejected.status_updated_by.first_name}} {{approve.status_updated_by.last_name}}</td>
+                <td data-label= "Actions" class="justify-content-between">
                     <button type="button" class="btn btn-success" data-bs-toggle="modal"
                         data-bs-target="#resultsModal{{rejected.id}}">
                         Result

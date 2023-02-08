@@ -12,7 +12,7 @@
         you have the ability to approve or reject these titles, as well as view the results of the similarity check and
         leave comments for the students. Please take the time to review each title carefully before making a decision.
         Your actions will have a direct impact on the students' progress in their academic journey.</p>
-    <table class="table table-bordered mx-auto " id="titleDatatable">
+    <table class="table " id="titleDatatable">
         <thead bgcolor="grey" style="color: #fff; font-size:13px">
             <tr>
                 <th style="width: 20%;">Thesis Title</th>
@@ -26,10 +26,10 @@
         <tbody style="text-align: left;">
             {% for title in titles %}
             <tr style="color: black; text-align: left; font-size: 13px; ">
-                <td>{{title.student_title}}</td>
-                <td>{{title.student_proponents}}</td>
-                <td>{{title.uploaded_at|date:"D d M Y H:i:s" }}</td>
-                <td class="justify-content-between" style="display: flex;">
+                <td data-label="Thesis Title">{{title.student_title}}</td>
+                <td data-label="Proponents">{{title.student_proponents}}</td>
+                <td data-label="Date & Time">{{title.uploaded_at|date:"D d M Y H:i:s" }}</td>
+                <td data-label="Status" class="justify-content-between" style="display: flex;">
                     {% if title.status == 'APPROVED' %}
                         <button type="button" class="btn btn-success" id="approve-button" disabled>APPROVED</button>
                     {% elif title.status == 'REJECTED' %}
@@ -45,8 +45,7 @@
                         </form>
                     {% endif %}
                 </td>
-                
-                <td class="justify-content-between">
+                <td data-label= "Actions" class="justify-content-between">
                     <a href="{% url 'view_def_documents' title.id %}" target="_blank" class="btn btn-success">View</a>
                     <button type="button" class="btn btn-info" title="resultTitlePanel" data-bs-toggle="modal"
                         data-bs-target="#resultTitleModal{{title.id}}">

@@ -51,29 +51,24 @@
                     </div>
                     <div class="row">
 
-                        <table class="table table-bordered mx-auto">
+                        <table class="table">
                             <thead bgcolor="grey" style="color: #fff; font-size:13px">
                                 <tr>
-                                    <th style="width: 5%;">ID</th>
                                     <th style="width: 13%;">Thesis Title</th>
                                     <th style="width: 12%;">Proponents</th>
                                     <th style="width: 9%;">Adviser</th>
                                     <th style="width: 5%;">School Year</th>
-
                                 </tr>
                             </thead>
                             <!--Data from backend-->
                             <tbody style="text-align: left;">
                                 {% for repo in userrepo %}
                                 <tr style="color: black; text-align: left; font-size: 13px; ">
-                                    <th>{{ repo.id }}</th>
-                                    <th>{{ repo.title }}</th>
-                                    <th>{{ repo.proponents }}</th>
-                                    <th>{{ repo.adviser }}</th>
-                                    <th>{{ repo.school_year }}</th>
-
+                                    <td data-label="Thesis Title">{{ repo.title }}</td>
+                                    <td data-label="Proponents">{{ repo.proponents }}</td>
+                                    <td data-label="Adviser">{{ repo.adviser }}</td>
+                                    <td data-label="School Year">{{ repo.school_year }}</td>
                                 </tr>
-
                                 {% endfor %}
                             </tbody>
                         </table>

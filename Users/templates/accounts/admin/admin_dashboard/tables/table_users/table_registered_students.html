@@ -14,7 +14,7 @@
         including Student ID, Username, Name, Email, Last Login, and Date Joined. Use the actions button to access the
         edit modal for each student. Thank you for using this page to efficiently manage your registered students.
     </p>
-    <table class="table table-bordered mx-auto" id="registeredDatatable">
+    <table class="table" id="registeredDatatable">
         <thead bgcolor="grey" style="color: #fff; font-size: 13px;">
             <tr>
                 <th style="width: 5%;">Student ID</th>
@@ -31,13 +31,13 @@
 
             {% for student in registered_student  %}
             <tr style="color: black; text-align: left; font-size: 13px;">
-                <td>{{ student.student_id }}</td>
-                <td>{{ student.username }}</td>
-                <td>{{ student.name }}</td>
-                <td>{{ student.email }}</td>
-                <td>{{ student.last_login }}</td>
-                <td>{{ student.date_joined }}</td>
-                <td>
+                <td data-label= "Student ID">{{ student.student_id }}</td>
+                <td data-label= "Username">{{ student.username }}</td>
+                <td data-label= "Name">{{ student.name }}</td>
+                <td data-label= "Email">{{ student.email }}</td>
+                <td data-label= "Last Login">{{ student.last_login }}</td>
+                <td data-label= "Date Joined">{{ student.date_joined }}</td>
+                <td data-label= "Actions">
                     <a type="button" class="btn btn-info btn-actions" title="viewPanels"
                         data-bs-toggle="modal" data-bs-target="#viewUploadsModal{{student.id}}">
                         <i class="fa-solid fa-eye"></i>

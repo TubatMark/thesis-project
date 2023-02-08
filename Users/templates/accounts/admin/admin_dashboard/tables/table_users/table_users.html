@@ -21,10 +21,9 @@
         Upload File - Enrolled Students
     </button>
     <br>
-    <table class="table table-bordered mx-auto " id="userEnrolledDatatable">
+    <table class="table" id="userEnrolledDatatable">
         <thead bgcolor="grey" style="color: #fff; font-size: 13px;">
             <tr>
-                <th>ID</th>
                 <th>Student ID</th>
                 <th>Name</th>
                 <th>Email</th>
@@ -37,19 +36,18 @@
         <tbody style="text-align:left;">
             {% for student in students %}
             <tr style="color: black; text-align: left; font-size: 13px;">
-                <td>{{ student.id }}</td>
-                <td>{{ student.Student_Id }}</td>
-                <td>{{ student.Student_Name }}</td>
-                <td>{{ student.Email }}</td>
-                <td>
+                <td data-label= "Student ID">{{ student.Student_Id }}</td>
+                <td data-label= "Name">{{ student.Student_Name }}</td>
+                <td data-label= "Email">{{ student.Email }}</td>
+                <td data-label= "Contact Number">
                     {% if student.Contact_Number == 'nan' %}
                     N/A
                     {% else %}
                     {{ student.Contact_Number|floatformat:0 }}
                     {% endif %}
                 </td>
-                <td>{{ student.Course }}</td>
-                <td>
+                <td data-label= "Course">{{ student.Course }}</td>
+                <td data-label= "Actions">
                     <a class="btn btn-warning btn-actions" title="editEnrolledStudents" data-bs-toggle="modal"
                         data-bs-target="#editEnrolledModal{{student.id}}">
                         <i class="fa-solid fa-pen-to-square"></i>
@@ -61,7 +59,6 @@
                     <a data-placement="top" data-toggle="tooltip" title="delete"
                         href="/DeleteEnrolledStudent/{{student.id}}" class="btn btn-danger btn-xs" data-title="Delete"
                         data-toggle="modal" data-target="#delete"><i class="fa-solid fa-trash"></i></a>
-                </td>
                 </td>
             </tr>
 

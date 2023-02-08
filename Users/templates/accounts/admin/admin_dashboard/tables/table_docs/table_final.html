@@ -13,7 +13,7 @@
         the status of the document, and the comments made by the panel. Please use the buttons provided on the table to
         access the result and comment panels for each document.
     </p>
-    <table class="table table-bordered mx-auto" id="finalDatatable">
+    <table class="table" id="finalDatatable">
         <thead bgcolor="grey" style="color: #fff; font-size: 13px;">
             <tr>
                 <th style="width: 20%;">Thesis Title</th>
@@ -26,10 +26,10 @@
         <tbody style="text-align:left;">
             {% for final in final_defense_documents %}
             <tr style="color: black; text-align: left; font-size: 13px;">
-                <td>{{final.student_title}}</td>
-                <td>{{final.student_proponents}}</td>
-                <td>{{final.uploaded_at|date:"D d M Y H:i:s" }}</td>
-                <td class="justify-content-between" style="display: flex;">
+                <td data-label="Thesis Title">{{final.student_title}}</td>
+                <td data-label="Proponents">{{final.student_proponents}}</td>
+                <td data-label="Date & Time">{{final.uploaded_at|date:"D d M Y H:i:s" }}</td>
+                <td data-label= "Actions" class="justify-content-between">
                     <a href="{% url 'view_def_documents' final.id %}" target="_blank" class="btn btn-success">View</a>
                 </td>
             </tr>

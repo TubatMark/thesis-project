@@ -14,7 +14,7 @@
         their information, or delete them from the system.
     </p>
     <br>
-    <table class="table table-bordered mx-auto" id="registeredDatatable">
+    <table class="table" id="registeredDatatable">
         <thead bgcolor="grey" style="color: #fff; font-size: 13px;">
             <tr>
                 <th style="width: 10%;">Username</th>
@@ -29,11 +29,11 @@
 
             {% for panel in registered_panel  %}
             <tr style="color: black; text-align: left; font-size: 13px;">
-                <td>{{ panel.username }}</td>
-                <td>{{ panel.first_name }} {{ panel.last_name }}</td>
-                <td>{{ panel.email }}</td>
-                <td>{{ panel.last_login }}</td>
-                <td>
+                <td data-label= "Username">{{ panel.username }}</td>
+                <td data-label= "Name">{{ panel.first_name }} {{ panel.last_name }}</td>
+                <td data-label= "Email">{{ panel.email }}</td>
+                <td data-label= "Last Login">{{ panel.last_login }}</td>
+                <td data-label= "Actions">
                     <a type="button" class="btn btn-warning btn-actions" id="btn{{panel.id}}" title="actionPanels"
                         data-bs-toggle="modal" data-bs-target="#actionModal{{panel.id}}">
                         <i class="fa-solid fa-eye"></i>

@@ -53,7 +53,7 @@
                     <!--uploads-->
                     <div class="row">
 
-                        <table class="table table-bordered mx-auto">
+                        <table class="table ">
                             <thead bgcolor="grey" style="color: #fff; font-size:13px">
                                 <tr>
                                     <th style="width: 13%;">Thesis Title</th>
@@ -68,10 +68,10 @@
                             <tbody style="text-align: left;">
                                 {% for upload in uploads %}
                                 <tr style="color: black; text-align: left; font-size: 13px; ">
-                                    <td>{{ upload.student_title }}</td>
-                                    <td>{{ upload.student_proponents }}</td>
-                                    <td>{{ upload.uploaded_at|date:"D d M Y H:i:s" }}</td>
-                                    <td>
+                                    <td data-label= "Thesis Title">{{ upload.student_title }}</td>
+                                    <td data-label= "Proponents">{{ upload.student_proponents }}</td>
+                                    <td data-label= "Upload Date&Time">{{ upload.uploaded_at|date:"D d M Y H:i:s" }}</td>
+                                    <td data-label= "Document Type">
                                         {% if upload.document_type == "TITLE_DEFENSE" %}
                                         TITLE DEFENSE DOCUMENT
                                         {% elif upload.document_type == "PROPOSAL_DEFENSE" %}
@@ -80,8 +80,8 @@
                                         FINAL DEFENSE DOCUMENT
                                         {% endif %}
                                     </td>
-                                    <td>{{ upload.status }}</td>
-                                    <td class="justify-content-between" style="display: flex;">
+                                    <td data-label= "Status">{{ upload.status }}</td>
+                                    <td data-label= "Actions" class="justify-content-between">
                                         <button type="button" class="btn btn-success" data-bs-toggle="modal"
                                             data-bs-target="#resultsModal{{upload.id}}">
                                             Result
@@ -102,7 +102,7 @@
                     <!-- comparison -->
                     <div class="row">
 
-                        <table class="table table-bordered mx-auto">
+                        <table class="table">
                             <thead bgcolor="4b6043" style="color: #fff; font-size:13px">
                                 <tr>
                                     <th style="width: 14%;">Your Title</th>
@@ -116,11 +116,11 @@
                             <tbody style="text-align: left;">
                                 {% for comparison in comparisons %}
                                 <tr style="color: black; text-align: left; font-size: 13px; ">
-                                    <td>{{ comparison.doc1_title }}</td>
-                                    <td>{{ comparison.doc2_title }}</td>
-                                    <td>{{ comparison.doc2_proponents }}</td>
-                                    <td>{{ comparison.docs_uploaded_at|date:"D d M Y H:i:s" }}</td>
-                                    <td>{{ comparison.comparison_result|floatformat:0 }}%</td>
+                                    <td data-label= "Your Title">{{ comparison.doc1_title }}</td>
+                                    <td data-label= "Compared Title">{{ comparison.doc2_title }}</td>
+                                    <td data-label= "Compared Proponents">{{ comparison.doc2_proponents }}</td>
+                                    <td data-label= "Upload Date&Time">{{ comparison.docs_uploaded_at|date:"D d M Y H:i:s" }}</td>
+                                    <td data-label= "Comparison Result">{{ comparison.comparison_result|floatformat:0 }}%</td>
                                 </tr>
                                 {% endfor %}
                             </tbody>

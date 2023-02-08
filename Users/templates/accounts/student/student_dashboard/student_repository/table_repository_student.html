@@ -7,11 +7,12 @@
 <div class="container">
     <h3>Welcome, {{ user.name }}</h3>
     <hr>
-    <p style="font-size: 18px; line-height: 1.5;text-align: justify;">This page allows you to view a variety of thesis and research documents. By using the table on this page, you can
+    <p style="font-size: 18px; line-height: 1.5;text-align: justify;">This page allows you to view a variety of thesis
+        and research documents. By using the table on this page, you can
         easily browse through different documents by their title, proponents, and even view them by clicking on the
         "view" button.</p>
     <br>
-    <table class="table table-bordered mx-auto " id="studentRepositoryDatatable">
+    <table class="table " id="studentRepositoryDatatable">
         <thead bgcolor="grey" style="color: #fff; font-size:13px">
             <tr>
                 <th style="width: 30%;">Thesis Title</th>
@@ -25,15 +26,18 @@
         <tbody style="text-align: left;">
             {% for repo in repository %}
             <tr style="color: black; text-align: left; font-size: 13px; ">
-                <td>{{ repo.title }}</td>
-                <td>{{ repo.proponents }}</td>
-                <td>{{ repo.adviser }}</td>
-                <td>{{ repo.school_year }}</td>
-                <td>
+                <td data-label="Thesis Title">{{ repo.title }}</td>
+                <td data-label="Proponents">{{ repo.proponents }}</td>
+                <td data-label="Adviser">{{ repo.adviser }}</td>
+                <td data-label="School Year">{{ repo.school_year }}</td>
+                <td data-label="Actions">
                     <!--button to open pdf-->
-                    {% comment %} <a href="#" target="_blank" class="btn btn-success"><i class="fa-solid fa-eye"></i></a> {% endcomment %}
-                    {% comment %} <a href="{% url 'view_pdf_repository' repo.id %}" target="_blank" class="btn btn-success"><i class="fa-solid fa-eye"></i></a> {% endcomment %}
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#abstractModal{{repo.id}}">
+                    {% comment %} <a href="#" target="_blank" class="btn btn-success"><i
+                            class="fa-solid fa-eye"></i></a> {% endcomment %}
+                    {% comment %} <a href="{% url 'view_pdf_repository' repo.id %}" target="_blank"
+                        class="btn btn-success"><i class="fa-solid fa-eye"></i></a> {% endcomment %}
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                        data-bs-target="#abstractModal{{repo.id}}">
                         <i class="fa-solid fa-eye"></i>
                     </button>
                 </td>

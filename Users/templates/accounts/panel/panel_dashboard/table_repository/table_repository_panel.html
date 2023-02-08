@@ -10,9 +10,9 @@
     <p>This page allows you to view a variety of thesis and research documents. By using the table on this page, you can
         easily browse through different documents by their title, proponents, and even view them by clicking on the
         "view" button.</p>
-    
+
     <br>
-    <table class="table table-bordered mx-auto " id="panelRepositoryDatatable">
+    <table class="table " id="panelRepositoryDatatable">
         <thead bgcolor="grey" style="color: #fff; font-size:13px">
             <tr>
                 <th style="width: 25%;">Thesis Title</th>
@@ -26,12 +26,13 @@
         <tbody style="text-align: left;">
             {% for repo in repository %}
             <tr style="color: black; text-align: left; font-size: 13px; ">
-                <td>{{ repo.title }}</td>
-                <td>{{ repo.proponents }}</td>
-                <td>{{ repo.adviser }}</td>
-                <td>{{ repo.school_year }}</td>
-                <td>
-                    <a href="{% url 'view_pdf_repository' repo.id %}" target="_blank" class="btn btn-success"><i class="fa-solid fa-eye"></i></a>
+                <td data-label="Thesis Title">{{ repo.title }}</td>
+                <td data-label="Proponents">{{ repo.proponents }}</td>
+                <td data-label="Adviser">{{ repo.adviser }}</td>
+                <td data-label="School Year">{{ repo.school_year }}</td>
+                <td data-label="Actions">
+                    <a href="{% url 'view_pdf_repository' repo.id %}" target="_blank" class="btn btn-success"><i
+                            class="fa-solid fa-eye"></i></a>
                 </td>
                 </td>
             </tr>
