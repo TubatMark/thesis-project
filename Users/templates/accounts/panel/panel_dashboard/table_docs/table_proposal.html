@@ -20,6 +20,7 @@
                 <th style="width: 10%;">Proponents</th>
                 <th style="width: 13%;">Date & Time</th>
                 <th style="width: 1%;">Status</th>
+                <th style="width: 1%;">Threshold Result</th>
                 <th style="width: 16%;">Actions</th>
             </tr>
         </thead>
@@ -46,6 +47,7 @@
                         </form>
                     {% endif %}
                 </td>
+                <td data-label="Threshold Result" >{{proposal.threshold_result}}</td>
                 <td data-label= "Actions" class="justify-content-between">
                     <a href="{% url 'view_def_documents' proposal.id %}" target="_blank" class="btn btn-success">View</a>
                     <button type="button" class="btn btn-info" title="resultProposalPanel" data-bs-toggle="modal"

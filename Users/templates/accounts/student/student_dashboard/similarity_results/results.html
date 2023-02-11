@@ -4,12 +4,13 @@
         <div class="modal-dialog modal-dialog-scrollable modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h6 class="modal-title fs-5" id="resultsModalLabel{{upload.id}}"><i
-                            class="fa-solid fa-circle-info"></i>Similarity Result</h6>
+                    <h5 class="modal-title fs-5" id="resultsModalLabel{{upload.id}}"><i
+                            class="fa-solid fa-circle-info"></i>Similarity Result</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body" style="font-weight: 300;">
-                    <h6>Your Document Title: {{upload.student_title}}</h6>
+                    <h5>Your Document Title: {{upload.student_title}}</h5><hr>
+                    <h6>Your Threshold Result: Your study's similarity is {{upload.threshold_result}}.</h6>
                     <div class="table"  id="result-table">
                         <div class="row header" style="display:grid; grid-template-columns: 2fr 1fr">
                             <div class="cell">Title</div>

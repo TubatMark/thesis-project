@@ -52,7 +52,7 @@
                     </div>
                     <!--uploads-->
                     <div class="row">
-
+                        <h5>Your Similarity Test Uploads</h5>
                         <table class="table ">
                             <thead bgcolor="grey" style="color: #fff; font-size:13px">
                                 <tr>
@@ -61,6 +61,7 @@
                                     <th style="width: 12%;">Upload Date&Time</th>
                                     <th style="width: 12%;">Document Type</th>
                                     <th style="width: 5%;">Status</th>
+                                    <th style="width: 5%;">Threshold Result</th>
                                     <th style="width: 1%;">Actions</th>
                                 </tr>
                             </thead>
@@ -81,6 +82,7 @@
                                         {% endif %}
                                     </td>
                                     <td data-label= "Status">{{ upload.status }}</td>
+                                    <td data-label= "Threshold Result">{{ upload.threshold_result }}</td>
                                     <td data-label= "Actions" class="justify-content-between">
                                         <button type="button" class="btn btn-success" data-bs-toggle="modal"
                                             data-bs-target="#resultsModal{{upload.id}}">
@@ -101,7 +103,7 @@
                     </div>
                     <!-- comparison -->
                     <div class="row">
-
+                        <h5>Your Document Comparison Results</h5>
                         <table class="table">
                             <thead bgcolor="4b6043" style="color: #fff; font-size:13px">
                                 <tr>
@@ -139,7 +141,7 @@
                         <div class="card-body pb-5">
                             {% for student_profile in student_profiles %}
                             {% if student_profile.profile_picture %}
-                            <img src="{{ student_profile.profile_picture.url }}"
+                            <img src="{{ student_profile.profile_picture.path }}"
                                 class="avatar-xl rounded-circle mx-auto mt-n7 mb-4" alt="{{ student.Student_Name }}"
                                 style="height: 150px; width: 150px;">
                             {% else %}

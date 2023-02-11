@@ -22,6 +22,7 @@
                 <th style="width: 12%;">Upload Date&Time</th>
                 <th style="width: 12%;">Document Type</th>
                 <th style="width: 5%;">Status</th>
+                <th style="width: 5%;">Threshold Result</th>
                 <th style="width: 1%;">Actions</th>
             </tr>
         </thead>
@@ -42,6 +43,7 @@
                     {% endif %}
                 </td>
                 <td data-label="Status">{{ upload.status }}</td>
+                <td data-label= "Threshold Result">{{ upload.threshold_result }}</td>
                 <td data-label="Actions" class="justify-content-between">
                     <button type="button" class="btn btn-success" data-bs-toggle="modal"
                         data-bs-target="#resultsModal{{upload.id}}">

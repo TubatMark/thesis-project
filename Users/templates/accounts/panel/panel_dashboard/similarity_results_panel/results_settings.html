@@ -4,12 +4,14 @@
         <div class="modal-dialog modal-dialog-scrollable modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h6 class="modal-title fs-5" id="resultsModalLabel{{updated.id}}"><i
-                            class="fa-solid fa-circle-info"></i>Similarity Result</h6>
+                    <h5 class="modal-title fs-5" id="resultsModalLabel{{updated.id}}"><i
+                            class="fa-solid fa-circle-info"></i>Similarity Result</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body" style="font-weight: 300;">
-                    <h6>Your Document Title: {{updated.student_title}}</h6>
+                    <h5>Document Title: {{updated.student_title}}</h5>
+                    <hr>
+                    <h6>Threshold Result: Document similarity result is {{updated.threshold_result}}.</h6>
                     <div class="table"  id="result-table">
                         <div class="row header" style="display:grid; grid-template-columns: 2fr 2fr 1fr 1fr 1fr">
                             <div class="cell">Title</div>

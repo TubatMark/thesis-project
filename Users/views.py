@@ -790,6 +790,12 @@ def upload_title_defense(request):
                 vectorizer.fit(all_docs)
                 k = 5
                 nearest_neighbors = vectorize(query_matrix, vectorizer, k)
+                
+                threshold = 0
+                last_threshold = SimilarityThreshold.objects.all().last()
+                if last_threshold:
+                    threshold = last_threshold.threshold
+                    
                 for neighbor in nearest_neighbors:
                     # Retrieve the title, proponents, advisor and school_year fields from the RepositoryFiles model
                     repository_file = RepositoryFiles.objects.get(title=neighbor['title'])
@@ -810,6 +816,13 @@ def upload_title_defense(request):
                     document.save()
                     title_user.most_similar_documents.add(document)
                     title_user.save()
+                    
+                    if neighbor['similarity'] > threshold:
+                        title_user.threshold_result = "above threshold"
+                        title_user.save()
+                    else:
+                        title_user.threshold_result = "below threshold"
+                        title_user.save()
                 
                 context = {"form": form, "nearest_neighbors": nearest_neighbors, "student_title": student_title, "student_proponents": student_proponents}
             except Exception as e:
@@ -902,6 +915,11 @@ def upload_proposal_defense(request):
                 k = 5
                 nearest_neighbors = vectorize(query_matrix, vectorizer, k)
                 
+                threshold = 0
+                last_threshold = SimilarityThreshold.objects.all().last()
+                if last_threshold:
+                    threshold = last_threshold.threshold
+                            
                 for neighbor in nearest_neighbors:
                     # Retrieve the title, proponents, advisor and school_year fields from the RepositoryFiles model
                     repository_file = RepositoryFiles.objects.get(title=neighbor['title'])
@@ -922,6 +940,13 @@ def upload_proposal_defense(request):
                     document.save()
                     proposal_user.most_similar_documents.add(document)
                     proposal_user.save()
+                    
+                    if neighbor['similarity'] > threshold:
+                        proposal_user.threshold_result = "above threshold"
+                        proposal_user.save()
+                    else:
+                        proposal_user.threshold_result = "below threshold"
+                        proposal_user.save()
                 
                 context = {"form": form, "nearest_neighbors": nearest_neighbors, "student_title": student_title, "student_proponents": student_proponents}
                 return render(request, "accounts/student/student_dashboard/student_uploads/upload_proposal.html", context)
