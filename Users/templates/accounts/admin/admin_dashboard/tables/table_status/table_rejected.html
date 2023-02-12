@@ -21,8 +21,8 @@
                 <th style="width: 10%;">Proponents</th>
                 <th style="width: 13%;">Upload Date&Time</th>
                 <th style="width: 13%;">Document Type</th>
-                <th style="width: 13%;">Status</th>
                 <th style="width: 13%;">Threshold Result</th>
+                <th style="width: 13%;">Status</th>
                 <th style="width: 13%;">Updated Date & Time</th>
                 <th style="width: 13%;">Panel</th>
                 <th style="width: 13%;">Actions</th>
@@ -44,8 +44,8 @@
                     FINAL DEFENSE DOCUMENT
                     {% endif %}
                 </td>
-                <td data-label= "Status">{{rejected.status}}</td>
                 <td data-label= "Threshold Result">{{rejected.threshold_result}}</td>
+                <td data-label= "Status">{{rejected.status}}</td>
                 <td data-label= "Updated Date & Time">{{rejected.status_updated_at|date:"D d M Y H:i:s"}}</td>
                 <td data-label= "Panel">{{rejected.status_updated_by.first_name}} {{approve.status_updated_by.last_name}}</td>
                 <td data-label= "Actions" class="justify-content-between">
