@@ -158,10 +158,13 @@
 
             // Get unique values for each column
             let uniqueThreshold = new Set();
+            let uniqueStatus = new Set();
 
             $('#titleDatatable tbody tr').each(function () {
-                let Threshold = $(this).find("td:eq(4)").text();
+                let Threshold = $(this).find("td:eq(3)").text();
+                let Status = $(this).find("td:eq(4)").text();
                 uniqueThreshold.add(Threshold);
+                uniqueStatus.add(Status);
             });
 
             // Add filter select options for each column
@@ -172,7 +175,16 @@
                     text: item
                 }));
             });
-            $('#titleDatatable thead th:eq(4)').html(thresholdFilter);
+            $('#titleDatatable thead th:eq(3)').html(thresholdFilter);
+
+            let statusFilter = $('<select><option value="">Status</option></select>');
+            $.each(Array.from(uniqueStatus).sort(), function (i, item) {
+                statusFilter.append($('<option>', {
+                    value: item,
+                    text: item
+                }));
+            });
+            $('#titleDatatable thead th:eq(4)').html(statusFilter);
 
             $('#titleDatatable thead select').on('change', function () {
                 let val = $(this).val();
@@ -208,10 +220,13 @@
 
             // Get unique values for each column
             let uniqueThreshold = new Set();
+            let uniqueStatus = new Set();
 
             $('#proposalDatatable tbody tr').each(function () {
-                let Threshold = $(this).find("td:eq(4)").text();;
+                let Threshold = $(this).find("td:eq(3)").text();
+                let Status = $(this).find("td:eq(4)").text();
                 uniqueThreshold.add(Threshold);
+                uniqueStatus.add(Status);
             });
 
             // Add filter select options for each column
@@ -222,7 +237,16 @@
                     text: item
                 }));
             });
-            $('#proposalDatatable thead th:eq(4)').html(thresholdFilter);
+            $('#proposalDatatable thead th:eq(3)').html(thresholdFilter);
+
+            let statusFilter = $('<select><option value="">Status</option></select>');
+            $.each(Array.from(uniqueStatus).sort(), function (i, item) {
+                statusFilter.append($('<option>', {
+                    value: item,
+                    text: item
+                }));
+            });
+            $('#proposalDatatable thead th:eq(4)').html(statusFilter);
 
             $('#proposalDatatable thead select').on('change', function () {
                 let val = $(this).val();
@@ -284,12 +308,15 @@
 
             // Get unique values for each column
             let uniqueDocType = new Set();
+            let uniqueThreshold = new Set();
             let uniquePanel = new Set();
             
             $('#approvedDatatable tbody tr').each(function () {
                 let DocType = $(this).find("td:eq(3)").text();
-                let Panel = $(this).find("td:eq(6)").text();
+                let Threshold = $(this).find("td:eq(4)").text();
+                let Panel = $(this).find("td:eq(7)").text();
                 uniqueDocType.add(DocType);
+                uniqueThreshold.add(Threshold);
                 uniquePanel.add(Panel);
             });
                 
@@ -303,6 +330,15 @@
             });
             $('#approvedDatatable thead th:eq(3)').html(doctypeFilter);
 
+            let thresholdFilter = $('<select><option value="">Threshold Result</option></select>');
+            $.each(Array.from(uniqueThreshold).sort(), function (i, item) {
+                thresholdFilter.append($('<option>', {
+                    value: item,
+                    text: item
+                }));
+            });
+            $('#approvedDatatable thead th:eq(4)').html(thresholdFilter);
+
             let panelFilter = $('<select><option value="">Panel</option></select>');
             $.each(Array.from(uniquePanel).sort(), function (i, item) {
                 panelFilter.append($('<option>', {
@@ -310,7 +346,7 @@
                     text: item
                 }));
             });
-            $('#approvedDatatable thead th:eq(6)').html(panelFilter);
+            $('#approvedDatatable thead th:eq(7)').html(panelFilter);
 
             $('#approvedDatatable thead select').on('change', function () {
                 let val = $(this).val();
@@ -345,12 +381,15 @@
 
              // Get unique values for each column
              let uniqueDocType = new Set();
+             let uniqueThreshold = new Set();
              let uniquePanel = new Set();
              
              $('#rejectedDatatable tbody tr').each(function () {
                  let DocType = $(this).find("td:eq(3)").text();
-                 let Panel = $(this).find("td:eq(6)").text();
+                 let Threshold = $(this).find("td:eq(4)").text();
+                 let Panel = $(this).find("td:eq(7)").text();
                  uniqueDocType.add(DocType);
+                 uniqueThreshold.add(Threshold);
                  uniquePanel.add(Panel);
              });
                  
@@ -363,6 +402,15 @@
                  }));
              });
              $('#rejectedDatatable thead th:eq(3)').html(doctypeFilter);
+
+             let thresholdFilter = $('<select><option value="">Threshold Result</option></select>');
+            $.each(Array.from(uniqueThreshold).sort(), function (i, item) {
+                thresholdFilter.append($('<option>', {
+                    value: item,
+                    text: item
+                }));
+            });
+            $('#rejectedDatatable thead th:eq(4)').html(thresholdFilter);
  
              let panelFilter = $('<select><option value="">Panel</option></select>');
              $.each(Array.from(uniquePanel).sort(), function (i, item) {
@@ -371,7 +419,7 @@
                      text: item
                  }));
              });
-             $('#rejectedDatatable thead th:eq(6)').html(panelFilter);
+             $('#rejectedDatatable thead th:eq(7)').html(panelFilter);
  
              $('#rejectedDatatable thead select').on('change', function () {
                  let val = $(this).val();

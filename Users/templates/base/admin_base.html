@@ -299,14 +299,26 @@
 
 
             // Get unique values for each column
+            let uniqueThreshold = new Set();
             let uniqueStatus = new Set();
 
             $('#titleDatatable tbody tr').each(function () {
+                let Threshold = $(this).find("td:eq(3)").text();
                 let Status = $(this).find("td:eq(4)").text();
                 uniqueStatus.add(Status);
+                uniqueThreshold.add(Threshold);
             });
 
             // Add filter select options for each column
+            let thresholdFilter = $('<select><option value="">Threshold Result</option></select>');
+            $.each(Array.from(uniqueThreshold).sort(), function (i, item) {
+                thresholdFilter.append($('<option>', {
+                    value: item,
+                    text: item
+                }));
+            });
+            $('#titleDatatable thead th:eq(3)').html(thresholdFilter);
+
             let statusFilter = $('<select><option value="">Status</option></select>');
             $.each(Array.from(uniqueStatus).sort(), function (i, item) {
                 statusFilter.append($('<option>', {
@@ -349,14 +361,26 @@
             table.buttons().container().appendTo('#proposalDatatable .col-md-6:eq(0)')
 
             // Get unique values for each column
+            let uniqueThreshold = new Set();
             let uniqueStatus = new Set();
 
             $('#proposalDatatable tbody tr').each(function () {
+                let Threshold = $(this).find("td:eq(3)").text();
                 let Status = $(this).find("td:eq(4)").text();
+                uniqueThreshold.add(Threshold);
                 uniqueStatus.add(Status);
             });
 
             // Add filter select options for each column
+            let thresholdFilter = $('<select><option value="">Threshold Result</option></select>');
+            $.each(Array.from(uniqueThreshold).sort(), function (i, item) {
+                thresholdFilter.append($('<option>', {
+                    value: item,
+                    text: item
+                }));
+            });
+            $('#proposalDatatable thead th:eq(3)').html(thresholdFilter);
+            
             let statusFilter = $('<select><option value="">Status</option></select>');
             $.each(Array.from(uniqueStatus).sort(), function (i, item) {
                 statusFilter.append($('<option>', {
