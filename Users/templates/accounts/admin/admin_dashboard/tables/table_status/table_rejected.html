@@ -6,13 +6,14 @@
 
 <div class="container">
     <br>
-    <h2 class="text-center" style="margin-bottom: 10px;">Welcome to the Rejected Documents Records page of our website!
+    <h2 class="text-center" style="margin-bottom: 10px;">Welcome to the rejected theses table!
     </h2>
     <hr>
-    <p style="font-size: 18px; line-height: 1.5;text-align: justify;">This page displays a list of all the documents
-        that have been rejected by the panels. You can view the title, proponents, upload date and time, document type,
-        and status of each document. Use this page to keep track of the documents that are rejected. Please note that
-        access to this page is restricted to panel members only."
+    <p style="font-size: 18px; line-height: 1.5;text-align: justify;">Here you can view a list of all the rejected
+        theses, along with their details such as the thesis title,
+        proponents, upload date and time, document type, status, updated date and time, and panel. You can also view the
+        result and comments by clicking on the corresponding buttons. We hope you find this table helpful in managing
+        and monitoring the approved theses.
     </p>
     <table class="table " id="rejectedDatatable">
         <thead bgcolor="grey" style="color: #fff; font-size:13px">
@@ -35,20 +36,12 @@
                 <td data-label= "Thesis Title">{{rejected.student_title}}</td>
                 <td data-label= "Proponents">{{rejected.student_proponents}}</td>
                 <td data-label= "Upload Date&Time">{{rejected.uploaded_at|date:"D d M Y H:i:s" }}</td>
-                <td data-label= "Document Type">
-                    {% if rejected.document_type == "TITLE_DEFENSE" %}
-                    TITLE DEFENSE DOCUMENT
-                    {% elif rejected.document_type == "PROPOSAL_DEFENSE" %}
-                    PROPOSAL DEFENSE DOCUMENT
-                    {% else %}
-                    FINAL DEFENSE DOCUMENT
-                    {% endif %}
-                </td>
+                <td data-label= "Document Type">{{rejected.document_type}}</td>
                 <td data-label= "Threshold Result">{{rejected.threshold_result}}</td>
                 <td data-label= "Status">{{rejected.status}}</td>
                 <td data-label= "Updated Date & Time">{{rejected.status_updated_at|date:"D d M Y H:i:s"}}</td>
-                <td data-label= "Panel">{{rejected.status_updated_by.first_name}} {{approve.status_updated_by.last_name}}</td>
-                <td data-label= "Actions" class="justify-content-between">
+                <td data-label= "Panel">{{rejected.status_updated_by.first_name}} {{rejected.status_updated_by.last_name}}</td>
+                <td data-label= "Actions">
                     <button type="button" class="btn btn-success" data-bs-toggle="modal"
                         data-bs-target="#resultsModal{{rejected.id}}">
                         Result
@@ -59,6 +52,9 @@
                     </button>
                 </td>
             </tr>
+            <!-- include (requried here to get the PK)-->
+            {% include "accounts/panel/panel_dashboard/similarity_results_panel/results_rejected.html" %}
+            {% include "accounts/panel/panel_dashboard/comments_result/comment_rejected.html" %}
             {% endfor %}
         </tbody>
     </table>

@@ -5,15 +5,13 @@
 {% block content %}
 <div class="container">
     <br>
-    <br>
-    <h2 class="text-center" style="margin-bottom: 10px;">Welcome to Files Upload Results page!</h2>
+    <h3 class="text-center">Welcome to the document uploads page.</h3>
     <hr>
-    <p style="font-size: 18px; line-height: 1.5;text-align: justify;">This page displays the results of your file
-        uploads for your thesis. The table shows you the title of your thesis, your name as the proponent, the date and
-        time of upload, the document type, and the status of your upload. You can also view the results and comments
-        related to your upload by clicking on the "Result" and "Comments" buttons. This page helps you keep track of
-        your uploads and stay informed about the status of your thesis submission.
-    </p>
+    <p style="font-size: 18px; line-height: 1.5;text-align: justify;">Here, you can view the status of your thesis
+        document uploads. The table shows the details of each upload, including the thesis title, proponents, upload
+        date and time, document type, status, and threshold result. You can also access the result and comments for each
+        upload by clicking on the corresponding buttons in the "Actions" column. We hope this page helps you keep track
+        of your document uploads and their progress.</p>
     <table class="table " id="docsUploadsDatatable">
         <thead bgcolor="grey" style="color: #fff; font-size:13px">
             <tr>
@@ -33,15 +31,7 @@
                 <td data-label="Thesis Title">{{ upload.student_title }}</td>
                 <td data-label="Proponents">{{ upload.student_proponents }}</td>
                 <td data-label="Upload Date&Time">{{ upload.uploaded_at|date:"D d M Y H:i:s" }}</td>
-                <td data-label="Document Type">
-                    {% if upload.document_type == "TITLE_DEFENSE" %}
-                    TITLE DEFENSE DOCUMENT
-                    {% elif upload.document_type == "PROPOSAL_DEFENSE" %}
-                    PROPOSAL DEFENSE DOCUMENT
-                    {% else %}
-                    FINAL DEFENSE DOCUMENT
-                    {% endif %}
-                </td>
+                <td data-label="Document Type">{{upload.document_type}}</td>
                 <td data-label= "Threshold Result">{{ upload.threshold_result }}</td>
                 <td data-label="Status">{{ upload.status }}</td>
                 <td data-label="Actions" class="justify-content-between">

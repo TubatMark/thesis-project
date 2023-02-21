@@ -8,10 +8,8 @@
     <br>
     <h2 class="text-center" style="margin-bottom: 10px;">Welcome to the Uploaded Document for Final Defense page.</h2>
     <hr>
-    <p style="font-size: 18px; line-height: 1.5;text-align: justify;">Here, you can view the documents that have been
-        uploaded by students for their final defense. You can also view the results of the document's similarity check,
-        the status of the document, and the comments made by the panel. Please use the buttons provided on the table to
-        access the result and comment panels for each document.
+    <p class="text-center" style="font-size: 18px; line-height: 1.5;text-align: justify;">Here, you can view the documents that have been
+        uploaded by students for their final document. 
     </p>
     <table class="table" id="finalDatatable">
         <thead bgcolor="grey" style="color: #fff; font-size: 13px;">
@@ -29,7 +27,7 @@
                 <td data-label="Thesis Title">{{final.student_title}}</td>
                 <td data-label="Proponents">{{final.student_proponents}}</td>
                 <td data-label="Date & Time">{{final.uploaded_at|date:"D d M Y H:i:s" }}</td>
-                <td data-label= "Actions" class="justify-content-between">
+                <td data-label= "Actions">
                     <a href="{% url 'view_def_documents' final.id %}" target="_blank" class="btn btn-success">View</a>
                 </td>
             </tr>

@@ -13,20 +13,22 @@
                     <hr>
                     <h6>Threshold Result: Proposal document similarity result is {{proposal.threshold_result}}.</h6>
                     <div class="table"  id="result-table">
-                        <div class="row header" style="display:grid; grid-template-columns: 2fr 2fr 1fr 1fr 1fr">
+                        <div class="row header" style="display:grid; grid-template-columns: 2fr 2fr 1fr 1fr 1fr 1fr">
                             <div class="cell">Title</div>
                             <div class="cell">Proponents</div>
                             <div class="cell">Adviser</div>
                             <div class="cell">School Year</div>
-                            <div class="cell similarity-header">Similarity</div>
+                            <div class="cell">Title Similarity</div>
+                            <div class="cell similarity-header">Content Similarity</div>
                         </div>
-                        <div class="row" style="display:grid; grid-template-columns: 2fr 2fr 1fr 1fr 1fr">
+                        <div class="row" style="display:grid; grid-template-columns: 2fr 2fr 1fr 1fr 1fr 1fr">
                             {% for document in proposal.most_similar_documents.all %}
                             <div class="cell">{{document.docs_title}}</div>
                             <div class="cell">{{document.proponents}}</div>
                             <div class="cell">{{document.adviser}}</div>
                             <div class="cell">{{document.school_year}}</div>
-                            <div class="cell">{{document.similarity|floatformat:0}}%</div>
+                            <div class="cell">{{document.title_similarity|floatformat:0}}%</div>
+                            <div class="cell">{{document.content_similarity|floatformat:0}}%</div>
                             {% endfor %}
                         </div>
                     </div>

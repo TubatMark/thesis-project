@@ -37,15 +37,7 @@
                 <td data-label= "Thesis Title">{{approve.student_title}}</td>
                 <td data-label= "Proponents">{{approve.student_proponents}}</td>
                 <td data-label= "Upload Date&Time">{{approve.uploaded_at|date:"D d M Y H:i:s" }}</td>
-                <td data-label= "Document Type">
-                    {% if approve.document_type == "TITLE_DEFENSE" %}
-                    TITLE DEFENSE DOCUMENT
-                    {% elif approve.document_type == "PROPOSAL_DEFENSE" %}
-                    PROPOSAL DEFENSE DOCUMENT
-                    {% else %}
-                    FINAL DEFENSE DOCUMENT
-                    {% endif %}
-                </td>
+                <td data-label= "Document Type">{{approve.document_type}}</td>
                 <td data-label= "Threshold Result">{{approve.threshold_result}}</td>
                 <td data-label= "Status">{{approve.status}}</td>
                 <td data-label= "Updated Date & Time">{{approve.status_updated_at|date:"D d M Y H:i:s"}}</td>

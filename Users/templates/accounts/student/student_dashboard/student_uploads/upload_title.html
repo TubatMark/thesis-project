@@ -61,14 +61,16 @@
                         <thead>
                             <tr>
                                 <th scope="col">Title</th>
-                                <th scope="col" style="width: 5%;">Similarity</th>
+                                <th scope="col" style="width: 5%;">Title Similarity</th>
+                                <th scope="col" style="width: 5%;">Content Similarity</th>
                             </tr>
                         </thead>
                         <tbody>
                             {% for neighbor in nearest_neighbors %}
                             <tr class="table-separator">
                                 <td>{{ neighbor.title }}</td>
-                                <td>{{ neighbor.similarity|floatformat:0}}%</td>
+                                <td>{{ neighbor.title_similarity|floatformat:0 }}%</td>
+                                <td>{{ neighbor.content_similarity|floatformat:0 }}%</td>
                             </tr>
                             {% endfor %}
                         </tbody>
@@ -122,14 +124,16 @@
                         <thead>
                             <tr>
                                 <th scope="col">Title</th>
-                                <th scope="col" style="width: 5%;">Similarity</th>
+                                <th scope="col" style="width: 5%;">Title Similarity</th>
+                                <th scope="col" style="width: 5%;">Content Similarity</th>
                             </tr>
                         </thead>
                         <tbody>
                             {% for neighbor in nearest_neighbors %}
                             <tr class="table-separator">
                                 <td>{{ neighbor.title }}</td>
-                                <td>{{ neighbor.similarity|floatformat:0}}%</td>
+                                <td>{{ neighbor.title_similarity|floatformat:0 }}%</td>
+                                <td>{{ neighbor.content_similarity|floatformat:0 }}%</td>
                             </tr>
                             {% endfor %}
                         </tbody>
@@ -203,7 +207,8 @@
                         <thead>
                             <tr>
                                 <th scope="col">Title</th>
-                                <th scope="col">Similarity</th>
+                                <th scope="col">Title Similarity</th>
+                                <th scope="col">Content Similarity</th>
                             </tr>
                         </thead>
                         <tbody>

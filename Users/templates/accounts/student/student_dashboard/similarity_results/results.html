@@ -12,14 +12,16 @@
                     <h5>Your Document Title: {{upload.student_title}}</h5><hr>
                     <h6>Your Threshold Result: Your study's similarity is {{upload.threshold_result}}.</h6>
                     <div class="table"  id="result-table">
-                        <div class="row header" style="display:grid; grid-template-columns: 2fr 1fr">
+                        <div class="row header" style="display:grid; grid-template-columns: 2fr 1fr 1fr">
                             <div class="cell">Title</div>
-                            <div class="cell similarity-header">Similarity</div>
+                            <div class="cell similarity-header">Title Similarity</div>
+                            <div class="cell similarity-header">Content Similarity</div>
                         </div>
-                        <div class="row" style="display:grid; grid-template-columns: 2fr 1fr">
+                        <div class="row" style="display:grid; grid-template-columns: 2fr 1fr 1fr">
                             {% for document in upload.most_similar_documents.all %}
                             <div class="cell">{{document.docs_title}}</div>
-                            <div class="cell">{{document.similarity|floatformat:0}}%</div>
+                            <div class="cell">{{document.title_similarity|floatformat:0}}%</div>
+                            <div class="cell">{{document.content_similarity|floatformat:0}}%</div>
                             {% endfor %}
                         </div>
                     </div>

@@ -4,11 +4,21 @@
 
 {% block content %}
 
-<br>
-<h4 class="text-center" style="font-size: 18px; line-height: 1.5;text-align: justify;">Welcome to the admin dashboard,
-    {{request.user.first_name}} {{request.user.last_name}}</h4>
-<br>
+
 <div class="container">
+    <br>
+    <h4 class="text-center" style="font-size: 18px; line-height: 1.5;text-align: justify;">Welcome to the admin dashboard,
+        {{request.user.first_name}} {{request.user.last_name}}</h4>
+        <hr>
+    <p  style="font-size: 15px; line-height: 1.5;text-align: justify;">This is a data visualization page for this system.
+        As an admin, you can monitor the statistics of the repository, the number of total documents, the total number 
+        of similarity, and the total number of accepted and rejected documents. You can also see different charts such 
+        as the line chart, pie chart, bar chart, and area chart that will give you a visual representation of the data. 
+        The charts will help you to understand the current status of the repository and you can take appropriate actions 
+        accordingly.
+    </p>
+    <hr>
+    <br>
     <div class="row-card mx-4" style="margin-top: -16px; color: white; display: flex; justify-content: center; ">
         <div class="col-3">
             <div class="card text-center mb-3" id="total_repository"

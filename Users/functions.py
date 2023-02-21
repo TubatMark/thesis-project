@@ -1,5 +1,6 @@
 import logging
 import PyPDF2
+from fuzzywuzzy import fuzz
 from nltk import pos_tag, word_tokenize
 from nltk.stem import PorterStemmer, WordNetLemmatizer
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -84,34 +85,13 @@ def extract_pdf_text(pdf_file, repository_file):
     repository_file.save()
 
 
-#SUPER WORKING
-# def vectorize(query_matrix, vectorizer, k):
-#     matrices = []
-#     path = 'media/ExtractedFiles'
-#     for file in os.listdir(path):
-#         with open(os.path.join(path, file), 'r',encoding='utf-8', errors='ignore') as f:
-#             text = f.read()
-#             text = preprocess(text)
-#             doc_matrix = vectorizer.transform([text])
-#             similarity = cosine_similarity(query_matrix, doc_matrix)[0][0]
-#             similarity = round(similarity, 2)
-#             similarity = similarity*100
-#             # Get the base name and extension of the file
-#             base_name, ext = os.path.splitext(file)
-#             matrices.append({'title': base_name, 'matrix': doc_matrix, 'similarity': similarity})
-#     # Sort the list of documents by similarity in descending order
-#     matrices.sort(key=lambda x: x['similarity'], reverse=True)
-#     # Select the first k documents
-#     nearest_neighbors = matrices[:k]
-#     return nearest_neighbors
-
-def vectorize(query_matrix, vectorizer, k):
+def vectorize(query_matrix, vectorizer, k, student_title, user_id):
     threshold = 0
     last_threshold = SimilarityThreshold.objects.all().last() #admin set threshold
     if last_threshold:
         threshold = last_threshold.threshold
     matrices = []
-    for file_info in RepositoryFiles.objects.all().values('text_file', 'title','proponents','adviser','school_year'):
+    for file_info in RepositoryFiles.objects.exclude(user=user_id).values('text_file', 'title','proponents','adviser','school_year', 'user'):
         file_path = file_info['text_file']
         with open(file_path, 'r', encoding='utf-8', errors='ignore') as f:
             text = f.read()
@@ -119,16 +99,35 @@ def vectorize(query_matrix, vectorizer, k):
             doc_matrix = vectorizer.transform([text])
             similarity = cosine_similarity(query_matrix, doc_matrix)[0][0]
             similarity = round(similarity, 2)
-            similarity = similarity*100
-            matrices.append({'title': file_info['title'], 'proponents': file_info['proponents'], 'adviser': file_info['adviser'], 'school_year': file_info['school_year'], 'matrix': doc_matrix, 'similarity': similarity})
+            content_similarity = similarity*100
+            
+            #preprocess title
+            preprocess_student_title = preprocess(student_title)
+            preprocess_corpus_title = preprocess(file_info['title'])
+            
+            # calculate the similarity between the titles
+            title_similarity = fuzz.token_set_ratio(preprocess_corpus_title, preprocess_student_title)
+            
+            #working
+            #title_similarity = fuzz.token_set_ratio(file_info['title'], student_title)
+
+            matrices.append({
+                'title': file_info['title'], 
+                'title_similarity': title_similarity, 
+                'proponents': file_info['proponents'], 
+                'adviser': file_info['adviser'], 
+                'school_year': file_info['school_year'], 
+                'matrix': doc_matrix, 
+                'content_similarity': content_similarity
+            })
     # Sort the list of documents by similarity in descending order
-    matrices.sort(key=lambda x: x['similarity'], reverse=True)
+    matrices.sort(key=lambda x: x['content_similarity'], reverse=True)
     # Select the first k documents
     nearest_neighbors = matrices[:k]
     
     # Add a flag to indicate if the similarity is below the threshold
     for neighbor in nearest_neighbors:
-        if neighbor['similarity'] < threshold:
+        if neighbor['content_similarity'] < threshold:
             neighbor['below_threshold'] = True
         else:
             neighbor['below_threshold'] = False
@@ -136,27 +135,18 @@ def vectorize(query_matrix, vectorizer, k):
     
 
         
-def student_pdf_text(pdf_file):
-    vectorizer = TfidfVectorizer()
-    
-    all_docs = []
-    for file in RepositoryFiles.objects.all().values('text_file'):
-        file_path = file['text_file']
-        with open(file_path, 'r', encoding='utf-8', errors='ignore') as f:
-            all_docs.append(f.read())
-    all_docs = [preprocess(text) for text in all_docs]
-    vectorizer.fit(all_docs)
-    
+def student_pdf_text(pdf_file, vectorizer):
     # open the PDF file
     pdf = PyPDF2.PdfReader(pdf_file)
 
     # extract the text from each page and save it in a list
-    text_list = [pdf.pages[page].extract_text() for page in range(len(pdf.pages))]
+    text_list = [pdf.pages[page].extract_text()
+                 for page in range(len(pdf.pages))]
 
     # join all the texts from the list and save it as a single string
     text = "\n".join(text_list)
- 
-    # preprocess 
+
+    # preprocess the text using NLTK
     query_text = preprocess(text)
     query_matrix = vectorizer.transform([query_text])
     return query_matrix

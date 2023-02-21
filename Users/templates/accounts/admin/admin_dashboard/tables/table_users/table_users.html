@@ -8,18 +8,15 @@
     <br>
     <h2 class="text-center" style="margin-bottom: 10px;">Welcome to the Enrolled Students page!</h2>
     <hr>
-    <p style="font-size: 18px; line-height: 1.5;text-align: justify;">Here, you can manage the list of students who have
-        enrolled in your program. You can upload a file of enrolled students, add new students through the 'Add Panel'
-        button, view and edit student information, and delete students as needed. The table displays all relevant
-        student information, including ID, Student ID, Name, Email, Contact Number, and Course. Use the actions button
-        to access the edit and view modals for each student. Thank you for using this page to efficiently manage your
-        enrolled students.
+    <p style="font-size: 18px; line-height: 1.5;text-align: justify;">Here you can view all the students who have
+        enrolled in the courses for the current school year. You can also edit, view or delete a student's information
+        using the corresponding buttons provided.
     </p>
-    <!-- Button trigger modal -->
-    <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#uploadModal"
-        style="background-color:  #16524d; color: #fff; margin-bottom: 13px; margin-top: -8px;">
-        Upload File - Enrolled Students
-    </button>
+    <hr>
+    <p style="font-size: 15px; line-height: 1.5;text-align: justify;">Please note that when uploading new enrolled
+        students, the file must be in .xlsx format and should contain the following column names: "sn, Student ID,
+        Student Name, Email, Contact No., Course, SUBJ_CODE, SUBJ_DESC, YR_SEC, SEM, SY".
+    </p>
     <br>
     <table class="table" id="userEnrolledDatatable">
         <thead bgcolor="grey" style="color: #fff; font-size: 13px;">

@@ -6,15 +6,13 @@
 
 <div class="container">
     <br>
-    <h2 class="text-center" style="margin-bottom: 10px;">Welcome to the Approved Documents Records page of our website!
-    </h2>
+    <h2 class="text-center" style="margin-bottom: 10px;">Welcome to the approved theses table!</h2>
     <hr>
-    <p style="font-size: 18px; line-height: 1.5;text-align: justify;">This page displays a list of all the documents
-        that have been approved by the panels. You will be able to see the title, proponents, upload date and time,
-        document type, and status of each document. This page allows you to easily access and view all the approved
-        documents in one place. You can use this page to keep track of the progress of the documents and ensure that
-        they are in compliance with the standards set by the panels. Please note that this page is only accessible to
-        authorized panel members.
+    <p style="font-size: 18px; line-height: 1.5;text-align: justify;">
+        Here you can view a list of all the approved theses, along with their details such as the thesis title,
+        proponents, upload date and time, document type, status, updated date and time, and panel. You can also view the
+        result and comments by clicking on the corresponding buttons. We hope you find this table helpful in managing
+        and monitoring the approved theses.
     </p>
     <table class="table " id="approvedDatatable">
         <thead bgcolor="grey" style="color: #fff; font-size:13px">
@@ -37,15 +35,7 @@
                 <td data-label= "Thesis Title">{{approve.student_title}}</td>
                 <td data-label= "Proponents">{{approve.student_proponents}}</td>
                 <td data-label= "Upload Date&Time">{{approve.uploaded_at|date:"D d M Y H:i:s" }}</td>
-                <td data-label= "Document Type">
-                    {% if approve.document_type == "TITLE_DEFENSE" %}
-                    TITLE DEFENSE DOCUMENT
-                    {% elif approve.document_type == "PROPOSAL_DEFENSE" %}
-                    PROPOSAL DEFENSE DOCUMENT
-                    {% else %}
-                    FINAL DEFENSE DOCUMENT
-                    {% endif %}
-                </td>
+                <td data-label= "Document Type">{{approve.document_type}}</td>
                 <td data-label= "Threshold Result">{{approve.threshold_result}}</td>
                 <td data-label= "Status">{{approve.status}}</td>
                 <td data-label= "Updated Date & Time">{{approve.status_updated_at|date:"D d M Y H:i:s"}}</td>

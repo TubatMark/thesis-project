@@ -55,6 +55,14 @@
     <!-- Popper.js -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.16.6/dist/umd/popper.min.js"></script>
 
+    <!--bootstrap buttons-->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/jszip-2.5.0/dt-1.13.2/b-2.3.4/b-colvis-2.3.4/b-html5-2.3.4/b-print-2.3.4/datatables.min.css"/>
+ 
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/jszip-2.5.0/dt-1.13.2/b-2.3.4/b-colvis-2.3.4/b-html5-2.3.4/b-print-2.3.4/datatables.min.js"></script>
+
+
     <!-- Font Awesome JavaScript -->
     <script src="{% static 'icons/js/all.min.js' %}"></script>
 
@@ -122,44 +130,109 @@
             });
         } );
     </script>
+    
     <script>
-        $(document).ready( function () {
-            $('#titleDatatable').DataTable({
+        $(document).ready(function () {
+            let table = $('#titleDatatable').DataTable({
                 "aLengthMenu": [
                     [3, 5, 7, 10, 25, "All"],
                     [3, 5, 7, 10, "All"]
                 ],
                 paging: true,
-                pageLength: 5,
+                pageLength: -1,
                 lengthChange: true,
                 autoWidth: false,
                 searching: true,
                 bInfo: true,
                 bSort: true,
                 responsive: true,
+                buttons:['csv', 'excel', 'pdf', 'copy', 'print'],
+                
+
+                // Change the DOM layout
+                dom: '<"row"<"col-md-3"l><"col-md-6 text-center"B><"col-md-3"f>>' +
+             '<"row"<"col-md-12"tr>>' +
+             '<"row"<"col-md-5"i><"col-md-7"p>>'
             });
-        } );
+            table.buttons().container().appendTo('#titleDatatable_wrapper .col-md-6:eq(0)')
+
+            // Get unique values for each column
+            let uniqueThreshold = new Set();
+
+            $('#titleDatatable tbody tr').each(function () {
+                let Threshold = $(this).find("td:eq(4)").text();
+                uniqueThreshold.add(Threshold);
+            });
+
+            // Add filter select options for each column
+            let thresholdFilter = $('<select><option value="">Threshold Result</option></select>');
+            $.each(Array.from(uniqueThreshold).sort(), function (i, item) {
+                thresholdFilter.append($('<option>', {
+                    value: item,
+                    text: item
+                }));
+            });
+            $('#titleDatatable thead th:eq(4)').html(thresholdFilter);
+
+            $('#titleDatatable thead select').on('change', function () {
+                let val = $(this).val();
+                table.column($(this).parent().index() + ':visible').search(val ? val : '').draw();
+            });
+        });
     </script>
+
     <script>
-        $(document).ready( function () {
-            $('#proposalDatatable').DataTable({
+        $(document).ready(function () {
+            let table = $('#proposalDatatable').DataTable({
                 "aLengthMenu": [
                     [3, 5, 7, 10, 25, "All"],
                     [3, 5, 7, 10, "All"]
                 ],
                 paging: true,
-                pageLength: 5,
+                pageLength: -1,
                 lengthChange: true,
                 autoWidth: false,
                 searching: true,
                 bInfo: true,
                 bSort: true,
                 responsive: true,
+                buttons:['csv', 'excel', 'pdf', 'copy', 'print'],
+                
+
+                // Change the DOM layout
+                dom: '<"row"<"col-md-3"l><"col-md-6 text-center"B><"col-md-3"f>>' +
+             '<"row"<"col-md-12"tr>>' +
+             '<"row"<"col-md-5"i><"col-md-7"p>>'
             });
-        } );
+            table.buttons().container().appendTo('#proposalDatatable .col-md-6:eq(0)')
+
+            // Get unique values for each column
+            let uniqueThreshold = new Set();
+
+            $('#proposalDatatable tbody tr').each(function () {
+                let Threshold = $(this).find("td:eq(4)").text();;
+                uniqueThreshold.add(Threshold);
+            });
+
+            // Add filter select options for each column
+            let thresholdFilter = $('<select><option value="">Threshold Result</option></select>');
+            $.each(Array.from(uniqueThreshold).sort(), function (i, item) {
+                thresholdFilter.append($('<option>', {
+                    value: item,
+                    text: item
+                }));
+            });
+            $('#proposalDatatable thead th:eq(4)').html(thresholdFilter);
+
+            $('#proposalDatatable thead select').on('change', function () {
+                let val = $(this).val();
+                table.column($(this).parent().index() + ':visible').search(val ? val : '').draw();
+            });
+        });
     </script>
+
     <script>
-        $(document).ready( function () {
+        $(document).ready(function () {
             $('#finalDatatable').DataTable({
                 "aLengthMenu": [
                     [3, 5, 7, 10, 25, "All"],
@@ -173,12 +246,82 @@
                 bInfo: true,
                 bSort: true,
                 responsive: true,
+                buttons:['csv', 'excel', 'pdf', 'copy', 'print'],
+                
+
+                // Change the DOM layout
+                dom: '<"row"<"col-md-3"l><"col-md-6 text-center"B><"col-md-3"f>>' +
+             '<"row"<"col-md-12"tr>>' +
+             '<"row"<"col-md-5"i><"col-md-7"p>>'
             });
-        } );
+            table.buttons().container().appendTo('#finalDatatable .col-md-6:eq(0)')
+        });
     </script>
+
     <script>
-        $(document).ready( function () {
-            $('#approvedDatatable').DataTable({
+        $(document).ready(function () {
+            let table = $('#approvedDatatable').DataTable({
+                "lengthMenu": [
+                    [3, 5, 7, 10, 25, -1],
+                    [3, 5, 7, 10, "All"]
+                ],
+                paging: true,
+                pageLength: -1,
+                lengthChange: true,
+                autoWidth: false,
+                searching: true,
+                bInfo: true,
+                bSort: true,
+                responsive: true,
+                buttons:['csv', 'excel', 'pdf', 'copy', 'print'],
+
+                // Change the DOM layout
+                dom: '<"row"<"col-md-3"l><"col-md-6 text-center"B><"col-md-3"f>>' +'<"row"<"col-md-12"tr>>' +'<"row"<"col-md-5"i><"col-md-7"p>>'
+
+            });
+
+            table.buttons().container().appendTo('#approvedDatatable .col-md-6:eq(0)')
+
+            // Get unique values for each column
+            let uniqueDocType = new Set();
+            let uniquePanel = new Set();
+            
+            $('#approvedDatatable tbody tr').each(function () {
+                let DocType = $(this).find("td:eq(3)").text();
+                let Panel = $(this).find("td:eq(6)").text();
+                uniqueDocType.add(DocType);
+                uniquePanel.add(Panel);
+            });
+                
+            // Add filter select options for each column
+            let doctypeFilter = $('<select><option value="">Document Type</option></select>');
+            $.each(Array.from(uniqueDocType).sort(), function (i, item) {
+                doctypeFilter.append($('<option>', {
+                    value: item,
+                    text: item
+                }));
+            });
+            $('#approvedDatatable thead th:eq(3)').html(doctypeFilter);
+
+            let panelFilter = $('<select><option value="">Panel</option></select>');
+            $.each(Array.from(uniquePanel).sort(), function (i, item) {
+                panelFilter.append($('<option>', {
+                    value: item,
+                    text: item
+                }));
+            });
+            $('#approvedDatatable thead th:eq(6)').html(panelFilter);
+
+            $('#approvedDatatable thead select').on('change', function () {
+                let val = $(this).val();
+                table.column($(this).parent().index() + ':visible').search(val ? val : '').draw();
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            let table = $('#rejectedDatatable').DataTable({
                 "aLengthMenu": [
                     [3, 5, 7, 10, 25, "All"],
                     [3, 5, 7, 10, "All"]
@@ -191,27 +334,78 @@
                 bInfo: true,
                 bSort: true,
                 responsive: true,
+                buttons:['csv', 'excel', 'pdf', 'copy', 'print'],
+
+                // Change the DOM layout
+                dom: '<"row"<"col-md-3"l><"col-md-6 text-center"B><"col-md-3"f>>' +'<"row"<"col-md-12"tr>>' +'<"row"<"col-md-5"i><"col-md-7"p>>'
+
             });
-        } );
+
+            table.buttons().container().appendTo('#rejectedDatatable .col-md-6:eq(0)')
+
+             // Get unique values for each column
+             let uniqueDocType = new Set();
+             let uniquePanel = new Set();
+             
+             $('#rejectedDatatable tbody tr').each(function () {
+                 let DocType = $(this).find("td:eq(3)").text();
+                 let Panel = $(this).find("td:eq(6)").text();
+                 uniqueDocType.add(DocType);
+                 uniquePanel.add(Panel);
+             });
+                 
+             // Add filter select options for each column
+             let doctypeFilter = $('<select><option value="">Document Type</option></select>');
+             $.each(Array.from(uniqueDocType).sort(), function (i, item) {
+                 doctypeFilter.append($('<option>', {
+                     value: item,
+                     text: item
+                 }));
+             });
+             $('#rejectedDatatable thead th:eq(3)').html(doctypeFilter);
+ 
+             let panelFilter = $('<select><option value="">Panel</option></select>');
+             $.each(Array.from(uniquePanel).sort(), function (i, item) {
+                 panelFilter.append($('<option>', {
+                     value: item,
+                     text: item
+                 }));
+             });
+             $('#rejectedDatatable thead th:eq(6)').html(panelFilter);
+ 
+             $('#rejectedDatatable thead select').on('change', function () {
+                 let val = $(this).val();
+                 table.column($(this).parent().index() + ':visible').search(val ? val : '').draw();
+             });
+        });
     </script>
+
     <script>
-        $(document).ready( function () {
-            $('#rejectedDatatable').DataTable({
+        $(document).ready(function () {
+            let table = $('#registeredDatatable').DataTable({
                 "aLengthMenu": [
                     [3, 5, 7, 10, 25, "All"],
                     [3, 5, 7, 10, "All"]
                 ],
                 paging: true,
-                pageLength: 5,
+                pageLength: -1,
                 lengthChange: true,
                 autoWidth: false,
                 searching: true,
                 bInfo: true,
                 bSort: true,
                 responsive: true,
+                buttons:['csv', 'excel', 'pdf', 'copy', 'print'],
+
+                // Change the DOM layout
+                dom: '<"row"<"col-md-3"l><"col-md-6 text-center"B><"col-md-3"f>>' +'<"row"<"col-md-12"tr>>' + '<"row"<"col-md-5"i><"col-md-7"p>>'
             });
-        } );
+
+            table.buttons().container().appendTo('#registeredDatatable .col-md-6:eq(0)')
+
+        });
     </script>
+    
     <script>
         document.querySelectorAll("#approve-button, #reject-button").forEach(function(button) {
             button.addEventListener("click", function() {

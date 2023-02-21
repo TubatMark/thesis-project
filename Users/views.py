@@ -420,8 +420,7 @@ def TableTitle(request):
     total_repository = repository.count()
     docs = UploadDocuments.objects.all()
     total_docs = docs.count()
-    title_defense_documents = UploadDocuments.objects.filter(
-        document_type='TITLE_DEFENSE')
+    title_defense_documents = UploadDocuments.objects.filter(document_type='TITLE DEFENSE DOCUMENT')
     total_title_defense_documents = title_defense_documents.count()
 
     status_rejected = UploadDocuments.objects.filter(status='REJECTED')
@@ -453,8 +452,7 @@ def TableProposal(request):
     total_repository = repository.count()
     docs = UploadDocuments.objects.all()
     total_docs = docs.count()
-    proposal_defense_documents = UploadDocuments.objects.filter(
-        document_type='PROPOSAL_DEFENSE')
+    proposal_defense_documents = UploadDocuments.objects.filter(document_type='PROPOSAL DEFENSE DOCUMENT')
     total_proposal_defense_documents = proposal_defense_documents.count()
 
     status_rejected = UploadDocuments.objects.filter(status='REJECTED')
@@ -486,8 +484,7 @@ def TableFinal(request):
     total_repository = repository.count()
     docs = UploadDocuments.objects.all()
     total_docs = docs.count()
-    final_defense_documents = UploadDocuments.objects.filter(
-        document_type='FINAL_DEFENSE')
+    final_defense_documents = UploadDocuments.objects.filter(document_type='FINAL DEFENSE DOCUMENT')
     total_final_defense_documents = final_defense_documents.count()
 
     status_rejected = UploadDocuments.objects.filter(status='REJECTED')
@@ -771,25 +768,29 @@ def upload_title_defense(request):
             try:
                 title_user = form.save(commit=False)
                 title_user.user = request.user
-                title_user.document_type = "TITLE_DEFENSE"
+                title_user.document_type = "TITLE DEFENSE DOCUMENT"
                 title_user.save()
 
                 # extract the text from the student's PDF file
                 student_title = form.cleaned_data['student_title']
                 student_proponents = form.cleaned_data['student_proponents']
                 student_pdf_file = form.cleaned_data["student_pdf_file"]
+                adviser = form.cleaned_data["adviser"]
+                school_year = form.cleaned_data["school_year"]
 
-                query_matrix = student_pdf_text(student_pdf_file)
+                
                 vectorizer = TfidfVectorizer()
                 all_docs = []
-                for file in RepositoryFiles.objects.all().values('text_file'):
+                for file in RepositoryFiles.objects.all().values('text_file', 'title','proponents','adviser','school_year'):
                     file_path = file['text_file']
                     with open(file_path, 'r', encoding='utf-8', errors='ignore') as f:
                         all_docs.append(f.read())
                 all_docs = [preprocess(text) for text in all_docs]
                 vectorizer.fit(all_docs)
                 k = 5
-                nearest_neighbors = vectorize(query_matrix, vectorizer, k)
+                user_id = request.user
+                query_matrix = student_pdf_text(student_pdf_file, vectorizer)
+                nearest_neighbors = vectorize(query_matrix, vectorizer, k, student_title, user_id)
                 
                 threshold = 0
                 last_threshold = SimilarityThreshold.objects.all().last()
@@ -807,7 +808,8 @@ def upload_title_defense(request):
                     # Save the data in the Documents model
                     document = Documents(
                         docs_title=neighbor['title'], 
-                        similarity=neighbor['similarity'], 
+                        title_similarity=neighbor['title_similarity'], 
+                        content_similarity=neighbor['content_similarity'], 
                         uploaded_at=timezone.now(),
                         proponents=neighbor['proponents'],
                         adviser=neighbor['adviser'],
@@ -817,12 +819,26 @@ def upload_title_defense(request):
                     title_user.most_similar_documents.add(document)
                     title_user.save()
                     
-                    if neighbor['similarity'] > threshold:
+                    if neighbor['content_similarity'] > threshold:
                         title_user.threshold_result = "above threshold"
                         title_user.save()
                     else:
                         title_user.threshold_result = "below threshold"
                         title_user.save()
+                
+                if student_title and student_proponents and adviser and school_year and student_pdf_file :
+                    repository_file = RepositoryFiles()
+                    repository_file.title = student_title
+                    repository_file.proponents = student_proponents
+                    repository_file.adviser = adviser
+                    repository_file.school_year = school_year
+                    repository_file.student_pdf_file = student_pdf_file
+                    repository_file.user = request.user
+                    repository_file.description = "uploads"
+                    extract_pdf_text(student_pdf_file, repository_file)
+                    repository_file.save()
+                else:
+                    logger.info(f"Missing field values. Not able to save the RepositoryFiles.")
                 
                 context = {"form": form, "nearest_neighbors": nearest_neighbors, "student_title": student_title, "student_proponents": student_proponents}
             except Exception as e:
@@ -832,54 +848,6 @@ def upload_title_defense(request):
     else:
         form = UploadDocumentsForm()
     return render(request, "accounts/student/student_dashboard/student_uploads/upload_title.html", {'form': form, 'nearest_neighbors': nearest_neighbors})
-
-
-#SUPER WORKINGGGGG
-# def upload_title_defense(request):
-#     nearest_neighbors = None
-#     if request.method == "POST":
-#         form = UploadDocumentsForm(request.POST, request.FILES)
-#         if form.is_valid():
-#             try:
-#                 # title_defense = TitleDefense(user=request.user, student_title=form.cleaned_data['student_title'], student_proponents=form.cleaned_data['student_proponents'], student_pdf_file=form.cleaned_data['student_pdf_file'], similarity_score=0.0)
-#                 # title_defense.save()
-#                 title_user = form.save(commit=False)
-#                 title_user.user = request.user
-#                 title_user.document_type = "TITLE_DEFENSE"
-#                 title_user.save()
-
-#                 # extract the text from the student's PDF file
-#                 student_title = form.cleaned_data['student_title']
-#                 student_proponents = form.cleaned_data['student_proponents']
-#                 student_pdf_file = form.cleaned_data["student_pdf_file"]
-
-#                 query_matrix = student_pdf_text(student_pdf_file)
-#                 vectorizer = TfidfVectorizer()
-#                 all_docs = []
-#                 path = 'media/ExtractedFiles'
-#                 for file in os.listdir(path):
-#                     with open(os.path.join(path, file), 'r', encoding='utf-8', errors='ignore') as f:
-#                         all_docs.append(f.read())
-#                 all_docs = [preprocess(text) for text in all_docs]
-#                 vectorizer.fit(all_docs)
-#                 k = 5
-#                 nearest_neighbors = vectorize(query_matrix, vectorizer, k)
-#                 for neighbor in nearest_neighbors:
-#                     document = Documents(
-#                         docs_title=neighbor['title'], similarity=neighbor['similarity'], uploaded_at=timezone.now())
-#                     document.save()
-#                     title_user.most_similar_documents.add(document)
-#                     title_user.save()
-
-#                 context = {"form": form, "nearest_neighbors": nearest_neighbors,
-#                            "student_title": student_title, "student_proponents": student_proponents}
-#             except Exception as e:
-#                 logger.error(
-#                     f"Error comparing student's title PDF file to corpus: {e}")
-#                 pass
-#     else:
-#         form = UploadDocumentsForm()
-#     return render(request, "accounts/student/student_dashboard/student_uploads/upload_title.html", {'form': form, 'nearest_neighbors': nearest_neighbors})
 
 # STUDENT UPLOAD DOCUMENT FOR SIMILARITY - PROPOSAL
 
@@ -894,32 +862,35 @@ def upload_proposal_defense(request):
             try:
                 proposal_user = form.save(commit=False)
                 proposal_user.user = request.user
-                proposal_user.document_type = "PROPOSAL_DEFENSE"
+                proposal_user.document_type = "PROPOSAL DEFENSE DOCUMENT"
                 proposal_user.save()
 
                 # extract the text from the student's PDF file
-                student_title = form.cleaned_data["student_title"]
-                student_proponents = form.cleaned_data["student_proponents"]
+                student_title = form.cleaned_data['student_title']
+                student_proponents = form.cleaned_data['student_proponents']
                 student_pdf_file = form.cleaned_data["student_pdf_file"]
+                adviser = form.cleaned_data["adviser"]
+                school_year = form.cleaned_data["school_year"]
 
-                query_matrix = student_pdf_text(student_pdf_file)
-
+                
                 vectorizer = TfidfVectorizer()
                 all_docs = []
-                for file in RepositoryFiles.objects.all().values('text_file'):
+                for file in RepositoryFiles.objects.all().values('text_file', 'title','proponents','adviser','school_year'):
                     file_path = file['text_file']
                     with open(file_path, 'r', encoding='utf-8', errors='ignore') as f:
                         all_docs.append(f.read())
                 all_docs = [preprocess(text) for text in all_docs]
                 vectorizer.fit(all_docs)
                 k = 5
-                nearest_neighbors = vectorize(query_matrix, vectorizer, k)
+                user_id = request.user
+                query_matrix = student_pdf_text(student_pdf_file, vectorizer)
+                nearest_neighbors = vectorize(query_matrix, vectorizer, k, student_title, user_id)
                 
                 threshold = 0
                 last_threshold = SimilarityThreshold.objects.all().last()
                 if last_threshold:
                     threshold = last_threshold.threshold
-                            
+                    
                 for neighbor in nearest_neighbors:
                     # Retrieve the title, proponents, advisor and school_year fields from the RepositoryFiles model
                     repository_file = RepositoryFiles.objects.get(title=neighbor['title'])
@@ -931,24 +902,40 @@ def upload_proposal_defense(request):
                     # Save the data in the Documents model
                     document = Documents(
                         docs_title=neighbor['title'], 
-                        similarity=neighbor['similarity'], 
+                        title_similarity=neighbor['title_similarity'], 
+                        content_similarity=neighbor['content_similarity'], 
                         uploaded_at=timezone.now(),
-                        proponents = neighbor['proponents'],
-                        adviser = neighbor['adviser'],
-                        school_year = neighbor['school_year']
+                        proponents=neighbor['proponents'],
+                        adviser=neighbor['adviser'],
+                        school_year=neighbor['school_year']
                     )
                     document.save()
                     proposal_user.most_similar_documents.add(document)
                     proposal_user.save()
                     
-                    if neighbor['similarity'] > threshold:
+                    if neighbor['content_similarity'] > threshold:
                         proposal_user.threshold_result = "above threshold"
                         proposal_user.save()
                     else:
                         proposal_user.threshold_result = "below threshold"
                         proposal_user.save()
                 
-                context = {"form": form, "nearest_neighbors": nearest_neighbors, "student_title": student_title, "student_proponents": student_proponents}
+                if student_title and student_proponents and adviser and school_year and student_pdf_file :
+                    repository_file = RepositoryFiles()
+                    repository_file.title = student_title
+                    repository_file.proponents = student_proponents
+                    repository_file.adviser = adviser
+                    repository_file.school_year = school_year
+                    repository_file.student_pdf_file = student_pdf_file
+                    repository_file.user = request.user
+                    repository_file.description = "uploads"
+                    extract_pdf_text(student_pdf_file, repository_file)
+                    repository_file.save()
+                else:
+                    logger.info(f"Missing field values. Not able to save the RepositoryFiles.")
+                    
+                context = {"form": form, "nearest_neighbors": nearest_neighbors,
+                           "student_title": student_title, "student_proponents": student_proponents}
                 return render(request, "accounts/student/student_dashboard/student_uploads/upload_proposal.html", context)
             except Exception as e:
                 logger.error(
@@ -956,7 +943,7 @@ def upload_proposal_defense(request):
                 pass
     else:
         form = UploadDocumentsForm()
-    return render(request, "accounts/student/student_dashboard/student_uploads/upload_proposal.html", {"form": form, "nearest_neighbors": nearest_neighbors})
+    return render(request, "accounts/student/student_dashboard/student_uploads/upload_proposal.html", {"form": form})
 
 # STUDENT UPLOAD DOCUMENT FOR SIMILARITY - FINAL
 
@@ -969,7 +956,7 @@ def upload_final_defense(request):
         if form.is_valid():
             final_user = form.save(commit=False)
             final_user.user = request.user
-            final_user.document_type = "FINAL_DEFENSE"
+            final_user.document_type = "FINAL DEFENSE DOCUMENT"
             final_user.save()
 
             student_title = form.cleaned_data["student_title"]
@@ -987,6 +974,8 @@ def upload_final_defense(request):
                 repository_file.school_year = school_year
                 repository_file.pdf_file = pdf_file
                 repository_file.abstract = abstract
+                repository_file.user = request.user
+                repository_file.description = "repository"
                 extract_pdf_text(pdf_file, repository_file)
                 repository_file.save()
                 logger.info(
@@ -1186,7 +1175,7 @@ def panel_register(request):
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['Panel'])
 def uploaded_title_docs(request):
-    titles = UploadDocuments.objects.filter(document_type='TITLE_DEFENSE')
+    titles = UploadDocuments.objects.filter(document_type='TITLE DEFENSE DOCUMENT')
     # similar_docs = titles.most_similar_documents.all()
     context = {"titles": titles}
     return render(request, 'accounts/panel/panel_dashboard/table_docs/table_title.html', context)
@@ -1197,8 +1186,7 @@ def uploaded_title_docs(request):
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['Panel'])
 def uploaded_proposal_docs(request):
-    proposals = UploadDocuments.objects.filter(
-        document_type='PROPOSAL_DEFENSE')
+    proposals = UploadDocuments.objects.filter(document_type='PROPOSAL DEFENSE DOCUMENT')
     return render(request, 'accounts/panel/panel_dashboard/table_docs/table_proposal.html', {'proposals': proposals})
 
 # PANEL VIEW UPLOADED DOCUMENTS FOR SIMILARITY - FINAL
@@ -1207,7 +1195,7 @@ def uploaded_proposal_docs(request):
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['Panel'])
 def uploaded_final_docs(request):
-    finals = UploadDocuments.objects.filter(document_type='FINAL_DEFENSE')
+    finals = UploadDocuments.objects.filter(document_type='FINAL DEFENSE DOCUMENT')
     return render(request, 'accounts/panel/panel_dashboard/table_docs/table_final.html', {'finals': finals})
 
 # PANEL STATUS DOCUMENTS - TITLE
@@ -1394,3 +1382,42 @@ def view_def_documents(request, id):
     response['ETag'] = pdf_file_etag
     response['Vary'] = 'User-Agent'
     return response
+
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['Panel'])
+def TableStudentsPanel(request):
+    # add the views for the table registered users
+    repository = RepositoryFiles.objects.all()
+    students = StudentUsers.objects.all()
+    total_students_enrolled = students.count()
+    total_repository = repository.count()
+    # documents
+    docs = UploadDocuments.objects.all()
+    total_docs = docs.count()
+
+    student_group = Group.objects.get(name='Student')
+    registered_student = User.objects.filter(groups=student_group)
+
+    status_rejected = UploadDocuments.objects.filter(status='REJECTED')
+    total_rejected = status_rejected.count()
+    status_approved = UploadDocuments.objects.filter(status='APPROVED')
+    total_approved = status_approved.count()
+
+    user_docs = UploadDocuments.objects.filter(user__in=registered_student.values_list('id', flat=True))
+    
+    context = {
+        "total_repository": total_repository,
+        "repository": repository,
+        "students": students,
+        "total_students_enrolled": total_students_enrolled,
+        "registered_student": registered_student,
+        "docs": docs,
+        "total_docs": total_docs,
+        "status_rejected": status_rejected,
+        "total_rejected": total_rejected,
+        "status_approved": status_approved,
+        "total_approved": total_approved,
+        "user_docs": user_docs,
+    }
+    return render(request, "accounts/panel/panel_dashboard/table_students/table/table_registered_students.html", context)

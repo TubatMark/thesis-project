@@ -8,7 +8,7 @@
 <div class="container">
     <h2 class="text-center" style="margin-bottom: 10px;">Welcome to the Proposal Document Upload!</h2>
     <hr>
-    <p  style="font-size: 18px; line-height: 1.5;text-align: justify;">This page allows you to upload your title defense
+    <p  style="font-size: 18px; line-height: 1.5;text-align: justify;">This page allows you to upload your proposal defense
         document and calculate its similarity with other documents in the repository. You will be able to see the title
         and similarity percentage of the documents that have the highest similarity to your document. This can be useful
         for checking for plagiarism or for finding similar research for reference.</p>
@@ -63,14 +63,16 @@
                         <thead>
                             <tr>
                                 <th scope="col">Title</th>
-                                <th scope="col" style="width: 5%;">Similarity</th>
+                                <th scope="col" style="width: 5%;">Title Similarity</th>
+                                <th scope="col" style="width: 5%;">Content Similarity</th>
                             </tr>
                         </thead>
                         <tbody>
                             {% for neighbor in nearest_neighbors %}
                             <tr class="table-separator">
                                 <td>{{ neighbor.title }}</td>
-                                <td>{{ neighbor.similarity|floatformat:0}}%</td>
+                                <td>{{ neighbor.title_similarity|floatformat:0 }}%</td>
+                                <td>{{ neighbor.content_similarity|floatformat:0 }}%</td>
                             </tr>
                             {% endfor %}
                         </tbody>
@@ -126,14 +128,16 @@
                         <thead>
                             <tr>
                                 <th scope="col">Title</th>
-                                <th scope="col" style="width: 5%;">Similarity</th>
+                                <th scope="col" style="width: 5%;">Title Similarity</th>
+                                <th scope="col" style="width: 5%;">Content Similarity</th>
                             </tr>
                         </thead>
                         <tbody>
                             {% for neighbor in nearest_neighbors %}
                             <tr class="table-separator">
                                 <td>{{ neighbor.title }}</td>
-                                <td>{{ neighbor.similarity|floatformat:0}}%</td>
+                                <td>{{ neighbor.title_similarity|floatformat:0 }}%</td>
+                                <td>{{ neighbor.content_similarity|floatformat:0 }}%</td>
                             </tr>
                             {% endfor %}
                         </tbody>
@@ -207,7 +211,8 @@
                         <thead>
                             <tr>
                                 <th scope="col">Title</th>
-                                <th scope="col">Similarity</th>
+                                <th scope="col">Title Similarity</th>
+                                <th scope="col">Content Similarity</th>
                             </tr>
                         </thead>
                         <tbody>

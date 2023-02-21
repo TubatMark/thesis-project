@@ -56,6 +56,14 @@
     <script type="text/javascript" src="{% static 'DataTables/js/datatables.min.js' %}"></script>
     <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
 
+    <!--bootstrap buttons-->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/jszip-2.5.0/dt-1.13.2/b-2.3.4/b-colvis-2.3.4/b-html5-2.3.4/b-print-2.3.4/datatables.min.css"/>
+ 
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/jszip-2.5.0/dt-1.13.2/b-2.3.4/b-colvis-2.3.4/b-html5-2.3.4/b-print-2.3.4/datatables.min.js"></script>
+
+
     <!-- Popper.js -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.16.6/dist/umd/popper.min.js"></script>
 
@@ -74,22 +82,79 @@
     </script>
     
     <script>
-        $(document).ready( function () {
-            $('#docsUploadsDatatable').DataTable({
+        $(document).ready(function () {
+            let table = $('#docsUploadsDatatable').DataTable({
                 "aLengthMenu": [
                     [3, 5, 7, 10, 25, "All"],
                     [3, 5, 7, 10, "All"]
                 ],
                 paging: true,
-                pageLength: 5,
+                pageLength: -1,
                 lengthChange: true,
                 autoWidth: false,
                 searching: true,
                 bInfo: true,
                 bSort: true,
                 responsive: true,
+                buttons:['csv', 'excel', 'pdf', 'copy', 'print'],
+                
+
+                // Change the DOM layout
+                dom: '<"row"<"col-md-3"l><"col-md-6 text-center"B><"col-md-3"f>>' +
+             '<"row"<"col-md-12"tr>>' +
+             '<"row"<"col-md-5"i><"col-md-7"p>>'
             });
-        } );
+            table.buttons().container().appendTo('#docsUploadsDatatable .col-md-6:eq(0)')
+
+
+            // Get unique values for each column
+            let uniqueDocType = new Set();
+            let uniqueStatus = new Set();
+            let uniqueThreshold = new Set();
+
+
+            $('#docsUploadsDatatable tbody tr').each(function () {
+                let DocType = $(this).find("td:eq(3)").text();
+                let Status = $(this).find("td:eq(4)").text();
+                let Threshold = $(this).find("td:eq(5)").text();
+                uniqueDocType.add(DocType);
+                uniqueStatus.add(Status);
+                uniqueThreshold.add(Threshold);
+            });
+
+            // Add filter select options for each column
+            let doctypeFilter = $('<select><option value="">Document Type</option></select>');
+            $.each(Array.from(uniqueDocType).sort(), function (i, item) {
+                doctypeFilter.append($('<option>', {
+                    value: item,
+                    text: item
+                }));
+            });
+            $('#docsUploadsDatatable thead th:eq(3)').html(doctypeFilter);
+
+            let statusFilter = $('<select><option value="">Status</option></select>');
+            $.each(Array.from(uniqueStatus).sort(), function (i, item) {
+                statusFilter.append($('<option>', {
+                    value: item,
+                    text: item
+                }));
+            });
+            $('#docsUploadsDatatable thead th:eq(4)').html(statusFilter);
+
+            let thresholdFilter = $('<select><option value="">Threshold Result</option></select>');
+            $.each(Array.from(uniqueThreshold).sort(), function (i, item) {
+                thresholdFilter.append($('<option>', {
+                    value: item,
+                    text: item
+                }));
+            });
+            $('#docsUploadsDatatable thead th:eq(5)').html(thresholdFilter);
+
+            $('#docsUploadsDatatable thead select').on('change', function () {
+                let val = $(this).val();
+                table.column($(this).parent().index() + ':visible').search(val ? val : '').draw();
+            });
+        });
     </script>
     <script>
         $(document).ready(function () {
@@ -142,60 +207,6 @@
                 table.column(3).search($(this).val()).draw();
             });
         });
-    </script>
-    <script>
-        $(document).ready( function () {
-            $('#titleuploadDatatable').DataTable({
-                "aLengthMenu": [
-                    [3, 5, 7, 10, 25, "All"],
-                    [3, 5, 7, 10, "All"]
-                ],
-                paging: true,
-                pageLength: 5,
-                lengthChange: true,
-                autoWidth: false,
-                searching: true,
-                bInfo: true,
-                bSort: true,
-                responsive: true,
-            });
-        } );
-    </script>
-    <script>
-        $(document).ready( function () {
-            $('#proposaluploadDatatable').DataTable({
-                "aLengthMenu": [
-                    [3, 5, 7, 10, 25, "All"],
-                    [3, 5, 7, 10, "All"]
-                ],
-                paging: true,
-                pageLength: 5,
-                lengthChange: true,
-                autoWidth: false,
-                searching: true,
-                bInfo: true,
-                bSort: true,
-                responsive: true,
-            });
-        } );
-    </script>
-    <script>
-        $(document).ready( function () {
-            $('#finaluploadDatatable').DataTable({
-                "aLengthMenu": [
-                    [3, 5, 7, 10, 25, "All"],
-                    [3, 5, 7, 10, "All"]
-                ],
-                paging: true,
-                pageLength: 5,
-                lengthChange: true,
-                autoWidth: false,
-                searching: true,
-                bInfo: true,
-                bSort: true,
-                responsive: true,
-            });
-        } );
     </script>
 
 </body>
