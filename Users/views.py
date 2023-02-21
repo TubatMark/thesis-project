@@ -284,29 +284,16 @@ def TableRepository(request):
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['Admin'])
 def TableRegisteredStudents(request):
-    # add the views for the table registered users
-    students = StudentUsers.objects.all()
-    total_students_enrolled = students.count()
-    # documents
-
+   
     student_group = Group.objects.get(name='Student')
     registered_student = User.objects.filter(groups=student_group)
 
-    status_rejected = UploadDocuments.objects.filter(status='REJECTED')
-    total_rejected = status_rejected.count()
-    status_approved = UploadDocuments.objects.filter(status='APPROVED')
-    total_approved = status_approved.count()
+
 
     user_docs = UploadDocuments.objects.filter(user__in=registered_student.values_list('id', flat=True))
     
     context = {
-        "students": students,
-        "total_students_enrolled": total_students_enrolled,
         "registered_student": registered_student,
-        "status_rejected": status_rejected,
-        "total_rejected": total_rejected,
-        "status_approved": status_approved,
-        "total_approved": total_approved,
         "user_docs": user_docs,
     }
     return render(request, "accounts/admin/admin_dashboard/tables/table_users/table_registered_students.html", context)

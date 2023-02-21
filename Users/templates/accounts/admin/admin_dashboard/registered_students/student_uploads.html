@@ -25,15 +25,7 @@
                                 <div class="cell">{{doc.student_title}}</div>
                                 <div class="cell">{{doc.student_proponents}}</div>
                                 <div class="cell">{{doc.uploaded_at}}</div>
-                                <div class="cell">
-                                    {% if doc.document_type == "TITLE_DEFENSE" %}
-                                    TITLE DEFENSE DOCUMENT
-                                    {% elif doc.document_type == "PROPOSAL_DEFENSE" %}
-                                    PROPOSAL DEFENSE DOCUMENT
-                                    {% else %}
-                                    FINAL DEFENSE DOCUMENT
-                                    {% endif %}
-                                </div>
+                                <div class="cell">{{doc.document_type}}</div>
                                 <div class="cell">{{doc.status}}</div>
                                 <div class="cell">
                                     {% for comment in doc.comments.all %}
