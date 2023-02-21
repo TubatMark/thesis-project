@@ -36,7 +36,7 @@ class PanelUsers(models.Model):
     username = models.CharField(max_length=255, null=True)
     email = models.EmailField(max_length=255, unique=True)
     password = models.CharField(max_length=255)
-    group = models.CharField(max_length=50, blank=True, null=True)
+    group = models.CharField(max_length=50, default="Panel")
     
     objects = PanelUsersManager()
     
@@ -121,7 +121,7 @@ class StudentUsersManager(models.Manager):
 class Student(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     student_id = models.CharField(max_length=255)
-    group = models.CharField(max_length=50, blank=True, null=True)
+    group = models.CharField(max_length=50, default="Student")
     profile_picture = models.ImageField(upload_to='profile_pictures/', blank=True, null=True)
     objects = StudentUsersManager()
         
