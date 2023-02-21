@@ -19,11 +19,56 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from django.views.static import serve
 from .decorators import *
 from datetime import datetime
+
+#FOR EMAIL VERIFICATION
+from django.template.loader import render_to_string
+from django.contrib.sites.shortcuts import get_current_site
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.utils.encoding import force_bytes, force_str
+from django.core.mail import EmailMessage
+
+from .tokens import account_activation_token
+
 logger = logging.getLogger(__name__)
 
+#EMAIL ACTIVATION
+def activateEmail(request, user, to_email):
+    mail_subject = 'Activate your user account.'
+    message = render_to_string('template_activation_account.html', {
+        'user': user.username,
+        'domain': get_current_site(request).domain,
+        'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+        'token': account_activation_token.make_token(user),
+        'protocol': 'https' if request.is_secure() else 'http'
+    })
+    email = EmailMessage(mail_subject, message, to=[to_email])
+    if email.send():
+        messages.success(request, f'Dear {user}, thank you for registering! To complete the registration process, please check your email at {to_email} and click on the activation link to confirm your account. If you cannot find the email in your inbox, please check your spam folder as well. Thank you!')
+
+        # messages.success(request, f'Dear <b> {user} </b>, please go to you email <b> {to_email} </b> inbox and click on \
+        #     received activation link to confirm and complete the registration. <b>Note:</b> Check your spam folder.')
+    else:
+        messages.error(request, f'Problem sending confirmation email to {to_email}, check if you typed it correctly.')
+
+def activate(request, uidb64, token):
+    User = get_user_model()
+    try:
+        uid = force_str(urlsafe_base64_decode(uidb64))
+        user = User.objects.get(pk=uid)
+    except(TypeError, ValueError, OverflowError, User.DoesNotExist):
+        user = None
+
+    if user is not None and account_activation_token.check_token(user, token):
+        user.is_active = True
+        user.save()
+        
+        messages.success(request, 'Thank you for your email confirmation. Now you can login your account.')
+        return redirect('login')
+    else:
+        messages.error(request, 'Activation link is invalid!')
+        return redirect('login')
+
 # ACCOUNT LOGIN
-
-
 @unauthenticate_user
 def login_view(request):
     if request.method == 'POST':
@@ -132,14 +177,15 @@ def admin_register(request):
                     email=email,
                     group='Admin'
                 )
+                user.is_active = False
                 user.save()
                 group, created = Group.objects.get_or_create(name='Admin')
                 group.user_set.add(user)
 
                 admin = Admin(user=user)
                 admin.save()
-
-                return redirect('login')
+                activateEmail(request, user, form.cleaned_data.get('email'))
+                return redirect('admin_register')
     else:
         form = AdminUsersForm()
     return render(request, 'accounts/admin/admin_registration/admin_register.html', {'form': form})
@@ -1082,14 +1128,15 @@ def panel_register(request):
                     email=email,
                     group='Panel'
                 )
+                user.is_active = False
                 user.save()
                 group, created = Group.objects.get_or_create(name='Panel')
                 group.user_set.add(user)
 
                 panel = Panel(user=user)
                 panel.save()
-
-                return redirect('login')
+                activateEmail(request, user, form.cleaned_data.get('email'))
+                return redirect('panel_register')
     else:
         form = PanelUsersForm()
     return render(request, 'accounts/panel/panel_registration/panel_register.html', {'form': form})

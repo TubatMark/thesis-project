@@ -179,3 +179,14 @@ STORAGES = {
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 AUTH_USER_MODEL = "Users.User"
+
+#Emailing settings
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_FROM = 'tubat.mark09@gmail.com'
+EMAIL_HOST_USER = 'tubat.mark09@gmail.com'
+EMAIL_HOST_PASSWORD = 'wqwhxbrsrmzmwyxn'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+PASSWORD_RESET_TIMEOUT = 14400 #available token for 4 hours

@@ -3,6 +3,13 @@
 
 {% load static %}
 {% block content %}
+{% if error %}
+<div class="alert alert-danger">{{ error }}</div>
+{% elif messages %}
+{% for message in messages %}
+<div class="alert alert-success">{{ message }}</div>
+{% endfor %}
+{% endif %}
 <br>
 <div class="container" style="width: 500px; margin: 0 auto;">
     <div class="card" style="height: 480px; margin-top: 7%;">
@@ -12,9 +19,6 @@
         <div class="card-body">
             <form action="{% url 'panel_register' %}" method="POST">
                 {% csrf_token %}
-                {% if error %}
-                    <div class="alert alert-danger">{{ error }}</div>
-                {% endif %}
                 <h6>FIRST NAME</h6>
                 <input type="text" class="form-control" name="first_name" max-length="40" required>
 
