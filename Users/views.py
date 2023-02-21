@@ -306,14 +306,21 @@ def TableRegisteredStudents(request):
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['Admin'])
 def TableRegisteredPanels(request):
-    panel_group = Group.objects.get(name='Panel')
-    registered_panel = User.objects.filter(group=panel_group)
-    
-    docs_updated_by = UploadDocuments.objects.filter(status_updated_by__in=registered_panel.values_list('id', flat=True))
-    context = {
-        "registered_panel": registered_panel,
-        "docs_updated_by": docs_updated_by,
-    }
+    try:
+        panel_group = Group.objects.get(name='Panel')
+    except Group.DoesNotExist:
+        panel_group = None
+
+    if panel_group is not None:
+        registered_panel = User.objects.filter(groups=panel_group)
+        docs_updated_by = UploadDocuments.objects.filter(status_updated_by__in=registered_panel.values_list('id', flat=True))
+        context = {
+            "registered_panel": registered_panel,
+            "docs_updated_by": docs_updated_by,
+        }
+    else:
+        context = {}
+
     return render(request, "accounts/admin/admin_dashboard/tables/table_users/table_registered_panels.html", context)
 
 # ADMIN TABLE FOR ENROLLED STUDENTS
