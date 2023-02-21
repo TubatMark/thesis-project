@@ -269,29 +269,11 @@ def admin_status_rejected(request):
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['Admin'])
 def TableRepository(request):
-    repository = RepositoryFiles.objects.all()
-    total_repository = repository.count()
-    students = StudentUsers.objects.all()
-    total_students_enrolled = students.count()
-    docs = UploadDocuments.objects.all()
-    total_docs = docs.count()
-
-    status_rejected = UploadDocuments.objects.filter(status='REJECTED')
-    total_rejected = status_rejected.count()
-    status_approved = UploadDocuments.objects.filter(status='APPROVED')
-    total_approved = status_approved.count()
+    repository = RepositoryFiles.objects.filter(description='repository')
+    
 
     context = {
-        "total_repository": total_repository,
         "repository": repository,
-        "students": students,
-        "total_students_enrolled": total_students_enrolled,
-        "docs": docs,
-        "total_docs": total_docs,
-        "status_rejected": status_rejected,
-        "total_rejected": total_rejected,
-        "status_approved": status_approved,
-        "total_approved": total_approved,
     }
 
     return render(request, "accounts/admin/admin_dashboard/tables/table_repository/table_repository.html", context)
@@ -303,13 +285,9 @@ def TableRepository(request):
 @allowed_users(allowed_roles=['Admin'])
 def TableRegisteredStudents(request):
     # add the views for the table registered users
-    repository = RepositoryFiles.objects.all()
     students = StudentUsers.objects.all()
     total_students_enrolled = students.count()
-    total_repository = repository.count()
     # documents
-    docs = UploadDocuments.objects.all()
-    total_docs = docs.count()
 
     student_group = Group.objects.get(name='Student')
     registered_student = User.objects.filter(groups=student_group)
@@ -322,13 +300,9 @@ def TableRegisteredStudents(request):
     user_docs = UploadDocuments.objects.filter(user__in=registered_student.values_list('id', flat=True))
     
     context = {
-        "total_repository": total_repository,
-        "repository": repository,
         "students": students,
         "total_students_enrolled": total_students_enrolled,
         "registered_student": registered_student,
-        "docs": docs,
-        "total_docs": total_docs,
         "status_rejected": status_rejected,
         "total_rejected": total_rejected,
         "status_approved": status_approved,
@@ -623,34 +597,12 @@ def admin_details(request):
         form = SimilarityThresholdForm()
         
     admins = Admin.objects.filter(user=request.user)
-    repository = RepositoryFiles.objects.all()
     
     thresholds = SimilarityThreshold.objects.all().last()
     userrepo = RepositoryFiles.objects.filter(user=request.user)
-    
-    total_repository = repository.count()
-    students = StudentUsers.objects.all()
-    total_students_enrolled = students.count()
-    docs = UploadDocuments.objects.all()
-    total_docs = docs.count()
-
-    status_rejected = UploadDocuments.objects.filter(status='REJECTED')
-    total_rejected = status_rejected.count()
-    status_approved = UploadDocuments.objects.filter(status='APPROVED')
-    total_approved = status_approved.count()
 
     context = {
         "form": form,
-        "total_repository": total_repository,
-        "repository": repository,
-        "students": students,
-        "total_students_enrolled": total_students_enrolled,
-        "docs": docs,
-        "total_docs": total_docs,
-        "status_rejected": status_rejected,
-        "total_rejected": total_rejected,
-        "status_approved": status_approved,
-        "total_approved": total_approved,
         'admins': admins,
         "userrepo": userrepo,
         "thresholds": thresholds,
@@ -686,7 +638,7 @@ def DeleteRegisteredPanel(request, id):
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['Student'])
 def student_dashboard(request):
-    repository = RepositoryFiles.objects.all()
+    repository = RepositoryFiles.objects.filter(description='repository')
     return render(
         request,
         "accounts/student/student_dashboard/student_repository/table_repository_student.html",
@@ -1126,7 +1078,7 @@ def document_comparison(request):
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['Panel'])
 def panel_dashboard(request):
-    repository = RepositoryFiles.objects.all()
+    repository = RepositoryFiles.objects.filter(description='repository')
     context = {"repository": repository}
     return render(request, 'accounts/panel/panel_dashboard/table_repository/table_repository_panel.html', context)
 
