@@ -303,36 +303,12 @@ def TableRegisteredStudents(request):
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['Admin'])
 def TableRegisteredPanels(request):
-    # add the views for the table registered users
-    repository = RepositoryFiles.objects.all()
-    students = StudentUsers.objects.all()
-    total_students_enrolled = students.count()
-    total_repository = repository.count()
-    # documents
-    docs = UploadDocuments.objects.all()
-    total_docs = docs.count()
-
-    status_rejected = UploadDocuments.objects.filter(status='REJECTED')
-    total_rejected = status_rejected.count()
-    status_approved = UploadDocuments.objects.filter(status='APPROVED')
-    total_approved = status_approved.count()
-
     panel_group = Group.objects.get(name='Panel')
     registered_panel = User.objects.filter(group=panel_group)
     
     docs_updated_by = UploadDocuments.objects.filter(status_updated_by__in=registered_panel.values_list('id', flat=True))
     context = {
-        "total_repository": total_repository,
-        "repository": repository,
-        "students": students,
-        "total_students_enrolled": total_students_enrolled,
         "registered_panel": registered_panel,
-        "docs": docs,
-        "total_docs": total_docs,
-        "status_rejected": status_rejected,
-        "total_rejected": total_rejected,
-        "status_approved": status_approved,
-        "total_approved": total_approved,
         "docs_updated_by": docs_updated_by,
     }
     return render(request, "accounts/admin/admin_dashboard/tables/table_users/table_registered_panels.html", context)
