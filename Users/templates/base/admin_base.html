@@ -302,7 +302,7 @@
             let uniqueStatus = new Set();
 
             $('#titleDatatable tbody tr').each(function () {
-                let Status = $(this).find("td:eq(3)").text();
+                let Status = $(this).find("td:eq(4)").text();
                 uniqueStatus.add(Status);
             });
 
@@ -314,7 +314,7 @@
                     text: item
                 }));
             });
-            $('#titleDatatable thead th:eq(3)').html(statusFilter);
+            $('#titleDatatable thead th:eq(4)').html(statusFilter);
 
             $('#titleDatatable thead select').on('change', function () {
                 let val = $(this).val();
@@ -352,7 +352,7 @@
             let uniqueStatus = new Set();
 
             $('#proposalDatatable tbody tr').each(function () {
-                let Status = $(this).find("td:eq(3)").text();
+                let Status = $(this).find("td:eq(4)").text();
                 uniqueStatus.add(Status);
             });
 
@@ -364,7 +364,7 @@
                     text: item
                 }));
             });
-            $('#proposalDatatable thead th:eq(3)').html(statusFilter);
+            $('#proposalDatatable thead th:eq(4)').html(statusFilter);
 
             $('#proposalDatatable thead select').on('change', function () {
                 let val = $(this).val();
@@ -434,7 +434,7 @@
             
             $('#approvedDatatable tbody tr').each(function () {
                 let DocType = $(this).find("td:eq(3)").text();
-                let Panel = $(this).find("td:eq(6)").text();
+                let Panel = $(this).find("td:eq(7)").text();
                 uniqueDocType.add(DocType);
                 uniquePanel.add(Panel);
             });
@@ -456,7 +456,7 @@
                     text: item
                 }));
             });
-            $('#approvedDatatable thead th:eq(6)').html(panelFilter);
+            $('#approvedDatatable thead th:eq(7)').html(panelFilter);
 
             $('#approvedDatatable thead select').on('change', function () {
                 let val = $(this).val();
@@ -498,7 +498,7 @@
             
             $('#rejectedDatatable tbody tr').each(function () {
                 let DocType = $(this).find("td:eq(3)").text();
-                let Panel = $(this).find("td:eq(6)").text();
+                let Panel = $(this).find("td:eq(7)").text();
                 uniqueDocType.add(DocType);
                 uniquePanel.add(Panel);
             });
@@ -520,7 +520,7 @@
                     text: item
                 }));
             });
-            $('#rejectedDatatable thead th:eq(6)').html(panelFilter);
+            $('#rejectedDatatable thead th:eq(7)').html(panelFilter);
 
             $('#rejectedDatatable thead select').on('change', function () {
                 let val = $(this).val();
