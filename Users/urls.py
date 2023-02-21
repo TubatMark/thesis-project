@@ -20,7 +20,7 @@ urlpatterns = [
          name="AddRepositoryFiles"),
     path("EditRepositoryFiles/<int:id>", views.EditRepositoryFiles),
     path("DeleteRepositoryFiles/<int:id>", views.DeleteRepositoryFiles),
-    path("dashboard/TableRepository/",
+    path("TableRepository/",
          views.TableRepository, name="TableRepository"),
 
     # status table
