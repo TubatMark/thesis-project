@@ -284,18 +284,21 @@ def TableRepository(request):
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['Admin'])
 def TableRegisteredStudents(request):
-   
-    student_group = Group.objects.get(name='Student')
-    registered_student = User.objects.filter(groups=student_group)
+    try:
+        student_group = Group.objects.get(name='Student')
+    except Group.DoesNotExist:
+        student_group = None
 
+    if student_group is not None:
+        registered_student = User.objects.filter(groups=student_group)
+        user_docs = UploadDocuments.objects.filter(user__in=registered_student.values_list('id', flat=True))
+        context = {
+            "registered_student": registered_student,
+            "user_docs": user_docs,
+        }
+    else:
+        context = {}
 
-
-    user_docs = UploadDocuments.objects.filter(user__in=registered_student.values_list('id', flat=True))
-    
-    context = {
-        "registered_student": registered_student,
-        "user_docs": user_docs,
-    }
     return render(request, "accounts/admin/admin_dashboard/tables/table_users/table_registered_students.html", context)
 
 
