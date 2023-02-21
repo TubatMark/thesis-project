@@ -115,8 +115,8 @@
 
             $('#docsUploadsDatatable tbody tr').each(function () {
                 let DocType = $(this).find("td:eq(3)").text();
-                let Status = $(this).find("td:eq(4)").text();
-                let Threshold = $(this).find("td:eq(5)").text();
+                let Threshold = $(this).find("td:eq(4)").text();
+                let Status = $(this).find("td:eq(5)").text();
                 uniqueDocType.add(DocType);
                 uniqueStatus.add(Status);
                 uniqueThreshold.add(Threshold);
@@ -132,15 +132,6 @@
             });
             $('#docsUploadsDatatable thead th:eq(3)').html(doctypeFilter);
 
-            let statusFilter = $('<select><option value="">Status</option></select>');
-            $.each(Array.from(uniqueStatus).sort(), function (i, item) {
-                statusFilter.append($('<option>', {
-                    value: item,
-                    text: item
-                }));
-            });
-            $('#docsUploadsDatatable thead th:eq(4)').html(statusFilter);
-
             let thresholdFilter = $('<select><option value="">Threshold Result</option></select>');
             $.each(Array.from(uniqueThreshold).sort(), function (i, item) {
                 thresholdFilter.append($('<option>', {
@@ -148,7 +139,16 @@
                     text: item
                 }));
             });
-            $('#docsUploadsDatatable thead th:eq(5)').html(thresholdFilter);
+            $('#docsUploadsDatatable thead th:eq(4)').html(thresholdFilter);
+
+            let statusFilter = $('<select><option value="">Status</option></select>');
+            $.each(Array.from(uniqueStatus).sort(), function (i, item) {
+                statusFilter.append($('<option>', {
+                    value: item,
+                    text: item
+                }));
+            });
+            $('#docsUploadsDatatable thead th:eq(5)').html(statusFilter);
 
             $('#docsUploadsDatatable thead select').on('change', function () {
                 let val = $(this).val();

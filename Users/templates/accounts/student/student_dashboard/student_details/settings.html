@@ -133,7 +133,7 @@
                         <div class="card-body pb-5">
                             {% for student_profile in student_profiles %}
                             {% if student_profile.profile_picture %}
-                            <img src="{{ student_profile.profile_picture.url }}"
+                            <img src="{{ student_profile.profile_picture.path }}"
                                 class="avatar-xl rounded-circle mx-auto mt-n7 mb-4" alt="{{ student.Student_Name }}"
                                 style="height: 150px; width: 150px;">
                             {% else %}
