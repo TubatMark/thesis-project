@@ -60,7 +60,7 @@ class RepositoryFiles(models.Model):
         
 class Admin(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    profile_picture = models.ImageField(upload_to='profile_pictures/', blank=True, null=True)
+    profile_picture = models.ImageField(upload_to='media/profile_pictures/', blank=True, null=True)
 
 class AdminUsersManager(models.Manager):
     def create_user(self, first_name, last_name, email, password, admin, group):
