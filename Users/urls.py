@@ -6,6 +6,9 @@ from django.conf.urls.static import static
 
 
 urlpatterns = [
+     #email activation
+     path('activate/<uidb64>/<token>', views.activate, name='activate'),
+        
     # Dashboard
     path("dashboard/", views.admin_dashboard, name="admin_dashboard"),
     path("admin_register/", views.admin_register, name="admin_register"),
