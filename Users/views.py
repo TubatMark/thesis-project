@@ -810,13 +810,12 @@ def upload_title_defense(request):
                         title_user.threshold_result = "below threshold"
                         title_user.save()
                 
-                if student_title and student_proponents and adviser and school_year and student_pdf_file :
+                if student_title and student_proponents and adviser and school_year:
                     repository_file = RepositoryFiles()
                     repository_file.title = student_title
                     repository_file.proponents = student_proponents
                     repository_file.adviser = adviser
                     repository_file.school_year = school_year
-                    repository_file.student_pdf_file = student_pdf_file
                     repository_file.user = request.user
                     repository_file.description = "uploads"
                     extract_pdf_text(student_pdf_file, repository_file)
@@ -904,13 +903,12 @@ def upload_proposal_defense(request):
                         proposal_user.threshold_result = "below threshold"
                         proposal_user.save()
                 
-                if student_title and student_proponents and adviser and school_year and student_pdf_file :
+                if student_title and student_proponents and adviser and school_year:
                     repository_file = RepositoryFiles()
                     repository_file.title = student_title
                     repository_file.proponents = student_proponents
                     repository_file.adviser = adviser
                     repository_file.school_year = school_year
-                    repository_file.student_pdf_file = student_pdf_file
                     repository_file.user = request.user
                     repository_file.description = "uploads"
                     extract_pdf_text(student_pdf_file, repository_file)
