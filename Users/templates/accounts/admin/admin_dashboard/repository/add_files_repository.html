@@ -1,7 +1,7 @@
 <!-- Modal -->
 <div class="modal fade" {% block modal-id%} id="addModal" {% endblock modal-id %} tabindex="-1"
   aria-labelledby="addModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <h6 class="modal-title fs-5" id="addModalLabel"> {% block modal-title %} <i
@@ -16,24 +16,26 @@
 
           {% block repo-id %} {% endblock repo-id %}
           <div class="row">
-            <div class="col-6">
+            <div class="col-12">
               <h6>TITLE</h6>
               <input type="text" class="form-control" name="title" max-length="40" placeholder="Title" required
                 {% block repo-title %} {% endblock repo-title %}>
             </div>
-            <div class="col-6">
+          </div>
+          <div class="row">
+            <div class="col-12">
               <h6>PROPONENTS</h6>
               <input type="text" class="form-control" name="proponents" max-length="40" placeholder="Proponents"
                 required {% block repo-proponents %} {% endblock repo-proponents %}>
             </div>
           </div>
           <div class="row">
-            <div class="col-6">
+            <div class="col-8">
               <h6>ADVISER</h6>
               <input type="text" class="form-control" name="adviser" max-length="40" placeholder="Adviser" required
                 {% block repo-adviser %} {% endblock repo-adviser %}>
             </div>
-            <div class="col-6">
+            <div class="col-4">
               <h6>SCHOOL YEAR</h6>
               <input type="text" class="form-control" name="school_year" max-length="40" placeholder="School Year"
                 required {% block repo-school_year %} {% endblock repo-school_year %}>

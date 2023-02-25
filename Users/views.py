@@ -937,20 +937,16 @@ def upload_final_defense(request):
             pdf_file = request.FILES['student_pdf_file']
             abstract = form.cleaned_data["abstract"]
 
-            repository_form = RepositoryForm(request.POST, request.FILES)
-            
-            repository_file = repository_form.save(commit=False)
+            # Set fields of the RepositoryFiles object
+            repository_file = RepositoryFiles()
             repository_file.user = request.user
             repository_file.description = "repository"
-
-            # Set fields of the RepositoryFiles object
             repository_file.title = student_title
             repository_file.proponents = student_proponents
             repository_file.adviser = adviser
             repository_file.school_year = school_year
             repository_file.pdf_file = pdf_file
             repository_file.abstract = abstract
-
             extract_pdf_text(pdf_file, repository_file)
             repository_file.save()
             return redirect("student_dashboard")
