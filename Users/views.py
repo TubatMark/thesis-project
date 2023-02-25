@@ -934,7 +934,7 @@ def upload_final_defense(request):
             student_proponents = form.cleaned_data["student_proponents"]
             adviser = form.cleaned_data["adviser"]
             school_year = form.cleaned_data["school_year"]
-            pdf_file = request.FILES['student_pdf_file']
+            pdf_file = request.cleaned_data['student_pdf_file']
             abstract = form.cleaned_data["abstract"]
 
             if student_title and student_proponents and adviser and school_year and pdf_file and abstract:
