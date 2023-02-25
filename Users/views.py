@@ -929,7 +929,7 @@ def upload_final_defense(request):
             final_user.user = request.user
             final_user.document_type = "FINAL DEFENSE DOCUMENT"
             final_user.save()
-
+            
             student_title = form.cleaned_data["student_title"]
             student_proponents = form.cleaned_data["student_proponents"]
             adviser = form.cleaned_data["adviser"]
@@ -937,27 +937,66 @@ def upload_final_defense(request):
             pdf_file = request.FILES['student_pdf_file']
             abstract = form.cleaned_data["abstract"]
 
-            if student_title and student_proponents and adviser and school_year and pdf_file and abstract:
-                repository_file = RepositoryFiles()
+            repository_form = RepositoryForm(request.POST, request.FILES)
+            if repository_form.is_valid():
+                repository_file = repository_form.save(commit=False)
+                repository_file.user = request.user
+                repository_file.description = "repository"
+
+                # Set fields of the RepositoryFiles object
                 repository_file.title = student_title
                 repository_file.proponents = student_proponents
                 repository_file.adviser = adviser
                 repository_file.school_year = school_year
                 repository_file.pdf_file = pdf_file
                 repository_file.abstract = abstract
-                repository_file.user = request.user
-                repository_file.description = "repository"
-                #extract_pdf_text(pdf_file, repository_file)
+
+                extract_pdf_text(pdf_file, repository_file)
                 repository_file.save()
-                logger.info(
-                    f"Successfully extracted text from PDF file {pdf_file} and saved it to a .txt file")
                 return redirect("student_dashboard")
-            else:
-                logger.info(
-                    f"Missing field values. Not able to save the RepositoryFiles.")
     else:
         form = UploadDocumentsForm()
-    return render(request, "accounts/student/student_dashboard/student_uploads/upload_final.html", {"form": form})
+        repository_form = RepositoryForm()
+    return render(request, "accounts/student/student_dashboard/student_uploads/upload_final.html", {"form": form, "repository_form": repository_form})
+
+
+# def upload_final_defense(request):
+#     if request.method == "POST":
+#         form = UploadDocumentsForm(request.POST, request.FILES)
+#         if form.is_valid():
+#             final_user = form.save(commit=False)
+#             final_user.user = request.user
+#             final_user.document_type = "FINAL DEFENSE DOCUMENT"
+#             final_user.save()
+
+#             student_title = form.cleaned_data["student_title"]
+#             student_proponents = form.cleaned_data["student_proponents"]
+#             adviser = form.cleaned_data["adviser"]
+#             school_year = form.cleaned_data["school_year"]
+#             pdf_file = request.FILES['student_pdf_file']
+#             abstract = form.cleaned_data["abstract"]
+
+#             if student_title and student_proponents and adviser and school_year and pdf_file and abstract:
+#                 repository_file = RepositoryFiles()
+#                 repository_file.title = student_title
+#                 repository_file.proponents = student_proponents
+#                 repository_file.adviser = adviser
+#                 repository_file.school_year = school_year
+#                 repository_file.pdf_file = pdf_file
+#                 repository_file.abstract = abstract
+#                 repository_file.user = request.user
+#                 repository_file.description = "repository"
+#                 extract_pdf_text(pdf_file, repository_file)
+#                 repository_file.save()
+#                 logger.info(
+#                     f"Successfully extracted text from PDF file {pdf_file} and saved it to a .txt file")
+#                 return redirect("student_dashboard")
+#             else:
+#                 logger.info(
+#                     f"Missing field values. Not able to save the RepositoryFiles.")
+#     else:
+#         form = UploadDocumentsForm()
+#     return render(request, "accounts/student/student_dashboard/student_uploads/upload_final.html", {"form": form})
 
 # STUDENT VIEW UPLOADED FILES
 
