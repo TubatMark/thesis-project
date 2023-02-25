@@ -964,7 +964,7 @@ def upload_final_defense(request):
                 repository_file.pdf_file.save(pdf_file.name, temp_file)
                 repository_file.abstract = abstract
                 # Extract the text from the PDF file and save it to the abstract field
-                text_file = final_pdf_repository(temp_file.name)
+                text_file = final_pdf_repository(pdf_file)
                 repository_file.text_file = text_file
                 repository_file.save()
             return redirect("student_dashboard")
