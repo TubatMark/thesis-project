@@ -137,7 +137,6 @@ def admin_dashboard(request):
         "total_repository": total_repository,
         "students": students,
         "total_students_enrolled": total_students_enrolled,
-        "docs": docs,
         "total_docs": total_docs,
         "status_rejected": status_rejected,
         "total_rejected": total_rejected,
