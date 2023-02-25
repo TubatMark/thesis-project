@@ -8,7 +8,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.neighbors import NearestNeighbors
 import numpy as np
 import pandas as pd
-from io import StringIO, BytesIO
+import io
 from .models import StudentUsers
 logger = logging.getLogger(__name__)
 import warnings
