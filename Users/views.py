@@ -259,8 +259,14 @@ def admin_status_approved(request):
     total_repository = repository.count()
     students = StudentUsers.objects.all()
     total_students_enrolled = students.count()
-    docs = UploadDocuments.objects.all()
-    total_docs = docs.count()
+    
+    # uploaded docs
+    title_docs = UploadDocuments.objects.filter(document_type="TITLE DEFENSE DOCUMENT")
+    proposal_docs = UploadDocuments.objects.filter(document_type="PROPOSAL DEFENSE DOCUMENT")
+    total_title_docs = title_docs.count()
+    total_proposal_docs = proposal_docs.count()
+    total_docs = total_title_docs + total_proposal_docs
+    
     status_approved = UploadDocuments.objects.filter(status='APPROVED')
     total_approved = status_approved.count()
     status_rejected = UploadDocuments.objects.filter(status='REJECTED')
@@ -271,7 +277,6 @@ def admin_status_approved(request):
         "repository": repository,
         "students": students,
         "total_students_enrolled": total_students_enrolled,
-        "docs": docs,
         "total_docs": total_docs,
         "status_approved": status_approved,
         "total_approved": total_approved,
@@ -289,8 +294,14 @@ def admin_status_rejected(request):
     total_repository = repository.count()
     students = StudentUsers.objects.all()
     total_students_enrolled = students.count()
-    docs = UploadDocuments.objects.all()
-    total_docs = docs.count()
+    
+    # uploaded docs
+    title_docs = UploadDocuments.objects.filter(document_type="TITLE DEFENSE DOCUMENT")
+    proposal_docs = UploadDocuments.objects.filter(document_type="PROPOSAL DEFENSE DOCUMENT")
+    total_title_docs = title_docs.count()
+    total_proposal_docs = proposal_docs.count()
+    total_docs = total_title_docs + total_proposal_docs
+    
     status_rejected = UploadDocuments.objects.filter(status='REJECTED')
     total_rejected = status_rejected.count()
     status_approved = UploadDocuments.objects.filter(status='APPROVED')
@@ -301,7 +312,6 @@ def admin_status_rejected(request):
         "repository": repository,
         "students": students,
         "total_students_enrolled": total_students_enrolled,
-        "docs": docs,
         "total_docs": total_docs,
         "status_rejected": status_rejected,
         "total_rejected": total_rejected,
@@ -940,18 +950,21 @@ def upload_final_defense(request):
             abstract = form.cleaned_data["abstract"]
             text_file = final_pdf_repository(pdf_file)
 
-            # Set fields of the RepositoryFiles object
-            repository_file = RepositoryFiles()
-            repository_file.user = request.user
-            repository_file.title = student_title
-            repository_file.proponents = student_proponents
-            repository_file.adviser = adviser
-            repository_file.school_year = school_year
-            repository_file.pdf_file = pdf_file
-            repository_file.abstract = abstract
-            repository_file.text_file = text_file
-            repository_file.save()
-            return redirect("student_dashboard")
+            if student_title and student_proponents and adviser and school_year and pdf_file and abstract and text_file:
+                # Set fields of the RepositoryFiles object
+                repository_file = RepositoryFiles()
+                repository_file.user = request.user
+                repository_file.title = student_title
+                repository_file.proponents = student_proponents
+                repository_file.adviser = adviser
+                repository_file.school_year = school_year
+                repository_file.pdf_file = pdf_file
+                repository_file.abstract = abstract
+                repository_file.text_file = text_file
+                repository_file.save()
+                return redirect("student_dashboard")
+            else:
+                logger.info(f"Missing field values. Not able to save the RepositoryFiles.")
     else:
         form = UploadDocumentsForm()
         repository_form = RepositoryForm()
