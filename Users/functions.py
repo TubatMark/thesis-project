@@ -65,11 +65,11 @@ def extract_pdf_text(pdf_file, repository_file):
     # read the contents of the uploaded file
     pdf_content = pdf_file.read()
 
-    # create a PyPDF2 PdfFileReader object
-    pdf_reader = PyPDF2.PdfFileReader(io.BytesIO(pdf_content))
+    # create a PyPDF2 PdfReader object
+    pdf_reader = PyPDF2.PdfReader(io.BytesIO(pdf_content))
 
     # extract the text from each page and save it in a list
-    text_list = [pdf_reader.getPage(page).extractText() for page in range(pdf_reader.getNumPages())]
+    text_list = [pdf_reader.pages[page].extract_text() for page in range(len(pdf_reader.pages))]
 
     # join all the texts from the list and save it as a single string
     text = "\n".join(text_list)
@@ -86,6 +86,7 @@ def extract_pdf_text(pdf_file, repository_file):
     # Save the file path to the database
     repository_file.text_file = text_file
     repository_file.save()
+
 
 # def extract_pdf_text(pdf_file, repository_file):
 #     # open the PDF file
