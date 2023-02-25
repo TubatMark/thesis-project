@@ -12,6 +12,7 @@ import logging
 from django.conf import settings
 import numpy as np
 import PyPDF2
+import tempfile
 import os
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth import authenticate, login, logout, get_user_model
@@ -949,23 +950,27 @@ def upload_final_defense(request):
             pdf_file = request.FILES['student_pdf_file']
             abstract = form.cleaned_data["abstract"]
 
-            # Set fields of the RepositoryFiles object
-            repository_file = RepositoryFiles()
-            repository_file.user = request.user
-            repository_file.title = student_title
-            repository_file.proponents = student_proponents
-            repository_file.adviser = adviser
-            repository_file.school_year = school_year
-            #repository_file.pdf_file = pdf_file
-            repository_file.abstract = abstract
-                #extract_pdf_text(pdf_file, repository_file)
-            repository_file.save()
+             # Create a temporary file and write the uploaded file data to it
+            with tempfile.NamedTemporaryFile(delete=False) as temp_file:
+                temp_file.write(pdf_file.read())
+
+                # Set fields of the RepositoryFiles object
+                repository_file = RepositoryFiles()
+                repository_file.user = request.user
+                repository_file.title = student_title
+                repository_file.proponents = student_proponents
+                repository_file.adviser = adviser
+                repository_file.school_year = school_year
+                repository_file.pdf_file.save(pdf_file.name, temp_file)
+                repository_file.abstract = abstract
+                # Extract the text from the PDF file and save it to the abstract field
+                text_file = final_pdf_repository(temp_file.name)
+                repository_file.text_file = text_file
+                repository_file.save()
             return redirect("student_dashboard")
-            
     else:
         form = UploadDocumentsForm()
-        repository_form = RepositoryForm()
-    return render(request, "accounts/student/student_dashboard/student_uploads/upload_final.html", {"form": form, "repository_form": repository_form})
+    return render(request, "accounts/student/student_dashboard/student_uploads/upload_final.html", {"form": form})
 
 
 # def upload_final_defense(request):
