@@ -938,22 +938,22 @@ def upload_final_defense(request):
             abstract = form.cleaned_data["abstract"]
 
             repository_form = RepositoryForm(request.POST, request.FILES)
-            if repository_form.is_valid():
-                repository_file = repository_form.save(commit=False)
-                repository_file.user = request.user
-                repository_file.description = "repository"
+            
+            repository_file = repository_form.save(commit=False)
+            repository_file.user = request.user
+            repository_file.description = "repository"
 
-                # Set fields of the RepositoryFiles object
-                repository_file.title = student_title
-                repository_file.proponents = student_proponents
-                repository_file.adviser = adviser
-                repository_file.school_year = school_year
-                repository_file.pdf_file = pdf_file
-                repository_file.abstract = abstract
+            # Set fields of the RepositoryFiles object
+            repository_file.title = student_title
+            repository_file.proponents = student_proponents
+            repository_file.adviser = adviser
+            repository_file.school_year = school_year
+            repository_file.pdf_file = pdf_file
+            repository_file.abstract = abstract
 
-                extract_pdf_text(pdf_file, repository_file)
-                repository_file.save()
-                return redirect("student_dashboard")
+            extract_pdf_text(pdf_file, repository_file)
+            repository_file.save()
+            return redirect("student_dashboard")
     else:
         form = UploadDocumentsForm()
         repository_form = RepositoryForm()
