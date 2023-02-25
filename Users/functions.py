@@ -88,28 +88,26 @@ def extract_pdf_text(pdf_file, repository_file):
     repository_file.save()
 
 
-# def extract_pdf_text(pdf_file, repository_file):
-#     # open the PDF file
-#     pdf = PyPDF2.PdfReader(pdf_file)
+def final_pdf_repository(pdf_file):
+    # open the PDF file
+    pdf = PyPDF2.PdfReader(pdf_file)
     
-#     # extract the text from each page and save it in a list
-#     text_list = [pdf.pages[page].extract_text() for page in range(len(pdf.pages))]
+    # extract the text from each page and save it in a list
+    text_list = [pdf.pages[page].extract_text() for page in range(len(pdf.pages))]
 
-#     # join all the texts from the list and save it as a single string
-#     text = "\n".join(text_list)
+    # join all the texts from the list and save it as a single string
+    text = "\n".join(text_list)
     
-#     # construct the file path using MEDIA_ROOT and MEDIA_URL
-#     file_path = os.path.join(settings.MEDIA_ROOT, "ExtractedFiles")
-#     if not os.path.exists(file_path):
-#         os.makedirs(file_path)
-#     text_file_name = pdf_file.name.replace('.pdf', '.txt')
-#     text_file = os.path.join(file_path, text_file_name)
-#     with open(text_file, 'w', encoding='utf-8') as f:
-#         f.write(text)
+    # construct the file path using MEDIA_ROOT and MEDIA_URL
+    file_path = os.path.join(settings.MEDIA_ROOT, "ExtractedFiles")
+    if not os.path.exists(file_path):
+        os.makedirs(file_path)
+    text_file_name = pdf_file.name.replace('.pdf', '.txt')
+    text_file = os.path.join(file_path, text_file_name)
+    with open(text_file, 'w', encoding='utf-8') as f:
+        f.write(text)
     
-#     # Save the file path to the database
-#     repository_file.text_file = text_file
-#     repository_file.save()
+    return text_file
 
 
 def vectorize(query_matrix, vectorizer, k, student_title, user_id):

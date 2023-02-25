@@ -121,8 +121,11 @@ def admin_dashboard(request):
     total_repository = repository.count()
 
     # uploaded docs
-    docs = UploadDocuments.objects.all()
-    total_docs = docs.count()
+    title_docs = UploadDocuments.objects.filter(document_type="TITLE DEFENSE DOCUMENT")
+    proposal_docs = UploadDocuments.objects.filter(document_type="PROPOSAL DEFENSE DOCUMENT")
+    total_title_docs = title_docs.count()
+    total_proposal_docs = proposal_docs.count()
+    total_docs = total_title_docs + total_proposal_docs
 
     status_rejected = UploadDocuments.objects.filter(status='REJECTED')
     total_rejected = status_rejected.count()
@@ -936,18 +939,18 @@ def upload_final_defense(request):
             school_year = form.cleaned_data["school_year"]
             pdf_file = request.FILES['student_pdf_file']
             abstract = form.cleaned_data["abstract"]
+            text_file = final_pdf_repository(pdf_file)
 
             # Set fields of the RepositoryFiles object
             repository_file = RepositoryFiles()
             repository_file.user = request.user
-            repository_file.description = "repository"
             repository_file.title = student_title
             repository_file.proponents = student_proponents
             repository_file.adviser = adviser
             repository_file.school_year = school_year
             repository_file.pdf_file = pdf_file
             repository_file.abstract = abstract
-            extract_pdf_text(pdf_file, repository_file)
+            repository_file.text_file = text_file
             repository_file.save()
             return redirect("student_dashboard")
     else:
