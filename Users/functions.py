@@ -8,7 +8,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.neighbors import NearestNeighbors
 import numpy as np
 import pandas as pd
-from io import StringIO
+from io import StringIO, BytesIO
 from .models import StudentUsers
 logger = logging.getLogger(__name__)
 import warnings
@@ -62,15 +62,18 @@ def is_date(string):
         return False
 
 def extract_pdf_text(pdf_file, repository_file):
-    # open the PDF file
-    pdf = PyPDF2.PdfReader(pdf_file)
-    
+    # read the contents of the uploaded file
+    pdf_content = pdf_file.read()
+
+    # create a PyPDF2 PdfFileReader object
+    pdf_reader = PyPDF2.PdfFileReader(io.BytesIO(pdf_content))
+
     # extract the text from each page and save it in a list
-    text_list = [pdf.pages[page].extract_text() for page in range(len(pdf.pages))]
+    text_list = [pdf_reader.getPage(page).extractText() for page in range(pdf_reader.getNumPages())]
 
     # join all the texts from the list and save it as a single string
     text = "\n".join(text_list)
-    
+
     # construct the file path using MEDIA_ROOT and MEDIA_URL
     file_path = os.path.join(settings.MEDIA_ROOT, "ExtractedFiles")
     if not os.path.exists(file_path):
@@ -79,10 +82,33 @@ def extract_pdf_text(pdf_file, repository_file):
     text_file = os.path.join(file_path, text_file_name)
     with open(text_file, 'w', encoding='utf-8') as f:
         f.write(text)
-    
+
     # Save the file path to the database
     repository_file.text_file = text_file
     repository_file.save()
+
+# def extract_pdf_text(pdf_file, repository_file):
+#     # open the PDF file
+#     pdf = PyPDF2.PdfReader(pdf_file)
+    
+#     # extract the text from each page and save it in a list
+#     text_list = [pdf.pages[page].extract_text() for page in range(len(pdf.pages))]
+
+#     # join all the texts from the list and save it as a single string
+#     text = "\n".join(text_list)
+    
+#     # construct the file path using MEDIA_ROOT and MEDIA_URL
+#     file_path = os.path.join(settings.MEDIA_ROOT, "ExtractedFiles")
+#     if not os.path.exists(file_path):
+#         os.makedirs(file_path)
+#     text_file_name = pdf_file.name.replace('.pdf', '.txt')
+#     text_file = os.path.join(file_path, text_file_name)
+#     with open(text_file, 'w', encoding='utf-8') as f:
+#         f.write(text)
+    
+#     # Save the file path to the database
+#     repository_file.text_file = text_file
+#     repository_file.save()
 
 
 def vectorize(query_matrix, vectorizer, k, student_title, user_id):

@@ -947,7 +947,7 @@ def upload_final_defense(request):
                 repository_file.abstract = abstract
                 repository_file.user = request.user
                 repository_file.description = "repository"
-                extract_pdf_text(pdf_file.path, repository_file)
+                extract_pdf_text(pdf_file, repository_file)
                 repository_file.save()
                 logger.info(
                     f"Successfully extracted text from PDF file {pdf_file} and saved it to a .txt file")
