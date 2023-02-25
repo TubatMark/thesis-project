@@ -956,7 +956,7 @@ def upload_final_defense(request):
             repository_file.proponents = student_proponents
             repository_file.adviser = adviser
             repository_file.school_year = school_year
-            repository_file.pdf_file = pdf_file
+            #repository_file.pdf_file = pdf_file
             repository_file.abstract = abstract
                 #extract_pdf_text(pdf_file, repository_file)
             repository_file.save()
