@@ -5,17 +5,26 @@ from django.contrib.auth.forms import UserChangeForm
 
 
 class RepositoryForm(forms.ModelForm):
+    proponents = forms.CharField(widget=forms.Textarea(attrs={'placeholder': 'Enter names separated by commas'}))
+
     class Meta:
         model = RepositoryFiles
         fields = ["title", "proponents", "adviser", "school_year", "pdf_file", "abstract"]
         widgets = {
             "title": forms.TextInput(attrs={"class": "form-group"}),
-            "proponents": forms.TextInput(attrs={"class": "form-group"}),
             "adviser": forms.TextInput(attrs={"class": "form-group"}),
             "school_year": forms.TextInput(attrs={"class": "form-group"}),
             "pdf_file": forms.FileInput(attrs={"class": "form-group"}),
             "abstract": forms.Textarea(attrs={"class": "form-group"}),
         }
+        
+    def save(self, commit=True):
+        repository_file = super().save(commit=False)
+        proponent_names = [name.strip() for name in self.cleaned_data['proponents'].split(',') if name.strip()]
+        proponents = [Proponent.objects.get_or_create(name=name)[0] for name in proponent_names]
+        repository_file.save()
+        repository_file.proponents.set(proponents)
+        return repository_file
 
 class ProfilePictureForm(forms.Form):
     profile_picture = forms.ImageField()

@@ -41,12 +41,18 @@ class PanelUsers(models.Model):
     objects = PanelUsersManager()
     
 
-
+#proponent manytomany to repositoryfiles
+class Proponent(models.Model):
+    name = models.CharField(max_length=255)
+    
+    def __str__(self):
+        return self.name
+    
 #ADMIN
 class RepositoryFiles(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
     title = models.CharField(max_length=255)
-    proponents = models.CharField(max_length=255)
+    proponents = models.ManyToManyField(Proponent, related_name='repository_proponent')
     adviser = models.CharField(max_length=255, blank=True, null=True)
     school_year = models.CharField(max_length=255, blank=True, null=True)
     pdf_file = models.FileField(upload_to=(settings.MEDIA_ROOT, "RepositoryFiles/"))
