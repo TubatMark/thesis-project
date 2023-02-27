@@ -52,7 +52,7 @@ class Proponent(models.Model):
 class RepositoryFiles(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
     title = models.CharField(max_length=255)
-    proponents = models.ManyToManyField(Proponent, related_name='repository_proponent')
+    proponents = models.ManyToManyField(Proponent, related_name='repository_proponents')
     adviser = models.CharField(max_length=255, blank=True, null=True)
     school_year = models.CharField(max_length=255, blank=True, null=True)
     pdf_file = models.FileField(upload_to=(settings.MEDIA_ROOT, "RepositoryFiles/"))
