@@ -209,6 +209,52 @@
         });
     </script>
 
+    <!--document upload script for proponent-->
+    <script>
+        $(document).ready(function () {
+            var selectedStudents = [];
+
+            $('#proponents').change(function () {
+                var studentId = $(this).val();
+                if (studentId && !selectedStudents.includes(studentId)) {
+                    selectedStudents.push(studentId);
+                    $('#selected-students').append('<li>' + $(this).find('option:selected').text() +
+                        '<button class="remove-student-btn" data-student="' + studentId +
+                        '">Remove</button></li>');
+                }
+                updateHiddenInput();
+            });
+
+            $('#selected-students').on('click', '.remove-student-btn', function () {
+                var studentId = $(this).data('student');
+                selectedStudents = selectedStudents.filter(function (id) {
+                    return id !== studentId;
+                });
+                $(this).closest('li').remove();
+                updateHiddenInput();
+            });
+
+            $('#final-defense-form').submit(function (event) {
+                event.preventDefault();
+                $.ajax({
+                    url: '{% url "upload_final_defense" %}',
+                    type: 'POST',
+                    data: {
+                        csrfmiddlewaretoken: $('input[name="csrfmiddlewaretoken"]').val(),
+                        student_proponents: selectedStudents.join(',')
+                    },
+                    success: function (data) {
+                        alert('Proponents saved!');
+                    }
+                });
+            });
+
+            function updateHiddenInput() {
+                $('#student-proponents-input').val(selectedStudents.join(','));
+            }
+        });
+    </script>
+
 </body>
 
 </html>
