@@ -14,9 +14,11 @@
           <div class="row">
             <div class="col-6">
               <h6>TITLE</h6>
-              <input type="text" class="form-control" name="title" max-length="40" value="{{repo.title}}" readonly
-                {% block repo-title %} {% endblock repo-title %}>
+              {{repo.title}}
             </div>
+          </div>
+          <hr>
+          <div class="row">
             <div class="col-6">
               <h6>PROPONENTS</h6>
               <ul>

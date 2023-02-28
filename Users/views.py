@@ -778,8 +778,9 @@ def upload_title_defense(request):
                 
                 vectorizer = TfidfVectorizer()
                 all_docs = []
-                for file in RepositoryFiles.objects.all().values('text_file', 'title','proponents','adviser','school_year'):
+                for file in RepositoryFiles.objects.all().prefetch_related('proponents').values('text_file', 'title','proponents','adviser','school_year'):
                     file_path = file['text_file']
+                    repo_proponents = [proponent.name for proponent in file['proponents']]
                     with open(file_path, 'r', encoding='utf-8', errors='ignore') as f:
                         all_docs.append(f.read())
                 all_docs = [preprocess(text) for text in all_docs]
@@ -796,9 +797,9 @@ def upload_title_defense(request):
                     
                 for neighbor in nearest_neighbors:
                     # Retrieve the title, proponents, advisor and school_year fields from the RepositoryFiles model
-                    repository_file = RepositoryFiles.objects.get(title=neighbor['title'])
+                    repository_file = RepositoryFiles.objects.prefetch_related('proponents').get(title=neighbor['title'])
                     neighbor['title'] = repository_file.title
-                    neighbor['proponents'] = repository_file.proponents
+                    neighbor['proponents'] = [Proponent.name for Proponent in repository_file.proponents.all()]
                     neighbor['adviser'] = repository_file.adviser
                     neighbor['school_year'] = repository_file.school_year
 
@@ -815,6 +816,7 @@ def upload_title_defense(request):
                     document.save()
                     title_user.most_similar_documents.add(document)
                     title_user.save()
+
                     
                     if neighbor['content_similarity'] > threshold:
                         title_user.threshold_result = "above threshold"
