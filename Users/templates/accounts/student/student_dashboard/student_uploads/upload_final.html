@@ -8,7 +8,8 @@
 <div class="container">
     <h2 class="text-center" style="margin-bottom: 10px;">Welcome to the Final Document Upload!</h2>
     <hr>
-    <p class="text-center" style="font-size: 18px; line-height: 1.5;text-align: justify;">In this page, you can upload your
+    <p class="text-center" style="font-size: 18px; line-height: 1.5;text-align: justify;">In this page, you can upload
+        your
         final thesis document to be added in the repository.
     </p>
     <hr>
@@ -18,76 +19,93 @@
         before uploading your final defense document. If you have not yet received approval, you are not allowed to
         access this page and upload your document.</p>
 
-        <div class="row">
-            <div class="col-12 col-xl-12">
-                <div class="card card-body border-0 shadow mb-4">
-                    <h2 class="h5 mb-4">Fill up details!</h2>
-                    <form method="POST" action="{% url 'upload_final_defense' %}" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        <div class="row">
-                            <div class="col-md-12 mb-3">
-                                <div>
-                                    <label for="title">Title</label>
-                                    <textarea class="form-control" id="title" type="text" name="student_title" max-length="40"
-                                        required></textarea>
-                                </div>
+    <div class="row">
+        <div class="col-12 col-xl-12">
+            <div class="card card-body border-0 shadow mb-4">
+                <h2 class="h5 mb-4">Fill up details!</h2>
+                <form method="POST" action="{% url 'upload_final_defense' %}" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-12 mb-3">
+                            <div>
+                                <label for="title">Title</label>
+                                <textarea class="form-control" id="title" type="text" name="student_title"
+                                    max-length="40" required></textarea>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-12 mb-3">
-                                <div>
-                                    <label for="proponents">Proponents</label>
-                                    <input class="form-control" id="proponents" type="text" name="student_proponents"
-                                        max-length="40" required>
-                                </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <div>
+                                <label for="proponents">Proponents</label>
+                                <select class="form-control" id="proponents" name="student_proponents" required>
+                                    <option value="" disabled selected>Select Proponent</option>
+                                    {% for student in enrolled_students %}
+                                    <option value="{{ student.id }}">{{ student.Student_Name }}</option>
+                                    {% endfor %}
+                                </select>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-8 mb-3">
-                                <div class="form-group">
-                                    <label for="adviser">Adviser</label>
-                                    <input class="form-control" id="adviser" type="text" name="adviser" max-length="40"
-                                        required>
-                                </div>
-                            </div>
-                            <div class="col-md-4 mb-3">
-                                <div class="form-group">
-                                    <label for="school_year">School Year</label>
-                                    <input type="text" class="form-control" name="school_year" max-length="40"
-                                        id="school_year" required>
-                                </div>
+                        <div class="col-md-6 mb-3">
+                            <div>
+                                <label for="selected-students">Selected Students:</label>
+                                <ul id="selected-students"></ul>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <div class="form-group">
-                                    <label for="file">File</label>
-                                    <input type="file" class="form-control" name="student_pdf_file" max-length="40"
-                                        id="file" required>
-                                </div>
-                            </div>
-                            <div class="col-12 ">
-                                <div class="form-group">
-                                    <label for="abstract">Abstract</label>
-                                    <textarea class="form-control" name="abstract" placeholder="Abstract"
-                                        style=" height: 170px;" id="abstract" required></textarea>
-                                </div>
+                        <textarea type="hidden" name="students" id="student-proponents-input" hidden></textarea>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8 mb-3">
+                            <div class="form-group">
+                                <label for="adviser">Adviser</label>
+                                <input class="form-control" id="adviser" type="text" name="adviser" max-length="40"
+                                    required>
                             </div>
                         </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <button type="submit" class="btn btn-primary mb-3">
-                                    {% block Btn-action %}
-                                    <i class="fas fa-plus"></i>Submit
-                                    {% endblock Btn-action %}
-                                </button>
+                        <div class="col-md-6 mb-3">
+                            <div class="form-group">
+                                <label for="SY">School Year</label>
+                                <select name="school_year" id="SY" class="form-control">
+                                    <option value="" disabled selected>Select school year</option>
+                                    <option value="SY2018-19">SY2018-19</option>
+                                    <option value="SY2018-19">SY2019-20</option>
+                                    <option value="SY2018-19">SY2020-21</option>
+                                    <option value="SY2018-19">SY2021-22</option>
+                                    <option value="SY2018-19">SY2022-23</option>
+                                </select>
                             </div>
                         </div>
-                    </form>
-                </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <div class="form-group">
+                                <label for="file">File</label>
+                                <input type="file" class="form-control" name="student_pdf_file" max-length="40"
+                                    id="file" required>
+                            </div>
+                        </div>
+                        <div class="col-12 ">
+                            <div class="form-group">
+                                <label for="abstract">Abstract</label>
+                                <textarea class="form-control" name="abstract" placeholder="Abstract"
+                                    style=" height: 170px;" id="abstract" required></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <button type="submit" class="btn btn-primary mb-3">
+                                {% block Btn-action %}
+                                <i class="fas fa-plus"></i>Submit
+                                {% endblock Btn-action %}
+                            </button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
+    </div>
 </div>
 
 {% endblock content %}

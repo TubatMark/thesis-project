@@ -109,6 +109,9 @@ class StudentUsers(models.Model):
     class Meta:
         db_table = "user_enrolled_students"
         
+    def __str__(self):
+        return self.Student_Name
+        
 class StudentUsersManager(models.Manager):
     def create_user(self, student_id, name, username, email, password, student, group):
         student_user = self.create(
@@ -160,7 +163,7 @@ class UploadDocuments(models.Model):
         ('REJECT', 'Reject'),
     )
     student_title = models.CharField(max_length=255)
-    student_proponents = models.CharField(max_length=255)
+    student_proponents = models.ManyToManyField(StudentUsers, related_name='student_proponents')
     student_pdf_file = models.FileField(upload_to=(settings.MEDIA_ROOT, "DefFiles/"))
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
     uploaded_at = models.DateTimeField(default=timezone.now)

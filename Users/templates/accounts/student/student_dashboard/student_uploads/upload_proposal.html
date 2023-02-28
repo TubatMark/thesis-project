@@ -8,7 +8,8 @@
 <div class="container">
     <h2 class="text-center" style="margin-bottom: 10px;">Welcome to the Proposal Document Upload!</h2>
     <hr>
-    <p  style="font-size: 18px; line-height: 1.5;text-align: justify;">This page allows you to upload your proposal defense
+    <p style="font-size: 18px; line-height: 1.5;text-align: justify;">This page allows you to upload your proposal
+        defense
         document and calculate its similarity with other documents in the repository. You will be able to see the title
         and similarity percentage of the documents that have the highest similarity to your document. This can be useful
         for checking for plagiarism or for finding similar research for reference.</p>
@@ -29,25 +30,24 @@
                 </div>
                 <div class="card-body">
                     <br>
-                        {% csrf_token %}
-                        <div class="container">
-                            <div class="input-group mb-3">
-                                <span class="side-label btn border-secondary bg-light"> Title:       </span>
-                                <input type="text" class="form-control" name="student_title" max-length="40"
-                                    placeholder="Title:" value="{{ form.cleaned_data.student_title }}" readonly>
-                            </div>
-                            <div class="input-group mb-3">
-                                <span class="side-label btn border-secondary bg-light"> Proponent/s: </span>
-                                <input type="text" class="form-control" name="student_proponents" max-length="40"
-                                    placeholder="Proponents" value="{{ form.cleaned_data.student_proponents }}"
-                                    readonly>
-                            </div>
-                            <div class="mt-4" style="width:100%;">
-                                <a href="{% url 'upload_proposal_defense' %}" class="btn btn-primary mb-3">
-                                    <i class="fas fa-arrow-left"></i>Back
-                                </a>
-                            </div>
+                    {% csrf_token %}
+                    <div class="container">
+                        <div class="input-group mb-3">
+                            <span class="side-label btn border-secondary bg-light"> Title: </span>
+                            <input type="text" class="form-control" name="student_title" max-length="40"
+                                placeholder="Title:" value="{{ form.cleaned_data.student_title }}" readonly>
                         </div>
+                        <div class="input-group mb-3">
+                            <span class="side-label btn border-secondary bg-light"> Proponent/s: </span>
+                            <input type="text" class="form-control" name="student_proponents" max-length="40"
+                                placeholder="Proponents" value="{{ form.cleaned_data.student_proponents }}" readonly>
+                        </div>
+                        <div class="mt-4" style="width:100%;">
+                            <a href="{% url 'upload_proposal_defense' %}" class="btn btn-primary mb-3">
+                                <i class="fas fa-arrow-left"></i>Back
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -94,25 +94,24 @@
                 </div>
                 <div class="card-body">
                     <br>
-                        {% csrf_token %}
-                        <div class="container">
-                            <div class="input-group mb-3">
-                                <span class="side-label btn border-secondary bg-light"> Title:       </span>
-                                <input type="text" class="form-control" name="student_title" max-length="40"
-                                    placeholder="Title:" value="{{ form.cleaned_data.student_title }}" readonly>
-                            </div>
-                            <div class="input-group mb-3">
-                                <span class="side-label btn border-secondary bg-light"> Proponent/s: </span>
-                                <input type="text" class="form-control" name="student_proponents" max-length="40"
-                                    placeholder="Proponents" value="{{ form.cleaned_data.student_proponents }}"
-                                    readonly>
-                            </div>
-                            <div class="mt-4" style="width:100%;">
-                                <a href="{% url 'upload_proposal_defense' %}" class="btn btn-primary mb-3">
-                                    <i class="fas fa-arrow-left"></i>Back
-                                </a>
-                            </div>
+                    {% csrf_token %}
+                    <div class="container">
+                        <div class="input-group mb-3">
+                            <span class="side-label btn border-secondary bg-light"> Title: </span>
+                            <input type="text" class="form-control" name="student_title" max-length="40"
+                                placeholder="Title:" value="{{ form.cleaned_data.student_title }}" readonly>
                         </div>
+                        <div class="input-group mb-3">
+                            <span class="side-label btn border-secondary bg-light"> Proponent/s: </span>
+                            <input type="text" class="form-control" name="student_proponents" max-length="40"
+                                placeholder="Proponents" value="{{ form.cleaned_data.student_proponents }}" readonly>
+                        </div>
+                        <div class="mt-4" style="width:100%;">
+                            <a href="{% url 'upload_proposal_defense' %}" class="btn btn-primary mb-3">
+                                <i class="fas fa-arrow-left"></i>Back
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -157,31 +156,50 @@
                     </strong>
                 </div>
                 <div class="card-body" style="height: 350px;">
-    
+
                     <form method="POST" action="{% url 'upload_proposal_defense' %}" enctype="multipart/form-data">
                         {% csrf_token %}
                         <div class="container">
                             <div class="input-group mb-3">
                                 <span class="side-label btn border-secondary bg-light"> <i
                                         class="fa-solid fa-book"></i></span>
-                                <input type="text" class="form-control" name="student_title" max-length="40"
-                                    placeholder="Title" required>
+                                <textarea class="form-control" id="title" type="text" name="student_title"
+                                    max-length="40" placeholder="Title" required></textarea>
                             </div>
                             <div class="input-group mb-3">
                                 <span class="side-label btn border-secondary bg-light"> <i
                                         class="fa-solid fa-user-tie"></i></span>
-                                <input type="text" class="form-control" name="student_proponents" max-length="40"
-                                    placeholder="Proponents" required>
+                                <select class="form-control" id="proponents" name="student_proponents" required>
+                                    <option value="" disabled selected>Select Proponent</option>
+                                    {% for student in enrolled_students %}
+                                    <option value="{{ student.id }}">{{ student.Student_Name }}</option>
+                                    {% endfor %}
+                                </select>
                             </div>
                             <div class="input-group mb-3">
-                                <span class="side-label btn border-secondary bg-light"> <i class="fa-solid fa-person-chalkboard"></i></span>
+                                <div>
+                                    <label for="selected-students">Selected Students:</label>
+                                    <ul id="selected-students"></ul>
+                                </div>
+                                <textarea type="hidden" name="students" id="student-proponents-input" hidden></textarea>
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="side-label btn border-secondary bg-light"> <i
+                                        class="fa-solid fa-person-chalkboard"></i></span>
                                 <input type="text" class="form-control" name="adviser" max-length="40"
                                     placeholder="Adviser" required>
                             </div>
                             <div class="input-group mb-3">
-                                <span class="side-label btn border-secondary bg-light"> <i class="fa-solid fa-calendar-days"></i></span>
-                                <input type="text" class="form-control" name="school_year" max-length="40"
-                                    placeholder="School Year" required>
+                                <span class="side-label btn border-secondary bg-light"> <i
+                                        class="fa-solid fa-calendar-days"></i></span>
+                                <select name="school_year" id="SY" class="form-control">
+                                    <option value="" disabled selected>Select school year</option>
+                                    <option value="SY2018-19">SY2018-19</option>
+                                    <option value="SY2018-19">SY2019-20</option>
+                                    <option value="SY2018-19">SY2020-21</option>
+                                    <option value="SY2018-19">SY2021-22</option>
+                                    <option value="SY2018-19">SY2022-23</option>
+                                </select>
                             </div>
                             <div class="input-group mb-3">
                                 <span class="side-label btn border-secondary bg-light"> <i

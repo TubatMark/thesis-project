@@ -745,6 +745,7 @@ def register_student(request):
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['Student'])
 def upload_title_defense(request):
+    enrolled_students = StudentUsers.objects.all()
     nearest_neighbors = None
     if request.method == "POST":
         form = UploadDocumentsForm(request.POST, request.FILES)
@@ -757,11 +758,23 @@ def upload_title_defense(request):
 
                 # extract the text from the student's PDF file
                 student_title = form.cleaned_data['student_title']
-                student_proponents = form.cleaned_data['student_proponents']
                 student_pdf_file = form.cleaned_data["student_pdf_file"]
                 adviser = form.cleaned_data["adviser"]
                 school_year = form.cleaned_data["school_year"]
 
+                student_ids = request.POST.get("students")
+                if not student_ids:
+                    return HttpResponseBadRequest("No student IDs provided")
+                selected_students = StudentUsers.objects.filter(id__in=student_ids.split(","))
+                
+                proponents = []
+                for student in selected_students:
+                    # Create a new proponent for each selected student
+                    proponent = Proponent.objects.create(name=student.Student_Name)
+                    proponents.append(proponent)
+
+                title_user.student_proponents.set(selected_students)
+                title_user.save()
                 
                 vectorizer = TfidfVectorizer()
                 all_docs = []
@@ -813,12 +826,15 @@ def upload_title_defense(request):
                 if student_title and student_proponents and adviser and school_year:
                     repository_file = RepositoryFiles()
                     repository_file.title = student_title
-                    repository_file.proponents = student_proponents
                     repository_file.adviser = adviser
                     repository_file.school_year = school_year
                     repository_file.user = request.user
                     repository_file.description = "uploads"
                     extract_pdf_text(student_pdf_file, repository_file)
+                    repository_file.save()
+                    
+                    # Add the newly created proponents to the repository file
+                    repository_file.proponents.set(proponents)
                     repository_file.save()
                 else:
                     logger.info(f"Missing field values. Not able to save the RepositoryFiles.")
@@ -830,7 +846,7 @@ def upload_title_defense(request):
                 pass
     else:
         form = UploadDocumentsForm()
-    return render(request, "accounts/student/student_dashboard/student_uploads/upload_title.html", {'form': form, 'nearest_neighbors': nearest_neighbors})
+    return render(request, "accounts/student/student_dashboard/student_uploads/upload_title.html", {'form': form, 'nearest_neighbors': nearest_neighbors, 'enrolled_students': enrolled_students})
 
 # STUDENT UPLOAD DOCUMENT FOR SIMILARITY - PROPOSAL
 
@@ -838,6 +854,7 @@ def upload_title_defense(request):
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['Student'])
 def upload_proposal_defense(request):
+    enrolled_students = StudentUsers.objects.all()
     nearest_neighbors = None
     if request.method == "POST":
         form = UploadDocumentsForm(request.POST, request.FILES)
@@ -850,11 +867,23 @@ def upload_proposal_defense(request):
 
                 # extract the text from the student's PDF file
                 student_title = form.cleaned_data['student_title']
-                student_proponents = form.cleaned_data['student_proponents']
                 student_pdf_file = form.cleaned_data["student_pdf_file"]
                 adviser = form.cleaned_data["adviser"]
                 school_year = form.cleaned_data["school_year"]
 
+                student_ids = request.POST.get("students")
+                if not student_ids:
+                    return HttpResponseBadRequest("No student IDs provided")
+                selected_students = StudentUsers.objects.filter(id__in=student_ids.split(","))
+                
+                proponents = []
+                for student in selected_students:
+                    # Create a new proponent for each selected student
+                    proponent = Proponent.objects.create(name=student.Student_Name)
+                    proponents.append(proponent)
+
+                proposal_user.student_proponents.set(selected_students)
+                proposal_user.save()
                 
                 vectorizer = TfidfVectorizer()
                 all_docs = []
@@ -906,12 +935,15 @@ def upload_proposal_defense(request):
                 if student_title and student_proponents and adviser and school_year:
                     repository_file = RepositoryFiles()
                     repository_file.title = student_title
-                    repository_file.proponents = student_proponents
                     repository_file.adviser = adviser
                     repository_file.school_year = school_year
                     repository_file.user = request.user
                     repository_file.description = "uploads"
                     extract_pdf_text(student_pdf_file, repository_file)
+                    repository_file.save()
+                    
+                    # Add the newly created proponents to the repository file
+                    repository_file.proponents.set(proponents)
                     repository_file.save()
                 else:
                     logger.info(f"Missing field values. Not able to save the RepositoryFiles.")
@@ -925,7 +957,7 @@ def upload_proposal_defense(request):
                 pass
     else:
         form = UploadDocumentsForm()
-    return render(request, "accounts/student/student_dashboard/student_uploads/upload_proposal.html", {"form": form})
+    return render(request, "accounts/student/student_dashboard/student_uploads/upload_proposal.html", {"form": form, 'nearest_neighbors': nearest_neighbors, "enrolled_students": enrolled_students})
 
 # STUDENT UPLOAD DOCUMENT FOR SIMILARITY - FINAL
 
@@ -933,6 +965,7 @@ def upload_proposal_defense(request):
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['Student'])
 def upload_final_defense(request):
+    enrolled_students = StudentUsers.objects.all()
     if request.method == "POST":
         form = UploadDocumentsForm(request.POST, request.FILES)
         if form.is_valid():
@@ -942,12 +975,25 @@ def upload_final_defense(request):
             final_user.save()
             
             student_title = form.cleaned_data["student_title"]
-            student_proponents = form.cleaned_data["student_proponents"]
             adviser = form.cleaned_data["adviser"]
             school_year = form.cleaned_data["school_year"]
             pdf_file = request.FILES['student_pdf_file']
             abstract = form.cleaned_data["abstract"]
 
+            student_ids = request.POST.get("students")
+            if not student_ids:
+                return HttpResponseBadRequest("No student IDs provided")
+            selected_students = StudentUsers.objects.filter(id__in=student_ids.split(","))
+            
+            proponents = []
+            for student in selected_students:
+                # Create a new proponent for each selected student
+                proponent = Proponent.objects.create(name=student.Student_Name)
+                proponents.append(proponent)
+
+            final_user.student_proponents.set(selected_students)
+            final_user.save()
+            
              # Create a temporary file and write the uploaded file data to it
             with tempfile.NamedTemporaryFile(delete=False) as temp_file:
                 temp_file.write(pdf_file.read())
@@ -956,7 +1002,6 @@ def upload_final_defense(request):
                 repository_file = RepositoryFiles()
                 repository_file.user = request.user
                 repository_file.title = student_title
-                repository_file.proponents = student_proponents
                 repository_file.adviser = adviser
                 repository_file.school_year = school_year
                 repository_file.pdf_file.save(pdf_file.name, temp_file)
@@ -965,10 +1010,17 @@ def upload_final_defense(request):
                 text_file = final_pdf_repository(pdf_file)
                 repository_file.text_file = text_file
                 repository_file.save()
+                
+                # Add the newly created proponents to the repository file
+                repository_file.proponents.set(proponents)
+                repository_file.save()
+            
             return redirect("student_dashboard")
+        else:
+            logger.error(f"Form is invalid. Errors: {form.errors}")
     else:
         form = UploadDocumentsForm()
-    return render(request, "accounts/student/student_dashboard/student_uploads/upload_final.html", {"form": form})
+    return render(request, "accounts/student/student_dashboard/student_uploads/upload_final.html", {"form": form, "enrolled_students": enrolled_students})
 
 
 # def upload_final_defense(request):
@@ -1037,8 +1089,10 @@ def student_details(request):
 
     student_profiles = Student.objects.filter(user=request.user)
     students = StudentUsers.objects.filter(Student_Id=request.user.student_id)
-    uploads = UploadDocuments.objects.filter(user=request.user)
+    students_user = StudentUsers.objects.get(Student_Id=request.user.student_id)
+    uploads = UploadDocuments.objects.filter(student_proponents=students_user)
     comparisons = DocumentComparison.objects.filter(user=request.user)
+    
     context = {
         'student_profiles': student_profiles,
         'students': students,

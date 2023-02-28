@@ -45,12 +45,14 @@ class EditRegisteredStudentForm(forms.ModelForm):
 
 
 class UploadDocumentsForm(forms.ModelForm):
+    student_proponents = forms.ModelMultipleChoiceField(queryset=StudentUsers.objects.all())
+
+
     class Meta:
         model = UploadDocuments
         fields = ["student_title", "student_proponents", "adviser", "school_year", "student_pdf_file", "abstract"]
         widgets = {
             "student_title": forms.TextInput(attrs={"class": "form-group"}),
-            "student_proponents": forms.TextInput(attrs={"class": "form-group"}),
             "adviser": forms.TextInput(attrs={"class": "form-group"}),
             "school_year": forms.TextInput(attrs={"class": "form-group"}),
             "student_pdf_file": forms.FileInput(attrs={"class": "form-group"}),

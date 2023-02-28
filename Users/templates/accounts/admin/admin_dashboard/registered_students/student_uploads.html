@@ -20,20 +20,23 @@
                         <div class="cell">Comments</div>
                     </div>
                     {% for doc in user_docs %}
-                        {% if doc.user == student %}
-                            <div class="row" style="display:grid; grid-template-columns:  2fr 2fr 2fr 2fr 1fr 2fr">
-                                <div class="cell">{{doc.student_title}}</div>
-                                <div class="cell">{{doc.student_proponents}}</div>
-                                <div class="cell">{{doc.uploaded_at}}</div>
-                                <div class="cell">{{doc.document_type}}</div>
-                                <div class="cell">{{doc.status}}</div>
-                                <div class="cell">
-                                    {% for comment in doc.comments.all %}
-                                    {{ comment.comment }}
-                                    {% endfor %}
-                                </div>
-                            </div>
-                            {% endif %}
+                    {% if doc.user == student %}
+                    <div class="row" style="display:grid; grid-template-columns:  2fr 2fr 2fr 2fr 1fr 2fr">
+                        <div class="cell">{{doc.student_title}}</div>
+                        <div class="cell">
+                            {% for proponent in doc.proponents.all %}
+                            <li>{{proponent.student_proponents}}</li>{{proponent.student_proponents}}
+                        </div>
+                        <div class="cell">{{doc.uploaded_at}}</div>
+                        <div class="cell">{{doc.document_type}}</div>
+                        <div class="cell">{{doc.status}}</div>
+                        <div class="cell">
+                            {% for comment in doc.comments.all %}
+                            {{ comment.comment }}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
                     {% endfor %}
                     {% comment %} {% endfor %} {% endcomment %}
                 </div>

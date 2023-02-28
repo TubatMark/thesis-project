@@ -153,31 +153,50 @@
                     </strong>
                 </div>
                 <div class="card-body" style="height: 350px;">
-                    
+
                     <form method="POST" action="{% url 'upload_title_defense' %}" enctype="multipart/form-data">
                         {% csrf_token %}
                         <div class="container">
                             <div class="input-group mb-3">
                                 <span class="side-label btn border-secondary bg-light"> <i
                                         class="fa-solid fa-book"></i></span>
-                                <input type="text" class="form-control" name="student_title" max-length="40"
-                                    placeholder="Title" required>
+                                <textarea class="form-control" id="title" type="text" name="student_title"
+                                    max-length="40" placeholder="Title" required></textarea>
                             </div>
                             <div class="input-group mb-3">
                                 <span class="side-label btn border-secondary bg-light"> <i
                                         class="fa-solid fa-user-tie"></i></span>
-                                <input type="text" class="form-control" name="student_proponents" max-length="40"
-                                    placeholder="Proponents" required>
+                                <select class="form-control" id="proponents" name="student_proponents" required>
+                                    <option value="" disabled selected>Select Proponent</option>
+                                    {% for student in enrolled_students %}
+                                    <option value="{{ student.id }}">{{ student.Student_Name }}</option>
+                                    {% endfor %}
+                                </select>
                             </div>
                             <div class="input-group mb-3">
-                                <span class="side-label btn border-secondary bg-light"> <i class="fa-solid fa-person-chalkboard"></i></span>
+                                <div>
+                                    <label for="selected-students">Selected Students:</label>
+                                    <ul id="selected-students"></ul>
+                                </div>
+                                <textarea type="hidden" name="students" id="student-proponents-input" hidden></textarea>
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="side-label btn border-secondary bg-light"> <i
+                                        class="fa-solid fa-person-chalkboard"></i></span>
                                 <input type="text" class="form-control" name="adviser" max-length="40"
                                     placeholder="Adviser" required>
                             </div>
                             <div class="input-group mb-3">
-                                <span class="side-label btn border-secondary bg-light"> <i class="fa-solid fa-calendar-days"></i></span>
-                                <input type="text" class="form-control" name="school_year" max-length="40"
-                                    placeholder="School Year" required>
+                                <span class="side-label btn border-secondary bg-light"> <i
+                                        class="fa-solid fa-calendar-days"></i></span>
+                                <select name="school_year" id="SY" class="form-control">
+                                    <option value="" disabled selected>Select school year</option>
+                                    <option value="SY2018-19">SY2018-19</option>
+                                    <option value="SY2018-19">SY2019-20</option>
+                                    <option value="SY2018-19">SY2020-21</option>
+                                    <option value="SY2018-19">SY2021-22</option>
+                                    <option value="SY2018-19">SY2022-23</option>
+                                </select>
                             </div>
                             <div class="input-group mb-3">
                                 <span class="side-label btn border-secondary bg-light"> <i

@@ -19,8 +19,11 @@
             </div>
             <div class="col-6">
               <h6>PROPONENTS</h6>
-              <input type="text" class="form-control" name="proponents" max-length="40" value="{{repo.proponents}}"
-                readonly {% block repo-proponents %} {% endblock repo-proponents %}>
+              <ul>
+                {% for proponent in repo.proponents.all %}
+                <li>{{ proponent.name }}</li>
+                {% endfor %}
+              </ul>
             </div>
           </div>
           <hr>

@@ -27,7 +27,13 @@
             {% for repo in repository %}
             <tr style="color: black; text-align: left; font-size: 13px; ">
                 <td data-label="Thesis Title">{{ repo.title }}</td>
-                <td data-label="Proponents">{{ repo.proponents }}</td>
+                <td data-label="Proponents">
+                    <ul>
+                        {% for proponent in repo.proponents.all %}
+                            <li>{{ proponent.name }}</li>
+                        {% endfor %}
+                    </ul>
+                </td>                
                 <td data-label="Adviser">{{ repo.adviser }}</td>
                 <td data-label="School Year">{{ repo.school_year }}</td>
                 <td data-label="Actions">

@@ -139,7 +139,7 @@ def vectorize(query_matrix, vectorizer, k, student_title, user_id):
     if last_threshold:
         threshold = last_threshold.threshold
     matrices = []
-    for file_info in RepositoryFiles.objects.exclude(user=user_id).values('text_file', 'title','proponents','adviser','school_year', 'user'):
+    for file_info in RepositoryFiles.objects.exclude(user=user_id).prefetch_related('proponents').values('text_file', 'title', 'proponents__name', 'adviser', 'school_year', 'user'):
         file_path = file_info['text_file']
         with open(file_path, 'r', encoding='utf-8', errors='ignore') as f:
             text = f.read()
@@ -156,13 +156,12 @@ def vectorize(query_matrix, vectorizer, k, student_title, user_id):
             # calculate the similarity between the titles
             title_similarity = fuzz.token_set_ratio(preprocess_corpus_title, preprocess_student_title)
             
-            #working
-            #title_similarity = fuzz.token_set_ratio(file_info['title'], student_title)
-
+            proponents = [proponent['proponents__name'] for proponent in file_info['proponents']]
+            
             matrices.append({
                 'title': file_info['title'], 
                 'title_similarity': title_similarity, 
-                'proponents': file_info['proponents'], 
+                'proponents': proponents, 
                 'adviser': file_info['adviser'], 
                 'school_year': file_info['school_year'], 
                 'matrix': doc_matrix, 
@@ -180,6 +179,7 @@ def vectorize(query_matrix, vectorizer, k, student_title, user_id):
         else:
             neighbor['below_threshold'] = False
     return nearest_neighbors
+
     
 
         

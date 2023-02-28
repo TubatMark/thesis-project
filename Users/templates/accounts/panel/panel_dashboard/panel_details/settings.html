@@ -69,7 +69,13 @@
                                 {% for updated in updated_by %}
                                 <tr style="color: black; text-align: left; font-size: 13px; ">
                                     <td data-label="Thesis Title">{{ updated.student_title }}</td>
-                                    <td data-label="Proponents">{{ updated.student_proponents }}</td>
+                                    <td data-label="Proponents">
+                                        <ul>
+                                            {% for proponent in upload.student_proponents.all %}
+                                                <li>{{ proponent.Student_Name }}</li>
+                                            {% endfor %}
+                                        </ul>
+                                    </td>                                    
                                     <td data-label="Upload Date&Time">{{ updated.uploaded_at|date:"D d M Y H:i:s" }}</td>
                                     <td data-label="Document Type">{{updated.document_type}}</td>
                                     <td data-label="Status">{{ updated.status }}</td>
