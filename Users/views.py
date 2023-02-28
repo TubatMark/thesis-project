@@ -785,7 +785,7 @@ def upload_title_defense(request):
                         all_docs.append(f.read())
                 all_docs = [preprocess(text) for text in all_docs]
                 vectorizer.fit(all_docs)
-                k = 5
+                k = 2
                 user_id = request.user
                 query_matrix = student_pdf_text(student_pdf_file, vectorizer)
                 nearest_neighbors = vectorize(query_matrix, vectorizer, k, student_title, user_id)
