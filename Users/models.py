@@ -43,7 +43,7 @@ class PanelUsers(models.Model):
 
 #proponent manytomany to repositoryfiles
 class Proponent(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, null=True)
     
     def __str__(self):
         return self.name
@@ -133,11 +133,15 @@ class Student(models.Model):
     group = models.CharField(max_length=50, default="Student")
     profile_picture = models.ImageField(os.path.join(settings.MEDIA_ROOT,"profile_pictures/"), blank=True, null=True)
     objects = StudentUsersManager()
+     
+#SYSTEM SIMILARITY REPORT PROPONENTS   
+class DocumentsProponents(models.Model):
+    name = models.CharField(max_length=255)
         
 #SYSTEM SIMILARITY REPORT
 class Documents(models.Model):
-    docs_title = models.CharField(max_length=255, blank=True, null=True)
-    proponents = models.CharField(max_length=255, blank=True, null=True)
+    docs_title = models.TextField(blank=True, null=True)
+    proponents = models.ManyToManyField(DocumentsProponents, related_name="proponents")
     adviser = models.CharField(max_length=255, blank=True, null=True)
     school_year = models.CharField(max_length=255, blank=True, null=True)
     content_similarity = models.FloatField(default=0.0)

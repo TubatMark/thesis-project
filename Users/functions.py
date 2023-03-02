@@ -83,32 +83,6 @@ def extract_pdf_text(pdf_file, repository_file):
     # Save the file path to the database
     repository_file.text_file = text_file
     repository_file.save()
-    
-# def extract_pdf_text(pdf_file, repository_file):
-#     # read the contents of the uploaded file
-#     pdf_content = pdf_file.read()
-
-#     # create a PyPDF2 PdfReader object
-#     pdf_reader = PyPDF2.PdfReader(io.BytesIO(pdf_content))
-
-#     # extract the text from each page and save it in a list
-#     text_list = [pdf_reader.pages[page].extract_text() for page in range(len(pdf_reader.pages))]
-
-#     # join all the texts from the list and save it as a single string
-#     text = "\n".join(text_list)
-
-#     # construct the file path using MEDIA_ROOT and MEDIA_URL
-#     file_path = os.path.join(settings.MEDIA_ROOT, "ExtractedFiles")
-#     if not os.path.exists(file_path):
-#         os.makedirs(file_path)
-#     text_file_name = pdf_file.name.replace('.pdf', '.txt')
-#     text_file = os.path.join(file_path, text_file_name)
-#     with open(text_file, 'w', encoding='utf-8') as f:
-#         f.write(text)
-
-#     # Save the file path to the database
-#     repository_file.text_file = text_file
-#     repository_file.save()
 
 
 def final_pdf_repository(pdf_file):
@@ -133,13 +107,26 @@ def final_pdf_repository(pdf_file):
     return text_file
 
 
-def vectorize(query_matrix, vectorizer, k, student_title, user_id):
+def vectorize(query_matrix, vectorizer, k, student_title, selected_proponents):
     threshold = 0
     last_threshold = SimilarityThreshold.objects.all().last() #admin set threshold
     if last_threshold:
         threshold = last_threshold.threshold
     matrices = []
-    for file_info in RepositoryFiles.objects.exclude(user=user_id).prefetch_related('proponents').values('text_file', 'title', 'proponents', 'adviser', 'school_year', 'user'):
+    
+    # Get the IDs of the selected proponents
+    selected_proponents_ids = [proponent.id for proponent in selected_proponents]
+    
+    # Get the RepositoryFiles that don't have the same proponents as the selected ones
+    filtered_files = RepositoryFiles.objects.exclude(proponents__id__in=selected_proponents_ids).values('text_file', 'title', 'adviser', 'school_year')
+    
+    
+    for file_info in filtered_files:
+        proponents = [proponent.name for proponent in RepositoryFiles.objects.get(text_file=file_info['text_file']).proponents.all()]
+        if set(proponents) == set([proponent.name for proponent in selected_proponents]):
+            # Skip the file if it has the same proponents as the selected ones
+            continue
+        
         file_path = file_info['text_file']
         with open(file_path, 'r', encoding='utf-8', errors='ignore') as f:
             text = f.read()
@@ -155,20 +142,17 @@ def vectorize(query_matrix, vectorizer, k, student_title, user_id):
             
             # calculate the similarity between the titles
             title_similarity = fuzz.token_set_ratio(preprocess_corpus_title, preprocess_student_title)
-            
-            #proponents = [proponent['proponents__name'] for proponent in file_info['proponents']]
-            proponents = [Proponent.name for proponent in file_info['proponents']]
 
-            
             matrices.append({
                 'title': file_info['title'], 
                 'title_similarity': title_similarity, 
-                'proponents': proponents, 
                 'adviser': file_info['adviser'], 
                 'school_year': file_info['school_year'], 
                 'matrix': doc_matrix, 
-                'content_similarity': content_similarity
+                'content_similarity': content_similarity,
+                'proponents': proponents
             })
+
     # Sort the list of documents by similarity in descending order
     matrices.sort(key=lambda x: x['content_similarity'], reverse=True)
     # Select the first k documents
@@ -181,8 +165,6 @@ def vectorize(query_matrix, vectorizer, k, student_title, user_id):
         else:
             neighbor['below_threshold'] = False
     return nearest_neighbors
-
-    
 
         
 def student_pdf_text(pdf_file, vectorizer):

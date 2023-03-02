@@ -24,7 +24,13 @@
             {% for final in finals %}
             <tr style="color: black; text-align: left; font-size: 13px;">
                 <td data-label="Thesis Title">{{final.student_title}}</td>
-                <td data-label="Proponents">{{final.student_proponents}}</td>
+                <td data-label="Proponents">
+                    <ul>
+                        {% for proponent in final.student_proponents.all %}
+                            <li>{{ proponent.Student_Name }}</li>
+                        {% endfor %}
+                    </ul>
+                </td>                  
                 <td data-label="Date & Time">{{final.uploaded_at|date:"D d M Y H:i:s" }}</td>
                 <td data-label= "Actions" class="justify-content-between">
                     <a href="{% url 'view_def_documents' final.id %}" target="_blank" class="btn btn-success">View</a>

@@ -21,7 +21,7 @@
 
     <div class="row">
         <div class="col-12 col-xl-12">
-            <div class="card card-body border-0 shadow mb-4">
+            <div class="card card-body border-0 shadow mb-4" style="height: auto;">
                 <h2 class="h5 mb-4">Fill up details!</h2>
                 <form method="POST" action="{% url 'upload_final_defense' %}" enctype="multipart/form-data">
                     {% csrf_token %}

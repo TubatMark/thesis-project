@@ -29,7 +29,13 @@
             {% for proposal in proposals %}
             <tr style="color: black; text-align: left; font-size: 13px;">
                 <td data-label="Thesis Title">{{proposal.student_title}}</td>
-                <td data-label="Proponents">{{proposal.student_proponents}}</td>
+                <td data-label="Proponents">
+                    <ul>
+                        {% for proponent in proposal.student_proponents.all %}
+                            <li>{{ proponent.Student_Name }}</li>
+                        {% endfor %}
+                    </ul>
+                </td>                    
                 <td data-label="Date & Time">{{proposal.uploaded_at|date:"D d M Y H:i:s" }}</td>
                 <td data-label="Threshold Result" >{{proposal.threshold_result}}</td>
                 <td data-label="Status" class="justify-content-between">

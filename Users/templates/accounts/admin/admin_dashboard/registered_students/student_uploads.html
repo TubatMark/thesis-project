@@ -25,7 +25,9 @@
                         <div class="cell">{{doc.student_title}}</div>
                         <div class="cell">
                             {% for proponent in doc.proponents.all %}
-                            <li>{{proponent.student_proponents}}</li>{{proponent.student_proponents}}
+                            <ul>
+                                <li>{{proponent.student_proponents}}</li>
+                            </ul>
                         </div>
                         <div class="cell">{{doc.uploaded_at}}</div>
                         <div class="cell">{{doc.document_type}}</div>

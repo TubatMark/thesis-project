@@ -767,20 +767,30 @@ def upload_title_defense(request):
                     return HttpResponseBadRequest("No student IDs provided")
                 selected_students = StudentUsers.objects.filter(id__in=student_ids.split(","))
                 
-                proponents = []
+                selected_proponents = []
+                existing_proponents = set()  # Keep track of existing proponents to avoid duplicates
+
                 for student in selected_students:
-                    # Create a new proponent for each selected student
-                    proponent = Proponent.objects.create(name=student.Student_Name)
-                    proponents.append(proponent)
+                    proponent_name = student.Student_Name
+                    # Check if proponent with the same name already exists in the database
+                    proponent, created = Proponent.objects.get_or_create(name=proponent_name)
+                    if not created:
+                        existing_proponents.add(proponent)
+                    selected_proponents.append(proponent)
 
                 title_user.student_proponents.set(selected_students)
                 title_user.save()
                 
+                
+                #similarit test portion
+                #TfidfVectorizer model that can be used to vectorize text data and then fitting it to the 
+                # text data from all files in the repository. This will create a model that is tailored to 
+                # the specific domain of documents in the repository and can be used to compare new documents 
+                # against them.
                 vectorizer = TfidfVectorizer()
                 all_docs = []
-                for file in RepositoryFiles.objects.all().prefetch_related('proponents').values('text_file', 'title','proponents','adviser','school_year'):
+                for file in RepositoryFiles.objects.all().values('text_file', 'title','adviser','school_year'): ##.prefetch_related('proponents')
                     file_path = file['text_file']
-                    repo_proponents = [proponent.name for proponent in file['proponents']]
                     with open(file_path, 'r', encoding='utf-8', errors='ignore') as f:
                         all_docs.append(f.read())
                 all_docs = [preprocess(text) for text in all_docs]
@@ -788,7 +798,7 @@ def upload_title_defense(request):
                 k = 2
                 user_id = request.user
                 query_matrix = student_pdf_text(student_pdf_file, vectorizer)
-                nearest_neighbors = vectorize(query_matrix, vectorizer, k, student_title, user_id)
+                nearest_neighbors = vectorize(query_matrix, vectorizer, k, student_title, selected_proponents)
                 
                 threshold = 0
                 last_threshold = SimilarityThreshold.objects.all().last()
@@ -796,28 +806,38 @@ def upload_title_defense(request):
                     threshold = last_threshold.threshold
                     
                 for neighbor in nearest_neighbors:
-                    # Retrieve the title, proponents, advisor and school_year fields from the RepositoryFiles model
-                    repository_file = RepositoryFiles.objects.prefetch_related('proponents').get(title=neighbor['title'])
+                    # Retrieve the title, proponents, adviser and school_year fields from the RepositoryFiles model
+                    repository_file = RepositoryFiles.objects.get(title=neighbor['title']) 
+                    proponent_names = list(set(repository_file.proponents.all().values_list('name', flat=True)))
                     neighbor['title'] = repository_file.title
-                    neighbor['proponents'] = [Proponent.name for Proponent in repository_file.proponents.all()]
+                    neighbor['proponents'] = proponent_names
                     neighbor['adviser'] = repository_file.adviser
                     neighbor['school_year'] = repository_file.school_year
 
                     # Save the data in the Documents model
                     document = Documents(
-                        docs_title=neighbor['title'], 
-                        title_similarity=neighbor['title_similarity'], 
-                        content_similarity=neighbor['content_similarity'], 
-                        uploaded_at=timezone.now(),
-                        proponents=neighbor['proponents'],
-                        adviser=neighbor['adviser'],
-                        school_year=neighbor['school_year']
+                            docs_title=neighbor['title'], 
+                            title_similarity=neighbor['title_similarity'], 
+                            content_similarity=neighbor['content_similarity'], 
+                            uploaded_at=timezone.now(),
+                            adviser=neighbor['adviser'],
+                            school_year=neighbor['school_year']
                     )
+                    document.save()
+
+                    # Iterate over the proponents list and add each proponent to the document object
+                    for proponent_name in neighbor['proponents']:
+                        proponents = DocumentsProponents.objects.filter(name=proponent_name)
+                        if proponents.exists():
+                            repo_proponent = proponents.first()
+                        else:
+                            repo_proponent = DocumentsProponents.objects.create(name=proponent_name)
+                        document.proponents.add(repo_proponent)
+
                     document.save()
                     title_user.most_similar_documents.add(document)
                     title_user.save()
 
-                    
                     if neighbor['content_similarity'] > threshold:
                         title_user.threshold_result = "above threshold"
                         title_user.save()
@@ -825,23 +845,26 @@ def upload_title_defense(request):
                         title_user.threshold_result = "below threshold"
                         title_user.save()
                 
-                if student_title and student_proponents and adviser and school_year:
-                    repository_file = RepositoryFiles()
-                    repository_file.title = student_title
-                    repository_file.adviser = adviser
-                    repository_file.school_year = school_year
-                    repository_file.user = request.user
-                    repository_file.description = "uploads"
-                    extract_pdf_text(student_pdf_file, repository_file)
-                    repository_file.save()
-                    
-                    # Add the newly created proponents to the repository file
-                    repository_file.proponents.set(proponents)
-                    repository_file.save()
-                else:
-                    logger.info(f"Missing field values. Not able to save the RepositoryFiles.")
+                #save in the RepositoryFiles - working
+                # Create repository file and add selected proponents (excluding existing ones)
+                repository_file = RepositoryFiles()
+                repository_file.title = student_title
+                repository_file.adviser = adviser
+                repository_file.school_year = school_year
+                repository_file.user = request.user
+                repository_file.description = "uploads"
+                repository_file.pdf_file = student_pdf_file
+                extract_pdf_text(student_pdf_file, repository_file)
+
+                # Filter out existing proponents from the selected_proponents list
+                selected_proponents = [p for p in selected_proponents if p not in existing_proponents]
+
+                # Add the newly created proponents to the repository file
+                repository_file.save()
+                repository_file.proponents.set(selected_proponents)
                 
-                context = {"form": form, "nearest_neighbors": nearest_neighbors, "student_title": student_title, "student_proponents": student_proponents}
+                
+                context = {"form": form, "nearest_neighbors": nearest_neighbors, "student_title": student_title}
             except Exception as e:
                 logger.error(
                     f"Error comparing student's title PDF file to corpus: {e}")
@@ -878,27 +901,37 @@ def upload_proposal_defense(request):
                     return HttpResponseBadRequest("No student IDs provided")
                 selected_students = StudentUsers.objects.filter(id__in=student_ids.split(","))
                 
-                proponents = []
+                selected_proponents = []
+                existing_proponents = set()  # Keep track of existing proponents to avoid duplicates
+
                 for student in selected_students:
-                    # Create a new proponent for each selected student
-                    proponent = Proponent.objects.create(name=student.Student_Name)
-                    proponents.append(proponent)
+                    proponent_name = student.Student_Name
+                    # Check if proponent with the same name already exists in the database
+                    proponent, created = Proponent.objects.get_or_create(name=proponent_name)
+                    if not created:
+                        existing_proponents.add(proponent)
+                    selected_proponents.append(proponent)
 
                 proposal_user.student_proponents.set(selected_students)
                 proposal_user.save()
                 
+                #similarit test portion
+                #TfidfVectorizer model that can be used to vectorize text data and then fitting it to the 
+                # text data from all files in the repository. This will create a model that is tailored to 
+                # the specific domain of documents in the repository and can be used to compare new documents 
+                # against them.
                 vectorizer = TfidfVectorizer()
                 all_docs = []
-                for file in RepositoryFiles.objects.all().values('text_file', 'title','proponents','adviser','school_year'):
+                for file in RepositoryFiles.objects.all().values('text_file', 'title','adviser','school_year'): ##.prefetch_related('proponents')
                     file_path = file['text_file']
                     with open(file_path, 'r', encoding='utf-8', errors='ignore') as f:
                         all_docs.append(f.read())
                 all_docs = [preprocess(text) for text in all_docs]
                 vectorizer.fit(all_docs)
-                k = 5
+                k = 2
                 user_id = request.user
                 query_matrix = student_pdf_text(student_pdf_file, vectorizer)
-                nearest_neighbors = vectorize(query_matrix, vectorizer, k, student_title, user_id)
+                nearest_neighbors = vectorize(query_matrix, vectorizer, k, student_title, selected_proponents)
                 
                 threshold = 0
                 last_threshold = SimilarityThreshold.objects.all().last()
@@ -906,27 +939,38 @@ def upload_proposal_defense(request):
                     threshold = last_threshold.threshold
                     
                 for neighbor in nearest_neighbors:
-                    # Retrieve the title, proponents, advisor and school_year fields from the RepositoryFiles model
-                    repository_file = RepositoryFiles.objects.get(title=neighbor['title'])
+                    # Retrieve the title, proponents, adviser and school_year fields from the RepositoryFiles model
+                    repository_file = RepositoryFiles.objects.get(title=neighbor['title']) 
+                    proponent_names = list(set(repository_file.proponents.all().values_list('name', flat=True)))
                     neighbor['title'] = repository_file.title
-                    neighbor['proponents'] = repository_file.proponents
+                    neighbor['proponents'] = proponent_names
                     neighbor['adviser'] = repository_file.adviser
                     neighbor['school_year'] = repository_file.school_year
 
                     # Save the data in the Documents model
                     document = Documents(
-                        docs_title=neighbor['title'], 
-                        title_similarity=neighbor['title_similarity'], 
-                        content_similarity=neighbor['content_similarity'], 
-                        uploaded_at=timezone.now(),
-                        proponents=neighbor['proponents'],
-                        adviser=neighbor['adviser'],
-                        school_year=neighbor['school_year']
+                            docs_title=neighbor['title'], 
+                            title_similarity=neighbor['title_similarity'], 
+                            content_similarity=neighbor['content_similarity'], 
+                            uploaded_at=timezone.now(),
+                            adviser=neighbor['adviser'],
+                            school_year=neighbor['school_year']
                     )
+                    document.save()
+
+                    # Iterate over the proponents list and add each proponent to the document object
+                    for proponent_name in neighbor['proponents']:
+                        proponents = DocumentsProponents.objects.filter(name=proponent_name)
+                        if proponents.exists():
+                            repo_proponent = proponents.first()
+                        else:
+                            repo_proponent = DocumentsProponents.objects.create(name=proponent_name)
+                        document.proponents.add(repo_proponent)
+
                     document.save()
                     proposal_user.most_similar_documents.add(document)
                     proposal_user.save()
-                    
+
                     if neighbor['content_similarity'] > threshold:
                         proposal_user.threshold_result = "above threshold"
                         proposal_user.save()
@@ -934,21 +978,23 @@ def upload_proposal_defense(request):
                         proposal_user.threshold_result = "below threshold"
                         proposal_user.save()
                 
-                if student_title and student_proponents and adviser and school_year:
-                    repository_file = RepositoryFiles()
-                    repository_file.title = student_title
-                    repository_file.adviser = adviser
-                    repository_file.school_year = school_year
-                    repository_file.user = request.user
-                    repository_file.description = "uploads"
-                    extract_pdf_text(student_pdf_file, repository_file)
-                    repository_file.save()
-                    
-                    # Add the newly created proponents to the repository file
-                    repository_file.proponents.set(proponents)
-                    repository_file.save()
-                else:
-                    logger.info(f"Missing field values. Not able to save the RepositoryFiles.")
+                #save in the RepositoryFiles - working
+                # Create repository file and add selected proponents (excluding existing ones)
+                repository_file = RepositoryFiles()
+                repository_file.title = student_title
+                repository_file.adviser = adviser
+                repository_file.school_year = school_year
+                repository_file.user = request.user
+                repository_file.description = "uploads"
+                repository_file.pdf_file = student_pdf_file
+                extract_pdf_text(student_pdf_file, repository_file)
+
+                # Filter out existing proponents from the selected_proponents list
+                selected_proponents = [p for p in selected_proponents if p not in existing_proponents]
+
+                # Add the newly created proponents to the repository file
+                repository_file.save()
+                repository_file.proponents.set(selected_proponents)
                     
                 context = {"form": form, "nearest_neighbors": nearest_neighbors,
                            "student_title": student_title, "student_proponents": student_proponents}
@@ -986,17 +1032,22 @@ def upload_final_defense(request):
             if not student_ids:
                 return HttpResponseBadRequest("No student IDs provided")
             selected_students = StudentUsers.objects.filter(id__in=student_ids.split(","))
-            
+
             proponents = []
             for student in selected_students:
-                # Create a new proponent for each selected student
-                proponent = Proponent.objects.create(name=student.Student_Name)
-                proponents.append(proponent)
+                # Check if a Proponent object with this name already exists in the database
+                existing_proponent = Proponent.objects.filter(name=student.Student_Name).first()
+                if existing_proponent:
+                    proponents.append(existing_proponent)
+                else:
+                    # Create a new proponent for each selected student
+                    proponent = Proponent.objects.create(name=student.Student_Name)
+                    proponents.append(proponent)
 
             final_user.student_proponents.set(selected_students)
             final_user.save()
-            
-             # Create a temporary file and write the uploaded file data to it
+
+            # Create a temporary file and write the uploaded file data to it
             with tempfile.NamedTemporaryFile(delete=False) as temp_file:
                 temp_file.write(pdf_file.read())
 
@@ -1012,56 +1063,17 @@ def upload_final_defense(request):
                 text_file = final_pdf_repository(pdf_file)
                 repository_file.text_file = text_file
                 repository_file.save()
-                
+
                 # Add the newly created proponents to the repository file
                 repository_file.proponents.set(proponents)
                 repository_file.save()
-            
+
             return redirect("student_dashboard")
         else:
             logger.error(f"Form is invalid. Errors: {form.errors}")
     else:
         form = UploadDocumentsForm()
     return render(request, "accounts/student/student_dashboard/student_uploads/upload_final.html", {"form": form, "enrolled_students": enrolled_students})
-
-
-# def upload_final_defense(request):
-#     if request.method == "POST":
-#         form = UploadDocumentsForm(request.POST, request.FILES)
-#         if form.is_valid():
-#             final_user = form.save(commit=False)
-#             final_user.user = request.user
-#             final_user.document_type = "FINAL DEFENSE DOCUMENT"
-#             final_user.save()
-
-#             student_title = form.cleaned_data["student_title"]
-#             student_proponents = form.cleaned_data["student_proponents"]
-#             adviser = form.cleaned_data["adviser"]
-#             school_year = form.cleaned_data["school_year"]
-#             pdf_file = request.FILES['student_pdf_file']
-#             abstract = form.cleaned_data["abstract"]
-
-#             if student_title and student_proponents and adviser and school_year and pdf_file and abstract:
-#                 repository_file = RepositoryFiles()
-#                 repository_file.title = student_title
-#                 repository_file.proponents = student_proponents
-#                 repository_file.adviser = adviser
-#                 repository_file.school_year = school_year
-#                 repository_file.pdf_file = pdf_file
-#                 repository_file.abstract = abstract
-#                 repository_file.user = request.user
-#                 repository_file.description = "repository"
-#                 extract_pdf_text(pdf_file, repository_file)
-#                 repository_file.save()
-#                 logger.info(
-#                     f"Successfully extracted text from PDF file {pdf_file} and saved it to a .txt file")
-#                 return redirect("student_dashboard")
-#             else:
-#                 logger.info(
-#                     f"Missing field values. Not able to save the RepositoryFiles.")
-#     else:
-#         form = UploadDocumentsForm()
-#     return render(request, "accounts/student/student_dashboard/student_uploads/upload_final.html", {"form": form})
 
 # STUDENT VIEW UPLOADED FILES
 

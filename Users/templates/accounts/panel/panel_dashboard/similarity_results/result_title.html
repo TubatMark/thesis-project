@@ -24,7 +24,13 @@
                         <div class="row" style="display:grid; grid-template-columns: 2fr 2fr 1fr 1fr 1fr 1fr">
                             {% for document in title.most_similar_documents.all %}
                             <div class="cell">{{document.docs_title}}</div>
-                            <div class="cell">{{document.proponents}}</div>
+                            <div class="cell">
+                                {% for proponent in document.proponents.all %}
+                                <ul>
+                                    <li>{{ proponent.name }}</li>
+                                </ul>
+                                {% endfor %}
+                            </div>                            
                             <div class="cell">{{document.adviser}}</div>
                             <div class="cell">{{document.school_year}}</div>
                             <div class="cell">{{document.title_similarity|floatformat:0}}%</div>
