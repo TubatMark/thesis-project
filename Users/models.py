@@ -14,7 +14,7 @@ class User(AbstractUser):
 #PANEL    
 class Panel(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    profile_picture = models.ImageField(os.path.join(settings.MEDIA_ROOT,"profile_pictures/"), blank=True, null=True)
+    profile_picture = models.ImageField(upload_to='profile_pictures/')
     
 class PanelUsersManager(models.Manager):
     def create_user(self, first_name, last_name, email, password, panel, group):
@@ -66,7 +66,7 @@ class RepositoryFiles(models.Model):
         
 class Admin(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    profile_picture = models.ImageField(os.path.join(settings.MEDIA_ROOT,"profile_pictures/"), blank=True, null=True)
+    profile_picture = models.ImageField(upload_to='profile_pictures/')
 
 class AdminUsersManager(models.Manager):
     def create_user(self, first_name, last_name, email, password, admin, group):
@@ -131,7 +131,7 @@ class Student(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     student_id = models.CharField(max_length=255)
     group = models.CharField(max_length=50, default="Student")
-    profile_picture = models.ImageField(os.path.join(settings.MEDIA_ROOT,"profile_pictures/"), blank=True, null=True)
+    profile_picture = models.ImageField(upload_to='profile_pictures/')
     objects = StudentUsersManager()
      
 #SYSTEM SIMILARITY REPORT PROPONENTS   
@@ -202,7 +202,7 @@ class DocumentComparison(models.Model):
 
 
 class SimilarityThreshold(models.Model):
-    threshold = models.FloatField(default=0)
+    threshold = models.FloatField(default=1)
     user = models.OneToOneField(User, on_delete=models.CASCADE, default=1)
     
     class Meta:

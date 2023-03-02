@@ -1082,7 +1082,9 @@ def upload_final_defense(request):
 @allowed_users(allowed_roles=['Student'])
 def view_uploads(request):
     user = request.user
-    uploads = UploadDocuments.objects.filter(user_id=user.id)
+    students = StudentUsers.objects.filter(Student_Id=request.user.student_id)
+    students_user = StudentUsers.objects.get(Student_Id=request.user.student_id)
+    uploads = UploadDocuments.objects.filter(student_proponents=students_user)
     return render(request, 'accounts/student/student_dashboard/uploads_result/uploads_result.html', {'uploads': uploads})
 
 # STUDENT VIEW STUDENT DETAILS
