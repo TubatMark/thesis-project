@@ -847,14 +847,16 @@ def upload_title_defense(request):
                 
                 #save in the RepositoryFiles - working
                 # Create repository file and add selected proponents (excluding existing ones)
-                repository_file = RepositoryFiles()
-                repository_file.title = student_title
-                repository_file.adviser = adviser
-                repository_file.school_year = school_year
-                repository_file.user = request.user
-                repository_file.description = "uploads"
-                repository_file.pdf_file = student_pdf_file
-                extract_pdf_text(student_pdf_file, repository_file)
+                if student_title and adviser and school_year and student_pdf_file:
+                    repository_file = RepositoryFiles()
+                    repository_file.title = student_title
+                    repository_file.adviser = adviser
+                    repository_file.school_year = school_year
+                    repository_file.user = request.user
+                    repository_file.description = "uploads"
+                    repository_file.pdf_file = student_pdf_file
+                    extract_pdf_text(student_pdf_file, repository_file)
+                    repository_file.save()
 
                 # Filter out existing proponents from the selected_proponents list
                 selected_proponents = [p for p in selected_proponents if p not in existing_proponents]
@@ -980,14 +982,16 @@ def upload_proposal_defense(request):
                 
                 #save in the RepositoryFiles - working
                 # Create repository file and add selected proponents (excluding existing ones)
-                repository_file = RepositoryFiles()
-                repository_file.title = student_title
-                repository_file.adviser = adviser
-                repository_file.school_year = school_year
-                repository_file.user = request.user
-                repository_file.description = "uploads"
-                repository_file.pdf_file = student_pdf_file
-                extract_pdf_text(student_pdf_file, repository_file)
+                if student_title and adviser and school_year and student_pdf_file:
+                    repository_file = RepositoryFiles()
+                    repository_file.title = student_title
+                    repository_file.adviser = adviser
+                    repository_file.school_year = school_year
+                    repository_file.user = request.user
+                    repository_file.description = "uploads"
+                    repository_file.pdf_file = student_pdf_file
+                    extract_pdf_text(student_pdf_file, repository_file)
+                    repository_file.save()
 
                 # Filter out existing proponents from the selected_proponents list
                 selected_proponents = [p for p in selected_proponents if p not in existing_proponents]
