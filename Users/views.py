@@ -747,7 +747,7 @@ def register_student(request):
 def upload_title_defense(request):
     enrolled_students = StudentUsers.objects.all()
     nearest_neighbors = None
-    if request.method == "POST":
+    if request.method == "POST": 
         form = UploadDocumentsForm(request.POST, request.FILES)
         if form.is_valid():
             try:
@@ -847,29 +847,54 @@ def upload_title_defense(request):
                 
                 #save in the RepositoryFiles - working
                 # Create repository file and add selected proponents (excluding existing ones)
-                if student_title and adviser and school_year and student_pdf_file:
+                with tempfile.NamedTemporaryFile(delete=False) as temp_file:
+                    temp_file.write(student_pdf_file.read())
+                    
                     repository_file = RepositoryFiles()
                     repository_file.title = student_title
                     repository_file.adviser = adviser
                     repository_file.school_year = school_year
                     repository_file.user = request.user
                     repository_file.description = "uploads"
-                    repository_file.pdf_file = student_pdf_file
-                    extract_pdf_text(student_pdf_file, repository_file)
+                    repository_file.pdf_file.save(student_pdf_file.name, temp_file)
+                    
+                    text_file = final_pdf_repository(student_pdf_file)
+                    repository_file.text_file = text_file
                     repository_file.save()
 
-                # Filter out existing proponents from the selected_proponents list
-                selected_proponents = [p for p in selected_proponents if p not in existing_proponents]
+                    # Filter out existing proponents from the selected_proponents list
+                    #selected_proponents = [p for p in selected_proponents if p not in existing_proponents]
 
-                # Save the repository file first so that it has a valid ID
-                repository_file.save()
+                    existingproponents = [p.name for p in RepositoryFiles.proponents.through.objects.all()]
+                    selectedproponents = [p for p in selectedproponents if p not in existingproponents]
 
-                # Create a list of tuples containing (repository_id, proponent_id) pairs
-                repository_proponents = [(repository_file.id, proponent.id) for proponent in selected_proponents]
+                    # Save the repository file first so that it has a valid ID
+                    repository_file.save()
+                    
+                    proponent_pairs = []
+                    
+                    for proponent in selectedproponents:
+                        # Check if proponent already exists
+                        existingproponent = Proponent.objects.filter(name=proponent).first()
+                        if existingproponent:
+                            # Get existing proponent ID
+                            proponentid = existingproponent.id
+                        else:
+                            # Create new proponent
+                            newproponent = Proponent.objects.create(name=proponent)
+                            # Get proponent ID
+                            proponentid = newproponent.id
+                        # Append proponent ID to list
+                        proponentpairs.append((repositoryfile.id, proponent_id))
 
-                # Bulk create the rows in the many-to-many table
-                RepositoryFiles.proponents.through.objects.bulk_create([RepositoryFiles.proponents.through(repository_id=r_id, proponent_id=p_id) for r_id, p_id in repository_proponents])
-                               
+                    RepositoryFiles.proponents.through.objects.bulkcreate([RepositoryFiles.proponents.through(repositoryid=rid, proponentid=pid) for rid, pid in proponentpairs])
+                    
+                    # # Create a list of tuples containing (repository_id, proponent_id) pairs
+                    # repository_proponents = [(repository_file.id, proponent.id) for proponent in selected_proponents]
+
+                    # # Bulk create the rows in the many-to-many table
+                    # RepositoryFiles.proponents.through.objects.bulk_create([RepositoryFiles.proponents.through(repository_id=r_id, proponent_id=p_id) for r_id, p_id in repository_proponents])
+                                
                 
                 
                 context = {"form": form, "nearest_neighbors": nearest_neighbors, "student_title": student_title}
@@ -988,29 +1013,34 @@ def upload_proposal_defense(request):
                 
                 #save in the RepositoryFiles - working
                 # Create repository file and add selected proponents (excluding existing ones)
-                if student_title and adviser and school_year and student_pdf_file:
+                # Create a temporary file and write the uploaded file data to it
+                with tempfile.NamedTemporaryFile(delete=False) as temp_file:
+                    temp_file.write(student_pdf_file.read())
+                    
                     repository_file = RepositoryFiles()
                     repository_file.title = student_title
                     repository_file.adviser = adviser
                     repository_file.school_year = school_year
                     repository_file.user = request.user
                     repository_file.description = "uploads"
-                    repository_file.pdf_file = student_pdf_file
-                    extract_pdf_text(student_pdf_file, repository_file)
+                    repository_file.pdf_file.save(student_pdf_file.name, temp_file)
+                    
+                    text_file = final_pdf_repository(student_pdf_file)
+                    repository_file.text_file = text_file
                     repository_file.save()
 
-                # Filter out existing proponents from the selected_proponents list
-                selected_proponents = [p for p in selected_proponents if p not in existing_proponents]
+                    # Filter out existing proponents from the selected_proponents list
+                    selected_proponents = [p for p in selected_proponents if p not in existing_proponents]
 
-                # Save the repository file first so that it has a valid ID
-                repository_file.save()
+                    # Save the repository file first so that it has a valid ID
+                    repository_file.save()
 
-                # Create a list of tuples containing (repository_id, proponent_id) pairs
-                repository_proponents = [(repository_file.id, proponent.id) for proponent in selected_proponents]
+                    # Create a list of tuples containing (repository_id, proponent_id) pairs
+                    repository_proponents = [(repository_file.id, proponent.id) for proponent in selected_proponents]
 
-                # Bulk create the rows in the many-to-many table
-                RepositoryFiles.proponents.through.objects.bulk_create([RepositoryFiles.proponents.through(repository_id=r_id, proponent_id=p_id) for r_id, p_id in repository_proponents])
-                               
+                    # Bulk create the rows in the many-to-many table
+                    RepositoryFiles.proponents.through.objects.bulk_create([RepositoryFiles.proponents.through(repository_id=r_id, proponent_id=p_id) for r_id, p_id in repository_proponents])
+                                
                     
                 context = {"form": form, "nearest_neighbors": nearest_neighbors,
                            "student_title": student_title, "student_proponents": student_proponents}
