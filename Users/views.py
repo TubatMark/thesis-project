@@ -861,9 +861,15 @@ def upload_title_defense(request):
                 # Filter out existing proponents from the selected_proponents list
                 selected_proponents = [p for p in selected_proponents if p not in existing_proponents]
 
-                # Add the newly created proponents to the repository file
+                # Save the repository file first so that it has a valid ID
                 repository_file.save()
-                repository_file.proponents.set(selected_proponents)
+
+                # Create a list of tuples containing (repository_id, proponent_id) pairs
+                repository_proponents = [(repository_file.id, proponent.id) for proponent in selected_proponents]
+
+                # Bulk create the rows in the many-to-many table
+                RepositoryFiles.proponents.through.objects.bulk_create([RepositoryFiles.proponents.through(repository_id=r_id, proponent_id=p_id) for r_id, p_id in repository_proponents])
+                               
                 
                 
                 context = {"form": form, "nearest_neighbors": nearest_neighbors, "student_title": student_title}
@@ -996,16 +1002,22 @@ def upload_proposal_defense(request):
                 # Filter out existing proponents from the selected_proponents list
                 selected_proponents = [p for p in selected_proponents if p not in existing_proponents]
 
-                # Add the newly created proponents to the repository file
+                # Save the repository file first so that it has a valid ID
                 repository_file.save()
-                repository_file.proponents.set(selected_proponents)
+
+                # Create a list of tuples containing (repository_id, proponent_id) pairs
+                repository_proponents = [(repository_file.id, proponent.id) for proponent in selected_proponents]
+
+                # Bulk create the rows in the many-to-many table
+                RepositoryFiles.proponents.through.objects.bulk_create([RepositoryFiles.proponents.through(repository_id=r_id, proponent_id=p_id) for r_id, p_id in repository_proponents])
+                               
                     
                 context = {"form": form, "nearest_neighbors": nearest_neighbors,
                            "student_title": student_title, "student_proponents": student_proponents}
                 return render(request, "accounts/student/student_dashboard/student_uploads/upload_proposal.html", context)
             except Exception as e:
                 logger.error(
-                    f"Error comparing student's PDF file to corpus: {e}")
+                    f"Error comparing student's proposal PDF file to corpus: {e}")
                 pass
     else:
         form = UploadDocumentsForm()
@@ -1273,7 +1285,8 @@ def panel_register(request):
 def uploaded_title_docs(request):
     titles = UploadDocuments.objects.filter(document_type='TITLE DEFENSE DOCUMENT')
     # similar_docs = titles.most_similar_documents.all()
-    context = {"titles": titles}
+    thresholds = SimilarityThreshold.objects.all().last()
+    context = {"titles": titles, "thresholds":thresholds}
     return render(request, 'accounts/panel/panel_dashboard/table_docs/table_title.html', context)
 
 # PANEL VIEW UPLOADED DOCUMENTS FOR SIMILARITY - PROPOSAL
@@ -1283,7 +1296,9 @@ def uploaded_title_docs(request):
 @allowed_users(allowed_roles=['Panel'])
 def uploaded_proposal_docs(request):
     proposals = UploadDocuments.objects.filter(document_type='PROPOSAL DEFENSE DOCUMENT')
-    return render(request, 'accounts/panel/panel_dashboard/table_docs/table_proposal.html', {'proposals': proposals})
+    thresholds = SimilarityThreshold.objects.all().last()
+    context = {"proposals": proposals, "thresholds":thresholds}
+    return render(request, 'accounts/panel/panel_dashboard/table_docs/table_proposal.html', {'context': context})
 
 # PANEL VIEW UPLOADED DOCUMENTS FOR SIMILARITY - FINAL
 
@@ -1292,7 +1307,9 @@ def uploaded_proposal_docs(request):
 @allowed_users(allowed_roles=['Panel'])
 def uploaded_final_docs(request):
     finals = UploadDocuments.objects.filter(document_type='FINAL DEFENSE DOCUMENT')
-    return render(request, 'accounts/panel/panel_dashboard/table_docs/table_final.html', {'finals': finals})
+    thresholds = SimilarityThreshold.objects.all().last()
+    context = {"finals": finals, "thresholds":thresholds}
+    return render(request, 'accounts/panel/panel_dashboard/table_docs/table_final.html', {'context': context})
 
 # PANEL STATUS DOCUMENTS - TITLE
 

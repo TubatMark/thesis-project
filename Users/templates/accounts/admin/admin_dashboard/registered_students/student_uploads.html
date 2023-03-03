@@ -24,12 +24,12 @@
                     <div class="row" style="display:grid; grid-template-columns:  2fr 2fr 2fr 2fr 1fr 2fr">
                         <div class="cell">{{doc.student_title}}</div>
                         <div class="cell">
-                            {% for proponent in doc.proponents.all %}
                             <ul>
-                                <li>{{proponent.student_proponents}}</li>
+                                {% for proponent in doc.student_proponents.all %}
+                                <li>{{ proponent.Student_Name }}</li>
+                                {% endfor %}
                             </ul>
-                            {% endfor %}
-                        </div>
+                        </div>  
                         <div class="cell">{{doc.uploaded_at}}</div>
                         <div class="cell">{{doc.document_type}}</div>
                         <div class="cell">{{doc.status}}</div>

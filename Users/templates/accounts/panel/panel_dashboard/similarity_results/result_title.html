@@ -12,6 +12,13 @@
                     <h5>Title: {{title.student_title}}</h5>
                     <hr>
                     <h6>Threshold Result: Title document's similarity result is {{title.threshold_result}}.</h6>
+                    <hr>
+                    
+                    {% if thresholds %}
+                    <h6>Threshold set: {{thresholds.threshold|floatformat:0}}%</h6>
+                    {% else %}
+                    <h6>Threshold set: 0%</h6>
+                    {% endif %}
                     <div class="table"  id="result-table">
                         <div class="row header" style="display:grid; grid-template-columns: 2fr 2fr 1fr 1fr 1fr 1fr">
                             <div class="cell">Title</div>
