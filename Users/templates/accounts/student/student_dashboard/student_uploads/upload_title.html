@@ -31,10 +31,21 @@
                     <br>
                     <div class="container">
                         <div class="input-group mb-3">
-                            <span class="side-label btn border-secondary bg-light"> <i
-                                    class="fa-solid fa-book"></i></span>
-                            <textarea class="form-control" id="title" type="text" name="student_title" max-length="40"
-                                value="{{form.cleaned_data.student_title}}" readonly></textarea>
+                            <h6>TITLE</h6>
+                            <ul>
+                                <li>
+                                    {{ student_title }}
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- display the selected proponents readonly -->
+                        <div class="input-group mb-3">
+                            <h6>PROPONENTS</h6>
+                            <ul>
+                                {% for proponent in selected_proponents %}
+                                <li>{{ proponent.name }}</li>
+                                {% endfor %}
+                            </ul>
                         </div>
                         <div class="mt-4" style="width:100%;">
                             <a href="{% url 'upload_title_defense' %}" class="btn btn-primary mb-3">
@@ -90,10 +101,21 @@
                     <br>
                     <div class="container">
                         <div class="input-group mb-3">
-                            <span class="side-label btn border-secondary bg-light"> <i
-                                    class="fa-solid fa-book"></i></span>
-                            <textarea class="form-control" id="title" type="text" name="student_title" max-length="40"
-                                value="{{form.cleaned_data.student_title}}" readonly></textarea>
+                            <h6>TITLE</h6>
+                            <ul>
+                                <li>
+                                    {{ student_title }}
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- display the selected proponents readonly -->
+                        <div class="input-group mb-3">
+                            <h6>PROPONENTS</h6>
+                            <ul>
+                                {% for proponent in selected_proponents %}
+                                <li>{{ proponent.name }}</li>
+                                {% endfor %}
+                            </ul>
                         </div>
                         <div class="mt-4" style="width:100%;">
                             <a href="{% url 'upload_title_defense' %}" class="btn btn-primary mb-3">

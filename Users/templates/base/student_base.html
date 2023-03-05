@@ -214,15 +214,22 @@
         $(document).ready(function () {
             var selectedStudents = [];
 
+            // Set data-selected attribute of each option to false
+            $('#proponents option').each(function () {
+                $(this).data('selected', false);
+            });
+
+            // Add selected student to the list and update hidden input value
             $('#proponents').change(function () {
                 var studentId = $(this).val();
-                if (studentId && !selectedStudents.includes(studentId)) {
+                if (studentId && !$('#proponents option[value="' + studentId + '"]').data('selected')) {
+                    $('#proponents option[value="' + studentId + '"]').data('selected', true);
                     selectedStudents.push(studentId);
                     $('#selected-students').append('<li>' + $(this).find('option:selected').text() +
                         '<button class="remove-student-btn" data-student="' + studentId +
                         '">Remove</button></li>');
+                    updateHiddenInput();
                 }
-                updateHiddenInput();
             });
 
             $('#selected-students').on('click', '.remove-student-btn', function () {
@@ -230,10 +237,23 @@
                 selectedStudents = selectedStudents.filter(function (id) {
                     return id !== studentId;
                 });
+                $('#proponents option[value="' + studentId + '"]').data('selected', false);
                 $(this).closest('li').remove();
-                updateHiddenInput();
+              
+                // Remove the student ID from the textarea
+                var studentIds = $('#student-proponents-input').val().split(',');
+                studentIds = studentIds.filter(function (id) {
+                    return id !== studentId.toString();
+                });
+                $('#student-proponents-input').val(studentIds.join(','));
+                
+                // Remove the student ID from the selectedStudents array
+                selectedStudents = selectedStudents.filter(function (id) {
+                    return id !== studentId.toString();
+                });
             });
-
+              
+            // Submit form via AJAX and show success message
             $('#final-defense-form').submit(function (event) {
                 event.preventDefault();
                 $.ajax({
@@ -249,11 +269,14 @@
                 });
             });
 
+            // Update hidden input value with the selected student IDs
             function updateHiddenInput() {
                 $('#student-proponents-input').val(selectedStudents.join(','));
+
             }
         });
     </script>
+    
 
 </body>
 

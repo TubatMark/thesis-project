@@ -18,6 +18,9 @@ import codecs
 import dateutil.parser as dparser
 import string
 from django.conf import settings
+
+from django.db.models import Max, Subquery, OuterRef
+
 import nltk
 nltk.download('punkt')
 
@@ -108,7 +111,7 @@ def final_pdf_repository(pdf_file):
 
 
 def vectorize(query_matrix, vectorizer, k, student_title, selected_proponents):
-    threshold = 0
+    threshold = 1
     last_threshold = SimilarityThreshold.objects.all().last() #admin set threshold
     if last_threshold:
         threshold = last_threshold.threshold
@@ -117,16 +120,21 @@ def vectorize(query_matrix, vectorizer, k, student_title, selected_proponents):
     # Get the IDs of the selected proponents
     selected_proponents_ids = [proponent.id for proponent in selected_proponents]
     
-    # Get the RepositoryFiles that don't have the same proponents as the selected ones
-    filtered_files = RepositoryFiles.objects.exclude(proponents__id__in=selected_proponents_ids).values('text_file', 'title', 'adviser', 'school_year')
-    
+    # Get the latest ID for each title
+    latest_ids = RepositoryFiles.objects \
+        .exclude(proponents__id__in=selected_proponents_ids) \
+        .values('title') \
+        .annotate(latest_id=Max('id')) \
+        .values_list('latest_id', flat=True)
+
+    # Get the RepositoryFiles that don't have the same proponents as the selected ones and have the latest ID for their title
+    filtered_files = RepositoryFiles.objects \
+        .exclude(proponents__id__in=selected_proponents_ids) \
+        .filter(id__in=Subquery(latest_ids)) \
+        .values('text_file', 'title', 'adviser', 'school_year')
+
     
     for file_info in filtered_files:
-        proponents = [proponent.name for proponent in RepositoryFiles.objects.get(text_file=file_info['text_file']).proponents.all()]
-        if set(proponents) == set([proponent.name for proponent in selected_proponents]):
-            # Skip the file if it has the same proponents as the selected ones
-            continue
-        
         file_path = file_info['text_file']
         with open(file_path, 'r', encoding='utf-8', errors='ignore') as f:
             text = f.read()
@@ -142,7 +150,20 @@ def vectorize(query_matrix, vectorizer, k, student_title, selected_proponents):
             
             # calculate the similarity between the titles
             title_similarity = fuzz.token_set_ratio(preprocess_corpus_title, preprocess_student_title)
-
+            
+            # get the RepositoryFiles object(s) for the current file
+            repo_files = RepositoryFiles.objects.filter(text_file=file_path)
+            
+            # filter out any objects that have the same proponents as the selected ones
+            repo_files = repo_files.exclude(proponents__id__in=selected_proponents_ids)
+            
+            # skip the file if there are no RepositoryFiles objects left after filtering
+            if not repo_files.exists():
+                continue
+            
+            # get the proponents for the remaining RepositoryFiles object(s)
+            proponents = [proponent.name for proponent in repo_files[0].proponents.all()]
+            
             matrices.append({
                 'title': file_info['title'], 
                 'title_similarity': title_similarity, 
@@ -152,6 +173,7 @@ def vectorize(query_matrix, vectorizer, k, student_title, selected_proponents):
                 'content_similarity': content_similarity,
                 'proponents': proponents
             })
+
 
     # Sort the list of documents by similarity in descending order
     matrices.sort(key=lambda x: x['content_similarity'], reverse=True)

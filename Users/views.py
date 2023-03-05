@@ -1,7 +1,7 @@
 from sklearn.feature_extraction.text import TfidfVectorizer
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.core.files.storage import FileSystemStorage
-from django.http import HttpResponse, HttpResponseRedirect, FileResponse
+from django.http import HttpResponse, HttpResponseRedirect, FileResponse, HttpResponseBadRequest
 from django.contrib import messages
 from .forms import *
 from django.contrib.auth.models import AbstractUser
@@ -807,7 +807,13 @@ def upload_title_defense(request):
                     
                 for neighbor in nearest_neighbors:
                     # Retrieve the title, proponents, adviser and school_year fields from the RepositoryFiles model
-                    repository_file = RepositoryFiles.objects.get(title=neighbor['title']) 
+                    try:
+                        repository_file = RepositoryFiles.objects.get(title=neighbor['title'])
+                    except RepositoryFiles.MultipleObjectsReturned:
+                        # Handle the case where multiple repository files have the same title
+                        logger.error(f"Multiple repository files found with title: {neighbor['title']}")
+                        continue
+                    
                     proponent_names = list(set(repository_file.proponents.all().values_list('name', flat=True)))
                     neighbor['title'] = repository_file.title
                     neighbor['proponents'] = proponent_names
@@ -861,43 +867,17 @@ def upload_title_defense(request):
                     text_file = final_pdf_repository(student_pdf_file)
                     repository_file.text_file = text_file
                     repository_file.save()
+                    
+                    # Add newly created proponent to the RepositoryFiles model
+                    for proponent in selected_proponents:
+                        proponent_obj, created = Proponent.objects.get_or_create(name=proponent)
+                        repository_file.proponents.add(proponent_obj)
 
-                    # Filter out existing proponents from the selected_proponents list
-                    #selected_proponents = [p for p in selected_proponents if p not in existing_proponents]
-
-                    existingproponents = [p.name for p in RepositoryFiles.proponents.through.objects.all()]
-                    selectedproponents = [p for p in selectedproponents if p not in existingproponents]
-
-                    # Save the repository file first so that it has a valid ID
+                    # Save the repository file after adding the proponents
                     repository_file.save()
                     
-                    proponent_pairs = []
-                    
-                    for proponent in selectedproponents:
-                        # Check if proponent already exists
-                        existingproponent = Proponent.objects.filter(name=proponent).first()
-                        if existingproponent:
-                            # Get existing proponent ID
-                            proponentid = existingproponent.id
-                        else:
-                            # Create new proponent
-                            newproponent = Proponent.objects.create(name=proponent)
-                            # Get proponent ID
-                            proponentid = newproponent.id
-                        # Append proponent ID to list
-                        proponentpairs.append((repositoryfile.id, proponent_id))
-
-                    RepositoryFiles.proponents.through.objects.bulkcreate([RepositoryFiles.proponents.through(repositoryid=rid, proponentid=pid) for rid, pid in proponentpairs])
-                    
-                    # # Create a list of tuples containing (repository_id, proponent_id) pairs
-                    # repository_proponents = [(repository_file.id, proponent.id) for proponent in selected_proponents]
-
-                    # # Bulk create the rows in the many-to-many table
-                    # RepositoryFiles.proponents.through.objects.bulk_create([RepositoryFiles.proponents.through(repository_id=r_id, proponent_id=p_id) for r_id, p_id in repository_proponents])
-                                
-                
-                
-                context = {"form": form, "nearest_neighbors": nearest_neighbors, "student_title": student_title}
+                context = {"form": form, "nearest_neighbors": nearest_neighbors, "student_title": student_title, "selected_proponents": selected_proponents}
+                return render(request, "accounts/student/student_dashboard/student_uploads/upload_title.html", context)
             except Exception as e:
                 logger.error(
                     f"Error comparing student's title PDF file to corpus: {e}")
@@ -973,7 +953,13 @@ def upload_proposal_defense(request):
                     
                 for neighbor in nearest_neighbors:
                     # Retrieve the title, proponents, adviser and school_year fields from the RepositoryFiles model
-                    repository_file = RepositoryFiles.objects.get(title=neighbor['title']) 
+                    try:
+                        repository_file = RepositoryFiles.objects.get(title=neighbor['title'])
+                    except RepositoryFiles.MultipleObjectsReturned:
+                        # Handle the case where multiple repository files have the same title
+                        logger.error(f"Multiple repository files found with title: {neighbor['title']}")
+                        continue
+                    
                     proponent_names = list(set(repository_file.proponents.all().values_list('name', flat=True)))
                     neighbor['title'] = repository_file.title
                     neighbor['proponents'] = proponent_names
@@ -1029,21 +1015,16 @@ def upload_proposal_defense(request):
                     repository_file.text_file = text_file
                     repository_file.save()
 
-                    # Filter out existing proponents from the selected_proponents list
-                    selected_proponents = [p for p in selected_proponents if p not in existing_proponents]
+                   
+                    # Add newly created proponent to the RepositoryFiles model
+                    for proponent in selected_proponents:
+                        proponent_obj, created = Proponent.objects.get_or_create(name=proponent)
+                        repository_file.proponents.add(proponent_obj)
 
-                    # Save the repository file first so that it has a valid ID
+                    # Save the repository file after adding the proponents
                     repository_file.save()
-
-                    # Create a list of tuples containing (repository_id, proponent_id) pairs
-                    repository_proponents = [(repository_file.id, proponent.id) for proponent in selected_proponents]
-
-                    # Bulk create the rows in the many-to-many table
-                    RepositoryFiles.proponents.through.objects.bulk_create([RepositoryFiles.proponents.through(repository_id=r_id, proponent_id=p_id) for r_id, p_id in repository_proponents])
-                                
                     
-                context = {"form": form, "nearest_neighbors": nearest_neighbors,
-                           "student_title": student_title, "student_proponents": student_proponents}
+                context = {"form": form, "nearest_neighbors": nearest_neighbors, "student_title": student_title, "selected_proponents": selected_proponents}
                 return render(request, "accounts/student/student_dashboard/student_uploads/upload_proposal.html", context)
             except Exception as e:
                 logger.error(
@@ -1078,17 +1059,17 @@ def upload_final_defense(request):
             if not student_ids:
                 return HttpResponseBadRequest("No student IDs provided")
             selected_students = StudentUsers.objects.filter(id__in=student_ids.split(","))
+            
+            selected_proponents = []
+            existing_proponents = set()  # Keep track of existing proponents to avoid duplicates
 
-            proponents = []
             for student in selected_students:
-                # Check if a Proponent object with this name already exists in the database
-                existing_proponent = Proponent.objects.filter(name=student.Student_Name).first()
-                if existing_proponent:
-                    proponents.append(existing_proponent)
-                else:
-                    # Create a new proponent for each selected student
-                    proponent = Proponent.objects.create(name=student.Student_Name)
-                    proponents.append(proponent)
+                proponent_name = student.Student_Name
+                # Check if proponent with the same name already exists in the database
+                proponent, created = Proponent.objects.get_or_create(name=proponent_name)
+                if not created:
+                    existing_proponents.add(proponent)
+                selected_proponents.append(proponent)
 
             final_user.student_proponents.set(selected_students)
             final_user.save()
@@ -1105,14 +1086,18 @@ def upload_final_defense(request):
                 repository_file.school_year = school_year
                 repository_file.pdf_file.save(pdf_file.name, temp_file)
                 repository_file.abstract = abstract
+                
                 # Extract the text from the PDF file and save it to the abstract field
                 text_file = final_pdf_repository(pdf_file)
                 repository_file.text_file = text_file
                 repository_file.save()
+                
+                for proponent in selected_proponents:
+                    proponent_obj, created = Proponent.objects.get_or_create(name=proponent)
+                    repository_file.proponents.add(proponent_obj)
 
-                # Add the newly created proponents to the repository file
-                repository_file.proponents.set(proponents)
-                repository_file.save()
+                # Save the repository file after adding the proponents
+                repository_file.save()  
 
             return redirect("student_dashboard")
         else:
