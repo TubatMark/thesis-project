@@ -1299,7 +1299,6 @@ def panel_register(request):
 @allowed_users(allowed_roles=['Panel'])
 def uploaded_title_docs(request):
     titles = UploadDocuments.objects.filter(document_type='TITLE DEFENSE DOCUMENT')
-    # similar_docs = titles.most_similar_documents.all()
     thresholds = SimilarityThreshold.objects.all().last()
     context = {"titles": titles, "thresholds":thresholds}
     return render(request, 'accounts/panel/panel_dashboard/table_docs/table_title.html', context)
@@ -1313,7 +1312,7 @@ def uploaded_proposal_docs(request):
     proposals = UploadDocuments.objects.filter(document_type='PROPOSAL DEFENSE DOCUMENT')
     thresholds = SimilarityThreshold.objects.all().last()
     context = {"proposals": proposals, "thresholds":thresholds}
-    return render(request, 'accounts/panel/panel_dashboard/table_docs/table_proposal.html', {'context': context})
+    return render(request, 'accounts/panel/panel_dashboard/table_docs/table_proposal.html', context)
 
 # PANEL VIEW UPLOADED DOCUMENTS FOR SIMILARITY - FINAL
 
@@ -1324,7 +1323,7 @@ def uploaded_final_docs(request):
     finals = UploadDocuments.objects.filter(document_type='FINAL DEFENSE DOCUMENT')
     thresholds = SimilarityThreshold.objects.all().last()
     context = {"finals": finals, "thresholds":thresholds}
-    return render(request, 'accounts/panel/panel_dashboard/table_docs/table_final.html', {'context': context})
+    return render(request, 'accounts/panel/panel_dashboard/table_docs/table_final.html', context)
 
 # PANEL STATUS DOCUMENTS - TITLE
 
