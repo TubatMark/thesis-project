@@ -1,0 +1,1221 @@
+Republic of the Philippines  
+Western Mindanao State University  
+College of Computing Studies  
+DEPARTMENT OF COMPUTER SCIENCE  
+Zamboanga City  
+ 
+ 
+ 
+ 
+Knowledge Sharing and Intellectual Property Preservation 
+through an Online Repository of Electronic Theses and 
+Dissertations (ETD): The Crimson’s Legacy  
+ 
+ 
+A Thesis presented to the faculty  of  
+Department of Computer Science  
+College of Computing Studies  
+ 
+ 
+In partial fulfillment of the requirements for the degree of  
+Bachelor of Science in Computer Science  
+ 
+ 
+Ronald M. Arcilla  
+Emmanuel L. Toledo  
+Researchers  
+ 
+ 
+ 
+Mr. Mr. Gadmar M. Belamide  
+Adviser  
+ 
+ 
+March 25, 2022  
+
+ Western Mindanao State University  
+College of Computing Studies  
+DEPARTMENT OF COMPUTER SCIENCE  
+Zamboanga City  
+ 
+ 
+ 
+Approval Sheet  
+ 
+ 
+ 
+The Thesis attached hereto, entitled “Knowledge Sharing and Intellectual Property 
+Preservation through an Online Repository of Electronic Theses and Dissertations 
+(ETD): The Crimson’s Legacy ”, prepared and submitted by <Researchers Ronald M. 
+Arcilla and Emmanuel L. Toledo , in partial fulfillment of the requirements for the degree of 
+Bachelor of Science in Computer Science, is hereby recommended for Oral 
+Examination . 
+ 
+ 
+ 
+ Mr. Gadmar M. Belamide  
+                                                                                                  Adviser  
+ 
+ 
+APPROVED  by the Oral Examination Committee on _______________  with a rating of 
+PASSED . 
+ 
+ 
+<Panel 1>  
+Chairperson  
+ 
+ 
+<Panel 2>  
+Member  <Panel 3>  
+Member
+ 
+ 
+ 
+ACCEPTED  in partial fulfillment of the requirements for the degree of Bachelor of 
+Science in Computer Science  
+ 
+ 
+ 
+ODON A. MARAVILLAS JR, MSCS  
+Head, Department of Computer Science  
+ 
+ 
+RODERICK P. GO, Ph .D. 
+Dean, College of Computing Studies   
+ Acknowledgment  
+ 
+ 
+           First of all, congratulations and tha nk you  to the researchers’ effort to finish this 
+study. Hope they are proud of themselves.  
+ 
+To their adviser, Mr. Gadmar M. Belamide, for his great guidance throughout the 
+research and his trust towards the researchers which gave them the fuel they needed 
+during  the final defense for this study.  
+ 
+To the Arcilla family, Ma. Luisa B. Arcilla and Ronalyn M. Arcilla provided the 
+researcher with his needs which opened a path for him to accomplish the study. And to 
+Roven Niño M. Arcilla for being an inspiration to the researcher.  
+ 
+To Toledo Family  
+ 
+To the College of Computing Studies Faculty, which has been a big part of the 
+researchers’ progress for 3 and a half years which led to the success of this study.  
+ 
+To Axl Cuyagan, who taught Linux programming to the researche r, helping him 
+deploy the website which is a goal of the study.  
+ 
+And to all the friends and special people of the researchers. They have helped the 
+researchers overcome this challenge in a more tolerable manner and environment.  
+ 
+           The researcher o wes this study to these people. Thank you so much.  
+ Abstract  
+ 
+Electronic Theses and Dissertations (ETD) is simply a digital representation of a 
+thesis or dissertations. Through preliminary research it has been ruled out that the use  of 
+ETD is not common here in Zamboanga City. Every generation of graduating students has 
+been contributing to intellectual resource of the world in the form of a thesis consuming 
+papers and increasing the number of physical documents stored inside a schoo l. With the 
+help of ETD, physical storage become irrelevant since ETD are stored in an online 
+repository which secures intellectual property preservation and the publicity of this 
+intellectual resources will multiply because of the internet, the informatio n super highway.  
+ 
+This study proposes a website that is suitable to be an online repository for ETDs. 
+With the use of HTML and CSS, Flask and Python, MySQL, Natural Language Processing 
+for a search result and search recommendations, and a web -hosting serv ice from 
+Hostinger to deploy a functional website along with an added functionality of a plagiarism 
+checker with the use of Copyleaks API.  
+ 
+The finished system is then subjected to testing from Western Mindanao State 
+University Faculty and students to test  the satisfaction the website can give to its users. 
+And the results gathered from these tests shows that the users are satisfied with the end 
+product.  
+ 
+ 
+Keywords:  Electronic Thesis and Dissertations, Website , Plagiarism Checker
+  
+ Table of Contents  
+ 
+Approval Sheet  ................................ ................................ ................................ .................  i 
+Acknowledgment  ................................ ................................ ................................ .............  ii 
+Abstract  ................................ ................................ ................................ ..........................  iii 
+CHAPTER I INTRODUCTION  ................................ ................................ ......................... 1 
+Background of the Study  ................................ ................................ .............................. 1 
+Statement of the Problem  ................................ ................................ ............................ 2 
+Obje ctives  ................................ ................................ ................................ .................... 2 
+Scope and Limitations  ................................ ................................ ................................ ..3 
+Significance of the Study  ................................ ................................ .............................. 4 
+Theoretical Framework (if only applicable)  ...................  Error! Bookmark not defined.  
+Definition of Terms  ................................ ................................ ................................ .......5 
+CHAPTER II REVIEW OF RELATED LITERATURE  ................................ ....................... 6 
+Related Studies  ................................ ...........................  Error! Bookmark not defined.  
+Synthesis  ................................ ................................ ..... Error! Bookmark not defined.  
+Conceptual Framework  ................................ ................................ .............................. 15 
+CHAPTER III METHODOLOGY  ................................ ................................ .................... 16 
+Research Design  ................................ .........................  Error! Bookmark not defined.  
+Respondents  ................................ ................................  Error! Bookmark not defined.  
+Data Gathering Instruments, Techniques, and Procedures Error! Bookmark not 
+defined.  
+Statistical Tools (if only applicable)  ..............................  Error! Bookmark not defined.  
+Analytical Tools  ................................ ............................  Error! Bookmark not defined.  
+Technical To ols ................................ ............................  Error! Bookmark not defined.  
+Software Process Model  ................................ ..............  Error! Bookmark not defined.  
+System Architecture  ................................ .....................  Error! Bookmark not defined.  
+ Implementation Plan  ................................ ....................  Error! Bookmark not defined.  
+CHAPTER IV RESULTS AND DISCUSSION  ................................ ................................ 29 
+CHAPTER V CONCLUSION AND RECOMMENDATIONS  ................................ ........... 35 
+Conclusion  ................................ ................................ ................................ ................. 35 
+Recommendations  ................................ ................................ ................................ .....36 
+References  ................................ ................................ ................................ .................... 37 
+Appendix A  Gantt Chart  ................................ ................................ ................................ 39 
+Appe ndix B  Evaluation Tool  ................................ ............  Error! Bookmark not defined . 
+Appendix C  Photo Documentation of Testing  .................  Error! Bookmark not defined.  
+Appendix D  Flowchart/Diagrams  ................................ ................................ .................. 40 
+Appendix E  Algorithms  ................................ ................................ ................................ .44 
+Append ix F  Relevant Source Code  ................................ . Error! Bookmark not defined.  
+Appendix G  Screenshot/Picture of the System  ................................ ............................. 46 
+Appendix H  Test Cases and Results  ................................ ................................ ............ 50 
+Appendix I  Bug Report  ................................ ...................  Error! Bookmark not defined.  
+Appendix J  User Manual ................................ .................  Error! Bookmark not defined.  
+Appendix K Curriculum Vitae  ................................ ................................ ......................... 51 
+ 
+  
+ List of Figures  
+  
+ List of Tables  
+ 
+  
+ List of A ppendi ces 
+  
+1 
+ CHAPTER I  
+INTRODUCTION  
+ 
+Background of the Stu dy 
+ 
+ 
+Since the establishment of the concept of Electronic Theses and Dissertations 
+(ETD), the development of software for ETDs has been introduced to the world to create, 
+publish, manage, and archive ETDs. Na tions overseas have been implementing the e -
+only theses and dissertations where only ETDs are submitted in the university’s chosen 
+repository and they do not require students to submit physical documentation of their 
+research. This movement has been operat ing to share researched knowledge and 
+increase a scholar’s research publication, which increases their reputations for their 
+respective professional fields.  
+ 
+In the Philippines, not many universities have been participating in the concepts of 
+ETDs. So far in research, the only entities that have been using ETDs are the Philippine 
+Electronic Theses and Dissertations (PETD) that hosts databases for ETD for masters 
+and doctorate degrees of colleges or universities, as well as the Digital Archives@UP 
+Diliman (D A@UPD) which caters to the overall digital records of the institution where 
+ETDs are included therein.  
+ 
+In Zamboanga City, the concept of ETDs is not yet practiced although there are 
+some efforts in implementing the said concept such as Western Mindanao St ate University 
+and their e -library in Facebook and another e -Library is implemented in Zamboanga City 
+State Polytechnic College which may be a start for ETDs. May this research be of aid to 
+the city so that ETDs may be implemented in the researchers ’ schoo ls because their team 
+believes in the goals and benefits of archived and shared knowledge to assist the future 
+generation for successful advancement in each generation of researchers.  
+  
+2 
+ Statement of the Problem  
+ 
+At the last year of college students, a term inal requirement, which is mostly thesis, 
+is their final challenge before graduating in their respective degrees. Anyone who has 
+gone through knows how hard it is to find references and similarities, especially if the study 
+is new in the world. Also, thesi s hardcopies, besides that they add costs for bookbinding 
+and printing, have a chance of being neglected or even discarded as the year and 
+generations of graduating student passes by.  
+ 
+So, what is the best way to promote a shared library of knowledge and a t the same 
+time, cut costs for hardcopies and solve the problem of preserving physical documents of 
+the thesis each year? The researchers  are proposing a WMSU online compiler for 
+Electronic Theses and Dissertations, which, if possible, be a success and be a start of a 
+new era of creating and preserving thesis in Zamboanga, per school year.  
+ 
+Objectives  
+1.3.1 General Objectives  
+ 
+The General o bjective of this thesis proposal is to develop a website that 
+will serve as an online repository of thesis and dissertations of WMSU students, 
+for WMSU students and the public and to create a project that encourages the 
+academe and other concerned agencies  in Zamboanga City the utilization of 
+ETDs.  
+ 
+1.3.2 Specific Objectives  
+ 
+1. To use HTML, JavaScript, and CSS for web design for the online repository 
+website.  
+ 2. To deploy the proposed website online.  
+3. To manipulate and sort data with Python, Flask and M ySQL in the system for 
+results based on user’s search query and produce abstract similarities.  
+4. To increase the website’s functionality with a Plagiarism Checker API 
+Copyleaks.  
+3 
+ Scope and Limitations  
+ 
+Scope  
+The scope that is included in the researchers ’ study is the impact of a compilation 
+of past thesis for the future generations of students to use and even, maybe, anyone who 
+is interested in studying almost anything. The research shall survey a range of students 
+who are currently enrolled in WMSU and is  taking a thesis subject. The primary target 
+users are thesis students at Western Mindanao State University, Zamboanga City. This 
+research will also study the algorithms that are crucial for the development aspect which 
+is sorting, searching, and comparing  algorithms.  
+ 
+ 
+Limitations  
+The limitation of the researchers ’ study is that the research will not include students 
+outside of WMSU and students who are not taking up a thesis.  
+  
+4 
+ Significance of the Study  
+ 
+The results of this research will be significant to  the following:  
+ 
+ Thesis Students . The main target beneficiary of this project is the students or the 
+future researchers, specifically those who are graduating and under a thesis subject. The 
+students shall benefit from the shared knowledge stacked by each  generation of students 
+through the researchers ’ online compilation of thesis in WMSU, cut printing and 
+bookbinding costs, and preserve the output of their hard work, their research.  
+ 
+ Professors and Instructors . The pursuit of knowledge is endless and eve n those 
+who have a degree will benefit from shared knowledge.  
+ 
+Western Mindanao State University . The said university will have a solution in 
+terms of research or thesis compiling as well as being the first university to promote ETDs 
+in Zamboanga.  
+ 
+Other C olleges or Universities . The success of this project may be a start of a 
+whole new era of thesis education.  
+ 
+ Commission on Higher Education . Improved quality both for education and 
+research.  
+ 
+ Public . Even a regular person who is just interested and curious. The compilation 
+of ETDs on the researchers ’ website will be open to the public for a better network of 
+shared knowledge.  
+ 
+ Future Researchers . For the next generations of students to come.  
+  
+5 
+ Defin ition of Terms  
+ 
+Only terms, words, or phrases which have special or unique meanings in the study 
+are defined.  Provide at least 10. Definitions may be taken from encyclopedias, books, 
+magazines and newspaper articles, dictionaries, and other publications b ut the researcher 
+must acknowledge his sources. Definitions taken from published materials are called 
+conceptual or technical definitions.   
+ 
+Term  Definition  
+1. Chunking  the division of large information into smaller 
+chunks which are easier to hold in memory . 
+2. ETDs  an acronym for Electronic Theses and 
+Dissertation.  
+3. Inflected Words  word formation where the word’s meaning is 
+changed through adding another item on it.  
+4. Lemmatization  reduction of a word’s inflected form into a single 
+form through scanning WordNet corpus as 
+reference.  
+5. Named Entity Recognition  identify named entities used within a sentence.  
+6. Parts -of-Speech tagging  identification of parts of speech for every word.  
+7. Stemming  cutting the inflected word with algorithm alone into 
+their root form . 
+8. Tokenization  sensitive data turned into a non -sensitive data 
+called token.  
+Table 1: Definition of Terms  
+ 
+   
+6 
+  
+CHAPTER II  
+REVIEW OF RELATED LITERATURE  
+ 
+2.1. Related Literature  
+ 
+Google Scholar a nd Microsoft Academics on Online Repository User 
+Interface  
+ Google Scholar and Microsoft Academics are famous for being an online search 
+engine for studies, articles, thesis, dissertations, and court opinions from scholars and 
+reporters. These products are obviously from Google and Microsoft, two of the successful 
+companies that invent technologies both for hardware and software, and will be a very 
+safe and secure reference to use for the researchers ’ proposed system’s user interface 
+which gives us all the insights and principles for the user experience t hat will surely be 
+credible.  
+            From the main search bar at the landing page to the sorting section on the side 
+panel, these settings and formats shall be observed in the proposed website’s UI. The 
+results from the search query and all its linking  will be integrated into the systems 
+recommendation results which are also based on the user’s search query.  
+           These products’ search methods will be closely studied and observed and 
+implemented on the researchers ’ proposed website.  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+7 
+ Networked Digital Library of Theses and Dissertations on Electronic Theses 
+and Dissertations  
+The concept of Electronic Theses and Dissertations (ETD) has been around even 
+since 1990, and organizations like the Networked Digital Library of Theses and 
+Disser tations (NDLTD, 1996) and Philippine Electronic Theses and Dissertations 
+(PETD,2020) have been encouraging and advocating the use of ETD. But what is an 
+ETD?  
+ETD is basically a digital representation of your thesis or dissertations which can 
+be stored in a  repository may it be online or in local computer memory. Here is a short 
+history in ETD as discussed by NDTLD:  
+The concept of electronic theses and dissertations (ETDs) was first 
+discussed at a 1987 meeting in Ann Arbor, Michigan, organized by UMI and 
+attended by representatives from Virginia Tech, the University of Michigan, and 
+two small software companies – Toronto -based SoftQuad and Michigan -based 
+ArborText.  
+The project lay dormant for a few years, until 1991 when Virginia Tech’s 
+Dean Gary Hooper finan ced further critical development. Virginia Tech Computer 
+Science professor Ed Fox and Graduate School dean John Eaton collaborated on 
+the ETD project, investigating problems associated with production, archiving, and 
+access. In the early 1990s, Fox and Hoo per held a series of design and discussion 
+meetings, working closely with the Coalition for Networked Information (CNI), the 
+Council of Graduate Schools (CGS), UMI, and other interested groups. At the 
+same time, the Virginia Tech University Library’s Schol arly Communications 
+Project developed procedures and systems for processing, archiving, and 
+providing public access to Virginia tech’s graduate research works.  
+ The said organization also has discussed publishing ETDs to repositories where it 
+is stated tha t some major research universities, nowadays, provide a specialized thesis 
+repository run by the university itself and that it is a graduation requirement at many 
+institutions. Such statements strengthen the validity of this research’s purpose.  
+ 
+ 
+ 
+ 
+8 
+ Federis  on Copyright Laws in the Philippines  
+ On a website called Federis, one of the top filers of trademark and patent 
+applications in the Philippines and is a law firms of highly qualified attorneys, lawyers, 
+licensed patent and trademark agents, has deep insi ght and well -discussed topic on 
+intellectual property protection which is one of the concerns of this research and 
+development.  
+ It states on their website that under Philippine law, a copyright infringement 
+happens when any of the exclusive economic or mo ral rights granted to the copyright 
+owner is violated. A person is considered liable for such infringement of a copyrighted 
+article when they:  
+ a.  Directly selling such article.  
+ b. Distribute such articles for trading.  
+ c. Publicly exhibit such article.  
+They have also discussed that copyrightable works (artistic or literary works) are 
+protected from the moment they are created and enumerated works that are not protected 
+by the said law which are:  
+ 1. Ideas such as a procedure or system method.  
+ 2. News of  the day or press information.  
+ 3. Official text of legal nature.  
+ 4. Work of the Philippine Government.  
+5. Lectures, research, speeches, and regulation rendered in government agencies 
+and meetings of public characters.  
+And lastly, the most important note,  is that they have discussed who are the owners of 
+copyrightable works which is no one but the author of the work themselves.  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+9 
+ Ciencia: Online Publication of Research by WMSU  
+ Ciencia is the official Science and Technology research journal of Western 
+Mindanao State University and has an open -access website for public sharing of the 
+researches of WMSU. Ciencia was formerly called WMSU Research Journal when it 
+began its organization with the purpose to give faculty researcher an avenue to showcas e 
+their research, but now till the present day, it has evolved to be an organization with an 
+International Standard Serial Numbers (ISSN) for both of their printed and online 
+publication which is a great advantage since an ISSN gives a publication its iden tity among 
+hundreds, if not thousands, of other publications. Ciencia is also indexed in the Philippine 
+E-Journals. The organizations also envision being accredited by CHED and be indexed 
+internationally.  
+ the researchers ’ study  and development also aim to  produce the same results and 
+outcome as Ciencia and this literature can give Crimson’s Legacy a good path on where 
+to start and where to head -on. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+10 
+ Forbes on 2020 Website Design Trends  
+ User Interface design is very crucial when you want to develop a website that will  
+last long or forever and anything constant should give comfort to the ever -changing and 
+moving, users.  
+ Based on Forbes’ website blog is that at the present day, users tend  to demand a 
+fast and smooth interface versus the users 10 years ago who use websites that aren’t very 
+user-friendly. And here are some tips from Forbes we can use to upgrade their project’s 
+UI design.  
+ 1. Dark Mode – is a very mainstream trend and gives t he user option for a less 
+bright and cleaner set -up for those who use their devices for a longer time span.  
+ 2. Hand -drawn elements (digital art or scanned graphics) – everyone can always 
+appreciate hand -drawn art.  
+ 3. Visible Grids – even in some artworks , not removing the guideline adds an 
+element to finished art. Visible grids can give a website its clean and professional look.  
+ 4. White Space Frame – spans a user’s attention towards the product, a good 
+technique paired with minimalist design.  
+ 5. Larger -Than -Life Typography – good for any website themes. Command the 
+reader’s eyes even from afar!  
+ 6. Geometric Designs – a sure way to create a modern and minimalist design for 
+the researchers ’ website. Shape speaks.  
+ 7. Minimalist Navigation – Less is more.  
+ 8. 1970’s Color Scheme – to create a classic and timeless design.  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+11 
+ Web Hosting by Hostinger  
+ Their  proposal is a website so they should study web hosting and this subtitle helps 
+us understand what web hosting is. Hostinger is a web hosting pro vider. And as Hostinger 
+explains:  
+ 
+“Web hosting is an online service that enables you to publish your website or web 
+application on the internet. It is basically renting some space on a physical server where 
+you can store all the files and data necessary for your website to work properly”  
+  
+ After purchasing their service, they now buy a domain name which is simply the 
+name that the researchers ’ website will use. But some Hostinger package already has a 
+free domain name which may be considered when purchas ing the said service. This study 
+will help this research and product to reach millions of people through the internet.  
+ 
+Edureka (YT) on Stemming and Lemmatization Tutorial: Natural Language 
+Processing  
+ To attain the complexity of taking a thesis’ abstracti on into keywords, They  would 
+need to study Natural Language Processing (NPL) and the stemming algorithm and 
+lemmatization algorithm which will help us capture keywords in researches.  
+ Based on the video NPL is the part of Computer Science and Artificial in telligence 
+that deals with human languages which are perfect in dealing with researches. Also, the 
+video stated that NPL has different steps which are:  
+ Tokenization  
+ Stemming  
+ Lemmatizations  
+ Parts of Speech tags  
+ Named Entity Recognition  
+ Chunking  
+ Stemm ing and lemmatizations algorithms have been around since the 1960s and 
+it amplifies a system’s tagging system, indexing, SEO, web search result, and information 
+retrieval which is crucial for the researchers ’ proposed system as it will be their system’s 
+core process.  
+ 
+ 
+12 
+ 2.2. Related Studies  
+ 
+Yale Fineman on ETDs  
+ According to Yale Fineman in the research included in Portal: Libraries and 
+Academy: Theses and dissertations are scholarly works that take years to research and 
+to write and as secondary sources of  information, theses and dissertations are particularly 
+useful to researchers in the humanities because they are proven facts that are stored and 
+archived for the future generations of the researcher. But, the vastness of the population 
+conducting research  each year creates a problem in terms of storing physical copies of 
+the research in archives and university libraries. The best way to bring back published 
+researches to light is to upload them electronically and to give students and researchers 
+free and o pen access to these documents via the internet.  
+ These findings can further increase the validity of the advantages of ETDs.  
+ 
+The Research Wizard by Kare Hein and Marc Davis  
+ Their  proposed system or website’s contents are purely dependent on the inputs 
+and creation of users or thesis students of Western Mindanao State University so it is only 
+natural to study the nature of a Database -Driven Website with HTML and PHP/MySQL. 
+They  were also advised with a complexity where  they need to find a way or an algorithm 
+that’ll match research topics based on its contents. And in this subtitle, they are going to 
+dive deeper into the said topic.  
+ This study was created when librarians had a problem with providing patrons 
+access to electro nic format resources in their libraries. The solution was a web application, 
+The Research Wizard. Its main function was to amplify results in a search that will cater 
+to patrons' or clients' demands. It uses a topical keyword research access to do its job and 
+this study Is perfect to adapt in the researchers ’ proposed system where they need to give 
+users compared works through the abstraction of research.  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+13 
+ Mubina Malik and Trisha Patel Database Security  
+ One of the biggest factors in deploying a website is security since placing it on the 
+internet means placing it in reach for the public. In their conclusion, they have stated that 
+website access protection begins in studying who has access to the database and what 
+type of data the attackers might desire. It is also stated that 48% of attackers are the 
+database’s authorized users which means 48% of users who misused their access and 
+privileges and 48% is a big chunk in 100 even without the fact that authorized user should 
+be trustworthy. This study focuses on control and attack methods in a database.  
+ 
+ 
+ 
+ 
+Comparison Table of Relates Systems  
+ 
+ 
+Attributes  This 
+Study  Google 
+Scholar  Microsoft 
+Academics  Fedora  Ciencia  
+Deployed Website  ✔ ✔ ✔ x ✔ 
+Upload Studies  ✔ ✔ ✔ ✔ ✔ 
+Plagiarism Checker  ✔ ✔ x x x 
+Open  for Public  ✔ ✔ ✔ x ✔ 
+For WMSU students  ✔ x x x ✔ 
+Focused on Theses and 
+Dissertations  ✔ x x x x 
+Able to download ETDs  ✔ ✔ ✔ ✔ ✔ 
+Aims to Eliminate Paper 
+Documentation  ✔ x x x x 
+Table 2: System Similarity Table  
+ 
+ 
+ 
+ 
+ 
+ 
+14 
+  
+Synthesis  
+ With all the related studies and literature that have been discussed in this section, 
+they have summarized points that will be implemented in the researchers ’ system.  
+ Google Scholar and Microsoft Academic’s user interface is created by great 
+developers fro m these two great companies. It shall be observed when designing 
+their proposed website  
+ Technologies that will be used in this study are:  
+o HTML, JavaScript, and CSS for front end development  
+o Python, FLASK, and MySQL for Backend Development  
+o Hostinger for Web  Hosting   
+The algorithms used will be of the field of machine learning and Natural 
+Language processing which will collaborate to h  
+andle the data management of the ETDs.   
+15 
+ Conceptual Framework  
+ 
+ 
+Figure 1: Crimson Legacy’s Conceptual Framework  
+ 
+ 
+This conceptual framework gives us a proper understanding of how all the fields 
+and subtitles of this study correlates with each other in the goal of creating an online 
+repository for Electronic Theses and Dissertations.  they can see in the diagram that the 
+two main data collected on the researchers ’ website are search queries and ETD uploads.  
+The process handles the data with their corresponding fields and algorithm and is 
+explained as follows:  
+ 
+Natural La nguage Processing  – breaks the ETDs and search queries into small chunks 
+of data which gives as the ability to clearly cluster and associate a whole abstract with 
+another  giving the researchers ’ website a powerful and accurate recommendation system 
+for a u ser’s search.  
+ 
+Copyleaks API -   a ready to use developer  tool that gives the website the ability to scan 
+the uploaded ETD for a plagiarism score both locally ( server storage) and globally 
+(internet).  
+ 
+Database Management – the repositories for all data that will be used in all the process 
+of the researchers ’ website.  
+
+16 
+ CHAPTER III  
+METHODOLOGY  
+ 
+Research D esign  
+ This study will purely be applied research design as to prove a hypothesis and not 
+formulate one . This study aims to develop a website which is an online repository for 
+electronic theses and dissertations for WMSU that caters thesis submissions from thesis 
+students with the use of Natural Language Processing and Copyleaks API  
+ 
+ Research Locale  
+ The r esearch will be conducted online directed towards people who are students 
+of an institution that is one of the pioneer state universities here in Zamboanga City  
+ 
+Validity of the Instrument  
+ The research Instrument shall be validated by the thesis adviser a nd presented to 
+the thesis panel.  
+ 
+Data Gathering Procedure  
+In gathering data for this study, the researchers use information from the internet 
+such as  NDLTD website  which is an organization that has been campaigning and 
+advocating the utilization of ETDs for universities. The website houses a lot of facts 
+regarding Electronic Theses and Dissertations (ETD) and even online repositories.  
+      The development aspect of the system was enforced by the studies made in the RRL 
+(see chapter 2) for the technologie s that will be used in the development such as HTML, 
+JavaScript, CSS, Python, and MySQL, and as well as the computer science field that is 
+present in this study which is Machine Learning and Natural Language Processing. All of 
+these will also be practiced by the researchers before the development begins.  
+           The dataset needed for Machine Learning was also all gathered online and will be 
+integrated into the system after a data cleaning.  
+And lastly, the proposed website will heavily reference  PETD’s w ebsite  as a guide towards 
+a successful user interface for online repositories and therefore are closely observed for 
+this development.  
+ 
+17 
+ Statistic Tool  
+Technical Aspect of the Project  
+ Natural Language Processing   
+-  Tokenization  
+- Stemming  
+- Lemmatizations  
+- Parts  of Speech tags  
+- Named Entity Recognition  
+- Chunking  
+ 
+Figure 2. Natural Language Processing Flowchart  
+ 
+ This algorithm will help us break down paragraphs, sentences, phrases, and 
+inflected words so that algorithm can deal with the overall data of a search qu ery 
+ 
+ 
+ 
+ 
+
+18 
+ Search Queries  Code Snippet : 
+ 
+Figure 3: Search Query Code Snippet 1  
+ 
+ 
+Figure 4: Search Query Code Snippet 2  
+ 
+ 
+
+19 
+ Search Recommendations  Code Snippet : 
+  
+Figure 5: Search Recommendation Code Snippet  
+ 
+ 
+Figure 6: Search Recommendation Code Snippet  
+
+20 
+ Phases of Development  
+ 
+Planning  
+ The development of this system shall follow the agile method for a rapid 
+development where sprints are tested in iterations until a successful website development 
+is accomplished.  
+ In machine learning machine training, a pl an outline of training set, validation set, 
+and test state. This will be closely observed in terms of training the machine learning 
+model.  
+ 
+ 
+Analysis  
+ System requirements:  
+ Functional requirement  
+- ETDs uploading  
+- Search bar feature for research  
+- Recommendatio ns from selected thesis  
+- Admin account  
+- Faculty Operator’s Account  
+- Plagiarism/Similarity Checker  
+ 
+Non-Functional Requirements  
+- WMSU color theme (red)  
+- User interaction feedbacks  
+- Google Scholar and Microsoft Academics referencing  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+21 
+ Design  
+Process  
+ 
+Figure 7. User Case DFD  
+the researchers ’ proposed website has 3 users. The thesis students who 
+can register and login for ETD uploading, the admin for system settings and ETD 
+approval, and the public, since the website is open for public who seeks 
+informat ion, everyone with internet access may use the website and search for 
+certain research  submitted by WMSU students.  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+22 
+ Data  
+ System’s ERD  
+ 
+ 
+ 
+Figure 8. Crimson Legacy’s  ERD  
+In this ERD, they can see the relationship of a thesis , uploaded  in table 
+thesis,  towards  multiple tables making it the center of information for the 
+researchers ’ system.  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+23 
+ Logic  
+ 
+Figure 9. Crimson Legacy’s  Flowchart  
+ 
+In this flowchart, they can see the overall flow of the researchers ’ 
+proposed system. It all  starts with the input which is either ETD upload , plagiarism 
+scan request,  or search query . ETD uploads are tagged with corresponding topics 
+by the uploader then stored into the database. Plagiarism scan request are sent to 
+Copyleaks API and then returns with a plagiarism score. And, search query is 
+broken down by NLP algorithms and then processed by the system’s search 
+algorithms which outputs searched thesis and recommendations for clicked thesis.  
+ 
+ 
+ 
+
+24 
+ Implementation  
+ Hardware requirement  
+ -the system will  be deployed online and can be accessed with mobile phone and 
+a personal computer which will also be the requirement for the users to manage the 
+website.  
+ Software requirement  
+ -the system is a website and can be accessed from any internet browser. HTML, 
+JS, and CSS will be used to develop the front end and  Flask,  Python , and MySQL for the 
+back end.  
+ Network requirement  
+ -the system requires internet for use and will be deployed online through the web 
+hosting of Hostinger.  
+System Architecture  
+  
+Figure 10. Website Architecture N -tier 
+ 
+ The system architecture is an N -tier architecture where the sectors of the proposed 
+system is divided by client tier, application tier, and database tier.  
+ 
+ 
+ 
+ 
+Copyleaks P lagiarism checker  
+25 
+ Prototype  I 
+ 
+Figure 11. Landing page prototype.  
+As referenced with Google Scholar UI, this is the prototype of the researcher s’ 
+system’s landing page.  
+ 
+Prototype II  
+Home page  
+ 
+Figure 12: Prototype II Landing Page  
+
+26 
+ Search Result  
+ 
+Figure 13: Prototype II search result  
+ 
+ 
+Clicked Thesis  
+ 
+Figure 14: Prototype II clicked thesis  
+ 
+ 
+ 
+ 
+
+27 
+  
+Faculty Login Page  
+ 
+Figure 15: Prototype II login page  
+ 
+ 
+ 
+ 
+Admin Page  
+ 
+Figure 16: Prototype II admin page  
+ 
+
+28 
+ Department Appointee  Page  
+ 
+Figure 17: Prototype II dept. faculty page  
+ 
+ 
+Plagiarism Checker Page  
+ 
+Figure 18: Prototype II plagiarism checker  
+ 
+ This is the prototype of this website that has been deployed for this project.  
+  
+
+29 
+ CHAPTER IV  
+RESULTS AND DISCUSSION  
+ 
+ After the development process, the researchers’ way to test the system is to let 
+the public use the webs ite as it is meant to be. The researchers contacted 5 faculty and 
+5 students from Western Mindanao State University to test the website. And here are the 
+results:  
+ 
+Faculty Survey  
+ 
+Figure 19: Faculty Testing Survey  Introduction  
+ 
+
+30 
+  
+ 
+ 
+
+31 
+  
+ 
+ 
+Figure 20: Faculty Testing Survey  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+32 
+ Student Survey  
+ 
+ 
+Figure 21: Student Testing Survey Introduction  
+ 
+ 
+ 
+ 
+ 
+ 
+
+33 
+  
+ 
+
+34 
+  
+ 
+Figure 22: Student Testing Survey  
+ 
+ As shown in the survey the website  received  a mid-passing score from the 
+faculty while they get a high passing score from the students. This shows that the 
+system is working with its functions but can use a little upgrade on functionality and 
+design on the faculty user’s pages.  
+  
+
+35 
+ CHAPTER V  
+CONCLUSI ON AND RECOMMENDATIONS  
+ 
+Conclusion  
+ 
+The study aims to promote Electronic Theses and Dissertations through creating a 
+website that holds this electronic file for public use and knowledge preservation.  
+ 
+ The work has four (4)  specific goals  and it has all been achieved with a 4-point  
+explanation:  
+1. The website is fully functional and deployed on the internet with the help of 
+web-hosting company’s service, Hostinger.  
+2. The website’s frontend is built with HTML and CSS and is successfully 
+outputti ng required content and result based form user’s query  
+3. The website’s backend is built and manipulated with python and flask and 
+MySQL is used for  database functionality where we can store and manage 
+data 
+4. The website has an increased functionality with the help of Copyleaks . The 
+website is able to do some plagiarism check and give plagiarism score to our 
+faculty users called department appointee.  
+ 
+With these four (4) points. The researchers  have accomplished  their general 
+objective which is to create a websi te that will hold as a thesis repository of Western 
+Mindanao State University students which helps in the knowledge preservation and the 
+publication of the Crimson’s research.  
+ 
+With Internet being the “information super highway” no information travels as f ast 
+as the information uploaded in the internet. May this study start the utilization of Electronic 
+Thesis and Dissertations in our city for as it increases the publicity of our pride studies to 
+reduce the use of paper and to reach other researchers all ov er the globe. It is easier to 
+develop and study new topics when existing and supporting studies are easy to find.  
+  
+36 
+ Recommendations  
+ 
+The proposed system is fully functional and completed based on the objectives of 
+this research . After all the work done in this study, some recommendations are observed 
+for the future researchers. The following recommendations are considered:  
+ 
+a. The researchers suggest that w hen no Machine Learning is included in the 
+study, use different backend languages or tools like PHP which  is much 
+faster and more suitable in terms of web development.  
+ 
+b. The researchers suggest to  add animation to frontend pages which makes 
+it look less static  
+ 
+c. The researchers suggest to use CSS frameworks to reduce development 
+time with a better design.  
+ 
+d. The researchers suggest that i f Machine Learning is one of the future 
+researcher’s strengths, improvise your own plagiarism checker which may 
+help you innovate ideas and make customize it according to your proposed 
+system  
+ 
+e. The researchers suggest that i f money  is not a problem, purchase a higher 
+web-hosting service and APIs to aid on your study since what is used here 
+in this study are as cheap as it can be.   
+37 
+ References  
+ 
+NDLTD. (n.d.). Mission, Goals, and History: Our History. Retrieved May 5, 2021, from 
+http://www.ndltd.org/about  
+ 
+Federis: Intellectual Property Law. (n.d.). Copyright. Retrieved May 5, 2021, from 
+http://www.federislaw.com.ph/faqs -resources/copyright/ . 
+ 
+Ciencia. (n.d.). About Ciencia. Retrieved May 7, 2021, from 
+https://wmsu.edu.ph/research_journal/?page=home . 
+ 
+ISSN International Centre. (n.d.). What is an ISSN?. Retri eved May 7, 2021, from 
+https://www.issn.org/understanding -the-issn/what -is-an-issn/. 
+ 
+Andrew Oziemblo. (2020, March 4). 10 Website Design Trends for 2020. Forbes. 
+https://www.forbes.com/sites/forbesagencycouncil/2020/03/04/10 -website -design -trends -
+for-2020/?sh=1e5f0c8c7645 . 
+ 
+Domantas G. (2021, March 09). Wh at is Web Hosting? Web Hosting Explained for 
+Beginners. Hostinger. https://www.hostinger.ph/tutorials/what -is-web-hosting/ . 
+ 
+Edureka!. (2020, November 29). Stemming and Lemmatization T utorial | Natural 
+Language Processing (NLP) with Python | Edureka [Video]. 
+https://www.youtube.com/watch?v=p1ccbR2P_xA . 
+Fineman, Y. (2003). Electronic Theses and Dissertations. Portal: Libraries a nd the 
+Academy 3(2), 219 -227. doi:10.1353/pla.2003.0032. Retrieved May 5, 2021, from 
+https://muse.jhu.edu/article/42858/summary . 
+ 
+Karen Hein, & Marc Davis. (2008). The Research Wizard: An innovativ e Web Application 
+for Patron Service. Taylor & Francis Online. https://doi.org/10.1300/J136v07n01_01 .  
+ 
+Mubina Malik, & Trisha Patel. (2016.) Database Security – Attacks and Control Methods. 
+Internation al Journal of Information Sciences and Techniques. 
+https://d1wqtxts1xzle7.cloudfront.net/57896420/dbms_security_2.pdf?1543647875=&res
+38 
+ ponse -content -
+disposition=inline%3B+fi lename%3DDATABASE_SECURITY_ATTACKS_AND_CONTR
+OL_ME.pdf&Expires=1620673656&Signature=Cg~reEXaqO3rdTnzOKB2CX7iSAa0VRc
+wNqU8YZKbe0h83rNfBmmXDzjg9eyvdZmznADIaVIg -
+Pkw4McimG3vaoDMe7VEwt8s3VzJ1oiHJ4w98dBQ -
+ii4e7CHNxFxSYaLx4RfJE3SsNztX1Qqy -
+8YdLs9NZeyXmyufieMq2~PV2AoJ mNDIV1qpl08WW1JCcSzvsL14222880LH6QIGDzB6
+qca473AJ~NrHFnWzQLnKjOSWkTzqjHRthtfbn3JztgLm3no1IxdaSNocc91hEyZ5vi65kLd
+gn8vTrsMuPT9tNVGERu46ZPHW1lLGZXX3vUbvbrBGUjcl0oxTSU3fkpZ~A__&Key -
+Pair-Id=APKAJLOHF5GGSLRBV4ZA  
+ 
+Google. (N.D.). Google Scholar. Google Scholar. https://scholar.google.com/schhp?hl=en  
+Microsoft. (N.D.). Microsoft Academics. Microsoft Academics. 
+https://academic.microsoft.com/home  
+ 
+Mohri M., Rostamizadeh A., and Talwalkar A.. (2018). Foundation of Machine Learning.  
+The MIT Press. 
+https://books.google.com.ph/books?hl=en&lr=&id=dWB9DwAAQBAJ&oi=fnd&pg=PR5&
+dq=machine+learning&ots=AypSTPv1l0&sig=hsmQnabizip5pG9FDdLvseelMNo&redir_e
+sc=y#v=onepage&q=machine%20learning&f=false  
+Siraj R aval. (2016, December 17). The Best Way to Prepare Dataset Easily. [Video]. 
+https://www.youtube.com/watch?v=0xVqLJe9_CY . 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+39 
+ Appendix A   
+Gantt Chart  
+ 
+ 
+  
+
+40 
+ Appendix B  
+Flowchart/Diagrams  
+Search  Query Flowchart  
+ 
+Crimson Legacy Process  
+ 
+ 
+ 
+ 
+
+41 
+ Crimson Legacy ERD  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+42 
+ Crimson Legacy Flowchart  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+43 
+ Website Architecture  
+ 
+  
+
+44 
+ Appendix C  
+Algorithms  
+Search Queries  Code Snippet : 
+ 
+ 
+ 
+ 
+
+45 
+ Search Recommendations  Code Snippet : 
+ 
+ 
+ 
+ 
+  
+
+46 
+ Appendix  D  
+ 
+Screenshot/Picture of the System  Home page  
+ 
+ 
+ 
+Search Result  
+ 
+ 
+ 
+ 
+
+47 
+ Clicked Thesis  
+ 
+ 
+ 
+ 
+Faculty Login Page  
+ 
+ 
+ 
+ 
+ 
+ 
+
+48 
+ Admin Page  
+ 
+ 
+ 
+ 
+Department Appointee Page  
+ 
+ 
+ 
+ 
+ 
+ 
+
+49 
+ Plagiarism Checker Page  
+ 
+ 
+ 
+  
+
+50 
+ Appendix E  
+Test Cases and Results
+ 
+ 
+
+51 
+ Appendix F 
+Curriculum Vitae
+ 
+
+52 
+  
+ 

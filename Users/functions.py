@@ -20,7 +20,7 @@ import string
 from django.conf import settings
 
 from django.db.models import Max, Subquery, OuterRef
-
+import re
 import nltk
 nltk.download('punkt')
 

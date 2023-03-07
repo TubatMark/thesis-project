@@ -1,0 +1,3276 @@
+ Republic of the Philippines  
+Western Mindanao State University  
+College of Computing Studies  
+DEPARTMENT OF COMPUTER SCIENCE  
+Zamboanga City  
+ 
+ 
+ 
+WMSU CAMPUS  
+EXPLORATION: A 2D TOP -DOWN MOBILE  
+GAME  
+ 
+ 
+ 
+A Thesis presented to the faculty of  
+Department of Computer Science  
+College of Computing Studies  
+ 
+ 
+In partial fulfillment of the requirements for the degree of  
+Bachelor of Science in Computer Science  
+ 
+ 
+JOSEPH FAITH H. BRIGOLE JR  
+EMERSON R. MAGBANUA  
+Researchers  
+ 
+ 
+ 
+Ms. Mara Marie Liao  
+Adviser  
+ 
+ 
+May 04, 2022
+
+1 
+ Approval Sheet  
+  
+2 
+ Dedication  
+ 
+ To my mother and uncles, Annabelle, Rogelio, Jr. and Axiel, I thank you for 
+supporting me through the years of my college life. To my brothers and sisters, Ivan 
+Kristoffer, Christian, Lady Chiven and Donna , for believing in me and taught me to be 
+responsible. To my late father, Santiago, Sr. , I have finally achieved your dream and last 
+wish as your first child to ever graduate from  a university.  I dedicate this work to them.  
+ 
+Per Aspera Ad Astra.  
+ 
+ 
+This thesis project is dedicated to my parents, Joseph Faith, Sr . and Vivian , who 
+have been my biggest supporters and encouragers. I would also like to thank my brother, 
+Frank Reed , for getting me a PC to work on my project, and Eduard Alama  for lending 
+me his computer when my own computer was not working before our final defense. 
+Without his help, I couldn’t finish my project on time. Finally, I would like to thank all my 
+friends a nd family for their support and encouragement throughout this journey. Their 
+support and willingness to help me achieve my goals have been instrumental in my 
+success. Thank you for believing in me and for helping me to achieve my goals.  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+3 
+ Ackno wledgement  
+ 
+We would like to extend our sincerest gratitude to our supervisor, Ms. Mara Marie 
+Liao, who believed in us and guided us with utmost effort, for sharing her knowledge in 
+the course of our studies despite her busy schedule. Thank you for giving us the 
+opportunity and we hope we made you proud.  
+ 
+We are also grateful to Ms. Lucy Felix -Sadiwa , who have influenced us greatly 
+with her knowledge and perseverance in teaching us throughout our years as a Computer 
+Science student.  
+ 
+We are also thankful t o the faculties and staffs of College of Computing Studies 
+for their contribution of sharpening our minds to prepare ourselves to the next path which 
+is after we graduate.   
+4 
+ Abstract  
+ 
+Freshmen have enough time to wander around their campus for the first time 
+especially if their university is huge. The WMSU freshmen enrollment process was a bit 
+confusing for a freshman before, but now it has been made simpler. Though that is the 
+case, mo st of these freshmen do not know most of the places or buildings of the WMSU 
+campus. During their enrollment, these freshmen might waste their time finding where to 
+go to a particular place during their enrollment or even when their first day of class 
+comm ences.  
+Video games have been around for almost 65 years with the purpose of either relaxation, 
+enjoyment, challenge, or even boredom. That being said, it has been very popular among 
+children and teenagers because of its friendly and very easy to understan d. Through the 
+years of development, video games have improved their graphic designs, gameplay, and 
+even user control. From that point, video games have become so versatile that they can 
+also be used as an alternative. To address this matter, the study wil l be developing a 
+mobile game that lets the player complete the quests about the WMSU official freshmen 
+enrollment process as well as simulating WMSU main campus in a 2 -Dimensional Top -
+Down graphic mobile game.  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+5 
+ Table of Contents  
+ 
+Approval Sheet  ................................ ................................ ................................ ................ 1 
+Dedication  ................................ ................................ ................................ ....................... 2 
+Acknowledgement  ................................ ................................ ................................ ........... 3 
+Abstract  ................................ ................................ ................................ ........................... 4 
+List of Figures  ................................ ................................ ................................ .................. 7 
+List of Tables  ................................ ................................ ................................ ................... 8 
+CHAPTER I INTRODUCTION  ................................ ................................ ......................... 9 
+Project Context  ................................ ................................ ................................ ............ 9 
+Purpose and Description  ................................ ................................ ............................ 11 
+Obje ctives  ................................ ................................ ................................ .................. 12 
+Scope and Limitations  ................................ ................................ ................................ 13 
+Significance of the Study  ................................ ................................ ............................ 14 
+CHAPTER II REVIEW OF RELATED LITERATURE  ................................ ..................... 15 
+Related Studies  ................................ ................................ ................................ ......... 15 
+Synthesi s ................................ ................................ ................................ ................... 18 
+Conceptual Framework  ................................ ................................ .............................. 19 
+Definition of Terms  ................................ ................................ ................................ .....20 
+CHAPTER III METHODOLOGY  ................................ ................................ .................... 21 
+Research Design  ................................ ................................ ................................ .......21 
+Respondents  ................................ ................................ ................................ .............. 21 
+Data Gathering Instruments, Techniques, and Procedures  ................................ ........ 22 
+Technical Tools  ................................ ................................ ................................ .......... 22 
+Software Process Model  ................................ ................................ ............................ 23 
+Storyboard  ................................ ................................ ................................ ................. 23 
+Module Specification Model  ................................ ................................ ....................... 25 
+6 
+ Implementation Plan  ................................ ................................ ................................ ..36 
+Prototype  ................................ ................................ ................................ ................... 37 
+CHAPTER IV RESULTS AND DISCUSSION  ................................ ................................ 38 
+Alpha Testing Result  ................................ ................................ ................................ ..38 
+Beta Tes ting Result  ................................ ................................ ................................ ....44 
+Pre-Testing and Post -Testing  ................................ ................................ .............................  44 
+Pre-Test and Post -Test (Score) Result for Requirements of Freshmen Enrolment  ...............  46 
+Pre-Test and Post -Test (Score) Result for WMSU Locations  ................................ ...............  47 
+Acceptance Testing  ................................ ................................ ................................ ...........  49 
+CHAPTER V CONCLUSION AND RECOMMENDATION  ................................ .............. 53 
+Conclusion  ................................ ................................ ................................ ................. 53 
+Recommendations  ................................ ................................ ................................ .....53 
+APPENDICES  ................................ ................................ ................................ ............... 54 
+Appendix A: Photo Documentation of Testing  ................................ ............................ 55 
+Appendix B: Relevant Source Code  ................................ ................................ ........... 57 
+Appendix C: Screenshot/Picture of the System  ................................ .......................... 62 
+Bibliography ................................ ................................ ................................ ................... 66 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+7 
+ List of Figures  
+ 
+Figure 1:  A 2D pixelated character named Pira ................................ ............................. 17 
+Figure 2: Calico Desert from Stardew Valley in a Top -Down perspective  ...................... 17 
+Figure 3: Conceptual Framework in Diagram ................................ ................................ .19 
+Figure  4: HIPO Chart  ................................ ................................ ................................ .....24 
+Figure 5: Sample buildings in the game  ................................ ................................ ......... 37 
+Figure 6: Characters for Story Mode male and female  ................................ ................... 37 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+8 
+ List of Tables  
+ 
+ 
+Table 1 : Definition of terms  ................................ ................................ ............................ 20 
+Table 2 : Story Mode storyboard ................................ ................................ ..................... 25 
+Table 3 : Free Roam Mode storyboard  ................................ ................................ ........... 35 
+Table 4 : Five Point Likert Scale for Alpha Testing ................................ .......................... 38 
+Table 5 : Weighted Mean of Instructional Content  ................................ .......................... 39 
+Table 6 : Weighted Mean of User Friendliness  ................................ ............................... 40 
+Table 7 : Weighted Mean of Readability  ................................ ................................ ......... 41 
+Table 8 : Weighted Mean of Technical Aspects  ................................ .............................. 42 
+Table 9 : Overall Weighted Mean of the mobile game  ................................ .................... 43 
+Table 10 : Table of Pre -Test and Post -Test of Scores about the requirements of freshman 
+enrollment and locations of WMSU  ................................ ................................ ................ 44 
+Table 11 : Two Sample for Means using Excel  ................................ ............................... 46 
+Table 12 : Table for T -test result for freshmen requirement topic  ................................ ....46 
+Table 13 : Decision table  ................................ ................................ ................................ 46 
+Table 14 :Two Sample for Means using Excel  ................................ ................................ 47 
+Table 15 : Table for T -test result for location of WMSU topic  ................................ .......... 47 
+Table 16 : Decision table  ................................ ................................ ................................ 48 
+Table 17 : Table for Acceptance Testing of client  ................................ ........................... 49 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+9 
+ CHAPTER I  
+INTRODUCTION  
+ 
+Project Context  
+ 
+Exploring  the Western Mindanao State University (WMSU) – main campus for the 
+first time can be quite confusing. First time enrollees and guests will be having difficulties 
+locating their destination if they don’t have a guide or someone to guide them. This can 
+be a hassle and time consuming if they are in a hurry or just trying to get there in time.  
+ 
+The researchers had given a pre survey to the students of Western Mindanao 
+State University, and to the incoming freshmen of the University. The survey has 71% 
+which  were the incoming students of WMSU and 28.4% are old students and new students 
+(freshmen) who have not experienced a face -to-face enrollment. The survey contained 
+questions asking if the respondents know the following building or area inside the 
+Universit y. The results showed that 71% of the respondents do not know certain building, 
+places or specific areas inside WMSU. These respondents are mostly the incoming 
+freshmen as well as students who enrolled during the COVID -19 pandemic. That being 
+said, the res earchers will develop a mobile game that will bring aid to the students and 
+upcoming freshmen of the Western Mindanao State University.  
+ 
+Through  the help of a mobile game which can replicate the WMSU environment in 
+a 2D Top -Down type of a mobile game, i t can help them familiarize each place and also 
+minimize asking random students from the campus of which it requires certain amount of 
+energy, courage, and confidence from the minority (shy people, persons with disability). It 
+may also boost their exciteme nt when venturing into unfamiliar places for the first time in 
+a fun and entertaining way. The user or player will be guided through quests and 
+challenges to be familiar with the WMSU campus.  
+ 
+The game will be having two modes: the story mode and the f ree roam mode. This 
+way, the first -time comers or the new students will be entertained and have fun while 
+exploring the map. (Granic, I., Lobel, A., & Engels, R. C. M. E. 2014) stated that “Playing 
+video games may also help children develop problem -solving  skills”. In general, digital 
+10 
+ games are not exclusive for children only. In this modern society, we see digital games as 
+a platform for learning. From that aspect, grown people can also utilize the power of digital 
+games through E -Learning games.  
+ 
+  
+ 
+  
+11 
+ Purpose and Description  
+ 
+The main purpose of the game is to let the player explore the map and complete 
+quests to go to the next step . The mobile game allows the player to explore and interact 
+with the buildings, and non -player -characters inside the gam e.  The mobile game has two 
+(2) modes, the story mode and the free mode. The goal in the Story Mode is to let the 
+player complete the enrollment process. Every step in the enrollment process serves as 
+a checkpoint for the game. The player must complete t he proceed to the next step. Each 
+quest is telling the player to search and collect a certain item or items placed around the 
+WMSU. These items are the official requirements of the incoming freshmen enrollment of 
+WMSU. After finding and completing the ta sks, the player must submit the item or items 
+to the non -playing character (NPC) to proceed to the next quest.  
+ 
+In contrast, the free mode allows the player to freely roam around and interact with 
+all of the intractable buildings or objects. The quest system is disabled and will be more of 
+a guide to the player. The free mode lets the player interact with the NPC of each college 
+building about the locations of the classroom number (1st, 2nd, 3rd, … n floor), as well as 
+other rooms like the Dean’s Office , etc.  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+12 
+ Objectives  
+ 
+The general objective of this study is to create an educational mobile game with 
+2D environment using GDScript  language that lets the player explore the Western 
+Mindanao State University (WMSU) campus and learn information of each building by 
+completing tasks while guiding them the steps of the enrollment process.  
+ 
+Specifically, the study will:  
+● To create an educational  mobile game using Godot Engine.  
+● To design 2D pixelated  game assets and tile -based design of the Western 
+Mindanao State University campus.  
+● To develop an interactive adventure mobile game to the player which also 
+introduces the Western Mindanao S tate University campus to other stakeholders.  
+● To guide the player in the  enrollment process.  
+● To let the players know the locations or areas of the WMSU campus.  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+13 
+ Scope and Limitations  
+ 
+The main scope of the game includes mainly incoming freshmen of WMSU, old 
+students , and other  stakeholders. The project is mainly based on the main campus of 
+Western Mindanao State University (WMSU). It will cover mostly the entire map of the 
+WMSU Main campus. In a 2D environment, the game is available f or Android 
+smartphones.  
+ 
+For the limitations, the game is not available for iOS devices. Some parts of the 
+campus might not be accessible or will be blocked, depending on the college rules for 
+privacy. The requirements of the freshmen enrollment will be ba sed on the current and 
+updated requirements of WMSU  as of 2023 . The WMSU extension campuses will not be 
+covered. This game will also not cover the senior high enrollment.  
+ 
+  
+14 
+ Significance of the Study  
+ 
+The implementation of the mobile game will be sign ificant to incoming freshmen of 
+WMSU. These people may have a hard time familiarizing the environment in the campus 
+which leads to not finding what they are looking for or wasting energy and time. It may be 
+logical to ask for help from the people inside th e campus, but for those from the minority 
+groups of low self -esteem, having no confidence, and people with disability, it may be too 
+hard to ask. Through playing the actual mobile game, the player can navigate by 
+himself/herself to his/her destination by j ust playing it.  
+ 
+The game will not be limited to guides on how to complete the enrollment process, 
+but also aids the player to familiarize the campus and provide information about the 
+buildings inside the campus.  
+ 
+  
+15 
+ CHAPTER II  
+REVIEW OF RELATED LITERATURE  
+ 
+Related Studies  
+ 
+The rise of technology like computers and smartphones have drastically improved 
+for 2 decades and has become an aid to most people in the field of engineering, agriculture 
+and politics. As technology continues to develop new  uses, an entertainment aspect has 
+become popular, video games. Though it did not take long to surface the negative 
+comments from the grown people.  
+ 
+Video  games have been greatly blamed for children getting lazy, addicted or 
+developing violent behavior.  As time goes by, video games have evolved from a simple 
+entertainment to a teaching platform that encourages people to learn while playing a video 
+game. This has become a great leap from having a negative impact for children and 
+youths. In youths and chil dren from the United States, ninety -seven (97) percent have 
+been playing for at least an hour per day (Granic, I., Lobel, A., & Engels, R. C. M. E. 2014). 
+Gaming can be a good instrument in terms of education and view as an alternative or 
+addition to tradi tional teaching (Mohamad, 2020). Many students today have access to 
+smartphones of which mobile educational games can be played in a more comfortable 
+and easy access.  
+ 
+As video games begin to be labeled as a learning platform from schools, most 
+video games  are developed to increase student engagement, and improve their curiosity 
+and critical thinking. Thus, it has also surpassed what a traditional educational technique 
+can do in terms of deep and epistemic learning (Lynch -Sauer, Arato, N. 2011), (Verkuyl 
+et al., 2020). A meta -analysis of games from (Shute, 2012) presented a 0.33 standard 
+deviation increase in learning after playing a game -based instruction compared to a 
+traditional -instruction based. Gamification is the use of game design elements in a non -
+game context of which the intent is to have fun and play with passion while completing 
+tasks (Reiners, 2014).  
+ 
+16 
+ When  playing games, people can experience emotions such as happiness, anger 
+and frustration, fear, or satisfaction (Gajdůšek, 2021). In an exam ple of people playing 
+games, when facing difficult situations or levels, a player may become frustrated or angry 
+because the level or the intensity of the game is very hard. In contrast, beating that level 
+gives the player a satisfactory feeling. Some vide o games reward the player after beating 
+a certain level, which therefore enables him to become hungry to play more.  Creating  a 
+video game takes time and effort. As researchers, one must also be familiar with 
+programming languages when developing video games. In this paper, the researchers will 
+be discussing the game engine where the video game will be developed. There are many 
+game engines that suit your style from 3 -Dimensional (3D) video game engines like Unity 
+Engine and Unreal to 2 -Dimensional (2D) like the RPG Maker. In terms of 2D, one stands 
+out the most when it comes to 2D pixelated environments, the Godot Engine. The Go dot 
+Engine is very powerful compared to engines like Unreal and Unity where you need to 
+install the engine itself. After downloading Godot Engine, you can automatically run the 
+application and start your development (Schmuck, n.d.). With just a data space of 800mb, 
+most people who own flash drives can easily transfer or copy the file which means it is 
+very accessible.  
+ 
+A 2-Dimensional (2D) video game has a flat surface or environment that uses 
+sprites. The camera perspective either looks like the top or  side, or the top -down 
+perspective (gamedev.net, n.d.). Tile -based design or map models is a traditional map 
+model because it runs on a low memory of which memory storage was very low at that 
+time. A tile map models square tiles of 8x8 pixels like a grid. This allows an easy building 
+to create a bigger map than the current size of memory would have allowed on that time 
+(Benedicto , n.d.).  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+17 
+  
+ 
+ 
+Figure 1  
+A 2D pixelated character named Pira  (Design and Development of Top Down 2D Action -
+Adventure Video Game with Hack & Slash and Bullet Hell Elements, n.d.)  
+ 
+ 
+ 
+ 
+. 
+Figure 2 
+A 2D pixelated character named Pira  Calico Desert from Stardew Valley in a Top -Down 
+perspective  (Stardew Valley: StardewValleyGuide.)  
+ 
+
+18 
+ In a game called No Escape, a survival shooting 2D top -down game, the author suggested 
+that, although the game was a 71% satisfaction scale, it also needs to have learning 
+material as an addition for future development of the video game (Goandy et al. 2020 ). 
+ 
+ 
+ 
+Synthesis  
+ 
+Most  video games have been developed in 3D and 2D side perspective (like Super 
+Mario) and totally forgot the traditional 2D top -down perspective. Most of it also were 
+available to be played on a computer or a mobile device. Today, video games required 
+specs have been on high which means device specs must also be greater or on par with 
+the required specs of the game. Otherwise, the video game may not be smooth or worst, 
+playable. The technological advancement of this decade has also improved. Thus, even 
+video games have become a platform as an alternative or a supplement to traditional 
+learning. The previous studies have clearly shown that a video game is not just for 
+entertainment purposes. It can also be used as a learning platform as well as guidance 
+with people having fun while learning.  
+ 
+With that being said, the researchers are confident that developing a mobile game 
+that guides or teaches the students of WMSU, particularly the new or potential students, 
+of the enrollment process, locations of colleges and other vital buildings of the campus.
+19 
+ Conceptual Framework  
+ 
+In this section, the researchers must have the knowledge and skills in developing 
+the 2D top -down WMSU campus exploration. The researcher must also have the 
+knowledge in graphics design of sprites like the character, buildings, an d other objects of 
+the game. In addition, the researchers must also have an idea of the programming 
+language called GDScript of which it will be used in implementing the mobile game using 
+an engine called Godot Engine.   
+ 
+ 
+ 
+ 
+Figure 3 
+Conceptual Framework in Diagram  
+ 
+ 
+ 
+ 
+ 
+  
+
+20 
+ Definition of Terms  
+ 
+ 
+Table 1  
+Definition of terms  
+ 
+Term  Definition  
+1. Non-player 
+character or NPC  is a character in the game that either gives quests/tasks 
+or guides the player  
+2. Video game  is a game that is played through computers screens of 
+which a player will be  controlling digital images 
+from a computer program  
+3. Top-down 
+perspective  is a perspective in which the player’s perspective is 
+looking down from above  
+4. Quest  is a mission or tas k that a player needs to complete it in 
+order to advance to the next quest  
+5. Item is an object of the game of which it is mostly a document  
+6. College building  is an in -game structure where students of each course 
+or major belong  
+7. Story Mode  is a mode of which a player must venture throughout the 
+campus by completing quests  
+8. Free Mode  is a mode of which a player can freely roam the entire 
+campus without completing all the quests  
+9. Tile-based map  is a design of which small and regular -shaped images 
+or tiles are used for creating the game environment  
+10. Player  is an in -game playable character of either a student or a 
+visitor  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+21 
+ CHAPTER III  
+METHODOLOGY  
+ 
+Research Design  
+ 
+The researchers will be using applied research design. The research method will 
+be used in giving knowledge about the enrollment process to the incoming students as 
+well as efficiently guiding them about the vital areas or located buildings of the Western 
+Mindanao State University campus.  
+ 
+The researcher will also be giving an alpha test to the respondents (incoming 
+freshmen) for the evaluation of the researchers’ mobile game. Afterwards, during the beta 
+testing, the respondents will be given a pre -test and  post-test to conclude if the 
+researchers’ mobile game has effectively given knowledge about the enrollment process, 
+guide of campus A and campus B, and information of buildings inside the campus.  
+ 
+ 
+Respondents  
+ 
+The main respondents of the 2D top -down mobile game: WMSU campus 
+exploration will be the incoming freshmen of WMSU, and sub respondents will be the old 
+students, and other stakeholders. The incoming freshmen will benefit more from this 
+mobile game as it provides them knowledge about the enr ollment process of WMSU as 
+well as guiding them the location of each building through the game’s quests system.  
+ 
+ 
+ 
+  
+22 
+ Data Gathering Instruments, Techniques, and Procedures  
+ 
+The researchers will be using questionnaires to gather the knowledge of incoming 
+freshmen of WMSU. The questionnaire will be disseminated online by using google forms. 
+A physical questionnaire will also be available to those who do not have internet access. 
+Pretest and posttest will be given to the respondents. Before playing the game, the 
+respondents will be required to answer the pretest. After that, a posttest will be given to 
+the respondents after playing the game.  
+ 
+ 
+Technical Tools  
+ 
+The researchers will be using these tools to implement the 2D Top -down mobile 
+game: WMSU Campus Exploration:  
+ 
+HARDWARE:  
+● Desktop PC  
+● Android device (for testing)  
+ 
+SOFTWARE:  
+● GODOT Game Engine  
+● Aseprite (pixel editor)  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+23 
+ Software Process Model  
+ 
+The researchers will be using a software development called Agile Methodology 
+of the implementation of the car simulation video game. In the field of game development, 
+agile methodology is commonly used. It reduces the time of production while maintaining 
+its precision and efficiency.  
+      
+ 
+Storyboard  
+ 
+Description : A mobile game for new students of Western Mindanao State University 
+about the enrollment process and guides for locations of buildings or other offices. The 
+mobile game has 2 modes: Story Mode &  Free Mode. Story mode contains quests about 
+the enrollment process. A step -by-step quest of enrollment will be introduced to the 
+players. Free mode gives the player freedom. The mode will be quests -free. The player 
+will be able to visit NPCs and look for information of its respective college building.  
+ 
+Target Audience : Incoming students of WMSU, Old students of WMSU, Visitors  
+ 
+Topic Sequence : 
+ 
+● Story Mode  
+● Free Mode  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+24 
+  
+ 
+Figure 4 
+HIPO chart  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+25 
+ Module Specification Model  
+ 
+Table 2  
+Story Mode storyboard  
+ 
+ 
+STORYBOARD   
+VISUALS   
+INTERACTIONS   
+TEXT   
+AUDIO   
+ANIMATION/VIDEO  
+1.0 Splash 
+Screen  Illustration : 
+TBD 
+ 
+Description : 
+Image of our 
+mobile game 
+with title  Button : btnStart  
+Label : “Start”  
+Link: Proceeds to 
+2.0 
+ 
+Button : btnQuit  
+Label : “Quit”  
+Link: Exits the 
+game  
+ Title: TBD  Background 
+Music : TBD Animation :  
+aniSplash of the mobile 
+game 
+2.0 Main Menu  Illustration : 
+TBD Button : 
+btnStoryMode  
+Label : Story Mode  
+Link: Proceeds to 
+2.1 
+ 
+ 
+Button : 
+btnFreeMode  
+Label : Free Mode  
+Link: Proceeds to 
+2.1 
+ 
+Button : 
+btnSettings  
+Label : Settings  
+Link: Proceeds to 
+3.0 
+ 
+Button :btnAbout  
+Label : About  
+Link: Proceeds to 
+4.0 
+ 
+Button : btnBack  
+Label : Back  
+Link: Proceeds to 
+2.0 Title: TBD Background 
+music : TBD Animation :  
+aniSplash of the mobile 
+game 
+2.1 Story Mode  Illustration : 
+Male 
+Character & 
+Female 
+Character  
+ 
+Description : 
+Image of male 
+and female 
+character  Button : btnMale  
+Label : Male  
+Link: Proceeds to 
+2.1.1  
+ 
+Button : btnFemale  
+Label : Female  
+Link: Proceeds to  
+2.1.1  
+ Title: Select 
+Gender  Background 
+Music: TBD 
+exclusive for 
+Story Mode  Animation:  Walking 
+animation of character 
+when mouse cursor is 
+hovered on the 
+character  
+ 
+26 
+ Button : 
+btnBackNM  
+Label : Back  
+Link: Proceeds to 
+2.0 
+2.1.1 Play  Illustration : 
+None Gesture : Tap 
+Label : None  
+Function : Tap the 
+screen to make an 
+action.  
+Link: Proceeds to 
+2.1.2  
+ Background 
+Music: TBD 
+exclusive for 
+Story Mode  Animation: Change 
+scene  
+ 
+ 
+2.1.2 Character 
+Naming  Illustration : 
+Text label  Button: btnOk  
+Label : OK 
+Link: proceed to 
+2.1.3  
+ 
+ 
+Button : 
+btnBackCN  
+Label: Back to 
+Main Menu  
+Link: Proceed to 
+2.0 
+  Background 
+Music: TBD 
+exclusive for 
+Story Mode  
+ 
+ Animation: Dialogue 
+Panel for character 
+naming  
+Link: Pop panel for 
+2.1.3  
+ 
+2.1.3 College 
+Preference  Illustration: 
+Brown 
+Envelope  
+ 
+Description : 
+A brown 
+envelope will 
+be seen for 
+filling up 2.1.3 
+& 2.1.4  Button: btnOk  
+Label : OK 
+Link: proceed to 
+2.1.3  
+ 
+ 
+Button : 
+btnBackCN  
+Label: Back to 
+Main Menu  
+Link: Proceed to 
+2.0  Background 
+Music: TBD 
+exclusive for 
+Story Mode  Animation: Dialogue 
+Panel for college 
+preference  
+ 
+Link: Next panel for 
+2.1.4  
+ 
+2.1.4 Gender 
+Preference  Illustration: 
+Brown 
+Envelope  Button: 
+btnDropdown  
+Label : Select your 
+college  
+Description : 
+Shows all the 
+college of WMSU  
+Action : Tap  
+ 
+ 
+Button: 
+btnChoose  
+Label : Select  
+Link: Proceed to 
+2.1.5  
+ 
+Button : 
+btnBackCol  
+Label : Back  
+Link: Proceed to 
+2.0  Background 
+Music: TBD 
+exclusive for 
+Story Mode  Animation: Dialogue 
+Panel for the 
+confirmation of name 
+and chosen college  
+2.1.5 
+Confirmation  Illustration: 
+Brown 
+Envelope  Button: 
+btnConfirm  
+Label : Confirm  T1: Your 
+name is 
+“name”  Background 
+Music: TBD 
+exclusive for 
+Story Mode  Scene : A scene will be 
+presented after 
+completing 2.1.5  
+27 
+ Link: Proceed to 
+2.2 
+ 
+Button : 
+btnBackConf  
+Label : Back  
+Link: Proceed to 
+2.1.4  
+T2: 
+Awesome! 
+The “chosen 
+college” is a 
+great college. 
+Good choice!  
+ 
+T3: Confirm 
+name and 
+college?  
+  
+Description : The 
+building of the player’s 
+chosen college will be 
+unlocked.  
+ 
+Animation : College 
+building’s color will be 
+changed from gray to 
+its respective color.  
+ 
+Animation:  Dialogue 
+Panel  
+ 
+Dialogue Panel of T1 
+ 
+Dialogue Panel of T2 
+ 
+Dialogue Panel of T3 
+ 
+2.2 Pre -Quest  Illustration: 
+NPC guard  
+ 
+Description : 
+A guard 
+standing at 
+Gate 3.  Gesture:  Tap 
+Action : Tap the 
+guard.  
+ 
+Button:  
+btnJoystick  
+Function : 
+Movement of the 
+character  
+Description: 
+Navigate your 
+character to the 
+chosen college 
+building  
+ 
+Link: Proceed to 
+2.3 (  
+ 
+T1 of Guard 
+at Gate 3: Hi, 
+who are you?  
+ 
+T2: I see. 
+You’re 
+enrolling 
+today.  
+ 
+T3: Please 
+head over to 
+“chosen 
+college” for 
+admission.  
+ 
+ 
+(Without 
+brown 
+envelope)  
+ 
+TW1 : Please 
+get that 
+brown 
+envelope!  
+ Background 
+Music: TBD 
+exclusive for 
+Story Mode  Animation: Black 
+screen.  
+ 
+Description : Next 
+scene  
+ 
+Animation: Dialogue 
+Panel  
+ 
+Dialogue Panel of T1 
+ 
+Dialogue Panel of T2 
+ 
+Dialogue Panel of T3 
+ 
+Dialogue Panel of TW1  
+ 
+2.2.1 Finding the 
+Brown Envelope  Illustration: 2 
+Brown 
+Envelopes  
+ 
+Description : 
+2 Brown 
+envelopes  Button:  
+btnJoystick  
+Function : 
+Movement of the 
+character  
+Description: 
+Navigate your 
+character to the a 
+tree  near gate and 
+sidewalk outside 
+the gate  
+ 
+Gesture: Tap T1: Obtained 
+2 Brown 
+Envelopes  
+ 
+T2: First step 
+is complete!  
+ Background 
+Music: TBD 
+exclusive for 
+Story Mode  
+ 
+Sound 
+effects: If an 
+item is 
+obtained.  Animation: Dialogue 
+Panel  
+ 
+Dialogue Panel of T1 
+Dialogue Panel of T2 
+ 
+ 
+28 
+ Action : Tap the 
+Brown envelopes 
+to obtain.  
+Link: Proceed to 
+2.3 
+2.3 First quest  Illustration: 
+NPC Faculty 
+of that college  
+ Button:  
+btnJoystick  
+Function : 
+Movement of the 
+character  
+ 
+Gesture: Tap 
+Action : Tap the 
+“npc-name -faculty”  
+ 
+Button : btnYes  
+Label : Yes  
+Link: Proceed to 
+2.3.1  
+ 
+Button : btnNo  
+Label : No 
+Link: Will exit the 
+dialogue panel of 
+the faculty. (You 
+need to tap the 
+“npc-name -faculty” 
+again to start the 
+quest)  T1: Hi, my 
+name is “npc -
+name 
+faculty”.  
+ 
+T2: I’ll be 
+needing 
+these 
+documents.  
+ 
+T3: 1 SHS 
+Card.  
+ 
+T4: Think yo u 
+can do it?  
+ 
+(If player 
+selected 
+“Yes”)  
+ 
+T5: Good! 
+You can find 
+these 
+documents at 
+the open field 
+of our 
+campus!  
+ 
+T6: Good 
+luck, 
+Crimson!  
+ 
+(If player 
+selected 
+“No”)  
+ 
+TN5: Oh. 
+That’s too 
+bad. Background 
+Music: TBD 
+exclusive for 
+Story Mode  Scene : A scene will be 
+presented after 
+completing 2.3  
+ 
+Description : The open 
+field will be unlocked.  
+ 
+Animation : Open 
+field’s color will be 
+changed from gray to 
+its respective color. 
+Some documents of 
+the first quest will be 
+shown if the player 
+accepts the first quest.  
+ 
+Animation: Dialogue 
+Panel  
+Dialogue Panel of T1 
+ 
+Dialogue Panel of T2 
+Dialogue Panel of T3 
+ 
+Dialogue Panel of T4 
+ 
+Dialogue Panel of T5 
+ 
+Dialogue Panel of T6 
+ 
+Dialogue Panel of TN5 
+ 
+ 
+2.3.1 Finding the 
+SHS card  Illustration: 1 
+SHS Card  
+ 
+Description : 
+Original SHS 
+card  Button:  
+btnJoystick  
+Function : 
+Movement of the 
+character  
+Description: 
+Navigate your 
+character to the 
+open field  
+ 
+Gesture: Tap 
+Action : Tap the 
+SHS Card to 
+obtain.  
+Link: Proceed to 
+2.4 T1: Obtained 
+1 SHS card  
+ 
+T2: First step 
+is complete!  
+ Background 
+Music: TBD 
+exclusive for 
+Story Mode  
+ 
+Sound 
+effects: If an 
+item is 
+obtained.  Animation: Dialogue 
+Panel  
+ 
+Dialogue Panel of T1 
+Dialogue Panel of T2 
+ 
+ 
+29 
+ 2.4 Second Quest  Illustration: 
+NPC Faculty 
+of that college  
+ Button:  
+btnJoystick  
+Function : 
+Movement of the 
+character  
+ 
+Gesture: Tap 
+Action : Tap the 
+“npc-name -faculty”  
+ 
+Button : btnYes  
+Label : Yes  
+Link: Proceed to 
+2.4.1  
+ 
+Button : btnNo  
+Label : No 
+Link: Will exit the 
+dialogue panel of 
+the faculty. (You 
+need to tap the 
+“npc-name -faculty” 
+again to start  the 
+quest)  T2: I’ll be 
+needing 
+these 
+documents.  
+ 
+T3: 1 NSO 
+Live Birth  
+ 
+T4: Think you 
+can do it?  
+ 
+(If player 
+selected 
+“Yes”)  
+ 
+T5: Good! 
+You can find 
+these 
+documents 
+Outside the 
+gym.  
+ 
+ Background 
+Music: TBD 
+exclusive for 
+Story Mode  Scene : A scene will be 
+presented after 
+completing 2.4  
+ 
+Description : The open 
+field will be unlocked.  
+ 
+Animation : Open 
+field’s color will be 
+changed from gray to 
+its respective color. 
+Some documents of 
+the first quest will be 
+shown if the player 
+accepts the first quest.  
+ 
+Animation: Dialogue 
+Panel  
+Dialogue Panel of T1 
+ 
+Dialogue Panel of T2 
+Dialogue Panel of T3 
+ 
+Dialogue Panel of T4 
+ 
+Dialogue Panel of T5 
+ 
+ 
+2.4.1 Finding 
+NSO Live Birth  Illustration: 
+Gym  
+ Button:  
+btnJoystick  
+Function : 
+Movement of the 
+character  
+Description: 
+Navigate your 
+character to the 
+open field  
+ 
+Gesture: Tap 
+Action : Tap the 
+yellow NSO 
+document to 
+obtain.  
+Link: Proceed to 
+2.5 T1: Obtained 
+1 NSO Live 
+Birth  
+ 
+ Background 
+Music: TBD 
+exclusive for 
+Story Mode  
+ 
+Sound 
+effects: If an 
+item is 
+obtained.  Animation: Dialogue 
+Panel  
+ 
+Dialogue Panel of T1 
+ 
+2.5 Third Quest  Illustration: 
+NPC Faculty 
+of that college  
+ Button:  
+btnJoystick  
+Function : 
+Movement of the 
+character  
+Description: 
+Navigate your 
+character to the 
+College building  
+ 
+Gesture: Tap 
+Action : Tap the 
+“npc-name -faculty” 
+to start the quest.  
+ 
+Link: 2.5.1  T1: Hi, again! 
+Our next step 
+will be getting 
+your CET 
+result  
+ 
+T2: Head 
+over to our 
+open field 
+and get it.  
+ 
+T3: Good 
+luck!  Background 
+Music: TBD 
+exclusive for 
+Story Mode  
+ Scene : A scene will be 
+presented afte r 
+completing 2.4  
+ 
+Description : The 
+Research Center will 
+be unlocked.  
+ 
+Animation : Research 
+Center’s color will be 
+changed from gray to 
+its respective color.  
+ 
+Animation: Dialogue 
+Panel  
+ 
+30 
+  Dialogue Panel of T1 
+ 
+Dialogue Panel of T2 
+ 
+Dialogue Panel of T3 
+ 
+ 
+2.5.1 Getting Cet 
+result  Illustration: 
+NPC of the 
+Research 
+Center  
+ Button:  
+btnJoystick  
+Function : 
+Movement of the 
+character  
+Description: 
+Navigate your 
+character to the 
+Research Center  
+ 
+ 
+Gesture : Tap  
+Action : Tap the 
+“npc-name -rc” to 
+claim your CET 
+result.  
+Link: Proceed to 
+2.6 
+ T1: I am “npc -
+name -rc”. I 
+am in -charge 
+of giving your 
+CET test 
+results.  
+ 
+T2: One 
+moment, 
+please.  
+ 
+T3: … 
+ 
+T4: …..  
+ 
+T5: Here it is. 
+Your name is 
+very 
+common.  
+ 
+T6: There’s 
+like a couple 
+of people with 
+the same 
+name as you. 
+Hehehe.  
+ 
+T7: Goodbye  
+ 
+T8: Obtained 
+1 CET result  
+ 
+T10: The 
+second step 
+is completed!  Background 
+Music: TBD 
+exclusive for 
+Story Mode  
+ 
+Sound 
+effects: If an 
+item is 
+obtained.  Animation: Dialogue 
+Panel  
+ 
+Dialogue Panel of T1 
+ 
+Dialogue Panel of T2 
+ 
+Dialogue Panel of T3 
+ 
+Dialogue Panel of T4 
+ 
+Dialogue Panel of T5 
+ 
+Dialogue Panel of T6 
+ 
+Dialogue Panel of T7 
+ 
+Dialogue Panel of T8 
+ 
+Dialogue Panel of T9 
+ 
+Dialogue Panel of T10 
+ 
+ 
+ 
+ 
+2.6 Fourth Quest  Illustration: 
+NPC Faculty 
+of that college  Button:  
+btnJoystick  
+Function : 
+Movement of the 
+character  
+Description: 
+Navigate your 
+character to the 
+College building  
+ 
+Gesture: Tap 
+Action : Tap the 
+“npc-name -faculty” 
+to start the quest.  
+ 
+Link: 2.6.1  T1: Great job! 
+Now for the 
+next 
+document.  
+ 
+T2: Get your 
+1 medical 
+certificates at 
+the University 
+Clinic.  
+ 
+T3: Goodbye  Background 
+Music: TBD 
+exclusive for 
+Story Mode  Scene : A scene will be 
+presented after 
+completing 2.5  
+ 
+Description : The 
+University clinic will be 
+unlocked.  
+ 
+Animation : University 
+clinic’s color will be 
+changed from gray to 
+its respective color.  
+ 
+Animation: Dialogue 
+Panel  
+ 
+Dialogue Panel of T1 
+ 
+Dialogue Panel of T2 
+31 
+  
+Dialogue Panel of T3 
+ 
+ 
+2.6.1 Getting 
+medical certificate  Illustration: 
+University 
+clinic  Button:  
+btnJoystick  
+Function : 
+Movement of the 
+character  
+Description: 
+Navigate your 
+character to the 
+University clinic  
+ 
+Gesture: Tap 
+Action : Tap the 
+“npc-name -uc” to 
+claim your medical 
+certificate  
+. 
+Link: Proceed to 
+2.7 
+ 
+ T1: 
+Greetings. 
+I’m “npc -
+name -uc”.  
+ 
+T2: Here for a 
+medical 
+certificate?  
+ 
+T3: Stand 
+here.  
+ 
+T4: …. 
+ 
+T5: .. 
+ 
+T6: (Ouch)  
+ 
+T7: That 
+wasn’t so 
+bad. Here’s 
+your 1 
+medical 
+certificates.  
+ 
+T8: Adios!  
+ 
+T9: Obtained 
+1 medical 
+certificates.  
+ 
+T10: The third 
+and fourth 
+step is 
+completed!”  
+ Background 
+Music: TBD 
+exclusive for 
+Story Mode  
+ 
+Sound 
+effects: If an 
+item is 
+obtaine d. Animation: Dialogue 
+Panel  
+ 
+Dialogue Panel of T1 
+ 
+Dialogue Panel of T2 
+ 
+Dialogue Panel of T3 
+ 
+Dialogue Panel of T4 
+ 
+Dialogue Panel of T5 
+ 
+Dialogue Panel of T6 
+ 
+Dialogue Panel of T7 
+ 
+Dialogue Panel of T8 
+ 
+Dialogue Panel of T9 
+ 
+Dialogue Panel of T10 
+ 
+ 
+ 
+2.7 Fifth Quest  Illustration: 
+NPC Faculty 
+of that college  
+ Button:  
+btnJoystick  
+Function : 
+Movement of the 
+character  
+Description: 
+Navigate your 
+character to the 
+College building  
+ 
+Gesture: Tap 
+Action : Tap the 
+“npc-name -faculty” 
+to start the quest.  
+ 
+Link: 2.7. 1 
+ T1: Hi, again! 
+Our next step 
+will be getting 
+your good 
+moral 
+document.  
+ 
+T2: Head 
+over to our 
+Basketball 
+court and find 
+it. 
+ 
+T3: Good 
+luck!  Background 
+Music: TBD 
+exclusive for 
+Story Mode  
+ Scene : A scene will be 
+presented after 
+completing 2.7  
+ 
+Description : The 
+Basketball court will be 
+unlocked.  
+ 
+Animation : Basketball 
+court’s color will be 
+changed from gray to 
+its respective color.  
+ 
+Animation: Dialogue 
+Panel  
+ 
+Dialogue Panel of T1 
+ 
+Dialogue Panel of T2 
+ 
+Dialogue Panel of T3 
+32 
+  
+2.7.1 Finding 
+Good moral  Illustration: 
+University 
+clinic  Button:  
+btnJoystick  
+Function : 
+Movement of the 
+character  
+Description: 
+Navigate your 
+character to the 
+Basketball court  
+ 
+Gesture: Tap 
+Action : Tap the 
+good moral item to 
+obtain.  
+ 
+. 
+Link: Proceed to 
+2.8 
+ 
+ T1: Obtained 
+1 Good moral 
+documents.  
+ 
+T2: Great job!  
+ 
+T3: The fifth 
+and sixth step 
+is 
+completed!”  
+ Background 
+Music: TBD 
+exclusive for 
+Story Mode  
+ 
+Sound 
+effects: If an 
+item is 
+obtained.  Animation: Dialogue 
+Panel  
+ 
+Dialogue Panel of T1 
+ 
+Dialogue Panel of T2 
+ 
+Dialogue Panel of T3 
+ 
+2.8 Sixth Quest  Illustration: 
+NPC Faculty 
+of that college  
+ Button:  
+btnJoystick  
+Function : 
+Movement of the 
+character  
+Description: 
+Navigate your 
+character to the 
+College building  
+ 
+Gesture: Tap 
+Action : Tap the 
+“npc-name -faculty” 
+to start the quest.  
+ 
+Link: 2.8.1  
+ T1: Hi, again! 
+Our next step 
+will be 
+photocopying 
+all of your 
+documents.  
+ 
+T2: Head 
+over to our 
+WMSU press.  
+ 
+T3: Good 
+luck!  Background 
+Music: TBD 
+exclusive for 
+Story Mode  Scene : A scene will be 
+presented after 
+completing 2.8  
+ 
+Description : The 
+WMSU Press will be 
+unlocked.  
+ 
+Animation : WMSU 
+Press’ color will be 
+changed from gray to 
+its respective color.  
+ 
+Animation: Dialogue 
+Panel  
+ 
+Dialogue Panel of T1 
+ 
+Dialogue Panel of T2 
+ 
+Dialogue Panel of T3 
+ 
+2.8.1 Photocopy 
+Certificate of 
+Good Moral  Illustration: 
+WMSU Press  Button:  
+btnJoystick  
+Function : 
+Movement of the 
+character  
+Description: 
+Navigate your 
+character to the 
+WMSU Press  
+ 
+Gesture: Tap 
+Action : Tap the 
+“npc-name -wp” to 
+buy. 
+ 
+. 
+Link: Proceed to 
+2.9 T1: Obtained 
+1 Certificate 
+of Good 
+Moral 
+photocopy.  
+ 
+T2: Great job!  
+ Background 
+Music: TBD 
+exclusive for 
+Story Mode  
+ 
+Sound 
+effects: If an 
+item is 
+obtained.  Animation: Dialogue 
+Panel  
+ 
+Dialogue Panel of T1 
+ 
+Dialogue Panel of T2 
+ 
+33 
+  
+2.9 Sixth Quest  Illustration: 
+NPC Faculty 
+of that college  Button:  
+btnJoystick  
+Function : 
+Movement of the 
+character  
+Description: 
+Navigate your 
+character to the 
+College building  
+ 
+Gesture: Tap 
+Action : Tap the 
+“npc-name -faculty” 
+to start the quest.  
+ 
+Link: 2.9.1  T1: Great job! 
+Now for the 
+second 
+photocopy.  
+ 
+T2: Go again 
+and buy 2 
+Live Birth 
+photocopies 
+at WMSU 
+Press  
+ 
+T3: Goodbye  Background 
+Music: TBD 
+exclusive for 
+Story Mode  Scene : A scene will be 
+presented after 
+completing 2.9  
+ 
+ 
+Animation: Dialogue 
+Panel  
+ 
+Dialogue Panel of T1 
+ 
+Dialogue Panel of T2 
+ 
+Dialogue Panel of T3 
+ 
+ 
+2.9.1 Photocopy 
+Live Birth  Illustration: 
+WMSU Press  Button:  
+btnJoystick  
+Function : 
+Movement of the 
+character  
+Description: 
+Navigate your 
+character to the 
+WMSU Press  
+ 
+Gesture: Tap 
+Action : Tap the 
+“npc-name -wp” to 
+buy. 
+ 
+. 
+Link: Proceed to 
+3.0 
+ T1: Obtained 
+2 Live Birth 
+photocopy.  
+ 
+T2: Great job!  
+ 
+T3: The 
+seventh and 
+eighth steps 
+are 
+completed!”  
+ Background 
+Music: TBD 
+exclusive for 
+Story Mode  
+ 
+Sound 
+effects: If an 
+item is 
+obtained.  Animation: Dialogue 
+Panel  
+ 
+Dialogue Panel of T1 
+ 
+Dialogue Panel of T2 
+ 
+Dialogue Panel of T3 
+ 
+3.0 Seventh 
+Quest  Illustration: 
+NPC Faculty 
+of that college  
+ Button:  
+btnJoystick  
+Function : 
+Movement of the 
+character  
+Description: 
+Navigate your 
+character to the 
+College building  
+ 
+Gesture: Tap 
+Action : Tap the 
+“npc-name -faculty” 
+to start the quest.  
+ 
+Link: 3.0.1  
+ T1: Great job! 
+Now for the 
+third 
+photocopy.  
+ 
+T2: Go again 
+and buy 3 
+Vaccination 
+card 
+photocopies 
+at WMSU 
+Press  
+ 
+T3: Good 
+luck!  Background 
+Music: TBD 
+exclusive for 
+Story Mode  
+ Animation: Dialogue 
+Panel  
+ 
+Dialogue Panel of T1 
+ 
+Dialogue Panel of T2 
+ 
+Dialogue Panel of T3 
+ 
+3.0.1 Photocopy 
+of Vaccination 
+card Illustration: 
+WMSU Press  
+ Button:  
+btnJoystick  
+Function : 
+Movement of the 
+character  
+Description: 
+Navigate your T1: Obtained 
+3 Vaccination 
+card 
+photocopies.  
+ 
+T2: Great job!  
+ Background 
+Music: TBD 
+exclusive for 
+Story Mode  
+ Animation: Dialogue 
+Panel  
+ 
+Dialogue Panel of T1 
+ 
+Dialogue Panel of T2 
+ 
+34 
+ character to the 
+WMSU Press  
+ 
+Gesture: Tap 
+Action : Tap the 
+“npc-name -wp” to 
+buy. 
+Link: Proceed to 
+3.1 
+ T3: The ninth 
+and tenth 
+steps are 
+completed!”  
+ Dialogue Panel of T3 
+ 
+3.1 Eight Quest  Illustration:  
+NPC Faculty 
+of that college  Gesture : Tap  
+Action : Tap the 
+“npc-name -faculty” 
+to start the quest.  
+Link: Proceed to 
+3.1.1  
+ 
+ 
+ 
+ 
+ T1: Great job! 
+Now for the 
+fourth 
+photocopy.  
+ 
+T2: Go again 
+and buy 2 
+Chest X -ray 
+results 
+photocopies 
+at WMSU 
+Press  
+ 
+T3: Good 
+luck!  Background 
+Music: TBD 
+exclusive for 
+Story Mode  Scene : A scene will be 
+presented after 
+completing 3.2  
+ 
+Animation: Dialogue 
+Panel  
+ 
+Dialogue Panel of T1 
+ 
+Dialogue Panel of T2 
+ 
+3.1.1 Photocopy 
+Chest X -ray Illustration:  
+WMSU Press  Button:  
+btnJoystick  
+Function : 
+Movement of the 
+character  
+Description: 
+Navigate your 
+character to the 
+WMSU Press  
+ 
+Gesture: Tap 
+Action : Tap the 
+“npc-name -wp” to 
+buy. 
+Link: Proceed to 
+3.2 T1: Obtained 
+2 Chest X -ray 
+results 
+photocopies.  
+ 
+T2: Great job!  
+ 
+T3: The all 
+steps are 
+completed!”  
+ 
+ Background 
+Music: TBD 
+exclusive for 
+Story Mode  
+ 
+Sound 
+effects: If an 
+item is 
+obtained.  Animation: Dialogue 
+Panel  
+ 
+Dialogue Panel of T1 
+ 
+Dialogue Panel of T2 
+ 
+Dialogue Pan el of T3 
+ 
+ 
+ 
+ 
+3.2 Submitting 
+brown envelope 
+to program 
+adviser  Illustration: 
+NPC Faculty 
+of that college  
+ Button:  
+btnJoystick  
+Function : 
+Movement of the 
+character  
+Description: 
+Navigate your 
+character to the 
+College building  
+ 
+Gesture: Tap 
+Action : Tap the 
+“npc-name -faculty” 
+to start the quest.  
+ 
+Link: 3.3 
+ T1: Are you 
+here to 
+submit the 
+brown 
+envelope?  
+ 
+ 
+T2: Now that 
+you have 
+finished all of 
+your quests, 
+we will take it 
+from here.  
+ 
+T3: The next 
+steps will be 
+automated 
+using 
+computers so Background 
+Music: TBD 
+exclusive for 
+Story Mode  
+ 
+Sound 
+effects: If an 
+item is 
+obtained.  Animation: Dialogue 
+Panel  
+ 
+Dialogue Panel of T1 
+ 
+Dialogue Panel of T2 
+ 
+Dialogue Panel of T3 
+ 
+Dialogue Panel of T4 
+ 
+Dialogue Panel of T5 
+ 
+ 
+ 
+35 
+ it is so much 
+easier now!  
+ 
+T4: Quest are 
+all finished!  
+ 
+T5: Farewell!  
+3.3 Credits  Illustration: 
+TBD Gesture: Tap 
+Action : Tap the to 
+prompt to Main 
+menu.  
+Link: 2.0 
+ (Credits)  Background 
+Music: TBD  Animation :  None  
+Settings   Button:  btnSound  
+Description : 
+Enable/Disable 
+Sound  T1: ON/OFF  Background 
+Music: TBD   
+5.0 Exit       
+ 
+In this storyboard of Free mode, all the processes of each college will be the same. A 
+college building may have a different number of floors, classrooms, faculty rooms, 
+laboratory (computer, science, etc), comfort rooms. Nevertheless, the process of finding 
+what the player is looking for will be the same for all colleges. Below is the process of 
+finding the faculty room of a particular college.  
+ 
+ 
+Table 3  
+Free Roam Mode storyboard  
+ 
+ 
+STORYBOARD   
+VISUALS   
+INTERACTIONS   
+TEXT   
+AUDIO   
+ANIMATION/VIDEO  
+2.1 Free Mode  Illustration:  
+WMSU Main 
+Campus  Button:  
+btnJoystick  
+Function : 
+Movement of the 
+character  
+Description: 
+Navigate your 
+character to the 
+College of “Name 
+of College”  T1: Hello. 
+Fellow, 
+crimson.  
+ 
+T2: You have 
+chosen Free 
+mode.  
+ 
+T3: This mode 
+will give the 
+player 
+freedom to go 
+anywhere 
+around the 
+University 
+campus.  
+ 
+T4: You can 
+visit each NPC 
+of any area to 
+know more Background 
+Music: TBD 
+exclusively for 
+Free Mode  Animation : Animation 
+panel  
+ 
+Dialogue Panel for T1 
+ 
+Dialogue Panel for T2 
+ 
+Dialogue Panel for T3 
+ 
+Dialogue Panel for T4 
+ 
+Dialogue Panel for T5 
+36 
+ about their 
+building.  
+ 
+T5: Have fun!  
+ 
+2.1.1 Entering a 
+college building  Illustration:  
+Any college 
+Building  
+ 
+Illustration: 
+NPC any 
+college 
+building  Gesture: Tap 
+Link: 2.1.2  
+ 
+ 
+  Background 
+Music: TBD 
+exclusively for 
+Free Mode   
+2.1.3 Chosen 
+Floor  Illustration: 
+Rooms of 
+every current 
+floor Gesture: Tap 
+Link: 2.1.4  
+ 
+Label : Department 
+Faculty Room 2  
+  
+  Background 
+Music: TBD 
+exclusively for 
+Free Mode  Animation: Change 
+scene from floor to 
+floor 
+ 
+ 
+ 
+Implementation Plan  
+ 
+In this section, the researchers will create, or collect the particular assets for the game. 
+The building structure sprites or tilesets that will be used in the game will be created or 
+modified by the researchers in order to fully mimic a 2D pixelated grap hic of WMSU 
+environment. After finishing the design of the sprites, the researchers will place the sprites 
+at its respective locations. After putting all the building structure sprites, the researchers 
+will start designing the game’s character model. This includes the character movement  as 
+well as its animation. After the character design, the researchers will design the in -game 
+items which are the requirements (document), coins, etc. After this, adding NPCs of each 
+respective colleges for the quest system.  The researchers then will proceed to the quest 
+system where the dialogue and the logic of quest system will be implemented.  
+ 
+ 
+ 
+ 
+ 
+37 
+ Prototype  
+ 
+ 
+ 
+ 
+Figure 5 
+Sample buildings in the game  
+ 
+ 
+ 
+ 
+ 
+Figure 6 
+Char acters for Story Mode male and female  
+ 
+ 
+ 
+
+38 
+ CHAPTER IV  
+RESULTS AND DISCUSSION  
+ 
+In this chapter, the researcher will present the results of the Alpha testing, and 
+Beta testing of the mobile game. The testers are students at senior high school of Titay  
+National High School, Zamboanga Sibugay. The researchers’ used a method called the 
+Likert Scaling Sign Method to obtain the feedback of the respondents about the mobile 
+game. In the beta test, the researcher will be using a method called dependent t -test to 
+measure and prove whether the researchers’ hypothesis will be accepted or rejected 
+based on the result of the t -test. 
+ 
+ 
+Alpha Testing Result  
+ 
+The alpha testing was finalized by the researchers before it was given to the 
+testers. The testers are the s enior students (12th year) of the Titay National High School 
+and Ayala National High School. The results are the evaluation of the game from the 
+testers in terms of Instructional Content, User Friendliness, Readability, and Technical 
+Aspect of the mobile g ame.  
+ 
+ 
+Table 4  
+Five Point Likert Scale for Alpha Testing  
+ 
+Rating/Weight  Interpretation  Range  
+5 Outstanding  4.21 – 5.00 
+4 Good  3.41 – 4.20 
+3 Satisfactory  2.61 – 3.40 
+2 Poor  1.81 – 2.60 
+1 Unsatisfactory  1.00 – 1.80 
+ 
+The table above shows the range, interpretation and the rating for the Alpha Testing.  
+ 
+ 
+39 
+ Table 5  
+Weighted Mean of Instructional Content  
+ 
+Instructional Content  12th year Students of Titay National High School and 
+Ayala National High School  
+Mean  Interpretation  
+The game’s objectives are 
+clear.   
+4.69 
+  
+Outstanding  
+All of the required documents 
+for the enrollment are present 
+(freshmen only).   
+4.90 
+  
+Outstanding  
+The game includes 
+instructions to let the player 
+know various locations of 
+WMSU Main Campus.   
+4.69  
+Outstanding  
+The game is able to clearly 
+introduced each required 
+documents to the player.   
+4.66  
+Outstanding  
+ 
+Legend : 
+ 
+4.21 – 5.00 Outstanding  
+3.41 – 4.20 Good  
+2.61 – 3.40 Satisfactory  
+1.81 – 2.60 Poor  
+1.00 – 1.80 Unsatisfactory  
+ 
+ 
+ 
+The table above shows the weighted mean for the Instructional Content. For the 
+“clarity of the objectives of the game”, it had a mean of 4.69 which had a rating of 
+Outstanding . For the “required documents for the enrollment are present”, it had a mean 
+of 4.90 which had a rating of Outstanding . For the “game includes instructions to let…”, 
+it had a mean of 4.69 which had a rating of Outstanding . For the last question, it had a 
+mean of 4.66 which had a rating of Outstanding  also. All of the Instructional Content 
+questions had an Outstanding  rating.  
+ 
+ 
+40 
+ Table 6  
+Weighted Mean of User Friendliness  
+ 
+User Friendliness  12th year Students of Titay National High School and 
+Ayala National High School  
+Mean  Interpretation  
+The buttons are visible to the 
+player.   
+4.72 
+ 
+  
+Outstanding  
+The player can choose their 
+college.   
+4.86 
+ 
+  
+Outstanding  
+The game lets the player 
+decide for their gender (male 
+and female only).   
+4.93 
+  
+Outstanding  
+The game lets the player 
+know the locations of the 
+items, and non -player 
+character.   
+4.52  
+Outstanding  
+The player can pause, and go 
+back to the main menu.   
+4.69 
+ 
+  
+Outstanding  
+The tutorial of the game is 
+clear and concise.   
+4.34 
+ 
+  
+Outstanding  
+Legend : 
+ 
+4.21 – 5.00 Outstanding  
+3.41 – 4.20 Good  
+2.61 – 3.40 Satisfactory  
+1.81 – 2.60 Poor  
+1.00 – 1.80 Unsatisfactory  
+ 
+ 
+The table above shows the weighted mean for the User Friendliness. For the “buttons are 
+visible…”, it had a mean of 4.72 which had a rating of Outstanding . For the “pl ayer can 
+choose…”, it had a mean of 4.86 which has a rating of Outstanding . For the “game lets 
+the player decide…”, it had a mean of 4.93 also with a rating of Outstanding . For the 
+“game lets the player know…”, it had a mean of 4.52 which has a rating of Outstanding . 
+41 
+ For the “player can pause…”, it had a mean of 4.69 which has a rating of Outstanding . 
+For the last question, it had a mean of 4.34 which was also had a rating of Outstanding . 
+ 
+Table 7  
+Weighted Mean of Readability  
+ 
+Readability  12th year Students of Titay National High School and 
+Ayala National High School  
+Mean  Interpretation  
+ The dialogues of the game 
+are clear and grammatically 
+correct.   
+4.79  
+Outstanding  
+ 
+The item names from the 
+shop are visible.   
+4.59 
+  
+Outstanding  
+ 
+ 
+The other texts such as the 
+location name, player name, 
+chosen college, and other 
+labels of the game are visible.   
+ 
+4.72  
+ 
+Outstanding  
+ 
+ 
+Legend : 
+ 
+4.21 – 5.00 Outstanding  
+3.41 – 4.20 Good  
+2.61 – 3.40 Satisfactory  
+1.81 – 2.60 Poor  
+1.00 – 1.80 Unsatisfactory  
+ 
+ 
+The table above shows the weighted mean for the mobile game’s readability. For the 
+“dialogues of the game are clear…”, it had a mean of 4.79 which had a rating of 
+Outstanding . For the “item names from the shop…”, it had a mean of 4.59 which had a 
+rating of Outstanding also. And for the last question, it had a mean of 4.72 and a rating 
+of Outstanding . 
+ 
+ 
+ 
+42 
+ Table 8  
+Weighted Mean of Technical Aspects  
+ 
+Technical Aspect  12th year Students of Titay  National High School and 
+Ayala National High School  
+Mean  Interpretation  
+The game runs smoothly on 
+any android version.   
+4.83 
+  
+Outstanding  
+ 
+The game is able to auto 
+resize its resolution after 
+opening.   
+4.55 
+  
+Outstanding  
+ 
+ 
+The game has shown no bugs  
+after playing.   
+ 
+4.48 
+  
+Outstanding  
+ 
+ 
+The background music is 
+appropriate to the game.   
+ 
+4.55 
+  
+Outstanding  
+ 
+ 
+Legend : 
+ 
+4.21 – 5.00 Outstanding  
+3.41 – 4.20 Good  
+2.61 – 3.40 Satisfactory  
+1.81 – 2.60 Poor  
+1.00 – 1.80 Unsatisfactory  
+ 
+ 
+The table above shows the weighted mean for technical aspects of the mobile game. For 
+the smoothness of the game in android, it had a mean of 4.83 which had a rating of 
+Outstanding . For the resizable resolution, it had a mean of 4.55 which had a rating of 
+Outstanding . For the visible bugs after playing, it had a mean of 4.48 which had a rating 
+of Outstanding . And for the last question, it had a mean of 4.55 also with rating of 
+Outstanding . 
+ 
+ 
+ 
+ 
+ 
+ 
+43 
+ Table 9  
+Overall Weighted Mean of the mobile game  
+ 
+ 
+Overall Rating  12th year Students of Titay National High School and 
+Ayala National High School  
+Mean  Interpretation  
+ 
+Instructional Content  
+  
+4.74  
+Outstanding  
+ 
+ 
+User Friendliness  
+  
+4.68  
+Outstanding  
+ 
+ 
+Readability  
+  
+4.70  
+Outstanding  
+ 
+ 
+Technical Aspect  
+  
+4.60  
+Outstanding  
+ 
+Legend : 
+ 
+4.21 – 5.00 Outstanding  
+3.41 – 4.20 Good  
+2.61 – 3.40 Satisfactory  
+1.81 – 2.60 Poor  
+1.00 – 1.80 Unsatisfactory  
+ 
+ 
+The table above shows the average of mean of Instructional Content, User Friendliness, 
+Readability, and Technical Aspects of the mobile game. For Instructional Content, it had 
+mean of 4.74 which has a rating of Outstanding . For User Friendliness, it had me an of 
+4.68 which has a rating of Outstanding . For Readability, it had mean of 4.70 which has a 
+rating of Outstanding . For Technical Aspect, it had mean of 4.60 which has a rating of 
+Outstanding . 
+ 
+ 
+ 
+ 
+ 
+44 
+ Beta Testing Result  
+ 
+The beta testing was conducted on January 10, 2023. The researchers had given 
+pre-test to the 34 respondents (12th year students of Titay  National High School and Ayala 
+National High School) before playing the game. After playing the game, the researchers 
+again gave a post -test to the same respondents.  
+ 
+ 
+Pre-Testing and Post -Testing  
+ 
+The table below shows the number of respondents/testers Tn. The test consists of 
+two different topics: Test for requirements of freshmen enrollment, and Test about multiple 
+choice regarding the locations of given choices of picture. Pre -Test Score (Requirements) 
+of the table shows the scores of the testers befo re playing the mobile game while Post -
+Test Score (Requirements) would be after playing the game. Furthermore, Pre -Test 
+(Pictures) of the table shows the scores before playing the mobile game, and Post -Test 
+(Pictures) will be after playing the game.  
+ 
+Null H ypothesis: There is no significant difference between the mean scores of the 
+students of Titay National High School and Ayala National High School students before 
+and after playing the mobile game.  
+ 
+ 
+Table 10  
+Table of Pre -Test and Post -Test of Scores about the requirements of freshman 
+enrollment and locations of WMSU  
+ 
+Respondents 
+(T) Pre-Test Score 
+(Requirements)  Post -Test 
+Score 
+(Requirements  Pre-Test 
+(Pictures)  Post -Test 
+(Pictures)  
+T1 8 8 7 8 
+T2 6 9 7 9 
+T3 6 8 6 4 
+T4 8 9 7 8 
+T5 8 6 2 8 
+45 
+ T6 6 5 6 9 
+T7 8 8 5 7 
+T8 3 7 6 10 
+T9 9 8 7 9 
+T10 5 7 4 8 
+T11 7 9 7 8 
+T12 3 7 6 10 
+T13 4 9 7 7 
+T14 6 9 7 8 
+T15 1 7 7 8 
+T16 5 4 5 10 
+T17 8 9 8 10 
+T18 1 6 8 7 
+T19 4 5 4 7 
+T20 5 3 5 6 
+T21 7 7 8 8 
+T22 3 5 7 9 
+T23 8 9 7 10 
+T24 8 7 9 7 
+T25 5 7 6 3 
+T26 6 6 5 6 
+T27 5 7 6 3 
+T28 3 7 8 7 
+T29 4 6 8 8 
+T30 7 4 9 7 
+T31 4 3 5 10 
+T32 10 8 7 9 
+T33 7 5 4 6 
+T34 5 5 5 9 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+46 
+ Pre-Test and Post -Test (Score) Result for Requirements of Freshmen Enrolment  
+ 
+Table 11  
+Two Sample for Means using Excel  
+ 
+ 
+ 
+ 
+Table 12  
+Table for T -test result for freshmen requirement topic  
+ 
+ n Mean (M)  Standard 
+Deviation 
+(SD) t Two-tailed (df = 33, 
+a = 0.05)  
+Pre-Test 34 5.68 2.21  
+-2.67 Critical 
+Value 
+(CV) p-value  
+Post-Test 34 6.74 1.78 _+/- 2.03 0.01 
+ 
+ 
+Table 13  
+Decision table  
+ 
+ Decision  
+If p-value < level of significance  reject  
+
+47 
+ If p-value > level of significance  do not reject  
+ 
+The results from the Pre -Test (M = 5.68) and Post-Test (M = 6.74) shows an 
+increase of scores before and after playing the mobile game. Since, p (0.01) < 0.05, there 
+is a significant difference of the mean scores of the students before and after playing the 
+game and the null hypothesis is rejected. I n other words, the students have shown an 
+improvement of knowing and familiarizing the requirements of the freshmen enrollment 
+after playing the game.  
+ 
+Pre-Test and Post -Test (Score) Result for WMSU Locations  
+ 
+Table 14  
+Two Sample f or Means using Excel  
+ 
+ 
+ 
+ 
+Table 15  
+Table for T -test result for location of WMSU topic  
+ 
+ n Mean (M)  Standard 
+Deviation 
+(SD) t Two-tailed (df = 33, 
+a = 0.05)  
+
+48 
+ Pre-Test 34 6.32 1.55  
+-3.56 Critical 
+Value 
+(CV) p-value  
+Post-Test 34 7.74 1.85 _+/- 2.03 0.00 
+ 
+ 
+Table 16  
+Decision table  
+ 
+ Decision  
+If p-value < level of significance  reject  
+If p-value > level of significance  do not reject  
+ 
+The results from the Pre -Test (M = 6.32) and Post -Test (M = 7.74) shows an 
+increase of scores before and after playing the mobile game. Since, p (0.00) < 0.05, there 
+is a significant difference of the mean scores of the students before and after playing the 
+game and the null hypothesis is rejected. In other words, the students  have shown an 
+improvement of knowing and familiarizing the locations or places of specific areas or 
+building of WMSU campus after playing the game.  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+49 
+ Acceptance Testing  
+ 
+In this section, the researcher will be presenting data from the acceptance testing forms 
+given to the testers regarding the features of the mobile game.  
+ 
+Table 17  
+Table for Acceptance Testing of client  
+ 
+Feature  User Interface  Functionality  Client’s 
+Acceptance  
+Main menu  Out of 34 testers 
+only 4  of them said 
+that UI for this 
+feature needs 
+improvement. The 
+rest of the testers 
+agreed that this 
+feature is 
+appropriate.  All the testers have 
+said that this feature 
+is acceptable.  All the testers have 
+said that this feature 
+is acceptable.  
+Story Mode Profile  Out of 34 testers 
+only 2 of them said 
+that the UI for this 
+feature needs 
+improvement. The 
+rest of the testers 
+agreed that this 
+feature is 
+appropriate.  All the testers have 
+said that this feature 
+is acceptable.  All the testers have 
+said that this fe ature 
+is acceptable.  
+Student Profile Free 
+Mode  Out of 34 testers 
+only 1 person said 
+that the UI for this 
+feature needs 
+improvement. The 
+rest of the testers 
+agreed that this 
+feature is 
+appropriate.  All the testers have 
+said that this feature 
+is acceptable.  All the testers have 
+said that this feature 
+is acceptable.  
+Tutorial  Out of 34 testers 
+only 3 of them said 
+that the UI for this 
+feature needs 
+improvement. The 
+rest of the testers 
+agreed that this 
+feature is 
+appropriate.  All the testers have 
+said that this  feature 
+is acceptable.  All the testers have 
+said that this feature 
+is acceptable.  
+50 
+ Player Button 
+Movement  Out of 34 testers 
+only 3 of them said 
+that the UI for this 
+feature needs 
+improvement. The 
+rest of the testers 
+agreed that this 
+feature is 
+appropriate . Out of 34 testers 
+only 1 person said 
+that the functionality 
+for this feature is not 
+acceptable. The 
+rest of the testers 
+agreed that this 
+feature is 
+acceptable.  All the testers have 
+said that this feature 
+is acceptable.  
+Talk Button  Out of 34 testers 
+only 3 of them said 
+that the UI for this 
+feature needs 
+improvement. The 
+rest of the testers 
+agreed that this 
+feature is 
+appropriate.  All the testers have 
+said that this feature 
+is acceptable.  All the testers have 
+said that this feature 
+is acceptable.  
+Zoom But ton Out of 34 testers 
+only 5 of them said 
+that the UI for this 
+feature needs 
+improvement. The 
+rest of the testers 
+agreed that this 
+feature is 
+appropriate.  Out of 34 testers 
+only 1 person said 
+that the functionality 
+for this feature is not 
+needed. The rest of 
+the testers agreed 
+that this feature is 
+acceptable.  Out of 34 testers 
+only 1 person said 
+that this feature is 
+unacceptable.  
+Dialogue  Out of 34 testers 
+only 4 of them said 
+that the UI for this 
+feature needs 
+improvement. The 
+rest of the testers 
+agreed th at this 
+feature is 
+appropriate.  All the testers have 
+said that this feature 
+is acceptable.  All the testers have 
+said that this feature 
+is acceptable.  
+Student Profile 1  Out of 34 testers 
+only 5 of them said 
+that the UI for this 
+feature needs 
+improvement. T he 
+rest of the testers 
+agreed that this 
+feature is 
+appropriate.  Out of 34 testers 
+only 1 person said 
+that the functionality 
+for this feature is not 
+acceptable. The 
+rest of the testers 
+agreed that this 
+feature is 
+acceptable.  All the testers have 
+said that t his feature 
+is acceptable.  
+Student Profile 2  Out of 34 testers 
+only 4 of them said 
+that the UI for this 
+feature needs 
+improvement. The All the testers have 
+said that this feature 
+is acceptable.  All the testers have 
+said that this feature 
+is acceptable.  
+51 
+ rest of the testers 
+agreed that this 
+feature is 
+appropriate.  
+Quest Item Icon  Out of 34 testers 
+only 4 of them said 
+that the UI for this 
+feature needs 
+improvement. The 
+rest of the testers 
+agreed that this 
+feature is 
+appropriate.  All the testers have 
+said tha t this feature 
+is acceptable.  All the testers have 
+said that this feature 
+is acceptable.  
+Location Name  Out of 34 testers 
+only 2 of them said 
+that the UI for this 
+feature needs 
+improvement. The 
+rest of the testers 
+agreed that this 
+feature is 
+appropriate.  All the testers have 
+said that this feature 
+is acceptable.  All the testers have 
+said that this feature 
+is acceptable.  
+Quest Description  Out of 34 testers 
+only 2 of them said 
+that the UI for this 
+feature needs 
+improvement. The 
+rest of the testers 
+agreed tha t this 
+feature is 
+appropriate.  All the testers have 
+said that this feature 
+is acceptable.  All the testers have 
+said that this feature 
+is acceptable.  
+Quest Progress Bar  Out of 34 testers 
+only 4 of them said 
+that the UI for this 
+feature needs 
+improvement. T he 
+rest of the testers 
+agreed that this 
+feature is 
+appropriate.  All the testers have 
+said that this feature 
+is acceptable.  All the testers have 
+said that this feature 
+is acceptable.  
+NPC Faculty Guard  Out of 34 testers 
+only 5 of them said 
+that the UI for this 
+feature needs 
+improvement. The 
+rest of the testers 
+agreed that this 
+feature is 
+appropriate.  Out of 34 testers 
+only 3 of them said 
+that the functionality 
+for this feature is not 
+acceptable. The 
+rest of the testers 
+agreed that this 
+feature is 
+acceptable . Out of 34 testers 
+only 2 persons said 
+that this feature is 
+unacceptable.  
+52 
+ NPC Wandering 
+Students  Out of 34 testers 
+only 4 of them said 
+that the UI for this 
+feature needs 
+improvement. The 
+rest of the testers 
+agreed that this 
+feature is 
+appropriate.  All of  the testers 
+have said that this 
+feature is 
+acceptable.  All of the testers 
+have said that this 
+feature is 
+acceptable.  
+Item Shop  Out of 34 testers 
+only 4 of them said 
+that the UI for this 
+feature needs 
+improvement. The 
+rest of the testers 
+agreed that this 
+feature is 
+appropriate.  Out of 34 testers 
+only 1 person said 
+that the functionality 
+for this feature is not 
+acceptable. The 
+rest of the testers 
+agreed that this 
+feature is 
+acceptable.  All the testers have 
+said that this feature 
+is acceptable.  
+Coin Label  Out of 34 testers 
+only 4 of them said 
+that the UI for this 
+feature needs 
+improvement. The 
+rest of the testers 
+agreed that this 
+feature is 
+appropriate.  Out of 34 testers 
+only 2 persons said 
+that the functionality 
+for this feature is not 
+acceptable. The 
+rest of the testers 
+agreed that this 
+feature is 
+acceptable.  All the testers have 
+said that this feature 
+is acceptable.  
+Sign Post  Out of 34 testers 
+only 4 of them said 
+that the UI for this 
+feature needs 
+improvement. The 
+rest of the testers 
+agreed that this 
+feature is 
+appropriate.  All the testers have 
+said that this feature 
+is acceptable.  All the testers have 
+said that this feature 
+is acceptable.  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+53 
+ CHAPTER  V CONCLUSION AND RECOMMENDATION  
+ 
+ 
+Conclusion  
+ 
+The WMSU Campus Exploration is a mobile game that aids the incoming freshmen 
+of WMSU. Its sole purpose is to simulate the enrollment in a step -by-step process by 
+completing quest about the enrollment process in a fun and efficient way. By creating a 
+top-down environment of the actual WMSU, the player s can see the whole WMSU just by 
+playing the mobile game without exerting too much energy. As shown in chapter 4, the 
+results yielded great results of knowing the process of the WMSU incoming freshmen 
+enrollment  after playing the mobile game. The responden ts have also shown enjoyment, 
+statistics aside, when playing the mobile game, the game is an adventure game that 
+ventures and find items to complete the quest.  
+ 
+With that, the researchers concluded that the WMSU Campus Exploration have 
+helped the students.  Furthermore, mobile games or video games can be used as an 
+alternative for guides because it can provide entertainment as it simulates the actual 
+environment as if you are already venturing to that place.  
+ 
+ 
+Recommendations  
+ 
+In this section, the researche rs will lay down recommendations of the mobile game 
+to whomever future researchers will have the inspiration to continue and improve this 
+study. The recommendations are as follows: Adding and removing of college or courses 
+in the character selection tab, 8  directional movement sprites, longer conversation for the 
+student non -player character, and adding more visual and sound effects for a better user 
+experience.  
+ 
+ 
+54 
+ APPENDICES  
+ 
+WMSU Campus Exploration is a mobile game that lets the player roam around the 
+camp us of Western Mindanao State University main campus. The game has 2 modes: 
+Story Mode: the player is challenged to complete all the quests about the WMSU’s 
+freshmen enrollment process and its required documents, and Free Roam Mode: the 
+player has the freed om to venture around the University without completing any quests.   
+55 
+ Appendix A: Photo Documentation of Testing  
+ 
+  
+  
+ 
+ 
+ 
+ 
+ 
+ 
+
+56 
+   
+  
+ 
+ 
+
+57 
+ Appendix B: Relevant Source Code  
+Player movement:  
+ 
+ 
+ 
+NPC(Guard):  
+ 
+ 
+ 
+ 
+ 
+
+58 
+ NPC Dialog(Guard)  
+ 
+ 
+  
+ 
+
+59 
+ World Scene with  Nodes (collapsed)  
+ 
+Player Scene with Nodes (expanded)  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+60 
+ Main Menu UI Scene with Nodes (expanded)  
+ 
+In-game Menu UI Scene with Nodes (expanded)  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+61 
+ Coin Shop UI Scene with nodes (expanded)  
+ 
+ 
+  
+
+62 
+ Appendix C: Screenshot/Picture of the System  
+ 
+ 
+ 
+ 
+
+63 
+  
+ 
+ 
+
+64 
+  
+ 
+ 
+
+65 
+  
+ 
+ 
+ 
+ 
+
+66 
+ Bibliography  
+ 
+ 
+Daniel Estradera Benedicto and María Barreda Vayà. 2019. VIDEO GAME DESIGN AND 
+DEVELOPMENT DEGREE Degree  Final Project Design and development of top down 2D 
+action -adventure video game with hack & slash and bullet hell elements .  
+ 
+Richard N van Eck, Valerie J Shute, and Lloyd P Rieber. Leveling Up: Game Design 
+Research and Practice for Instructional Designer s.  
+ 
+GameDev.net. Practices of Game Design & Indie Game Market ing A CRC PRESS  
+ 
+Handy Goandy. 2020. No Escape: A 2D Top -Down Shooting Roguelike Game Embedded 
+with Drunkard Walk Algorithm. International Journal of Advanced Trends in Computer 
+Science and Engineering  9, 2 (April 2020), 1045 –1049. 
+DOI:https://doi.org/10.30534/ijatcse/2020/22922020  
+ 
+Isabela Granic, Adam Lobel, and Rutger C.M.E. Engels. 2014. The benefits of playing 
+video games. American Psychologist  69, 1 (2014), 66 –78. 
+DOI:https://doi.org/10 .1037/a0034857  
+ 
+Lo Hai Hiung by Choong Meng Wei and Perak Darul Ridzuan. 2011. EDUCATIONAL 
+GAME FOR MOBILE PLATFORMS .  
+ 
+Judith Lynch -Sauer, Terry M. Vandenbosch, Frederick Kron, Craig Livingston Gjerde, 
+Nora Arato, Ananda Sen, and Michael D. Fetters. 2011.  Nursing students’ attitudes toward 
+video games and related new media technologies. Journal of Nursing Education  50, 9 
+(September 2011), 513 –523. DOI:https://doi.org/10.3928/01484834 -20110531 -04 
+ 
+Emmanuel Schmuck, Rory Flemming, Paul Schrater, and Pedro Ca rdoso -Leite. 2019. 
+Principles underlying the design of a cognitive training game as a research framework. In 
+2019 11th International Conference on Virtual Worlds and Games for Serious 
+Applications, VS -Games 2019 - Proceedings , Institute of Electrical and E lectronics 
+Engineers Inc., 1DUUMY. DOI:https://doi.org/10.1109/VS -Games.2019.8864551  
+67 
+  
+Stardew Valley. StardewValleyGuide.  
+ 
+Margaret Verkuyl, Lynda Atack, Krista Kamstra -Cooper, and Paula Mastrilli. 2020. Virtual 
+Gaming Simulation: An Interview Study of Nu rse Educators. Simulation and Gaming  51, 
+4 (August 2020), 537 –549. DOI:https://doi.org/10.1177/1046878120904399  
+ 
+Lincoln C. Wood and Torsten Reiners. 2015. Gamification. In Encyclopedia of Information 
+Science and Technology, Third Edition . IGI Global, 3039 –3047. 
+DOI:https://doi.org/10.4018/978 -1-4666 -5888 -2.ch297  
+ 
+Mgr Jana Zerzová and M A David Gajdůšek. The Effectiveness of Gamification in 
+Language Learning -a Meta -Analysis .  
+  
+ 
+ 
