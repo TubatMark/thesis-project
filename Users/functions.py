@@ -48,13 +48,16 @@ def preprocess(data):
     with codecs.open('stopwords/stopwords.txt', 'r', encoding='utf-8', errors='ignore') as f:
         stopwords = f.read().splitlines()
         
+    # Convert data to lowercase
+    data = data.lower()
+
+    # Remove punctuation and digits
+    data = re.sub(r'[^\w\s]', ' ', data)
+    data = re.sub(r'\d+', '', data)
+
     # Remove stop words
-    words = nltk.tokenize.word_tokenize(data)
-    
-    # Convert words to lowercase
-    lower_words = [word.lower() for word in words]
-    
-    filtered_words = [word for word in lower_words if word not in stopwords and len(word) > 2 and not word.isdigit() and not all(c in string.punctuation for c in word) and not is_date(word)]
+    words = word_tokenize(data)
+    filtered_words = [word for word in words if word not in stopwords and len(word) > 2 and not is_date(word)]
     return " ".join(filtered_words)
 
 def is_date(string):

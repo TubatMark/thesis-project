@@ -792,7 +792,7 @@ def upload_title_defense(request):
                 for file in RepositoryFiles.objects.all().values('text_file', 'title','adviser','school_year'): ##.prefetch_related('proponents')
                     file_path = file['text_file']
                     with open(file_path, 'r', encoding='utf-8', errors='ignore') as f:
-                        all_docs.append(f.read())
+                        all_docs.append(f.read().lower())
                 all_docs = [preprocess(text) for text in all_docs]
                 vectorizer.fit(all_docs)
                 k = 5
@@ -938,7 +938,7 @@ def upload_proposal_defense(request):
                 for file in RepositoryFiles.objects.all().values('text_file', 'title','adviser','school_year'): ##.prefetch_related('proponents')
                     file_path = file['text_file']
                     with open(file_path, 'r', encoding='utf-8', errors='ignore') as f:
-                        all_docs.append(f.read())
+                        all_docs.append(f.read().lower())
                 all_docs = [preprocess(text) for text in all_docs]
                 vectorizer.fit(all_docs)
                 k = 5
