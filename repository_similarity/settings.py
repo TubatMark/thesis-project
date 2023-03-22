@@ -58,8 +58,8 @@ MIDDLEWARE = [
 
 CSRF_COOKIE_SECURE = True
 CSRF_COOKIE_HTTPONLY = True
-CSRF_TRUSTED_ORIGINS = ['https://web-production-8d3b.up.railway.app']
-CSRF_TRUSTED_ORIGINS = ['https://*.web-production-8d3b.up.railway.app']
+CSRF_TRUSTED_ORIGINS = ['https://web-production-fb5b.up.railway.app']
+CSRF_TRUSTED_ORIGINS = ['https://*.web-production-fb5b.up.railway.app']
 
 WHITENOISE_ALLOW_ALL_ORIGINS = True
 
@@ -96,9 +96,9 @@ DATABASES = {
         "ENGINE": "django.db.backends.mysql",
         "NAME": "railway",
         "USER": "root",
-        "PASSWORD": "hKL7Cnl5YDY6OynT9F1g",
-        "HOST": "containers-us-west-26.railway.app",
-        "PORT": "7031",
+        "PASSWORD": "cs0FJPzLn8yMOkXQM9gY",
+        "HOST": "containers-us-west-63.railway.app",
+        "PORT": "7768",
         "OPTIONS": {
             "init_command": "SET sql_mode='STRICT_TRANS_TABLES'",
             "charset": "utf8mb4",
