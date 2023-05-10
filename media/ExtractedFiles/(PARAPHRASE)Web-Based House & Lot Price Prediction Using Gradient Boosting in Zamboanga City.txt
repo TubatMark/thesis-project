@@ -1,0 +1,17 @@
+Gradient Boosting -Based Web -Based Home and Lot Price Prediction in Zamboanga City  
+Abstract  
+When looking for a new home, as well as when it comes to budgeting and marketing strategies, people 
+exercise caution. In the Philippine real estate market, machine -based forecasting methods are no longer 
+known or used to estimate homes or other real estate properties. In order to forecast house and lot 
+property prices in the Philippines, specifically in Zamboanga City, the researchers created a web -based 
+hous e and lot price prediction and inserted a machine -learning algorithm into it. The goal of this study is 
+to create a system that can estimate the price of a house and lot. The information on the property listing 
+was compiled using historical assessment data  for the home and lot from Zamboanga City's City Assessor's 
+Office. The study chose Gradient Boosting Regression out of three (3) distinct machine learning methods 
+to forecast the price of the property. The dependent and independent variables have a favora ble 
+association when using the Gradient Boosting Regression approach. The gradient boosting method for 
+predicting real estate values has a high accuracy value when compared to all other algorithms. 
+Preprocessing can be applied before data fitting to furthe r enhance the measure. This study's objectives 
+are to assist the seller in selling a property at a fair price and to assist the buyer in understanding the 
+variables that influence the selling price of the property. Location, physical circumstances, and the  
+materials utilized were a few of the additional elements that affected the cost.  

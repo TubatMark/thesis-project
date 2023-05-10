@@ -209,8 +209,6 @@ def AddRepositoryFiles(request):
             try:
                 # pass the repository_file object to the function
                 extract_pdf_text(pdf_file, repository_file)
-                logger.info(
-                    f"Successfully extracted text from PDF file {pdf_file} and saved it to a .txt file")
                 return redirect("TableRepository")
             except Exception as e:
                 logger.error(f"Error extracting text from PDF file: {e}")

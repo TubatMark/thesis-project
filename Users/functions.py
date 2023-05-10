@@ -22,7 +22,7 @@ from django.conf import settings
 from django.db.models import Max, Subquery, OuterRef
 import re
 import nltk
-nltk.download('punkt')
+# nltk.download('punkt')
 
 
 # upload enrolled students csv file
@@ -67,9 +67,9 @@ def is_date(string):
     except ValueError:
         return False
 
-def extract_pdf_text(pdf_file, repository_file):
+def extract_pdf_text(student_pdf_file, repository_file):
     # open the PDF file
-    pdf = PyPDF2.PdfReader(pdf_file)
+    pdf = PyPDF2.PdfReader(student_pdf_file)
     
     # extract the text from each page and save it in a list
     text_list = [pdf.pages[page].extract_text() for page in range(len(pdf.pages))]
@@ -78,10 +78,10 @@ def extract_pdf_text(pdf_file, repository_file):
     text = "\n".join(text_list)
     
     # construct the file path using MEDIA_ROOT and MEDIA_URL
-    file_path = os.path.join(settings.MEDIA_ROOT, "ExtractedFiles")
+    file_path = "media/ExtractedFiles/"
     if not os.path.exists(file_path):
         os.makedirs(file_path)
-    text_file_name = pdf_file.name.replace('.pdf', '.txt')
+    text_file_name = student_pdf_file.name.replace('.pdf', '.txt')
     text_file = os.path.join(file_path, text_file_name)
     with open(text_file, 'w', encoding='utf-8') as f:
         f.write(text)

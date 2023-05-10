@@ -1,0 +1,65 @@
+Ada Lovelace Becomes the World's 
+First Computer Programmer  
+London -born Ada Lovelace (1815 –1852) had a passion and gift for 
+mathematics from a young age. She is credited with being the  world's 
+first computer programmer , as she drafted plans for how a machine 
+called the Analytical Engine could perform computations. The 
+machine, invented by her friend, mathema tician and inventor Charles 
+Babbage, is considered to be the first general computer. Lovelace 
+detailed applications for the Analytical Engine that relate to how 
+computers are used today.  
+Lovelace is remembered annually on  Ada Lovelace Day , held on the 
+second Tuesday of October. The international day of recognition 
+celebrates women in science, technology, engineering, and math 
+(STEM).  
+ 
+Grace Hopper Pioneers Computer 
+Programming  
+American Grace Hopper (1906 –1992) was an admiral in the United 
+States Navy and a computer scientist who was one of the first 
+programmers for the Harvard Mark I computer, which was a general 
+purposes electromechanical computer used in the war effort for World 
+War II, according to  San Diego Supercomputer Center . In 1944, she 
+created a 500 -page Manual of Operations for the Automatic 
+Sequence -Controlled Calculator for the computer, which detailed the 
+foundational ope rating principles of computing machines.  
+Hopper is also the inventor of the compiler, an intermediate program 
+that translates English language instructions into the language of the 
+target computer. This invention influenced other computing 
+developments, li ke code optimization, subroutines, and formula 
+translation.   
+Hopper is remembered at the annual  Grace Hopper Celebration , the 
+world's largest gathering of women technologists.  
+ 
+Katherine Johnson Executes Critical 
+Space Calculations  
+Katherine Johnson, born in 1918, is one of the women immortalized in 
+the 2016 book and movie  Hidden Figures.  A West Virginia native and 
+American mathematician, Johnson helped confirm the accuracy of 
+electronic computers used by  NASA  and performed critical 
+calculations that ensured safe space travel from the 1950s on. She 
+coauthored a research report that used equations for orbital 
+spaceflight in 1960, performed trajectory analysis for the first human 
+space flight in 1961, and ran equations on a desktop mechanical 
+calculating machine before the 1962 orbital mission of John Glenn.  
+Johnson worked on calculations for Project Apollo's Lunar Lander, the  
+Space Shuttle, and the Earth Resources Satellite. In 2015, she 
+received the Presidential Medal of Freedom.  
+ 
+Margaret Hamilton Takes Humans to 
+the Moon  
+Margaret Hamilton, born in 1936, is an American computer scientist 
+and systems engineer from Indiana who  led the Software Engineering 
+Division of the MIT Instrumentation Laboratory. NASA credits her with 
+coining the term “ software engineering .” Hamilton worked on 
+software development for Apollo 11, the first spacecraft to complete a 
+successful mission that placed humans on the moon in 1969. 
+Hamilton's insistence on thorough testing is credited with the mission's 
+success and  safety of its astronauts.  
+The guidance software that Hamilton helped develop for Apollo was 
+later adapted for use in Skylab, the space shuttle, and the first digital 
+fly-by-wire systems in aircraft. Hamilton received the NASA 
+Exceptional Space Act Award f or technical and scientific contributions 
+in 2003 and the Presidential Medal of Freedom award in 2016.  
+ 
+  

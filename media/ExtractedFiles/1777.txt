@@ -1,0 +1,1084 @@
+ 
+ Ryan M. Jones. Evaluation of the Effectiv eness of Cosine Similarity in Predicting 
+Relevance between Paired Citing and Cited Se ntences. A Master’s Paper for the M.S. in 
+I.S. degree. May, 2009. 47 pages.  Advisor: Catherine Blake. 
+ Citation analysis has a long history in Inform ation Science. We examined the potential of 
+cosine similarity to predict relevance between  citing sentences and the articles they cite. 
+An expert evaluated 22,697 pairs of cited and citing sentences, and marked 544 as 
+relevant to one another. Cosine similarity ga ve 8386 of these pairs a similarity score over 
+zero, which included 339 relevant pairs. (4% precision, 65% recall). Under  0.01% of 
+each cited article was relevant to the citing sentence, making precise retrieval 
+challenging. We performed a de tailed error analysis. Cosine  similarity performance was 
+reduced by insufficient window size, affi xes, hyphenation, acronyms and abbreviations. 
+The following preprocessing steps would improve retrieval performance: using a stemming algorithm that accounts for prefix es, expanding the window of comparison 
+from sentences to paragraphs, identify ing synonyms and expanding abbreviations. 
+Further investigation of the possibilities of cosine simila rity is necessary, but such 
+investigation is worth pursuit.   Headings:   Text Mining   Citation Analysis   Cosine Similarity  
+ Bibliometrics  
+                   
+ 
+ 
+  
+    
+EVALUATION OF THE EFFECTIVENESS OF COSINE SIMILARITY IN 
+PREDICTING RELEVANCE BETWEEN PAIRED  
+CITING AND CITED SENTENCES 
+by 
+Ryan M. Jones   
+A Master’s paper subm itted to the faculty 
+of the School of Information and Library Science 
+of the University of North Carolina at Chapel Hill 
+in partial fulfillment of the requirements 
+for the degree of Ma ster of Science in 
+Information Science. 
+Chapel Hill, North Carolina 
+May 2009 
+Approved by 
+_______________________________________ 
+Catherine Blake 
+   
+1 
+ 
+ Table of Contents 
+ 
+1. Motivation and context ............................................................................................... 3  
+2. Previous research ........................................................................................................ 5  
+3. Research question and approach ................................................................................. 9  
+4. Materials and Methods .............................................................................................. 11  
+4.1. Materials ............................................................................................................. 11  
+4.1.1. Data Preprocessing...................................................................................... 12  
+4.2. Methods .............................................................................................................. 16  
+4.2.1. Overview ..................................................................................................... 16  
+4.2.2. Stop Words.................................................................................................. 16  
+4.2.3. Stemming .................................................................................................... 17  
+4.2.4. Term Frequency .......................................................................................... 17  
+4.2.5. Inverse Document Frequency ..................................................................... 18  
+4.2.6. Term Frequency * Inverse Document Frequency ....................................... 18  
+4.2.7. Normalization of Term Weights ................................................................. 19  
+4.2.8. Cosine Similarity ........................................................................................ 19  
+4.2.9. Calculating Similarity ................................................................................. 20  
+4.3. Preliminary investigations .................................................................................. 21  
+4.3.1. Initial test experiment ................................................................................. 21  
+4.4. Creating the Gold Standard ................................................................................ 23  
+5. Results .......................................................................................................................  26 
+5.1. Summary of Human Judgments ......................................................................... 26  
+5.2. Overall results .................................................................................................... 27  
+5.3. Error Analysis .................................................................................................... 31  
+5.3.1. Adjustments to Window Size ...................................................................... 31  
+5.3.2. Anaphoric References ................................................................................. 33  
+5.3.3. Acronyms and Abbreviations ..................................................................... 34  
+5.3.4. Adjustments to the Stemming Algorithm ................................................... 35  
+5.3.5. Hyphens ...................................................................................................... 38  
+5.4. Establishing Sentence to Sentence Relevance ................................................... 38  
+6. Conclusion and Recommendations ........................................................................... 41  
+7. Acknowledgments..................................................................................................... 43  
+8. References ................................................................................................................. 44  
+2 
+ 
+ Table of Figures 
+ 
+Figure 1: Citing documents versus cited document ………………………………..…...…4  
+Figure 2: NCBI batch citation matcher ……………………………………………......... 14 
+Figure 3: The number of times each cited article is cited ................................................. 15 
+Figure 5: Four similar sentences from initial sample ……………………………........... 22 
+Figure 5:  Interface used by the domai n expert to establish the gold standard ….…....... 25 
+Figure 6- Precision and recall ………………………………….…...………………....... 28 
+Figure 7: Items ranked by cosine similarity ……………………..….………………....... 29 
+Figure 8: Dispersal of relevant terms over several sentences …..….………………....... 31 
+Figure 9: Cited sentence expressing subject anaphorically ……….…..……………....... 33 
+Figure 10: Cited sentences feat uring abbreviations and acronyms ……...…………....... 34 
+Figure 11:  Dissimilarity caus ed by prefixes- emphasis added ...…………...………....... 35 
+Figure 12: Precision and reca ll for contextless annotation ….…………..…………....... 39 
+ 
+    
+   
+3 
+ 
+ 1. Motivation and context 
+ 
+There is a great deal of info rmation contained in scholarly articles- not only within the 
+text, but also in the citations between two te xts. The article might provide new insight on 
+the article’s topic, so me new procedure, or discovery, or new way of  looking at old ideas. 
+Citations also provide insight  into how ideas grow and how  knowledge within a field of 
+becomes specialized.   One of the ways to examine the relationship between two scholarly articles is through 
+their citations. A citation is a statement made in an article that cites, or references, a 
+source outside the article for support- usually another article (see Fi gure 1). Authors often 
+cite other scholars in the same field. When one scholar cites th e work of another, they are 
+attesting to a meaningful li nk between their article and the article they cite. Large 
+numbers of citation links can reveal how ideas transmit between academic specializations. 
+4 
+ 
+  
+Figure 1: Citing documents versus cited document 
+ 
+More can be learned, not only by who cites w ho, but by the text an author uses in the 
+citing sentence. The citing sentence contains te rms that describe the content of the cited 
+article. For example, these terms can be us ed for automatic generation of summaries, a 
+shorter statement of the overall content in a particular document. Many systems create 
+extractive summaries, limited to the vocabul ary of the article they summarize. The 
+additional vocabulary in the citing sentences  may include new terms to describe the 
+content, allowing the summary to go beyond th e vocabulary of the su mmarized article.  
+Each citation also focuses on the aspects of the article that the c iting author found most 
+important, so the terms in each citing sentence are more likely to be essential components of a summary.  
+Since scholars find themselves navigating an ever  deeper sea of materi al relevant to their 
+fields, tools that assist  in their analysis of these large amounts of material would be very 
+
+5 
+ 
+ useful. I began to wonder if the citation text could be used to generate a summary of the 
+content of the cited article, or to identify which parts of the cited article are relevant to the 
+citation. If feasible, this would allow a resear cher who is assimilating an article to be 
+directed not only to the articl es it cites, but the actual te xt of those articles that are 
+relevant to the citation. I will investigate the relationship between citations and the cited 
+article, and examine the text in the cited article relevant to th e citation. It is possible that a 
+single citing sentence may already be a one  sentence summary of the cited article. 
+ 
+2. Previous research 
+ Citation analysis, also called bibliometrics, a ma jor part of my projec t, has been used to 
+obtain many different kinds of information.  Examination of citati on practices creates a 
+large, complex web of interaction which can  reveal otherwise undetectable trends. For 
+example, co-citations have been used to map out  specializations of sc ientific fields.  Co-
+citation analysis is a specific kind of cita tion analysis, in which the similarity between 
+two articles A and B is measured by the nu mber of articles have cited both A and B. 
+Since both A and B are referenced by the same  article, their content is linked in some 
+way. This is in contrast to another form of  citation analysis, bibliometric coupling, which 
+the similarity between two articles A and B is  measured by the number of references 
+shared by A and B.   An important investigation of co-citation ne tworks was described by  Henry Small in his 
+1999 paper Crossing Disciplinary Boundaries. Although Small acknowledged past 
+6 
+ 
+ research on linking papers by shared vocabular y or index terms, he found that citations 
+“represent(ed) a more direct  author-selected dependency,” and therefore made a strong 
+foundation for study of inter- textual relationships. This observation motivated my own 
+decision to focus on citation data.  Small had previously observed that citations  tended to concentrate “in narrowly defined 
+pockets that correspond roughly to specialties or invisible colleges  of researchers.” 
+(1974). Researchers within a concise specialty  would tend to cite the works of others 
+within that specialty, creating small, in terconnected groups of articles that were 
+identifiable as a specialty. In his 1999 paper,  Small examined articles that through their 
+citations created a link between one group and another, linking the specialization groups. 
+He observed that the articles drawing on cita tions from outside their specialty may be 
+introducing an innovation. This could allow us  to pinpoint where ideas cross from one 
+field to another. In this a nd many other ways, examination of citations can reveal new 
+and useful information about th e relationships between articles and the ideas within them. 
+ Braam (1991) examined the co mbination of citation maps with word profiles from a 
+collection of articles and abstracts. This  dataset consisted of abstracts from 3400 
+agricultural publications in Chemical Abstracts,  and an additional 1384 publications on 
+chemoreception from BIOSIS. These articles were combined with citation data from ISI’s 
+Science Citation Index. The citation maps and word profil es of these documents gave two 
+images of the same dataset. Braam compar ed term frequencies from the abstracts with 
+clustered co-citation analysis, examining how  these profiles cha nged each year. This 
+7 
+ 
+ revealed new details, such as the developm ent and adoption of specialized terminology 
+within that discipline. Braam notes that wh en a specialization is  unstable, developing 
+quickly, the articles that get cited will vary more widely. In this situation, world profiles 
+may be preferable to citations in estab lishing specialization gr oups. Contrasting word 
+profiles with citation analysis gave a new way to track the development of ideas within 
+scientific specialization. 
+ 
+Chen used citation analysis to trace the diff usion of knowledge through fields of science. 
+(Chen, 2004). In this case, knowledge refers to the adoption of new concepts or processes 
+by later writers who cite the earlier writers.  Chen coupled citation analysis with other 
+techniques- in this case, network theory a nd network visualization were applied to the 
+network of citations. Visualization has turned out to be a very useful tool for assessing 
+clusters in the network, as the results are far easier to understand visually. Chen’s 
+visualizations show tight cluste rs, interlinked by points of diffusion where articles (or in 
+this case, patents) cite outside the clustered group. 
+ 
+Mapping science is not the only goal of citation an alysis. Citations have also been used as 
+measures of similarity, in various ways. Giles and his colleagues (1999) developed a 
+measure of similarity that depended on co mmon citations between articles, without 
+reference to the text in the article. If two articles cite the many of the same sources, it 
+indicated a degree of similarity in conten t between those two articles. He thereby 
+proposed an alternative to TFIDF scores. Ho wever, this method can only be applied on 
+8 
+ 
+ the level of the whole article, so TFIDF remains a viable c hoice for determining 
+similarity within the article.  A recent article (Elkis, 2008) entitled Blind Men and Elephants discussed the kinds of 
+information can be discerned about an article  by considering cita tion summaries. They 
+concluded that when two articles were co-cit ed by the same article, those two articles 
+would tend to be similar, and th at this similarity increased with the proximity of the two 
+citations within the citing article. This new m easure of similarity wa s compared with tf-
+idf cosine similarity scores for the same text, and the two were found to perform very 
+much alike, ranking items in close to the sa me order. Consequently, Elkis proposes, co-
+citation may be used as a meas ure of similarity. This article also examined self-cohesion, 
+a measure of similarity between the senten ces within a article, and cross-cohesion, 
+similarity between that article and some other entity- in this case, the article’s abstract, 
+and the collection of sentences citing that article. The sentences citing an article are 
+generally more similar to the article’s main te xt than the article’s own abstract. Abstracts 
+and citing sentences have differ ent characteristics- for instan ce, the abstract covers the 
+overall content in an article, while the c iting sentences often focus on portions of the 
+same article, and may not cover all of the cont ent within. However, Elkis suggests that in 
+the absence of an abstract, ci ting sentences may profitably replace it, through a process of 
+automatic summarization. 
+ 
+Wangzhong (2006) proposed a meas ure of similarity based on  citation linking through a 
+graph, using two algorithms- th e maximum flow metric and th e authority vector metric. 
+9 
+ 
+ Wangzhong  concluded that citation and text based analysis are useful complements, 
+confirming Braam’s prior observations.   Klavans (2006) discusses several measures of  similarity (or relatedness), such as the 
+Pearson correlation. While he notes that lit tle research has been done previously to 
+evaluate the accuracy of relatedness measures , Klavans concludes that the cosine index 
+performs the best. Van Eck (2009) recently r eached a similar conclu sion after comparing 
+several techniques for measuremen t of similarity. Their observa tions helped to inform my 
+use of cosine similarity measures in this project. 
+ Ritchie (2008) performed a se ries of experiments in whic h the retrieval performance of 
+the terms from within a document was compared  with the terms used to describe that 
+document in citations combined with the terms from within the document. It was 
+discovered that adding the terms from the cita tions improved overall information retrieval 
+performance. While these experiments were just  the beginning of a longer term research 
+project, they already support the idea that ci tation text has many more possibilities that 
+we’ve not yet tapped.    
+3. Research question and approach 
+ 
+10 
+ 
+ My intent is to evaluate the relations hip between citing and cited documents, by 
+examining measures of cosine similarity between the citing se ntences and the text of the 
+cited scientific articles. Since both the c iting and cited documents discuss the same 
+topics, I anticipate that the sentence pairs that are relevant  to one another will be more 
+similar than those that are not. If  effective, this will allow id entification of the material in 
+the cited article that is rele vant to the citing sentence. 
+ Most of the studies mentioned above, while affirming the use of  cosine similarity and tf-
+idf as the benchmark for meas urement of textual similarity, consider the link of citing 
+document to cited document in aggregate- between citing sentences and the cited article 
+as a whole. The approach used in this work  compares sentence to sentence rather than 
+whole article to whole article. Similarity m easures may prove useful within the article, 
+perhaps even identifying the phrase within an  article to which a c iting article refers.  
+ 
+If using similarity to predict relevance within an article pr oves possible and reliable, it 
+would have potential to develop into time saving research tools, allowing a scholar not 
+only to know the source of citation but to imme diately see the actual cited claim. Is it 
+possible to predict which parts of a cited arti cle are relevant to the citing sentence, using 
+only a measure of  textual similarity? Ca n existing metrics like similarity be used to 
+predict sentence with the most information?  If cosine similarity were an ideal predictor for relevance, we could expect that using 
+cosine similarity would result in 100% pr ecision of results, and 100% recall of all 
+11 
+ 
+ relevant material. Since the re levant items would be highly si milar to one another, they 
+would dominate the initial results on the lis t when it is ordered by similarity. This 
+platonic ideal of results is not  likely to occur in actual pr actice, during my experiments. 
+However, knowing the perfect result does allow evaluation of the performance of 
+imperfect results by how closely actual resu lts resemble, or fail to resemble, ideal 
+performance.  Throughout this paper, I will frequently refer to cited articles  and to citing articles . Each 
+of the articles I’ve selected has, since the da te of its publication, been cited a number of 
+times by other scholars writing their own article s. For the purposes of this study, the term 
+cited  will refer to the original article, and citing  to those later article s that refer to the 
+original article, for support of a claim or for some other reason. 
+ 
+4. Materials and Methods 
+ 
+This section describes the materials and met hods used to explore the degree to which the 
+text from a citing sentence can be mapped to  the original cited article automatically. 
+4.1. Materials 
+ 
+The texts on which I ran my tests were from a collection of chemistry and biomedical 
+journals, which had previously been parsed a nd assimilated into a da tabase for a previous 
+project (Blake, 2006).  The medical journals were from the genomics track of a dataset 
+created by the Text Retrieval Conference to serve as a common test bed for Information 
+12 
+ 
+ Retrieval research (Vorhees, 2006). The TREC data and the chemistry articles constituted 
+two discrete collections. I assi sted Blake with several experiments and some of the data 
+processing they required, which acquainted me  with the collection. Consequently, the 
+earliest stages of data preprocessing- term  frequency calculati on, stemming, and parsing 
+of the original text- had already been performed before I began work on these 
+experiments.  The chemistry journals were a collection of  103,262 full text articles provided by the 
+American Chemistry Society from 27 different journals, all published between 2000 and 
+2004. These articles had been processed previous ly for a different set of experiments. 
+(Blake 2006)   
+4.1.1. Data Preprocessing 
+The full text of each article included the list of  citations from the e nd of each article, and 
+the tags within the text of the article that  linked each citation to the citing sentence. A 
+citation in the text of the article would be marked with  a number, and the corresponding 
+number in the reference section contai ned the full details of the citation.  
+ For example, a sentence might read “Other researchers thought so too.
+10“and the 
+reference at the end read “10. Jones, R. 2009. I think so too,” and so forth. This made it 
+possible to link each sentence making a claim supported by outside material with the 
+identifying information of that outside materi al- for instance, the t itle, author, year and 
+journal of a particular  journal article, using the refere nce number. One might then learn 
+13 
+ 
+ how many times an article was cited, but for one problem. The articles proved 
+inconsistent in their citation styles- one might use the full  name of a journal, while 
+another might use one of seve ral acceptable abbreviations.  
+ At this point in the processing, it was possi ble only to tell how many times each article 
+was cited by the same form of  the title. The same article might have one count under the 
+name Journal of the National Academy of Science,  and another count under the 
+abbreviated name Natl Acad Sci, when the correct total was the sum of the two 
+enumerations. Fortunately, the National Librar y of Medicine indexe s the 60 journals in 
+the TREC collection. The NLM index includes th e full title for each journal, as well as 
+each journal’s accepted abbreviations, making it possible to disamb iguate and group the 
+varied forms of each journal title under the same  identifier. Each article so indexed has a 
+unique identifying number, the Pubmed ID, or PMID. The NLM offe rs a Batch Citation 
+Matcher at www.ncbi.nlm.nih.gov/entrez/getids.cgi
+. This citation matcher provides the 
+PMID for each known citation. I uploaded extracted citations  in batches that ranged 
+between fifty and one hundred  thousand at a time, and lo aded the responses from the 
+NLM back into the database. This allowed me to link the articles to their PMID using the 
+title, date, journal, et c from each citation.  
+ Importantly, because each TREC article wa s already identified by a PMID, this also 
+made it possible to know which other artic les cited other articles already in our 
+collection.  
+14 
+ 
+  
+Figure 2: NCBI batch citation matcher 
+ One article might cite forty or fifty others, which included articles both within and 
+without the available collection of full texts. I limited my analysis to those citing articles 
+already in collection, so I would have the te xt of both the citing article and the cited 
+article. In the case of the TREC collection, the citation informati on and PMID from each 
+article was used to identify which pairing of citer and cited were both part of the 
+collection. In the case of the chemistry j ournal collection, this work had been done 
+previously as part of Blake’s prior research.  
+ Of the subset of cited articles for which at l east some of the citing articles were available, 
+an individual article might ha ve been cited mult iple times by other researchers. The 
+number of citations made to each article varied widely. Some articles were cited 
+
+15 
+ 
+ thousands of times, while many others were  cited only once and most were not cited at 
+all. Figure 3 shows the average number of times an article is cited from other articles with 
+the chemistry collection.  
+ 
+Figure 3: The number of times ea ch cited article is cited within the chemistry collection 
+ 
+Since the median of the curve fell around 20 arti cles, I selected those articles cited close 
+to this number of times. Of  these 96 articles, I selected  a smaller experimental set 
+randomly, consisting of nine  articles, each cited 20 times by other articles. 
+The cross product of every sentence in each ar ticle with each sentence that cites that 
+article created a set of 22,697 sentence pairs.   Reference Frequency Distribution
+050100150200250
+1 5001 10001 15001 20001 25001 30001
+Number of CitationsCount of Articles
+16 
+ 
+ 4.2. Methods 
+ 
+This section describes the methods employed to prepare data and interpret the trends. 
+4.2.1. Overview 
+My intent is to explore th e degree to which automated me thods can reflect, match, or 
+even anticipate human judgment s of relevancy at a sentence level, and to explore the 
+relationship between cited text and the original article. The system measured the cosine 
+similarity between all sentence pairs, which was compared with th e expert’s relevancy 
+judgment. This will allow an evaluation of  the relationship between the two measures, 
+demonstrating whether similarity of text on the sentence level can predict relevance of 
+cited text to citing text. 
+4.2.2. Stop Words 
+Before calculating the similari ty of a pair of sentences, the system removed stop words 
+from consideration. Stop words are words that have little informational value, such as 
+‘the’, ‘and’, ‘a’ or ‘of’. In these experiments, the system used the stop words provided by 
+the National Library of Medici ne (last updated in 2000) which consists of 364 terms. The 
+list was obtained at the following URL: http://www.ncbi.nlm.nih .gov/entrez/query/static/h elp/pmhelp.html#Stopwords
+. 
+This list of stop words does not include numbers. I did not add numbers to the stop word list, knowing that in many cases, specifi c numbers, such as measurements, are a 
+distinguishing part of the statem ents made in these articles. 
+ 
+17 
+ 
+ 4.2.3. Stemming 
+A vital step in the process of determining term frequencies is to  reduce the terms in 
+question to their basic stems. The same term might appear in  singular form, plural, or in 
+various tenses. Some terms will appear without  variation in all articles, and others are 
+altered by prefixes or suffixes. Terms like ‘exposure’, ‘exposing’ and ‘exposed’ are 
+formed off the same basic stem of ‘expose’ . Without stemming, the term frequencies will 
+give deceptive results. If a ll of these are varied forms are reduced to a common stem, 
+which need not be the correct grammatical st em as long as the computer can process it, 
+the result will be a single, more accurate c ount of related terms, instead of a larger 
+number of separate low counts for terms that are just different form s of the same term. 
+The stemmer used in this case was a Java adaptation of the Porter stemmer (Porter, 
+1980).  
+4.2.4. Term Frequency 
+Term frequency is the number of times each stemmed term appears in a given article. 
+Intuitively, frequency correlates with relevance. For example,  if you are searching for a 
+given term, and the term appears twenty times in the first article, but only five in the 
+second, a simple retrieval system  should offer th e first article as more relevant than the 
+second.   High term frequency does not alwa ys indicate relevance. For instance, the size of an 
+article can significantly influe nce the term frequency. Cons ider two articles, the first 
+comprising a hundred pages, and the second comprising one page. Now consider that 
+18 
+ 
+ both articles have a term frequency of twen ty. Although the search term frequency is the 
+same, the first article’s subject has little to do with the term, while the second article is 
+highly relevant. Term frequency is a useful star ting point, but is by its elf insufficient for 
+predictions of article re levance or similarity. 
+ 
+Term Frequency (TF( j)) = (# of stemmed terms) – (stop words in document j) 
+ 
+4.2.5. Inverse Document Frequency 
+The Document Frequency is th e number of articles in which a term appears. Common 
+terms in a collection have low discriminativ e power. Two articles a bout chemistry should 
+not be judged similar or relevant  to one another purely on the ba sis of the term ‘chemical’ 
+appearing in both, while in a di fferent field the sa me term might be more informative. 
+Using the inverse document frequency lo wers the weight of common terms.  
+ 
+Inverse Document Frequency (IDF( i)) = (# of documents that contain stemmed term i) 
+ 
+4.2.6. Term Frequency * Inverse Document Frequency  
+Salton and Buckley (1987) suggested that term s should be assigned a weight based on the 
+term frequency and the invers e of their document frequency.  When calculated as shown 
+below, TF-IDF creates a weight for each term that balances how often a term appears in 
+an individual document with how many documen ts use the term. If a term appears many 
+times in an article, but  is common to all other articles as  well, the frequency of that term 
+19 
+ 
+ is less informative than a term that is uncommon in the article  collection as a whole. Rare 
+terms are weighted more h eavily, common terms more lightly, making it easier to 
+identify discriminative terms. 
+ 
+TFIDF:  Weight( i,j) = TF(j) * log2( i / IDF( j))  
+Where i is the term and j is the document 
+ 
+4.2.7. Normalization of Term Weights 
+Differences in article lengt h can influence term frequencies. A large number of 
+occurrences of a term makes the document appear  relevant, but if the article is very long 
+each of those occurrences constitutes a very small portion of the full document. A short document may mention the same term only a fe w times, yet those mentions make up a 
+larger portion of the overall article. This wi ll lead to misleading results from term 
+frequencies. The effect of varying article le ngths can be mitigated by normalizing term 
+weights for each article.          _______ 
+Normalization of Term Weights:  norm(D) = √(∑w(j)2) 
+Where j is the document 
+ 
+4.2.8. Cosine Similarity 
+Cosine similarity incorporates the inform ation provided by the calculations above to 
+create a numerical value to describe the simi larity of each pair of compared items. The 
+value itself means little, but  a group of such values cr eates a natural ordering of 
+20 
+ 
+ comparisons in which the highest values are the most similar and the lowest values are 
+the least.  Cosine(D1,D2) = ∑(wD1(j)*wD2(j)  /  norm(D1) * norm(D2))  
+Generate a value of similarity for each sent ence pair, based on the values of shared terms 
+adjusted for article length  
+4.2.9. Calculating Similarity 
+Term frequencies and inverse document frequencies were cal culated for each individual 
+stemmed term. These are combin ed to create a TF*IDF score, which is then normalized 
+to account for varying lengths between sentences . This normalization is used to calculate 
+cosine similarity between each citing sentence and every sentence in the cited article. These calculations of similari ty will be compared with ma nual assessments of whether 
+the paired sentences from the citing and citi ng articles cite or support one another. The 
+citing sentences will be compared one with another in the same way. Similarity was 
+calculated using the equations presented in Text Mining: Predictive Methods for 
+Analyzing Unstructured Info rmation (Weiss, 2005, pp 91-92) . Sentences containing more 
+than two citations were excl uded from this comparison, since the citation text tends to 
+become less specific the mo re citations it includes. 
+ 
+21 
+ 
+ 4.3. Preliminary investigations 
+4.3.1. Initial test experiment 
+I selected an article that  158 TREC articles cited, Efficient presentation of soluble antigen 
+by cultured human dendritic cells is main tained by granulocyte/macrophage colony-
+stimulating factor plus  interleukin 4 and downregulated by tumor necrosis factor alpha, 
+by Sallusto and Lanzavecchia, a 1994 article fr om the Journal of Experimental Medicine. 
+I collected the text from all the sentences in our  collection that cited this article. It quickly 
+became apparent that all of the sentences re ferred to one of a few key concepts from the 
+cited article, and that the citing sentences we re very similar to one another and used the 
+same distinctive terminology.   The citing articles were written by experts, t hus each citation sentence was in effect a set 
+of terms compiled by a field e xpert and asserted to be releva nt to the content of the cited 
+article.  
+        
+22 
+ 
+ PMID 12649135 :Monocytes can differentiate into DCs in vitro when cultured in the presence of 
+granulocyte macrophage-colony-stimulating factor  (GM-CSF) and IL-4 or IL-13 for 5 to 7 days. 
+PMID 12406905:  Monocyte-derived dendritic cells ( DCs) were generated by culturing PB 
+monocytes from healthy donors in cRPMI supplemented with 50 ng/mL granulocyte-macrophage colony-stimulating factor (GM-CSF) and 100 U/mL IL-4 for 7 days. 
+PMID 12384430: DCs were generated in vitro from monoc ytes (MDDCs) in the presence of 
+granulocyte macrophage-colony-stimulating fact or (GM-CSF) and IL-4 or from cord blood CD34 
+progenitors in the presence  of GM-CSF and tumor necrosis factor (TNF). 
+PMID 12149218: These unique features of DCs are increasingly exploi ted for the design of DC-
+based vaccines in immunotherapy since sufficient numbers of monocyte-derived DCs (MoDCs) 
+can be obtained through in vitro differentiation of monocytes in  the presence of granuloctye-
+macrophage colony-stimulating  factor (GM-CSF) and IL-4. 
+Figure 4: Four similar sentences from initial sample  
+ 
+If such a high degree of similarity exists be tween sentences citing the same article, then 
+measures of similarity might be a useful guide for predic ting related concepts. We know 
+these sentences shown in Figure 4 are related b ecause they all cite the same article, but 
+had the citation been left out, the content of  each phrase is similar enough to conclude 
+that they are related. While it is possible to use different terminology to discuss the same 
+concept, or to make the same claim, the t echnical terminology of science and chemistry 
+works to limit this- by design, tec hnical terms have few synonyms. 
+ 
+23 
+ 
+ 4.4. Creating the Gold Standard 
+The validity of this study de pends on the quality of the a nnotations. We recruited an 
+annotator who had completed post-doctoral res earch in chemical en gineering to provide 
+relevance judgments, which would be cont rasted with cosine  similarity scores. 
+ 
+I built a PHP script that generated a HT ML form dynamically, which enabled the 
+annotator to evaluate  each sentence pair. The annotator was provided with two sentences, 
+the first was the citing sentence, and the s econd was each sentence from with the article 
+that was cited. The annotator marked each sent ence pair as relevant, somewhat relevant, 
+or not relevant. The interface displayed the sentences in the cited article together, 
+allowing the annotator to see the whole article’s text and observe how the sentences 
+related to one another. Each article was be annotated with respect to each citing sentence. 
+The process took on average 3 to 5 hours per article.   At least one sentence in each cited article s hould be relevant to support the link between 
+the two articles made by an expert in the field,. Not all citations are made for supporting 
+material- scientist A might writ e “Unlike scientist B, who makes claim X, (in cited article 
+Y) I make claim Z”. Even if the scientist A does not agree w ith scientist B’s claim, the 
+words used saying so will be relevant.  Citers may cite several artic les at once, making a broad statement that is supported 
+collectively by all the cited articles. The c iting sentence will become  more general, and 
+will tend to have fewer di stinctive terms in multi-article ci tations than when one article is 
+cited. An example of this effect is the following se ntence, taken from Using Raman 
+24 
+ 
+ Spectroscopy to Elucidate the Aggregation State of Single-Walled Carbon Nanotubes, 
+Journal of Physical Chemistry B, volu me 108 issue 22, 2004, part of our chemistry 
+corpus:  
+  
+Only recently have researchers begun to seriously address this problem . 
+ This sentence contained five citations to othe r articles, and is certain ly relevant to their 
+content; but, the sentence is so general, that it could equally apply to hundreds of 
+thousands of articles.  This generalization effect, while not universal, waters down the uniqueness of 
+terminology sufficie ntly that I am disregarding citing se ntences that includ e three or more 
+simultaneous citations, focusing instead on comp aring sentences that refer to only one 
+article, where it should be easier to identify a relationships between the citing sentence 
+and cited document.  Using a Java program to execute the queries across all the SQL tabl es containing article 
+text, the term frequencies and inverse document frequencies for each term were 
+normalized. These results were stored in a si ngle table on an Oracle database. Then, using 
+SQL queries (included below) similarity scores  were calculated between all articles using 
+cosine similarity. For the purposes of the e quations below, each individual sentence is 
+treated as a separate article, since our interest  is within the article, rather than comparison 
+of entire articles. Cosine similarity gave a numerical va lue measuring the similarity 
+25 
+ 
+ between each pair of phrases, each citing phra se paired to each sentence in the citing 
+article. Stop words were excluded fro m this comparison of similarity. 
+ 
+ 
+Figure 5:  Interface used by the domai n expert to establish the gold standard 
+ 
+The manual annotation allowed comparison with  the similarity scores for each sentence 
+pair. By manually annotating which sentences in  the cited article are relevant, we create a 
+set of articles wherein we know which sentences  are directly relevant  to a sentence that 
+cites it, and which are at least partly relevant. This allows us to examine the qualities of 
+
+26 
+ 
+ the sentences, such as similarity, that might  contribute to the semantic relationship 
+between them.  
+5. Results 
+ 
+The comparison of cosine similarity scor es with manual evaluations of relevance 
+revealed that cosine similari ty alone, applied to individual sentences, is an insufficient 
+predictor of relevance. However, the pro cess of making the comparison has revealed 
+several adjustments to the technique that  may produce improve retrieval performance 
+ 
+5.1. Summary of Human Judgments 
+ Each article was annotated repeatedly, each  time with respect to a different citing 
+sentence. The amount of time required to a nnotate each document vari ed from two to five 
+hours, depending on the complexity of the comparison and the le ngth of the article 
+involved. The nine cited articles selected for the evaluation had an av erage of 60 relevant 
+sentences each between all citing sent ences, ranging from 33 to 117. Of the 22,697  
+marked pairs 526 (2.3%) were marked as releva nt and an additional 1.2% were marked as 
+at least partly relevant. For each citing se ntence there was an average of 7 relevant 
+sentences (ranging from 1 to 30) in the cited document. The small percentage of relevant 
+sentences suggests that automate d retrieval will be difficult, because the target is very 
+small, comprising about  0.1% of the article. 
+27 
+ 
+  
+The sentences from the cited ar ticle marked relevant to the citing sentence occurred the 
+most often (51%) in the introduction section of  the cited article. The next most frequent 
+location was the article’s discussion of resu lts (23%). The remainder appeared in the 
+abstract (8%), the conclusion (3%), and a few in the methods section (1%). The remaining portion (14%) was uncategorized.   
+5.2. Overall results 
+ 
+In order to evaluate the value of cosine simi larity as a predictor of  relevance, we first 
+need to know what perfect results would look like, so we can see how far the real world 
+results depart from the ideal. Knowing how th ey differ from ideal results will show us 
+how to improve the metric, or, if necessary, show  us that cosine similarity is not useful 
+for this purpose.  Precision and recall are the typi cal measurement of performan ce for information retrieval. 
+Precision is the number of rele vant documents retrieved divided by the total number of 
+document retrieved. In this experiment we compare sentences, so if ten sentences are 
+retrieved and five are relevant, the search  had 50% precision. Recall is the number of 
+relevant documents retrieved divided by the total number of relevant documents that 
+should have been retrieved. Again we use sent ences rather than documents, such that if 
+28 
+ 
+ five relevant sentences are retrieved, but a nother five are marked as relevant, but not 
+retrieved, the search had 50% recall.  The cosine similarity score assigns a numerical value to each pair of sentences where the highest number corresponds to the most simila r sentence pair. If a pa ir of sentences has 
+no words in common, the sentence pair ha s a similarity score of zero. In these 
+experiments we consider sentence pairs with  a cosine similarity score of zero as not 
+retrieved.   Since many of the relevant sentences had none  of the terms of th e citing sentence, the 
+system rarely achieved 100% recall. The full re trieved set of items with similarity scores 
+greater than zero resulted in 65% recall. At this  point of recall, the precision of the results 
+was 4%. Precision was highest at  7.76%, when recall was at 6.84%. 
+ 
+29 
+ 
+  
+Figure 6- Precision and recall for all cited documents 
+ Another way to look at the performance of the si milarity metric is to consider the average 
+position of the relevant sentences in the ranked list. If sentence similarity has no 
+correlation to human relevance, we would expect the sentences marked relevant to range 
+all over the list. Those sentence pairings ma rked as relevant to one another were, on 
+average, within 34.4% of the top of the lis t. Considering each marked cited article 
+individually, the average range of results varied  from within 44% of the top of the list to 
+within 14% of the top of the list. These resu lts suggest that the ma jority of relevant 
+sentences were concentrated early in the orde red list of similarity. Ea ch article comprised 
+1000 to 3300 sentences.  Precision
+0.00%1.00%2.00%3.00%4.00%5.00%6.00%7.00%8.00%9.00%
+Recall
+1.90%
+6.46%
+7.79%9.13%9.89%
+12.36%
+12.93%
+15.02%16.54%18.06%
+20.91%
+22.24%
+23.76%
+24.52%25.29%27.00%28.71%
+30.61%
+31.56%
+32.70%
+34.22%35.55%37.07%38.59%
+40.68%
+42.97%44.30%
+45.82%
+47.34%49.05%
+51.33%
+53.80%56.27%59.70%61.03%
+63.12%
+64.26%
+30 
+ 
+ Figure 7 shows examples of sentence pairs, th e four highest ranked items, as ordered by 
+cosine similarity. The first item marked as relevant appears fourth in the list. 
+ 
+Citing Sentence Candidate Cited Sentence Relevance Similarity 
+Previously, we have shown that 
+dimerization of quadruply  
+hydrogen bonding 2-ureido-4 
+[1H]-pyrimidinone (UPy)   
+derivatives is very strong and  
+has an association constant  of 6 x 10 7  M  -1  in CDCl .  The dimerization constant of 1 was 
+previously estimated as exceeding 2.2 x 10  6  M  -1  (293 K in 
+chloroform)  and Zimmerman has 
+shown that quadruply hydrogen 
+bonded DDAA dimers of 2 have a 
+dimerization constant of at least 3 x  10  7  M  -1  (CDCl 3 ).  Not 1.712783
+Because of the moderate (2  x 10  4  M  -1 , UTr)   to high  
+(6 x 10  7 M  -1 , UPy)   
+association constants  between the units, reversible 
+ polymers with a high degree of  
+polymerization were obtained.  From these data, K dim  was 
+determined to be (5.7 + - 0.6) x 10  7  
+M  -1  (r  = 0.992) for chloroform, (1.0 +- 0.1) x 10   M  -1  (r  = 0.995) for 
+wet chloroform, and (5.9 +- 0.7) x 10 
+8  M  -1  (r = 0.993) for toluene.  Not 1.647787
+Because of the moderate (2  x 10  4  M  -1 , UTr)   to high  
+(6 x 10  7 M  -1 , UPy)   
+association constants  between the units, reversible 
+ polymers with a high degree of  
+polymerization were obtained.  Figure 1 Plot of the normalized 
+excimer fluorescence of 1b vs 
+concentration, measured in chloroform, chloroform saturated with 
+water, and toluene, curves are 
+derived from the nonlinear curve fit. Not 1.647787
+The high dimerization constant 
+ (6 x 10  7  M  -1  in chloroform)  
+  makes it possible to obtain  
+materials with a high degree of  
+polymerization.  From these data, K dim  was 
+determined to be (5.7 + - 0.6) x 10  7  
+M  -1  (r  = 0.992) for chloroform, (1.0 
++- 0.1) x 10   M  -1  (r  = 0.995) for 
+wet chloroform, and (5.9 +- 0.7) x 10 
+8  M  -1  (r = 0.993) for toluene.  relevant 1.627649
+The high dimerization constant  (6 x 10  7  M  -1  in chloroform)  
+  makes it possible to obtain  
+materials with a high degree of  polymerization. Figure 1 Plot of the normalized 
+excimer fluorescence of 1b vs concentration, measured in 
+chloroform, chloroform saturated with 
+water, and toluene, curves are derived from the nonlinear curve fit. Not 1.627649
+Figure 7: Items Ranked by Cosine Similarity 
+ 
+Figure 7 shows that several of the cosine si milarity scores are th e same. This result 
+suggests that there is insufficient data fo r comparison since there are not enough terms to 
+distinguish between the similarity  of different sentences and thus the sentences cannot be 
+properly ordered. Expanding the window so that  more than a single sentence of the cited 
+31 
+ 
+ document is compared, would add more term s to the comparison and thus may improve 
+the cosine similarity metric.  
+5.3. Error Analysis 
+Of the sentence pairs manually marked as relevant, we selected 50 at random and 
+examined each sentence in detail, to identify the factors that lead to low similarity scores. 
+We describe these factors in the following sub-sections. 
+5.3.1. Adjustments to Window Size 
+ 
+ 
+Cosine similarity is typically employed over larger segments of te xt- most often, whole 
+articles. I compared similarity  scores on a sentence to sent ence basis, a citing and a cited 
+sentence from two articles, rather than on a full article to full ar ticle basis. In practice, the 
+window size of a single sentence appears to have been too small. 
+ About 75% of the time, the cited article cont ained the information relevant to the citing 
+sentence, in several sentences rather than in  a single sentence. Consequently, relevant 
+sentences tended to be marked in clusters. This finding makes sens e- complex ideas can 
+take many sentences to discuss. Thus, in stead of a high similarity score between two 
+sentences sharing multiple key terms, we observe low similari ty scores between the citing 
+sentence and a number of cited sentences, w ith key terms spread out among them. Thus, 
+the cosine similarity ranking is particularly  sensitive to the effects caused by short 
+selections.  
+32 
+ 
+ Figure 8 provides an exampl e of the sentence spanning phenomena. The number of 
+shared words between the citing sentence and any one of the relevant marked sentences 
+from the cited article low, but when we c onsider the whole paragraph together, the 
+relationship is more apparent. Specifically th e key terms in the citing sentence such as 
+SWNT, Raman, and metallic are distributed th roughout the paragraph of the cited article, 
+preventing any single sentence from having a high cosine similarity. 
+Citing Sentence 
+The Raman features in the radial breathing mode region are also consistent with an 
+enrichment of metallic SWNT s in the free-SWNT sample.  
+ 
+Group of Cited Sentences  
+1) Substantial separation of single-wall carbon nan otubes (SWNTs) according to type (metallic  
+versus semiconducting) has been achiev ed for HiPco and laser-ablated SWNTs.  
+2) This provides a venue for the se lective precipitation of metallic SWNTs upon increasing dispersion  
+concentration, as indicated by Raman investigations.  3) Assuming that ODA organization al ong the graphitic sidewalls is w hat enables the dispersion of  
+individual and/or bundles of SWNTs, it is conc eivable that the physiso rbed ODA and its organized  
+domains experience additional stabilization on sem-SWNTs as opposed to their metallic  
+counterparts.  
+4) Additionally, the sharp ω +  G (ca. 1592 cm -1 ) ω - G (ca. 1567 cm  -1 ) peaks of III are characteristic 
+of sem-SWNTs, as opposed to I, II, and IV, and indica te the substantial separat ion of sem-SWNTs from  
+its metallic counterparts.  
+5) This is amply demonstrated by the insets in _F R_2 (bottom inset), wherein a strong correlation  
+exists between the resonant diamet ers for IV and I as opposed to that of III, which exhibits a  
+single broad peak at ca. 190 cm  -1  ( 1.27 nm).  
+6) The peak at ca. 267 cm  -1 (d _ 0.88 nm) emer ges as the dominant feat ure of III (stronger  
+than its G-band), which might be associated with eith er larger Raman cross- sectional areas or  
+higher solubility for smaller diameter SWNTs.  
+7) The RBM peak at -167 cm  -1 can be attributed to  met-SWNTs (1.46 nm,  E 11 1.71) while the  
+feature at -208 cm -1 corresponds to sem-SWNTs (1.15 nm,  E 22 _ 1.45 eV).  
+8) This complements the spectrum for III, where a comparable decrease in intensity of the -167 
+ cm _ -1 peak is evident, with the peak at -208 cm _ -1 _ now appearing as the dominant  component, indicating that sem-SWNT are retain ed in the supernatant, which corroborates  
+the single sharp peak at 210 cm -1  in its Stokes spectra (_FR_4).  
+Figure 8: Dispersal of relevant terms over several sentences 
+ 
+ The result is that individual sentences often each contain a piece of the relevant idea, but 
+nevertheless rank low when ordered by cosine similarity. This suggests that identifying a 
+33 
+ 
+ single sentence is too focused and that a mo re appropriate comparison would be between 
+the citing sentence and a paragraph of the cited document. This would still identify 
+relevant portions of th e cited article, and would do so more reliably. 
+5.3.2. Anaphoric References 
+ 
+Another form of interference in the evaluati on of similarity comes through anaphors. Of 
+the sample set of 50 sentences, 8, or 16%, con tinued to cite a key concept anaphorically, 
+using pronouns like ‘the’ or ‘it’  to link the current sentence with the subject that had been 
+introduced in a prior sentence. This  reduced their similarity score. 
+Sentence containing subject: Furthermore, the reported affi nity of amine groups for 
+semiconducting SWNTs, as opposed to t heir metallic counter parts, contributes additional 
+stability to the  physisorbed ODA .  
+Relevant sentence : This provides a venue for the selectiv e precipitation of metallic SWNTs 
+upon increasing dispersion concentration, as indicated by Raman investigations.  
+Figure 9: Cited sentence expressing s ubject anaphorically (emphasis added) 
+ 
+Without resolution, pronouns are of little valu e, which is why pronouns such as ‘this’ and 
+‘it’ are in the stopword list . In the example above, someth ing is providing a venue for 
+selective precipitation of singl e walled nanotubes. The author provides the subject outside 
+of this sentence, and therefore redu ces the similarity score erroneously. 
+ The structure of the paragraph offers a soluti on here as well. In every observed case, the 
+subject of the sentence was defined earlier in the paragraph. E xpanding the window to 
+include the full paragraph should resolve this , since concepts cite d anaphorically will 
+now include the full identificat ion of the subject. Actively re solving anaphoric references 
+may also improve performance.  
+34 
+ 
+ 5.3.3. Acronyms and Abbreviations 
+ 
+ Of the 50 analyzed sentences, 21 of 50 sentences (41%) used acronyms and 
+abbreviations. Further, a third of the sent ences with acronyms and abbreviations used 
+more than one in the sentence. This does not include extremely common abbreviations 
+for units of measurement, like cm for centime ter, or C for Celsius.  When one sentence 
+used an acronym or abbreviation, and the other used the full term, cosine similarity would 
+not consider them similar even though they  cite the same concepts. In some cases, 
+expanding the window size will resolve abbr eviations. Many articles give a full 
+explanation of an acron ym the first time it is  used, and if this falls within the larger 
+window, it will register as more  similar. Unfortunately, su ch initial explanations are 
+usually given only once, usuall y at the beginning of the doc ument. Even when comparing 
+citing sentence to cited paragraph, it is likely that such clarification will not be included 
+in the comparison. Opening the window ev en further means that we are no longer 
+pinpointing the source concept in the cited article.  
+ To further muddy the waters, many abbr eviations are commonplace, the author is 
+unlikely to offer an explanation. It is unlikely that a reader of a pr ofessional scientific 
+article will need a definiti on of MRI, or what element Bi represents. Yet if cited and citer 
+refer to these concepts differently, they  will confound the effectiveness of cosine 
+similarity. This did in fact occur- both c ited sentences below had a lower score of 
+similarity than they should ha ve. In the first case, the citi ng article mentions Bismuth and 
+the cited used the abbreviation Bi. In the second, the citing article uses the term metallic , 
+35 
+ 
+ while the cited article uses met, a common sense abbreviation  that the authors do not 
+define in the article.  
+Nonetheless, our XRD, TEM, and composition an alysis have unambiguously demonstrated that 
+the tubular structures in our sa mple are metal Bi nanotubes.  
+ 
+The RBM peak at -167 cm  -1 can be attributed to met-SWNTs (1.46 nm,  E 11 1.71) while the 
+feature at -208 cm -1 corresponds to sem-SWNTs (1.15 nm,  E 22 _ 1.45 eV).  
+Figure 10: Cited sentences feat uring abbreviations and acronyms 
+ 
+Expanding acronyms and abbreviations before  or in place of ste mming may improve the 
+retrieval performance using the cosine simila rity metric. Devising a way to perform such 
+expansion is a new project, however, and lies outside of the auspices of this project. 
+However, other researchers have explored  this challenge (Bapat, 2009; Schwarz 2003) 
+ 
+5.3.4. Adjustments to the Stemming Algorithm 
+ 
+ All terms were stemmed using a java implem entation of the Porter stemming algorithm 
+(Porter, 1980) prior to evalua ting similarity between the two sentences. The intent was to 
+improve the cosine similarity score by grouping terms with a similar stem, such as 
+‘dimer’ and ‘dimerize’ which would be reduced to ‘dim’. 
+ 
+The Porter stemming algori thm did improve the retrie val performance of cosine 
+similarity, but rather exhibited a noteworthy deficiency that is  particularly relevant to 
+scientific terminology: the Po rter algorithm does not consider  remove prefixes. This can 
+be more complicated than removing suffixes, but  for the scientific do main, it is essential. 
+My initial expectation was that scientific  terminology would, once stemmed by suffix, 
+36 
+ 
+ prove highly consistent and give reliable similarity scores. Scie ntific terminology 
+deliberately limits synonymy, so  that while a poet might describe the same Albertan rose 
+as ‘crimson’, ‘red’,  or ‘blu shing’, the formal scientific name is consistently Rosa 
+acicularis . Many scientific terms and processes are formed by compounding base terms 
+with prefixes. However, despite the consiste ncy and clarity that sc ientific terminology 
+affords, I found that th e same concept could appear with a prefix in the citing document, 
+and without in the cited doc ument, and vice versa.  
+ Figure 11 provides an example of  two sentences that are annot ated as relevant to one 
+another, but had a similarity score of zero as  there are no identical stems shared between 
+the sentences. Although both sentences used th e stem term “tube,” differing uses of 
+prefixes between the two prevented the similar ity score from reflecti ng the similarity in 
+concepts. 
+ 
+Recently, we have developed a low-
+temperature hydrother mal reduction method 
+and successfully synthesized Bi nanotubes . A significant portion (about 30%) of the 
+sample dispersed on the TEM grids shows 
+tubular  structures, although other nano-
+sheets were also observed.  
+Figure 11:  Dissimilarity caus ed by prefixes- emphasis added 
+ Despite a low similarity score, both sentences  in Figure 11 share a key concept that is 
+obscured by inconsistent use of prefixes. One mentions ‘n anotubes’, the other ‘tubular’. 
+Although not identical concepts, they are similar,  particularly since we already know that 
+the content between the two articles is relate d. If both articles di scuss the concept of 
+tubes, it is likely to be relevant. Stemming of both prefixes and suffixes would have 
+reduced these to the same stem, and thus these terms would contribute to the cosine 
+37 
+ 
+ similarity score. This inconsistency between the two aut hors’ use of pref ixes created a 
+false negative, in which the same core c oncept was treated as two separate terms. 
+ Most stemming algorithms are de liberately cautious with affi x removal, since trimming a 
+term excessively can increase the frequency of  false positives. In the case of general 
+information retrieval, removi ng affixes might falsely rank tw o articles as highly similar to 
+one another. However, in our collection, the ri sk of false positives between two unrelated 
+articles is mitigated because the two articles are related by virtue of the citation link 
+between them. The terminology within the two articles constitutes a much smaller 
+vocabulary, such that if two terms are reduced  to the same stem, th ey may be less likely 
+to be false positives.  Kantrowitz compared the e ffects of various stemmers on TFIDF rankings. (Kantrowitz, 
+2000). The algorithm that included prefix  stemming was shown to significantly 
+outperform (by about 30%) the suffix-only Porter stemmer. We anticipate that such an 
+algorithm would have had simila r benefits in this case. Bacchin (2002) describes a graph-
+based algorithm that focused on prefix stemming, which performed as well on a set of 
+Italian articles as other algorith ms that had been optimized for Italian. Paice’s Lancaster 
+stemmer is another alternative that addresses prefixes. Either of these approaches would 
+produce more consistent stems and thereb y produce more reliable cosine similarity 
+scores.  
+38 
+ 
+ 5.3.5. Hyphens 
+ 
+ Hyphens were employed incons istently between authors. On e article might refer to a 
+nano-tube and another to a nanotube. Terms with  inconsistent use of hyphens will not be 
+included in the cosine similarity unle ss the punctuation is removed during the 
+preprocessing, or the stemming algo rithm accounts for such hyphens. 
+ 
+5.4. Establishing Sentence  to Sentence Relevance 
+ 
+ This study relies on expert evaluation of re levance to create the gold standard, against 
+which the system retrieval performance is ev aluated. The manner in which this expert 
+evaluation is conducted is theref ore of utmost importance. In the case of this study, the 
+annotator was provided with each article intact, with the senten ces in the same order they 
+were originally written. This allowed the a nnotator to compare each citing sentence with 
+concepts in the cited document that were e xpressed in more than one sentence, and to 
+follow the path of each concept through th e article on a higher level. This approach 
+helped to demonstrate the need to open the window of comparison, so that the algorithm 
+would behave more like the expert annotat or, and make comparis ons on a higher level 
+than sentence to sentence.  It would be both useful and in teresting, however, to break the ordering of the sentences in 
+each article so that the progr ession of concepts from sentence to sentence is obscured. 
+This would force the annotator  to consider relevance purely on a sentence to sentence 
+basis- to behave as the algorithm employed in this paper. The comparison would become 
+39 
+ 
+ a test of whether cosine similarity can pred ict human relevance, when the human judges 
+relevance with no knowledge of the sentence c ontext. Anaphors would certainly have an 
+impact in obscuring the accuracy of human judgment.  To explore the degree to which context infl uenced the manual relevance judgments, I 
+selected the top fifty sentences, as ranked by  cosine similarity, fro m five articles. The 
+sentences were ordered by cosine similari ty, and were thus removed from individual 
+context. Interestingly, when the context was removed, the annotator knowledge of the 
+context of the sentence, using only the senten ces themselves as the basis of comparison, 
+he was more likely to mark individual pairs as  relevant. Pairs that were not previously 
+marked as relevant were marked this time, with the smaller set. This suggests that the 
+performance of cosine similarity may in f act be better than the gold standard would 
+suggest, and that future inve stigation should take into acc ount the effects of cognitive 
+overload. 
+ The precision of the results was far higher than in the prior ex periment. Performance 
+peaked around 75% precision, and dropped to 40% by the time recall within the test set 
+reached 100%. 
+40 
+ 
+  
+Figure 12- Precision and reca ll for contextless annotation 
+ 
+It is possible that, divorced from the context of the senten ce, the annotator is himself 
+more reliant on textual similarity to make  his evaluation, since the meaning of the 
+sentence is more difficult to judge. If this is the case, th e vast improvement in cosine 
+similarity’s predictive performan ce is irrelevant- all that we  did was force the annotator 
+to rely on human judgments of similarity ra ther than on human judgments of relevance. 
+The test experiment performed here is insuffic ient to demonstrate whether this is the case, 
+so the matter demands further investigation.  
+ 0.00%20.00%40.00%60.00%80.00%100.00%120.00%
+0.98%5.88%12.75%
+16.67%
+20.59%
+24.51%
+31.37%
+36.27%
+40.20%43.14%
+48.04%
+52.94%52.94%
+54.90%
+55.88%
+57.84%
+59.80%
+60.78%
+65.69%66.67%
+68.63%
+69.61%70.59%
+76.47%
+81.37%
+82.35%
+86.27%
+90.20%
+92.16%95.10%
+97.06%
+99.02%
+RecallPrecision
+41 
+ 
+ 6. Conclusion and Recommendations 
+ 
+The goal of this study was to explore the rela tionship between the text used in a citing 
+sentence and the text in the cite d article. We asked an expert  to annotate sentences in the 
+cited article that he considered relevant. We targeted nine documents that were cited by 
+between 13 and 20 other articles in our collectio n. On average, only 0.1% of sentences in 
+an article were relevant to an individual  citing sentence. The number of relevant 
+sentences ranged between one and thirty-three, with an average of 7.04. When considering all citing sentences, the expert  annotator considered only 2.3% of the 
+sentences relevant in the cite d article, and an additional 1.3%  as partially relevant. The 
+small number of relevant senten ces per cited article reflects the difficulty of this retrieval 
+task. Using cosine similarity between the citing sentence and sentences in the cited article 
+resulted in 8386 sentences with a value greater  than zero. Of the returned sentences 339 
+out of the 544 relevant sentences were identi fied, giving a recall performance of 65% and 
+precision performance of 4%The retrieval pe rformance of cosine similarity varies 
+between cited articles, but the average perfo rmance ranked relevant sentences in the top 
+35% of sentences.  We conducted an error analysis on fifty senten ce pairs selected at random that revealed 
+the following five main issues: 
+1) Although the citing sentence summarizes the key points made in an article, the 
+cited text will often develop the same  idea over multiple sentences, or a 
+paragraph. This spreads the relevant terms from the citing sentence over several 
+42 
+ 
+ sentences in the cited article. The rele vant sentences are individually less similar 
+to the citing sentence than the paragraph as a whole. 
+2) Authors refer to key concepts anaphorically , so that a sentence that discusses a 
+relevant term does not actually contain that relevant term. 
+3) Authors refer to key concepts using acronyms and abbrevia tions. If the citing 
+sentence and cited article do not use the same uncontracted form, acronym or 
+abbreviation, the sentence similarity scor e will be low, despite being relevant. 
+4) Authors employ affixes inconsistently be tween citing sentences and cited articles, 
+which reduces the similarity sc ore, despite being relevant. 
+5) Authors use hyphens inconsistently, wh ich reduces the similarity score. . 
+ 
+Based on our error analysis, we make the following text transformations recommendations to improve  retrieval performance:  
+ 
+1) Expand the text window from a sentence to  a paragraph to resolve anaphoric 
+references and capture ideas de veloped over mult iple sentences. 
+2) Use a stemming algorithm that re moves prefixes and hyphens. 
+ 
+3) Use  thesauri to resolve abbrev iations, acronyms and synonymy. 
+  Given the ever deepening mora ss of information that scholar s must navigate, we must 
+explore tools such as these will become inva luable. Although cosine similarity has been 
+well explored for inform ation retrieval, knowing exactly how and why it fails is critical if 
+43 
+ 
+ we are to improve retrieval performance Furthe r investigation of our  recommendations is 
+required to measure the change in effectiveness of the cosine  similarity metric, but this 
+study shows that such inve stigation is worth pursuit. 
+  
+7. Acknowledgments 
+ I’d like to thank Catherine Blak e, for her advice and her confid ence in me, and the rest of 
+the faculty at SILS, who taught  and inspired me, as well as  my parents, who supported 
+me from afar with  wise guidance. 
+ Above all else, I am grateful to my wife a nd children, who have been patient and loving 
+throughout these years, whose faith in me never failed, and who we re ultimately my 
+reason for persisting through the challenges gr aduate school presents. I did not know my 
+life was incomplete un til you made it whole. 
+ 
+ 
+44 
+ 
+ 8. References 
+ 
+Bacchin, M., Ferro, N., Melucci, M. (2002)  The Effectiveness of a Graph-Based 
+Algorithm for Stemming. pp. 117-128. 
+ 
+Blake, C. (2006) A Comparison of Docu ment, Sentence and Term Event Spaces. The 
+44th Annual Meeting of the A ssociation for Computational  Linguistics (ACL), Sydney 
+Australia. pp. 601-608  
+ Braam, R., Moed, H.F., van R aan A.F.J. (1991) Mapping of Science by Combined Co-
+Citation and Word Analysis. I. Structural Aspects. Journal of the American Society for 
+Information Science. 42 (4) pp. 233-251. 
+ Braam, R., Moed, H.F., van R aan A.F.J. (1991) Mapping of Science by Combined Co-
+Citation and Word Analysis. I. Dynamical Aspects. Journal of the American Society for 
+Information Science. 42 (4) pp. 252-266 
+ Chen, C., Hicks, D. (2004)  Tracing Knowledge Diffusion. Scientometrics. 59 (2) pp. 199-
+211.  Elkis, A., Shen, S., Fader, A., Erkan, G., States, D., Ra dev, D. (2008) Blind Men and 
+Elephants: What do Cita tion Summaries Tell Us About a Research Article? Journal of 
+the American Society for Information Science and Technology. 59 (1) pp. 51-62. 
+ Kantrowicz, M., Behrang, M., Mittal, V. (2000) Stemming and its effects on TFIDF 
+Ranking. Proceedings of the 23
+rd Annual International ACM SIGIR Conference on 
+Research and Development in Information Retrieval. pp. 357-359.   
+ Klavans, R., Boyack, K.W. (2006) Identif ying a Better Measure of Relatedness for 
+Mapping Science. Journal of the American Society  for Information Science and 
+Technology. 57 (2) pp. 251-263. 
+ Paice, C.D. (1990) Another Stemmer. ACM SIGIR Forum 24 (3) pp. 56-61. 
+ Porter, M.F. (1980) An algor ithm for suffix  stripping. Program  14 (3)  pp. 130 −137. 
+ Ritchie, A., Teufel, S., Robertson, S. Usi ng Terms from Citations for IR: Some First 
+Results. Advances in Information Retrieval.  Springer Berlin/Heidelberg. pp. 211-221. 
+ 
+45 
+ 
+ Salton, G., Buckley, C. (1987) Term Weighting Approaches in  Automatic Text Retrieval. 
+Information Processing and Management 24 (5), pp. 513-523. 
+ Schwartz, Hearst. (2003) A simp le algorithm for identifying abbreviation definitions in 
+biomedical text. Pacific Symposium on Biocomputing . pp 451-62. 
+ Small, H., Griffith, G.C. (1974)  The Structures of Scientific  Literatures; Identifying and 
+Graphing Specialties. Social Studies.  4 (1)  pp.17-40 
+ Small, H. (1999) Crossing Disciplinary Boundaries. Library Trends. 48 (1) pp. 72-108. 
+ van Eck, N. J., Waltman, (2008) Appropriate Similarity Measures fo r Author Co-citation 
+Analysis. Journal for the American Society fo r Information Science and Technology. 59 
+(10) pp. 1653-1661.  Vorhees, E.M., (2006) Over view of the TREC 2006. Text REtrieval Conference (TREC) 
+2006 Proceedings. pp 1-16. 
+ Wangzhong, L., Janssen, J., Milios, E., Japkow icz, N., Zhang, Y. (2006) Node Similarity 
+in the Citation Graph. Knowledge and Information Systems. 11 (1) 105-129. 
+ Weiss, S.M., Indurkh ya, N., Zhang, T., Damerau. F.J. (2005) Text Mining: Predictive 
+Methods for Analyzing Unstructured Information .Springer Science+Business Media Inc. 
+New York. pp 91-92.   
+ 
