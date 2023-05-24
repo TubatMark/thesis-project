@@ -26,8 +26,8 @@ SECRET_KEY = "django-insecure-9cd+5@f7gxnv5&b7(^s&n_3@n-@+u%r5^sy@7q4_x0t+72x#&%
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-# ALLOWED_HOSTS = ['*']
+# ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -56,15 +56,15 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-# CSRF_COOKIE_SECURE = True
-# CSRF_COOKIE_HTTPONLY = True
-# CSRF_TRUSTED_ORIGINS = ['https://web-production-fb5b.up.railway.app']
-# CSRF_TRUSTED_ORIGINS = ['https://*.web-production-fb5b.up.railway.app']
+CSRF_COOKIE_SECURE = True
+CSRF_COOKIE_HTTPONLY = True
+CSRF_TRUSTED_ORIGINS = ['https://web-production-75a6.up.railway.app']
+CSRF_TRUSTED_ORIGINS = ['https://*.web-production-75a6.up.railway.app']
 
-# WHITENOISE_ALLOW_ALL_ORIGINS = True
+WHITENOISE_ALLOW_ALL_ORIGINS = True
 
-# CORS_ORIGIN_ALLOW_ALL = True
-# CORS_ALLOW_CREDENTIALS = True
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True
 
 
 ROOT_URLCONF = "repository_similarity.urls"
@@ -91,35 +91,35 @@ WSGI_APPLICATION = "repository_similarity.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.mysql",
-#         "NAME": "railway",
-#         "USER": "root",
-#         "PASSWORD": "cs0FJPzLn8yMOkXQM9gY",
-#         "HOST": "containers-us-west-63.railway.app",
-#         "PORT": "7768",
-#         "OPTIONS": {
-#             "init_command": "SET sql_mode='STRICT_TRANS_TABLES'",
-#             "charset": "utf8mb4",
-#         },
-#     }
-# }
-
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
-        "NAME": "thesis_db",
+        "NAME": "railway",
         "USER": "root",
-        "PASSWORD": "",
-        "HOST": "localhost",
-        "PORT": "3306",
+        "PASSWORD": "MvuIw6n7iQeqQxOJbFJY",
+        "HOST": "containers-us-west-206.railway.app",
+        "PORT": "6028",
         "OPTIONS": {
             "init_command": "SET sql_mode='STRICT_TRANS_TABLES'",
             "charset": "utf8mb4",
         },
     }
 }
+
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.mysql",
+#         "NAME": "thesis_db",
+#         "USER": "root",
+#         "PASSWORD": "",
+#         "HOST": "localhost",
+#         "PORT": "3306",
+#         "OPTIONS": {
+#             "init_command": "SET sql_mode='STRICT_TRANS_TABLES'",
+#             "charset": "utf8mb4",
+#         },
+#     }
+# }
 
 # DATABASES = {
 #     'default': {
@@ -211,13 +211,13 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 AUTH_USER_MODEL = "Users.User"
 
 #Emailing settings
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_FROM = 'tubat.mark09@gmail.com'
-EMAIL_HOST_USER = 'tubat.mark09@gmail.com'
-EMAIL_HOST_PASSWORD = 'wqwhxbrsrmzmwyxn'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_FROM = 'tubat.mark09@gmail.com'
+# EMAIL_HOST_USER = 'tubat.mark09@gmail.com'
+# EMAIL_HOST_PASSWORD = 'wqwhxbrsrmzmwyxn'
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
 
 # Railway.app-specific email settings
 # if 'RAILWAY_APP_NAME' in os.environ:
