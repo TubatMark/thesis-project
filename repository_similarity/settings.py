@@ -226,7 +226,7 @@ if 'RAILWAY_APP_NAME' in os.environ:
     EMAIL_HOST_USER = os.environ.get('SMTP_USERNAME')
     EMAIL_HOST_PASSWORD = os.environ.get('SMTP_PASSWORD')
     EMAIL_USE_TLS = bool(os.environ.get('SMTP_TLS', True))
-    DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', 'tubatmark00@gmail.com')
+    DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', 'tubat.mark09@gmail.com')
 
 
 PASSWORD_RESET_TIMEOUT = 14400 #available token for 4 hours
