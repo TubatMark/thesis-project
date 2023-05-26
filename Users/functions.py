@@ -69,7 +69,7 @@ def is_date(string):
 
 def extract_pdf_text(pdf_file, repository_file):
     # open the PDF file
-    pdf = PyPDF2.PdfReader(student_pdf_file)
+    pdf = PyPDF2.PdfReader(pdf_file)
     
     # extract the text from each page and save it in a list
     text_list = [pdf.pages[page].extract_text() for page in range(len(pdf.pages))]
