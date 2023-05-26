@@ -211,22 +211,22 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 AUTH_USER_MODEL = "Users.User"
 
 #Emailing settings
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# EMAIL_HOST = 'smtp.gmail.com'
-# EMAIL_FROM = 'tubat.mark09@gmail.com'
-# EMAIL_HOST_USER = 'tubat.mark09@gmail.com'
-# EMAIL_HOST_PASSWORD = 'wqwhxbrsrmzmwyxn'
-# EMAIL_PORT = 587
-# EMAIL_USE_TLS = True
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_FROM = 'tubatmark00@gmail.com'
+EMAIL_HOST_USER = 'tubatmark00@gmail.com'
+EMAIL_HOST_PASSWORD = 'atlggtxccudbclxb'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
 
 # Railway.app-specific email settings
-if 'RAILWAY_APP_NAME' in os.environ:
-    EMAIL_HOST = os.environ.get('SMTP_HOST')
-    EMAIL_PORT = int(os.environ.get('SMTP_PORT', 587))
-    EMAIL_HOST_USER = os.environ.get('SMTP_USERNAME')
-    EMAIL_HOST_PASSWORD = os.environ.get('SMTP_PASSWORD')
-    EMAIL_USE_TLS = bool(os.environ.get('SMTP_TLS', True))
-    DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', 'tubat.mark09@gmail.com')
+# if 'RAILWAY_APP_NAME' in os.environ:
+#     EMAIL_HOST = os.environ.get('SMTP_HOST')
+#     EMAIL_PORT = int(os.environ.get('SMTP_PORT', 587))
+#     EMAIL_HOST_USER = os.environ.get('SMTP_USERNAME')
+#     EMAIL_HOST_PASSWORD = os.environ.get('SMTP_PASSWORD')
+#     EMAIL_USE_TLS = bool(os.environ.get('SMTP_TLS', True))
+#     DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', 'tubat.mark09@gmail.com')
 
 
 PASSWORD_RESET_TIMEOUT = 14400 #available token for 4 hours
