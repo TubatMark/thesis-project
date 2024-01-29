@@ -14,7 +14,7 @@ fuzzywuzzy==0.18.0
 gunicorn==20.1.0
 jmespath==1.0.1
 joblib==1.2.0
-Levenshtein==0.20.9
+# Levenshtein==0.20.9
 logging42==0.0.8
 loguru==0.6.0
 mysqlclient==2.1.1
@@ -26,7 +26,7 @@ pathlib==1.0.1
 Pillow==9.4.0
 PyPDF2==3.0.1
 python-dateutil==2.8.2
-python-Levenshtein==0.20.9
+# python-Levenshtein==0.20.9
 pytz==2022.7.1
 rapidfuzz==2.13.7
 regex==2022.10.31
